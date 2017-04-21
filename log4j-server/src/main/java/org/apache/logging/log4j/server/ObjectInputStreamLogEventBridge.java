@@ -24,7 +24,6 @@ import java.util.List;
 
 import org.apache.logging.log4j.core.LogEvent;
 import org.apache.logging.log4j.core.LogEventListener;
-import org.apache.logging.log4j.core.util.FilteredObjectInputStream;
 
 /**
  * Reads and logs serialized {@link LogEvent} objects from an {@link ObjectInputStream}.
