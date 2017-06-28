@@ -112,7 +112,7 @@ public class TcpSocketServer<T extends InputStream> extends AbstractSocketServer
      * Creates a socket server that reads JSON log events.
      * 
      * @param port
-     *        the port to listen
+     *        The server socket port.
      * @return a new a socket server
      * @throws IOException
      *         if an I/O error occurs when opening the socket.
@@ -124,10 +124,32 @@ public class TcpSocketServer<T extends InputStream> extends AbstractSocketServer
     }
 
     /**
+     * Creates a socket server that reads JSON log events.
+     *
+     * @param port
+     *        The server socket port.
+     * @param backlog
+     *        The server socket backlog.
+     * @param localBindAddress
+     *        The local InetAddress the server will bind to
+     * @return a new a socket server
+     * @throws IOException
+     *         if an I/O error occurs when opening the socket.
+     * @since 2.9
+     */
+    public static TcpSocketServer<InputStream> createJsonSocketServer(final int port, final int backlog,
+            final InetAddress localBindAddress) throws IOException {
+        LOGGER.entry("createJsonSocketServer", port, backlog, localBindAddress);
+        final TcpSocketServer<InputStream> socketServer = new TcpSocketServer<>(port, backlog, localBindAddress,
+                new JsonInputStreamLogEventBridge());
+        return LOGGER.exit(socketServer);
+    }
+
+    /**
      * Creates a socket server that reads serialized log events.
      * 
      * @param port
-     *        the port to listen
+     *        The server socket port.
      * @return a new a socket server
      * @throws IOException
      *         if an I/O error occurs when opening the socket.
@@ -141,8 +163,12 @@ public class TcpSocketServer<T extends InputStream> extends AbstractSocketServer
     /**
      * Creates a socket server that reads serialized log events.
      * 
-     * @param port the port to listen
-     * @param localBindAddress The server socket's local bin address
+     * @param port
+     *        The server socket port.
+     * @param backlog
+     *        The server socket backlog.
+     * @param localBindAddress
+     *        The local InetAddress the server will bind to
      * @return a new a socket server
      * @throws IOException
      *         if an I/O error occurs when opening the socket.
@@ -156,8 +182,12 @@ public class TcpSocketServer<T extends InputStream> extends AbstractSocketServer
     /**
      * Creates a socket server that reads serialized log events.
      *
-     * @param port the port to listen
-     * @param localBindAddress The server socket's local bin address
+     * @param port
+     *        The server socket port.
+     * @param backlog
+     *        The server socket backlog.
+     * @param localBindAddress
+     *        The local InetAddress the server will bind to
      * @param allowedClasses additional class names to allow for deserialization
      * @return a new a socket server
      * @throws IOException
@@ -177,7 +207,7 @@ public class TcpSocketServer<T extends InputStream> extends AbstractSocketServer
      * Creates a socket server that reads XML log events.
      * 
      * @param port
-     *        the port to listen
+     *        The server socket port.
      * @return a new a socket server
      * @throws IOException
      *         if an I/O error occurs when opening the socket.
@@ -185,6 +215,29 @@ public class TcpSocketServer<T extends InputStream> extends AbstractSocketServer
     public static TcpSocketServer<InputStream> createXmlSocketServer(final int port) throws IOException {
         LOGGER.entry(port);
         final TcpSocketServer<InputStream> socketServer = new TcpSocketServer<>(port, new XmlInputStreamLogEventBridge());
+        return LOGGER.exit(socketServer);
+    }
+
+    /**
+     * Creates a socket server that reads XML log events.
+     *
+     * @param port
+     *        The server socket port.
+     * @param backlog
+     *        The server socket backlog.
+     * @param localBindAddress
+     *        The local InetAddress the server will bind to
+     * @return a new a socket server
+     * @throws IOException
+     *         if an I/O error occurs when opening the socket.
+     * @since 2.9
+     */
+    public static TcpSocketServer<InputStream> createXmlSocketServer(final int port,
+        final int backlog, final InetAddress localBindAddress
+    ) throws IOException {
+        LOGGER.entry(port);
+        final TcpSocketServer<InputStream> socketServer = new TcpSocketServer<>(port, backlog, localBindAddress,
+                new XmlInputStreamLogEventBridge());
         return LOGGER.exit(socketServer);
     }
 
@@ -204,8 +257,8 @@ public class TcpSocketServer<T extends InputStream> extends AbstractSocketServer
         if (cla.getConfigLocation() != null) {
             ConfigurationFactory.setConfigurationFactory(new ServerConfigurationFactory(cla.getConfigLocation()));
         }
-        final TcpSocketServer<ObjectInputStream> socketServer = TcpSocketServer.createSerializedSocketServer(
-            cla.getPort(), cla.getBacklog(), cla.getLocalBindAddress(), cla.getAllowedClasses());
+        final TcpSocketServer<InputStream> socketServer = TcpSocketServer.createJsonSocketServer(
+            cla.getPort(), cla.getBacklog(), cla.getLocalBindAddress());
         final Thread serverThread = socketServer.startNewThread();
         if (cla.isInteractive()) {
             socketServer.awaitTermination(serverThread);
@@ -223,7 +276,8 @@ public class TcpSocketServer<T extends InputStream> extends AbstractSocketServer
      *        The server socket port.
      * @param backlog
      *        The server socket backlog.
-     * @param localBindAddress TODO
+     * @param localBindAddress
+     *        The local InetAddress the server will bind to
      * @param logEventInput
      *        the log even input
      * @throws IOException
@@ -239,7 +293,7 @@ public class TcpSocketServer<T extends InputStream> extends AbstractSocketServer
      * Constructor.
      * 
      * @param port
-     *        to listen.
+     *        The server socket port
      * @param logEventInput
      *        the log even input
      * @throws IOException

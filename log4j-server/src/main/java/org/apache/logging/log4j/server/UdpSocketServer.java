@@ -108,8 +108,8 @@ public class UdpSocketServer<T extends InputStream> extends AbstractSocketServer
         if (cla.getConfigLocation() != null) {
             ConfigurationFactory.setConfigurationFactory(new ServerConfigurationFactory(cla.getConfigLocation()));
         }
-        final UdpSocketServer<ObjectInputStream> socketServer = UdpSocketServer
-                .createSerializedSocketServer(cla.getPort(), cla.getAllowedClasses());
+        final UdpSocketServer<InputStream> socketServer = UdpSocketServer
+                .createJsonSocketServer(cla.getPort());
         final Thread serverThread = socketServer.startNewThread();
         if (cla.isInteractive()) {
             socketServer.awaitTermination(serverThread);
