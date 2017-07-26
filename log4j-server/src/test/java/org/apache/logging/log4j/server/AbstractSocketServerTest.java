@@ -34,6 +34,7 @@ import org.apache.logging.log4j.core.appender.ConsoleAppender;
 import org.apache.logging.log4j.core.appender.SocketAppender;
 import org.apache.logging.log4j.core.layout.JsonLayout;
 import org.apache.logging.log4j.core.layout.PatternLayout;
+import org.apache.logging.log4j.core.layout.SerializedLayout;
 import org.apache.logging.log4j.core.layout.XmlLayout;
 import org.apache.logging.log4j.core.net.Protocol;
 import org.apache.logging.log4j.test.AvailablePortFinder;
@@ -89,18 +90,24 @@ public abstract class AbstractSocketServerTest {
             .setIncludeStacktrace(true)
             .build();
         // @formatter: on
-            
+
         //return JsonLayout.createLayout(null, true, true, false, false, false, false, null, null, null, true);
     }
 
     protected abstract Layout<? extends Serializable> createLayout();
 
     protected Layout<? extends Serializable> createSerializedLayout() {
-        return null;
+        return SerializedLayout.createLayout();
     }
 
     protected Layout<String> createXmlLayout() {
-        return XmlLayout.createLayout(true, true, false, false, null, true);
+        return XmlLayout.newBuilder()
+                .setLocationInfo(true)
+                .setProperties(true)
+                .setComplete(false)
+                .setCompact(false)
+                .setIncludeStacktrace(true)
+                .build();
     }
 
     @After

@@ -21,6 +21,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.nio.charset.Charset;
+import java.util.Properties;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicReference;
 import javax.jms.JMSException;
@@ -53,9 +54,9 @@ public class JmsServer extends LogEventListener implements MessageListener, Life
                      final String username,
                      final String password) {
         final String managerName = JmsServer.class.getName() + '@' + JmsServer.class.hashCode();
-        final JndiManager jndiManager = JndiManager.getDefaultManager(managerName);
+        final Properties jndiManager = JndiManager.createProperties("", "", "", "", "", new Properties());
         jmsManager = JmsManager.getJmsManager(managerName, jndiManager, connectionFactoryBindingName,
-            destinationBindingName, username, password);
+            destinationBindingName, username, password.toCharArray(), false, 0L);
     }
 
     @Override

@@ -20,7 +20,7 @@ import java.io.InputStream;
 import java.nio.charset.Charset;
 
 import org.apache.logging.log4j.core.LogEvent;
-import org.apache.logging.log4j.core.jackson.Log4jJsonObjectMapper;
+import org.apache.logging.log4j.core.parser.JsonLogEventParser;
 import org.apache.logging.log4j.util.Chars;
 
 /**
@@ -33,14 +33,13 @@ public class JsonInputStreamLogEventBridge extends InputStreamLogEventBridge {
     private static final char EVENT_START_MARKER = '{';
     private static final char JSON_ESC = '\\';
     private static final char JSON_STR_DELIM = Chars.DQUOTE;
-    private static final boolean THREAD_CONTEXT_MAP_AS_LIST = false;
 
     public JsonInputStreamLogEventBridge() {
         this(1024, Charset.defaultCharset());
     }
 
     public JsonInputStreamLogEventBridge(final int bufferSize, final Charset charset) {
-        super(new Log4jJsonObjectMapper(THREAD_CONTEXT_MAP_AS_LIST, true), bufferSize, charset,
+        super(new JsonLogEventParser(), bufferSize, charset,
                 String.valueOf(EVENT_END_MARKER));
     }
 

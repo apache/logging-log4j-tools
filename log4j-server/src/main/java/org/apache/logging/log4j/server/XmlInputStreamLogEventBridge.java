@@ -20,7 +20,7 @@ import java.io.InputStream;
 import java.nio.charset.Charset;
 
 import org.apache.logging.log4j.core.LogEvent;
-import org.apache.logging.log4j.core.jackson.Log4jXmlObjectMapper;
+import org.apache.logging.log4j.core.parser.XmlLogEventParser;
 
 /**
  * Reads and logs {@link LogEvent}s from an {@link InputStream}.
@@ -36,7 +36,7 @@ public class XmlInputStreamLogEventBridge extends InputStreamLogEventBridge {
     }
 
     public XmlInputStreamLogEventBridge(final int bufferSize, final Charset charset) {
-        super(new Log4jXmlObjectMapper(), bufferSize, charset, EVENT_END);
+        super(new XmlLogEventParser(), bufferSize, charset, EVENT_END);
     }
 
     @Override

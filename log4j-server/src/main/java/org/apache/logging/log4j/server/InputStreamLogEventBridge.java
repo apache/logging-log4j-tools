@@ -22,11 +22,9 @@ import java.nio.charset.Charset;
 
 import org.apache.logging.log4j.core.LogEvent;
 import org.apache.logging.log4j.core.LogEventListener;
-import org.apache.logging.log4j.core.impl.Log4jLogEvent;
+import org.apache.logging.log4j.core.parser.ParseException;
+import org.apache.logging.log4j.core.parser.TextLogEventParser;
 import org.apache.logging.log4j.util.Strings;
-
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.ObjectReader;
 
 /**
  * Reads and logs {@link LogEvent}s from an {@link InputStream}.
@@ -39,19 +37,20 @@ public abstract class InputStreamLogEventBridge extends AbstractLogEventBridge<I
 
     private final String eventEndMarker;
     
-    private final ObjectReader objectReader;
+    private final TextLogEventParser parser;
     
-    public InputStreamLogEventBridge(final ObjectMapper mapper, final int bufferSize, final Charset charset, final String eventEndMarker) {
+    public InputStreamLogEventBridge(final TextLogEventParser parser, final int bufferSize, final Charset charset, final String eventEndMarker) {
         this.bufferSize = bufferSize;
         this.charset = charset;
         this.eventEndMarker = eventEndMarker;
-        this.objectReader = mapper.readerFor(Log4jLogEvent.class);
+        this.parser = parser;
     }
 
     abstract protected int[] getEventIndices(final String text, int beginIndex);
 
     @Override
-    public void logEvents(final InputStream inputStream, final LogEventListener logEventListener) throws IOException {
+    public void logEvents(final InputStream inputStream, final LogEventListener logEventListener)
+            throws IOException, ParseException {
         String workingText = Strings.EMPTY;
         try {
             // Allocate buffer once
@@ -96,8 +95,8 @@ public abstract class InputStreamLogEventBridge extends AbstractLogEventBridge<I
         }
     }
 
-    protected Log4jLogEvent unmarshal(final String jsonEvent) throws IOException {
-        return this.objectReader.readValue(jsonEvent);
+    protected LogEvent unmarshal(final String jsonEvent) throws ParseException {
+        return this.parser.parseFrom(jsonEvent);
     }
 
 }

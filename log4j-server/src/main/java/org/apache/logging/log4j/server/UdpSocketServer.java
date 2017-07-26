@@ -27,6 +27,7 @@ import java.net.DatagramSocket;
 import java.util.List;
 
 import org.apache.logging.log4j.core.config.ConfigurationFactory;
+import org.apache.logging.log4j.core.parser.ParseException;
 import org.apache.logging.log4j.core.util.BasicCommandLineArguments;
 
 /**
@@ -169,6 +170,8 @@ public class UdpSocketServer<T extends InputStream> extends AbstractSocketServer
                     return;
                 }
                 logger.error("Exception encountered on accept. Ignoring. Stack Trace :", e);
+            } catch (ParseException e) {
+                logger.error("Unable to parse log event", e);
             }
         }
     }

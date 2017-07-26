@@ -33,6 +33,7 @@ import java.util.concurrent.ConcurrentMap;
 import com.beust.jcommander.Parameter;
 import com.beust.jcommander.validators.PositiveInteger;
 import org.apache.logging.log4j.core.config.ConfigurationFactory;
+import org.apache.logging.log4j.core.parser.ParseException;
 import org.apache.logging.log4j.core.util.BasicCommandLineArguments;
 import org.apache.logging.log4j.core.util.Closer;
 import org.apache.logging.log4j.core.util.Log4jThread;
@@ -92,6 +93,8 @@ public class TcpSocketServer<T extends InputStream> extends AbstractSocketServer
                     logger.error("OptionalDataException eof=" + e.eof + " length=" + e.length, e);
                 } catch (final IOException e) {
                     logger.error("IOException encountered while reading from socket", e);
+                } catch (ParseException e) {
+                    logger.error("ParseException encountered while reading from socket", e);
                 }
                 if (!closed) {
                     Closer.closeSilently(inputStream);

@@ -21,6 +21,7 @@ import java.io.InputStream;
 
 import org.apache.logging.log4j.core.LogEvent;
 import org.apache.logging.log4j.core.LogEventListener;
+import org.apache.logging.log4j.core.parser.ParseException;
 
 /**
  * Reads {@link LogEvent}s from the given input stream and logs them as they are discovered on the given logger.
@@ -41,9 +42,8 @@ public interface LogEventBridge<T extends InputStream> {
      *            the input stream to read
      * @param logEventListener
      *            TODO
-     * @throws IOException
      */
-    void logEvents(T inputStream, LogEventListener logEventListener) throws IOException;
+    void logEvents(T inputStream, LogEventListener logEventListener) throws IOException, ParseException;
 
     /**
      * Wraps the given stream if needed.
@@ -51,7 +51,6 @@ public interface LogEventBridge<T extends InputStream> {
      * @param inputStream
      *            the stream to wrap
      * @return the wrapped stream or the given stream.
-     * @throws IOException
      */
     T wrapStream(InputStream inputStream) throws IOException;
 }
