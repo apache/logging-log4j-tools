@@ -32,7 +32,7 @@ public class TcpXmlSocketServerTest extends AbstractSocketServerTest {
 
     @BeforeClass
     public static void setupClass() throws Exception {
-        (LoggerContext.getContext(false)).reconfigure();
+        LoggerContext.getContext(false).reconfigure();
         // Use a large buffer just to test the code, the UDP test uses a tiny buffer
         server = new TcpSocketServer<>(PORT_NUM, new XmlInputStreamLogEventBridge(1024 * 100,
                 Charset.defaultCharset()));

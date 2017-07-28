@@ -31,7 +31,7 @@ public class UdpSerializedSocketServerTest extends AbstractSocketServerTest {
 
     @BeforeClass
     public static void setupClass() throws Exception {
-        (LoggerContext.getContext(false)).reconfigure();
+        LoggerContext.getContext(false).reconfigure();
         server = UdpSocketServer.createSerializedSocketServer(PORT_NUM);
         thread = server.startNewThread();
     }

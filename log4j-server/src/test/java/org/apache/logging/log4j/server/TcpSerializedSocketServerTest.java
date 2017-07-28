@@ -32,7 +32,7 @@ public class TcpSerializedSocketServerTest extends AbstractSocketServerTest {
 
     @BeforeClass
     public static void setupClass() throws Exception {
-        (LoggerContext.getContext(false)).reconfigure();
+        LoggerContext.getContext(false).reconfigure();
         server = TcpSocketServer.createSerializedSocketServer(PORT_NUM);
         thread = server.startNewThread();
     }

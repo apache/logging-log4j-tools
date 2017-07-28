@@ -31,7 +31,7 @@ public class UdpJsonSocketServerTest extends AbstractSocketServerTest {
 
     @BeforeClass
     public static void setupClass() throws Exception {
-        (LoggerContext.getContext(false)).reconfigure();
+        LoggerContext.getContext(false).reconfigure();
         server = UdpSocketServer.createJsonSocketServer(PORT_NUM);
         thread = server.startNewThread();
     }
