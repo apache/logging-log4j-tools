@@ -71,10 +71,12 @@ public class TcpSocketServer<T extends InputStream> extends AbstractSocketServer
     private class SocketHandler extends Log4jThread {
 
         private final T inputStream;
+        private final Socket socket;
 
         private volatile boolean shutdown = false;
 
         public SocketHandler(final Socket socket) throws IOException {
+            this.socket = socket;
             this.inputStream = logEventInput.wrapStream(socket.getInputStream());
         }
 
@@ -107,6 +109,9 @@ public class TcpSocketServer<T extends InputStream> extends AbstractSocketServer
 
         public void shutdown() {
             this.shutdown = true;
+            if (socket != null) {
+                Closer.closeSilently(socket);
+            }
             interrupt();
         }
     }
