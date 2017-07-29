@@ -389,7 +389,7 @@ public class TcpSocketServer<T extends InputStream> extends AbstractSocketServer
     public void shutdown() throws IOException {
         final EntryMessage entry = logger.traceEntry();
         setActive(false);
-        Thread.currentThread().interrupt();
+        //Thread.currentThread().interrupt();
         serverSocket.close();
         logger.traceExit(entry);
     }
