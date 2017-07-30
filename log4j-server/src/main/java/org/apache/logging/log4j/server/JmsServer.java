@@ -54,7 +54,7 @@ public class JmsServer extends LogEventListener implements MessageListener, Life
                      final String username,
                      final String password) {
         final String managerName = JmsServer.class.getName() + '@' + JmsServer.class.hashCode();
-        final Properties jndiManager = JndiManager.createProperties("", "", "", "", "", new Properties());
+        // TODO init JmsManager properly
         jmsManager = JmsManager.getJmsManager(managerName, jndiManager, connectionFactoryBindingName,
             destinationBindingName, username, password.toCharArray(), false, 0L);
     }
