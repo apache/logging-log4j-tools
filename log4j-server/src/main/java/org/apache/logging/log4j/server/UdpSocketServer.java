@@ -182,7 +182,7 @@ public class UdpSocketServer<T extends InputStream> extends AbstractSocketServer
     @Override
     public void shutdown() {
         this.setActive(false);
-        Thread.currentThread().interrupt();
+        //Thread.currentThread().interrupt();
         datagramSocket.close();
     }
 }

@@ -24,6 +24,7 @@ import java.nio.charset.Charset;
 import java.util.Properties;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicReference;
+
 import javax.jms.JMSException;
 import javax.jms.Message;
 import javax.jms.MessageConsumer;
@@ -35,6 +36,7 @@ import org.apache.logging.log4j.core.AbstractLifeCycle;
 import org.apache.logging.log4j.core.LifeCycle2;
 import org.apache.logging.log4j.core.LogEvent;
 import org.apache.logging.log4j.core.LogEventListener;
+import org.apache.logging.log4j.core.appender.mom.JmsAppender;
 import org.apache.logging.log4j.core.appender.mom.JmsManager;
 import org.apache.logging.log4j.core.net.JndiManager;
 
@@ -49,14 +51,14 @@ public class JmsServer extends LogEventListener implements MessageListener, Life
     private final JmsManager jmsManager;
     private MessageConsumer messageConsumer;
 
-    public JmsServer(final String connectionFactoryBindingName,
-                     final String destinationBindingName,
-                     final String username,
-                     final String password) {
+    public JmsServer(final String connectionFactoryBindingName, final String connectionFactoryName,
+            final String providerURL, final String destinationBindingName, final String username, final char[] password,
+            final Properties jndiProperties) {
         final String managerName = JmsServer.class.getName() + '@' + JmsServer.class.hashCode();
-        // TODO init JmsManager properly
-        jmsManager = JmsManager.getJmsManager(managerName, jndiManager, connectionFactoryBindingName,
-            destinationBindingName, username, password.toCharArray(), false, 0L);
+        final Properties jndiManager = JndiManager.createProperties(connectionFactoryBindingName, providerURL, null,
+                null, null, jndiProperties);
+        jmsManager = JmsManager.getJmsManager(managerName, jndiManager, connectionFactoryName, destinationBindingName,
+                username, password, false, JmsAppender.Builder.DEFAULT_RECONNECT_INTERVAL_MILLIS);
     }
 
     @Override
@@ -76,7 +78,7 @@ public class JmsServer extends LogEventListener implements MessageListener, Life
                 }
             } else {
                 LOGGER.warn("Received message of type {} and JMSType {} which cannot be handled.", message.getClass(),
-                    message.getJMSType());
+                        message.getJMSType());
             }
         } catch (final JMSException e) {
             LOGGER.catching(e);
@@ -130,10 +132,8 @@ public class JmsServer extends LogEventListener implements MessageListener, Life
      * Starts and runs this server until the user types "exit" into standard input.
      *
      * @throws IOException
-     * @since 2.6
      */
-    public void run() throws IOException {
-        this.start();
+    public void commandLineLoop() throws IOException {
         System.out.println("Type \"exit\" to quit.");
         final BufferedReader stdin = new BufferedReader(new InputStreamReader(System.in, Charset.defaultCharset()));
         while (true) {

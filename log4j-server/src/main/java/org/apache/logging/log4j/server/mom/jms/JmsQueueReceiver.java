@@ -23,7 +23,8 @@ package org.apache.logging.log4j.server.mom.jms;
  */
 public class JmsQueueReceiver extends AbstractJmsReceiver {
 
-    private JmsQueueReceiver() {
+    JmsQueueReceiver() {
+        // Usage is to call main()
     }
 
     /**
@@ -33,14 +34,13 @@ public class JmsQueueReceiver extends AbstractJmsReceiver {
      * @throws Exception if an error occurs.
      */
     public static void main(final String[] args) throws Exception {
-        final JmsQueueReceiver receiver = new JmsQueueReceiver();
-        receiver.doMain(args);
+        new JmsQueueReceiver().doMain(true, args);
     }
 
     @Override
     protected void usage() {
         System.err.println("Wrong number of arguments.");
         System.err.println("Usage: java " + JmsQueueReceiver.class.getName()
-            + " QueueConnectionFactoryBindingName QueueBindingName username password");
+            + " QueueConnectionFactoryBindingName QueueBindingName username password [jndiPropertyKey jndiPropertyValue]*");
     }
 }

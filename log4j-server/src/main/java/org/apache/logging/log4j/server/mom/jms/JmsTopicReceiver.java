@@ -24,6 +24,7 @@ package org.apache.logging.log4j.server.mom.jms;
 public class JmsTopicReceiver extends AbstractJmsReceiver {
 
     private JmsTopicReceiver() {
+        // Usage is to call main()
     }
 
     /**
@@ -33,14 +34,13 @@ public class JmsTopicReceiver extends AbstractJmsReceiver {
      * @throws Exception if an error occurs.
      */
     public static void main(final String[] args) throws Exception {
-        final JmsTopicReceiver receiver = new JmsTopicReceiver();
-        receiver.doMain(args);
+        new JmsTopicReceiver().doMain(true, args);
     }
 
     @Override
     protected void usage() {
         System.err.println("Wrong number of arguments.");
         System.err.println("Usage: java " + JmsTopicReceiver.class.getName()
-            + " TopicConnectionFactoryBindingName TopicBindingName username password");
+            + " TopicConnectionFactoryBindingName TopicBindingName username password [jndiPropertyKey jndiPropertyValue]*");
     }
 }

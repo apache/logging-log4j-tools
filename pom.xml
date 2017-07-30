@@ -200,7 +200,8 @@
     <projectDir />
     <commonsLoggingVersion>1.2</commonsLoggingVersion>
     <osgi.api.version>4.3.1</osgi.api.version>
-    <activemq.version>5.14.4</activemq.version>
+    <!-- Version 5.15.0 requires Java 8 -->
+    <activemq.version>5.14.5</activemq.version>
     <!-- Allow Clirr severity to be overriden by the command-line option -DminSeverity=level -->
     <minSeverity>info</minSeverity>
     <jctoolsVersion>1.2.1</jctoolsVersion>
@@ -261,6 +262,18 @@
         <artifactId>jboss-jms-api_1.1_spec</artifactId>
         <version>1.0.1.Final</version>
         <scope>provided</scope>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.activemq</groupId>
+        <artifactId>activemq-broker</artifactId>
+        <version>${activemq.version}</version>
+        <scope>test</scope>
+        <exclusions>
+          <exclusion>
+            <groupId>org.apache.geronimo.specs</groupId>
+            <artifactId>geronimo-jms_1.1_spec</artifactId>
+          </exclusion>
+        </exclusions>
       </dependency>
       <dependency>
         <groupId>junit</groupId>
