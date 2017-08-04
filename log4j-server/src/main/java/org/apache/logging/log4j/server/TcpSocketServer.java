@@ -120,7 +120,7 @@ public class TcpSocketServer<T extends InputStream> extends AbstractSocketServer
      * Creates a socket server that reads JSON log events.
      * 
      * @param port
-     *        The server socket port.
+     *        The port number, or 0 to automatically allocate a port number.
      * @return a new a socket server
      * @throws IOException
      *         if an I/O error occurs when opening the socket.
@@ -135,7 +135,7 @@ public class TcpSocketServer<T extends InputStream> extends AbstractSocketServer
      * Creates a socket server that reads JSON log events.
      *
      * @param port
-     *        The server socket port.
+     *        The port number, or 0 to automatically allocate a port number.
      * @param backlog
      *        The server socket backlog.
      * @param localBindAddress
@@ -157,7 +157,7 @@ public class TcpSocketServer<T extends InputStream> extends AbstractSocketServer
      * Creates a socket server that reads serialized log events.
      * 
      * @param port
-     *        The server socket port.
+     *        The port number, or 0 to automatically allocate a port number.
      * @return a new a socket server
      * @throws IOException
      *         if an I/O error occurs when opening the socket.
@@ -172,7 +172,7 @@ public class TcpSocketServer<T extends InputStream> extends AbstractSocketServer
      * Creates a socket server that reads serialized log events.
      * 
      * @param port
-     *        The server socket port.
+     *        The port number, or 0 to automatically allocate a port number.
      * @param backlog
      *        The server socket backlog.
      * @param localBindAddress
@@ -191,7 +191,7 @@ public class TcpSocketServer<T extends InputStream> extends AbstractSocketServer
      * Creates a socket server that reads serialized log events.
      *
      * @param port
-     *        The server socket port.
+     *        The port number, or 0 to automatically allocate a port number.
      * @param backlog
      *        The server socket backlog.
      * @param localBindAddress
@@ -215,7 +215,7 @@ public class TcpSocketServer<T extends InputStream> extends AbstractSocketServer
      * Creates a socket server that reads XML log events.
      * 
      * @param port
-     *        The server socket port.
+     *        The port number, or 0 to automatically allocate a port number.
      * @return a new a socket server
      * @throws IOException
      *         if an I/O error occurs when opening the socket.
@@ -230,7 +230,7 @@ public class TcpSocketServer<T extends InputStream> extends AbstractSocketServer
      * Creates a socket server that reads XML log events.
      *
      * @param port
-     *        The server socket port.
+     *        The port number, or 0 to automatically allocate a port number.
      * @param backlog
      *        The server socket backlog.
      * @param localBindAddress
@@ -281,7 +281,7 @@ public class TcpSocketServer<T extends InputStream> extends AbstractSocketServer
      * Constructor.
      * 
      * @param port
-     *        The server socket port.
+     *        The port number, or 0 to automatically allocate a port number.
      * @param backlog
      *        The server socket backlog.
      * @param localBindAddress
@@ -301,18 +301,15 @@ public class TcpSocketServer<T extends InputStream> extends AbstractSocketServer
      * Constructor.
      * 
      * @param port
-     *        The server socket port
+     *         The port number, or 0 to automatically allocate a port number. 
      * @param logEventInput
      *        the log even input
      * @throws IOException
      *         if an I/O error occurs when opening the socket.
      */
+    @SuppressWarnings("resource")
     public TcpSocketServer(final int port, final LogEventBridge<T> logEventInput) throws IOException {
-        this(port, logEventInput, extracted(port));
-    }
-
-    private static ServerSocket extracted(final int port) throws IOException {
-        return new ServerSocket(port);
+        this(port, logEventInput, new ServerSocket(port));
     }
 
     /**
