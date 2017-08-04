@@ -65,7 +65,7 @@ public abstract class AbstractSocketServer<T extends InputStream> extends LogEve
         private boolean interactive;
 
         @Parameter(names = { "--port",
-                "-p" }, validateWith = PositiveInteger.class, description = "Server socket port.")
+                "-p" }, validateWith = PositiveInteger.class, description = "The server port number, or 0 to automatically allocate a port number.")
         private int port;
 
         @Parameter(names = { "--localbindaddress",
