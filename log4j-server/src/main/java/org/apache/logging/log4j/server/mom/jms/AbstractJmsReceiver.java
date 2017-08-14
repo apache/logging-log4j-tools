@@ -39,7 +39,7 @@ public abstract class AbstractJmsReceiver {
 
     /**
      * Executes a JmsServer with the given command line arguments.
-     * 
+     *
      * @param interactive
      *            Whether or not this is an interactive application by providing a command line and exit on error.
      * @param args
@@ -48,7 +48,7 @@ public abstract class AbstractJmsReceiver {
      * @throws Exception
      */
     protected void doMain(boolean interactive, final String... args) throws Exception {
-        // TODO Too many args, Use JCommander
+        // TODO Too many args, Use picocli
         if (args.length < 5) {
             usage();
             if (interactive) {

@@ -28,11 +28,11 @@ import java.util.List;
 
 import org.apache.logging.log4j.core.config.ConfigurationFactory;
 import org.apache.logging.log4j.core.parser.ParseException;
-import org.apache.logging.log4j.core.util.BasicCommandLineArguments;
+import org.apache.logging.log4j.core.util.picocli.CommandLine;
 
 /**
- * Listens for Log4j events on a datagram socket and passes them on to Log4j. 
- * 
+ * Listens for Log4j events on a datagram socket and passes them on to Log4j.
+ *
  * @param <T>
  *            The kind of input stream read
  * @see #main(String[])
@@ -41,7 +41,7 @@ public class UdpSocketServer<T extends InputStream> extends AbstractSocketServer
 
     /**
      * Creates a socket server that reads JSON log events.
-     * 
+     *
      * @param port
      *            the port to listen
      * @return a new a socket server
@@ -54,7 +54,7 @@ public class UdpSocketServer<T extends InputStream> extends AbstractSocketServer
 
     /**
      * Creates a socket server that reads serialized log events.
-     * 
+     *
      * @param port
      *            the port to listen
      * @return a new a socket server
@@ -82,7 +82,7 @@ public class UdpSocketServer<T extends InputStream> extends AbstractSocketServer
 
     /**
      * Creates a socket server that reads XML log events.
-     * 
+     *
      * @param port
      *            the port to listen
      * @return a new a socket server
@@ -95,15 +95,16 @@ public class UdpSocketServer<T extends InputStream> extends AbstractSocketServer
 
     /**
      * Main startup for the server. Run with "--help" for to print command line help on the console.
-     * 
+     *
      * @param args
      *            The command line arguments.
      * @throws Exception
      *             if an error occurs.
      */
     public static void main(final String[] args) throws Exception {
-        final CommandLineArguments cla = BasicCommandLineArguments.parseCommandLine(args, UdpSocketServer.class, new CommandLineArguments());
-        if (cla.isHelp()) {
+        final CommandLineArguments cla = CommandLine.populateCommand(new CommandLineArguments(), args);
+        if (cla.isHelp() || cla.getPort() < 0) {
+            CommandLine.usage(cla, System.err);
             return;
         }
         if (cla.getConfigLocation() != null) {
@@ -124,7 +125,7 @@ public class UdpSocketServer<T extends InputStream> extends AbstractSocketServer
 
     /**
      * Constructor.
-     * 
+     *
      * @param port
      *            to listen on.
      * @param logEventInput

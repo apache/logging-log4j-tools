@@ -30,8 +30,6 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
-import com.beust.jcommander.Parameter;
-import com.beust.jcommander.validators.PositiveInteger;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.core.LogEventListener;
@@ -41,8 +39,8 @@ import org.apache.logging.log4j.core.config.ConfigurationSource;
 import org.apache.logging.log4j.core.config.xml.XmlConfiguration;
 import org.apache.logging.log4j.core.config.xml.XmlConfigurationFactory;
 import org.apache.logging.log4j.core.util.BasicCommandLineArguments;
-import org.apache.logging.log4j.core.util.InetAddressConverter;
 import org.apache.logging.log4j.core.util.Log4jThread;
+import org.apache.logging.log4j.core.util.picocli.CommandLine.Option;
 import org.apache.logging.log4j.util.Strings;
 
 /**
@@ -57,22 +55,19 @@ public abstract class AbstractSocketServer<T extends InputStream> extends LogEve
 
     protected static class CommandLineArguments extends BasicCommandLineArguments {
 
-        @Parameter(names = { "--config", "-c" }, description = "Log4j configuration file location (path or URL).")
+        @Option(names = { "--config", "-c" }, description = "Log4j configuration file location (path or URL).")
         private String configLocation;
 
-        @Parameter(names = { "--interactive",
-                "-i" }, description = "Accepts commands on standard input (\"exit\" is the only command).")
+        @Option(names = { "--interactive", "-i" }, description = "Accepts commands on standard input (\"exit\" is the only command).")
         private boolean interactive;
 
-        @Parameter(names = { "--port",
-                "-p" }, validateWith = PositiveInteger.class, description = "The server port number, or 0 to automatically allocate a port number.")
+        @Option(names = { "--port", "-p" }, description = "The server port number, or 0 to automatically allocate a port number.")
         private int port;
 
-        @Parameter(names = { "--localbindaddress",
-                "-a" }, converter = InetAddressConverter.class, description = "Server socket local bind address.")
+        @Option(names = { "--localbindaddress", "-a" }, description = "Server socket local bind address.")
         private InetAddress localBindAddress;
 
-        @Parameter(names = {"--classes", "-C"}, description = "Additional classes to allow deserialization")
+        @Option(names = {"--classes", "-C"}, description = "Additional classes to allow deserialization")
         private List<String> allowedClasses;
 
         String getConfigLocation() {

@@ -30,28 +30,29 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 
-import com.beust.jcommander.Parameter;
-import com.beust.jcommander.validators.PositiveInteger;
 import org.apache.logging.log4j.core.config.ConfigurationFactory;
 import org.apache.logging.log4j.core.parser.ParseException;
-import org.apache.logging.log4j.core.util.BasicCommandLineArguments;
 import org.apache.logging.log4j.core.util.Closer;
 import org.apache.logging.log4j.core.util.Log4jThread;
+import org.apache.logging.log4j.core.util.picocli.CommandLine;
+import org.apache.logging.log4j.core.util.picocli.CommandLine.Command;
+import org.apache.logging.log4j.core.util.picocli.CommandLine.Option;
 import org.apache.logging.log4j.message.EntryMessage;
 
 /**
  * Listens for Log4j events on a TCP server socket and passes them on to Log4j.
- * 
+ *
  * @param <T>
  *        The kind of input stream read
  * @see #main(String[])
  */
 public class TcpSocketServer<T extends InputStream> extends AbstractSocketServer<T> {
 
+    @Command(name = "TcpSocketServer")
     protected static class CommandLineArguments extends AbstractSocketServer.CommandLineArguments {
-        
-        @Parameter(names = { "--backlog",
-                "-b" }, validateWith = PositiveInteger.class, description = "Server socket backlog.")
+
+        @Option(names = { "--backlog",
+                "-b" }, description = "Server socket backlog. Must be a positive integer.")
         // Same default as ServerSocket
         private int backlog = 50;
 
@@ -61,8 +62,7 @@ public class TcpSocketServer<T extends InputStream> extends AbstractSocketServer
 
         void setBacklog(final int backlog) {
             this.backlog = backlog;
-        }        
-
+        }
     }
 
     /**
@@ -118,7 +118,7 @@ public class TcpSocketServer<T extends InputStream> extends AbstractSocketServer
 
     /**
      * Creates a socket server that reads JSON log events.
-     * 
+     *
      * @param port
      *        The port number, or 0 to automatically allocate a port number.
      * @return a new a socket server
@@ -155,7 +155,7 @@ public class TcpSocketServer<T extends InputStream> extends AbstractSocketServer
 
     /**
      * Creates a socket server that reads serialized log events.
-     * 
+     *
      * @param port
      *        The port number, or 0 to automatically allocate a port number.
      * @return a new a socket server
@@ -170,7 +170,7 @@ public class TcpSocketServer<T extends InputStream> extends AbstractSocketServer
 
     /**
      * Creates a socket server that reads serialized log events.
-     * 
+     *
      * @param port
      *        The port number, or 0 to automatically allocate a port number.
      * @param backlog
@@ -213,7 +213,7 @@ public class TcpSocketServer<T extends InputStream> extends AbstractSocketServer
 
     /**
      * Creates a socket server that reads XML log events.
-     * 
+     *
      * @param port
      *        The port number, or 0 to automatically allocate a port number.
      * @return a new a socket server
@@ -251,22 +251,23 @@ public class TcpSocketServer<T extends InputStream> extends AbstractSocketServer
 
     /**
      * Main startup for the server. Run with "--help" for to print command line help on the console.
-     * 
+     *
      * @param args
      *        The command line arguments.
      * @throws Exception
      *         if an error occurs.
      */
     public static void main(final String[] args) throws Exception {
-        final CommandLineArguments cla = BasicCommandLineArguments.parseCommandLine(args, TcpSocketServer.class, new CommandLineArguments());
-        if (cla.isHelp()) {
+        CommandLineArguments cla = CommandLine.populateCommand(new CommandLineArguments(), args);
+        if (cla.isHelp() || cla.backlog < 0 || cla.getPort() < 0) {
+            CommandLine.usage(cla, System.err);
             return;
         }
         if (cla.getConfigLocation() != null) {
             ConfigurationFactory.setConfigurationFactory(new ServerConfigurationFactory(cla.getConfigLocation()));
         }
         final TcpSocketServer<InputStream> socketServer = TcpSocketServer.createJsonSocketServer(
-            cla.getPort(), cla.getBacklog(), cla.getLocalBindAddress());
+                cla.getPort(), cla.getBacklog(), cla.getLocalBindAddress());
         final Thread serverThread = socketServer.startNewThread();
         if (cla.isInteractive()) {
             socketServer.awaitTermination(serverThread);
@@ -279,7 +280,7 @@ public class TcpSocketServer<T extends InputStream> extends AbstractSocketServer
 
     /**
      * Constructor.
-     * 
+     *
      * @param port
      *        The port number, or 0 to automatically allocate a port number.
      * @param backlog
@@ -299,9 +300,9 @@ public class TcpSocketServer<T extends InputStream> extends AbstractSocketServer
 
     /**
      * Constructor.
-     * 
+     *
      * @param port
-     *         The port number, or 0 to automatically allocate a port number. 
+     *         The port number, or 0 to automatically allocate a port number.
      * @param logEventInput
      *        the log even input
      * @throws IOException
@@ -314,7 +315,7 @@ public class TcpSocketServer<T extends InputStream> extends AbstractSocketServer
 
     /**
      * Constructor.
-     * 
+     *
      * @param port
      *        to listen.
      * @param logEventInput
@@ -379,7 +380,7 @@ public class TcpSocketServer<T extends InputStream> extends AbstractSocketServer
 
     /**
      * Shutdown the server.
-     * 
+     *
      * @throws IOException if the server socket could not be closed
      */
     @Override

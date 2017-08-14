@@ -40,11 +40,6 @@
       <groupId>org.apache.logging.log4j</groupId>
       <artifactId>log4j-core</artifactId>
     </dependency>
-    <!-- Command line parsing -->
-    <dependency>
-      <groupId>com.beust</groupId>
-      <artifactId>jcommander</artifactId>
-    </dependency>
     <!-- Used for JMS server (needs an implementation of course) -->
     <dependency>
       <groupId>org.jboss.spec.javax.jms</groupId>
