@@ -23,11 +23,15 @@ import org.apache.logging.log4j.core.net.ssl.SslConfiguration;
 
 /**
  * Listens for events over a secure socket connection (SSL/TLS).
- * 
+ *
  * @param <T>
  *        The kind of input stream read
  */
 public class SecureTcpSocketServer<T extends InputStream> extends TcpSocketServer<T> {
+
+    public static SecureTcpSocketServer<InputStream> createJsonServer(final int port, final SslConfiguration sslConfiguration) throws IOException {
+        return new SecureTcpSocketServer<>(port, new JsonInputStreamLogEventBridge(), sslConfiguration);
+    }
 
     public SecureTcpSocketServer(final int port, final LogEventBridge<T> logEventInput,
             final SslConfiguration sslConfig) throws IOException {
