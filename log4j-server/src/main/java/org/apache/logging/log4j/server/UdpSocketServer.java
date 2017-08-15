@@ -28,7 +28,7 @@ import java.util.List;
 
 import org.apache.logging.log4j.core.config.ConfigurationFactory;
 import org.apache.logging.log4j.core.parser.ParseException;
-import org.apache.logging.log4j.core.util.picocli.CommandLine;
+import org.apache.logging.log4j.core.tools.picocli.CommandLine;
 
 /**
  * Listens for Log4j events on a datagram socket and passes them on to Log4j.

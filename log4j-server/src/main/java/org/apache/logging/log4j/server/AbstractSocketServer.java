@@ -38,9 +38,9 @@ import org.apache.logging.log4j.core.config.Configuration;
 import org.apache.logging.log4j.core.config.ConfigurationSource;
 import org.apache.logging.log4j.core.config.xml.XmlConfiguration;
 import org.apache.logging.log4j.core.config.xml.XmlConfigurationFactory;
-import org.apache.logging.log4j.core.util.BasicCommandLineArguments;
+import org.apache.logging.log4j.core.tools.BasicCommandLineArguments;
+import org.apache.logging.log4j.core.tools.picocli.CommandLine.Option;
 import org.apache.logging.log4j.core.util.Log4jThread;
-import org.apache.logging.log4j.core.util.picocli.CommandLine.Option;
 import org.apache.logging.log4j.util.Strings;
 
 /**

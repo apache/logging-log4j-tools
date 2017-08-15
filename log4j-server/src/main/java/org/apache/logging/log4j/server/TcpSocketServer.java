@@ -34,9 +34,9 @@ import org.apache.logging.log4j.core.config.ConfigurationFactory;
 import org.apache.logging.log4j.core.parser.ParseException;
 import org.apache.logging.log4j.core.util.Closer;
 import org.apache.logging.log4j.core.util.Log4jThread;
-import org.apache.logging.log4j.core.util.picocli.CommandLine;
-import org.apache.logging.log4j.core.util.picocli.CommandLine.Command;
-import org.apache.logging.log4j.core.util.picocli.CommandLine.Option;
+import org.apache.logging.log4j.core.tools.picocli.CommandLine;
+import org.apache.logging.log4j.core.tools.picocli.CommandLine.Command;
+import org.apache.logging.log4j.core.tools.picocli.CommandLine.Option;
 import org.apache.logging.log4j.message.EntryMessage;
 
 /**
