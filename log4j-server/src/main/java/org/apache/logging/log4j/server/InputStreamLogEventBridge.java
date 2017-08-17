@@ -99,4 +99,10 @@ public abstract class InputStreamLogEventBridge extends AbstractLogEventBridge<I
         return this.parser.parseFrom(jsonEvent);
     }
 
+    @Override
+    public String toString() {
+        return "InputStreamLogEventBridge [bufferSize=" + bufferSize + ", charset=" + charset + ", eventEndMarker="
+                + eventEndMarker + ", parser=" + parser + "]";
+    }
+
 }
