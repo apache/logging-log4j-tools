@@ -186,4 +186,10 @@ public class UdpSocketServer<T extends InputStream> extends AbstractSocketServer
         //Thread.currentThread().interrupt();
         datagramSocket.close();
     }
+
+    @Override
+    public String toString() {
+        return "UdpSocketServer [datagramSocket=" + datagramSocket + ", maxBufferSize=" + maxBufferSize
+                + ", logEventInput=" + logEventInput + "]";
+    }
 }

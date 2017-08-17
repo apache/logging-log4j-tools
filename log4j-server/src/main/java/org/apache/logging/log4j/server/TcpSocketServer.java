@@ -391,4 +391,10 @@ public class TcpSocketServer<T extends InputStream> extends AbstractSocketServer
         serverSocket.close();
         logger.traceExit(entry);
     }
+
+    @Override
+    public String toString() {
+        return "TcpSocketServer [serverSocket=" + serverSocket + ", handlers=" + handlers + ", logEventInput="
+                + logEventInput + "]";
+    }
 }
