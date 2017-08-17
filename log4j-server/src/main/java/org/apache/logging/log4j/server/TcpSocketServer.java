@@ -51,8 +51,7 @@ public class TcpSocketServer<T extends InputStream> extends AbstractSocketServer
     @Command(name = "TcpSocketServer")
     protected static class CommandLineArguments extends AbstractSocketServer.CommandLineArguments {
 
-        @Option(names = { "--backlog",
-                "-b" }, description = "Server socket backlog. Must be a positive integer.")
+        @Option(names = { "--backlog", "-b" }, description = "Server socket backlog. Must be a positive integer.")
         // Same default as ServerSocket
         private int backlog = 50;
 
