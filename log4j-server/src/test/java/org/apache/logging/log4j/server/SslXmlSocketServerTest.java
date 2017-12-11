@@ -42,9 +42,9 @@ public class SslXmlSocketServerTest extends AbstractSocketServerTest {
 
     private static void initServerSocketFactory() throws StoreConfigurationException {
         final KeyStoreConfiguration ksc = new KeyStoreConfiguration(TestConstants.KEYSTORE_FILE,
-                TestConstants.KEYSTORE_PWD, TestConstants.KEYSTORE_TYPE, null);
+                TestConstants.KEYSTORE_PWD(), TestConstants.KEYSTORE_TYPE, null);
         final TrustStoreConfiguration tsc = new TrustStoreConfiguration(TestConstants.TRUSTSTORE_FILE,
-                TestConstants.TRUSTSTORE_PWD, null, null);
+                TestConstants.TRUSTSTORE_PWD(), null, null);
         sslConfiguration = SslConfiguration.createSSLConfiguration(null, ksc, tsc);
     }
 
