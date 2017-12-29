@@ -348,7 +348,7 @@ public class TcpSocketServer<T extends InputStream> extends AbstractSocketServer
                 logger.debug("Listening for a connection {}...", serverSocket);
                 @SuppressWarnings("resource") // clientSocket is closed during SocketHandler shutdown
                 final Socket clientSocket = serverSocket.accept();
-                logger.debug("Acepted connection on {}...", serverSocket);
+                logger.debug("Accepted connection on {}...", serverSocket);
                 logger.debug("Socket accepted: {}", clientSocket);
                 clientSocket.setSoLinger(true, 0);
 
