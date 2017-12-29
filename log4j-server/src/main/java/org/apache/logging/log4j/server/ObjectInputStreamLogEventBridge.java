@@ -25,10 +25,15 @@ import java.util.List;
 import org.apache.logging.log4j.core.LogEvent;
 import org.apache.logging.log4j.core.LogEventListener;
 import org.apache.logging.log4j.util.FilteredObjectInputStream;
+import org.apache.logging.log4j.core.layout.SerializedLayout;
 
 /**
- * Reads and logs serialized {@link LogEvent} objects from an {@link ObjectInputStream}.
+ * Reads and logs serialized {@link LogEvent} objects (created with {@link SerializedLayout}) from an {@link ObjectInputStream}.
+ *
+ * @deprecated Java Serialization has inherent security weaknesses, see https://www.owasp.org/index.php/Deserialization_of_untrusted_data .
+ * Therefore {@link SerializedLayout} is deprecated, and so is this class. We recommend using {@link JsonInputStreamLogEventBridge} instead.
  */
+@Deprecated
 public class ObjectInputStreamLogEventBridge extends AbstractLogEventBridge<ObjectInputStream> {
 
     private final List<String> allowedClasses;

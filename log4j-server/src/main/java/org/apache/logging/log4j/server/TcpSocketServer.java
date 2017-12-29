@@ -161,6 +161,7 @@ public class TcpSocketServer<T extends InputStream> extends AbstractSocketServer
      * @throws IOException
      *         if an I/O error occurs when opening the socket.
      */
+    @Deprecated
     public static TcpSocketServer<ObjectInputStream> createSerializedSocketServer(final int port) throws IOException {
         LOGGER.entry(port);
         final TcpSocketServer<ObjectInputStream> socketServer = new TcpSocketServer<>(port, new ObjectInputStreamLogEventBridge());
@@ -181,6 +182,7 @@ public class TcpSocketServer<T extends InputStream> extends AbstractSocketServer
      *         if an I/O error occurs when opening the socket.
      * @since 2.7
      */
+    @Deprecated
     public static TcpSocketServer<ObjectInputStream> createSerializedSocketServer(final int port, final int backlog,
             final InetAddress localBindAddress) throws IOException {
         return createSerializedSocketServer(port, backlog, localBindAddress, Collections.<String>emptyList());
@@ -201,6 +203,7 @@ public class TcpSocketServer<T extends InputStream> extends AbstractSocketServer
      *         if an I/O error occurs when opening the socket.
      * @since 2.8.2
      */
+    @Deprecated
     public static TcpSocketServer<ObjectInputStream> createSerializedSocketServer(
         final int port, final int backlog, final InetAddress localBindAddress, final List<String> allowedClasses
     ) throws IOException {
