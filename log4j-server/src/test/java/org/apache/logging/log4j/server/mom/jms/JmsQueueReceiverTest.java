@@ -17,7 +17,7 @@
 package org.apache.logging.log4j.server.mom.jms;
 
 import org.apache.logging.log4j.server.mom.activemq.ActiveMqBrokerServiceRule;
-import org.apache.logging.log4j.test.AvailablePortSystemPropertyRule;
+import org.apache.logging.log4j.test.AvailablePortSystemPropertyTestRule;
 import org.apache.logging.log4j.test.RuleChainFactory;
 import org.junit.ClassRule;
 import org.junit.Test;
@@ -25,7 +25,7 @@ import org.junit.rules.RuleChain;
 
 public class JmsQueueReceiverTest {
 
-    private static final AvailablePortSystemPropertyRule portRule = AvailablePortSystemPropertyRule
+    private static final AvailablePortSystemPropertyTestRule portRule = AvailablePortSystemPropertyTestRule
             .create(ActiveMqBrokerServiceRule.PORT_PROPERTY_NAME);
 
     private static final ActiveMqBrokerServiceRule activeMqBrokerServiceRule = new ActiveMqBrokerServiceRule(
