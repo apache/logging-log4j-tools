@@ -16,6 +16,10 @@
  */
 package org.apache.logging.log4j.server;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
+
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.Arrays;
@@ -32,18 +36,16 @@ import org.apache.logging.log4j.core.LoggerContext;
 import org.apache.logging.log4j.core.appender.AppenderLoggingException;
 import org.apache.logging.log4j.core.appender.ConsoleAppender;
 import org.apache.logging.log4j.core.appender.SocketAppender;
-import org.apache.logging.log4j.core.layout.JsonLayout;
 import org.apache.logging.log4j.core.layout.PatternLayout;
 import org.apache.logging.log4j.core.layout.SerializedLayout;
-import org.apache.logging.log4j.core.layout.XmlLayout;
 import org.apache.logging.log4j.core.net.Protocol;
+import org.apache.logging.log4j.jackson.json.layout.JsonLayout;
+import org.apache.logging.log4j.jackson.xml.layout.XmlLayout;
 import org.apache.logging.log4j.test.AvailablePortFinder;
 import org.apache.logging.log4j.test.appender.ListAppender;
 import org.junit.After;
 import org.junit.Ignore;
 import org.junit.Test;
-
-import static org.junit.Assert.*;
 
 /**
  *

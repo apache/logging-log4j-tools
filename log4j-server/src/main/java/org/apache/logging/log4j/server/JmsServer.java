@@ -36,9 +36,9 @@ import org.apache.logging.log4j.core.AbstractLifeCycle;
 import org.apache.logging.log4j.core.LifeCycle2;
 import org.apache.logging.log4j.core.LogEvent;
 import org.apache.logging.log4j.core.LogEventListener;
-import org.apache.logging.log4j.core.appender.mom.JmsAppender;
-import org.apache.logging.log4j.core.appender.mom.JmsManager;
 import org.apache.logging.log4j.core.net.JndiManager;
+import org.apache.logging.log4j.jms.appender.JmsAppender;
+import org.apache.logging.log4j.jms.appender.JmsManager;
 
 /**
  * LogEventListener server that receives LogEvents over a JMS {@link javax.jms.Destination}.

@@ -20,7 +20,7 @@ import java.io.InputStream;
 import java.nio.charset.Charset;
 
 import org.apache.logging.log4j.core.LogEvent;
-import org.apache.logging.log4j.core.parser.XmlLogEventParser;
+import org.apache.logging.log4j.jackson.xml.parser.XmlLogEventParser;
 
 /**
  * Reads and logs {@link LogEvent}s from an {@link InputStream}.

@@ -20,7 +20,7 @@ import java.io.InputStream;
 import java.nio.charset.Charset;
 
 import org.apache.logging.log4j.core.LogEvent;
-import org.apache.logging.log4j.core.parser.JsonLogEventParser;
+import org.apache.logging.log4j.jackson.json.parser.JsonLogEventParser;
 import org.apache.logging.log4j.util.Chars;
 
 /**
