@@ -190,7 +190,7 @@ public abstract class AbstractSocketServerTest {
         socketAppender.start();
         final ListAppender listAppender = new ListAppender("Events", serverFilter, null, false, false);
         listAppender.start();
-        final PatternLayout layout = PatternLayout.newBuilder().withPattern("%m %ex%n").build();
+        final PatternLayout layout = PatternLayout.newBuilder().setPattern("%m %ex%n").build();
         final ConsoleAppender console = ConsoleAppender.createDefaultAppenderForLayout(layout);
         final Logger serverLogger = ctx.getLogger(this.getClass().getName());
         serverLogger.addAppender(console);
@@ -229,16 +229,15 @@ public abstract class AbstractSocketServerTest {
             final Layout<? extends Serializable> socketLayout) {
         // @formatter:off
         return SocketAppender.newBuilder()
-                .withProtocol(this.protocol)
-                .withHost("localhost")
-                .withPort(this.port)
-                .withReconnectDelayMillis(-1)
-                .withName("test")
-                .withImmediateFlush(true)
-                .withImmediateFail(false)
-                .withIgnoreExceptions(false)
-                .withLayout(socketLayout)
-                .withFilter(socketFilter)
+        .setProtocol(this.protocol)
+        .setHost("localhost")
+        .setPort(this.port)
+        .setReconnectDelayMillis(-1)
+        .setName("test")
+        .setImmediateFlush(true)
+        .setImmediateFail(false)
+        .setIgnoreExceptions(false)
+        .setLayout(socketLayout).setFilter(socketFilter)
                 .build();
         // @formatter:on        
     }

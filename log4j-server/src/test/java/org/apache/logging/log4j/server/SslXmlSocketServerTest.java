@@ -53,17 +53,16 @@ public class SslXmlSocketServerTest extends AbstractSocketServerTest {
             final Layout<? extends Serializable> socketLayout) {
         // @formatter:off
         return SocketAppender.newBuilder()
-                .withProtocol(this.protocol)
-                .withHost("localhost")
-                .withPort(this.port)
-                .withReconnectDelayMillis(-1)
-                .withName("test")
-                .withImmediateFlush(true)
-                .withImmediateFail(false)
-                .withIgnoreExceptions(false)
-                .withLayout(socketLayout)
-                .withFilter(socketFilter)
-                .withSslConfiguration(sslConfiguration)
+        .setProtocol(this.protocol)
+        .setHost("localhost")
+        .setPort(this.port)
+        .setReconnectDelayMillis(-1)
+        .setName("test")
+        .setImmediateFlush(true)
+        .setImmediateFail(false)
+        .setIgnoreExceptions(false)
+        .setLayout(socketLayout).setFilter(socketFilter)
+                .setSslConfiguration(sslConfiguration)
                 .build();
         // @formatter:on        
     }
