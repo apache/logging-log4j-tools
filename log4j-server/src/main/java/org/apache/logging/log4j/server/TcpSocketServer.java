@@ -153,67 +153,6 @@ public class TcpSocketServer<T extends InputStream> extends AbstractSocketServer
     }
 
     /**
-     * Creates a socket server that reads serialized log events.
-     *
-     * @param port
-     *        The port number, or 0 to automatically allocate a port number.
-     * @return a new a socket server
-     * @throws IOException
-     *         if an I/O error occurs when opening the socket.
-     */
-    @Deprecated
-    public static TcpSocketServer<ObjectInputStream> createSerializedSocketServer(final int port) throws IOException {
-        LOGGER.entry(port);
-        final TcpSocketServer<ObjectInputStream> socketServer = new TcpSocketServer<>(port, new ObjectInputStreamLogEventBridge());
-        return LOGGER.exit(socketServer);
-    }
-
-    /**
-     * Creates a socket server that reads serialized log events.
-     *
-     * @param port
-     *        The port number, or 0 to automatically allocate a port number.
-     * @param backlog
-     *        The server socket backlog.
-     * @param localBindAddress
-     *        The local InetAddress the server will bind to
-     * @return a new a socket server
-     * @throws IOException
-     *         if an I/O error occurs when opening the socket.
-     * @since 2.7
-     */
-    @Deprecated
-    public static TcpSocketServer<ObjectInputStream> createSerializedSocketServer(final int port, final int backlog,
-            final InetAddress localBindAddress) throws IOException {
-        return createSerializedSocketServer(port, backlog, localBindAddress, Collections.<String>emptyList());
-    }
-
-    /**
-     * Creates a socket server that reads serialized log events.
-     *
-     * @param port
-     *        The port number, or 0 to automatically allocate a port number.
-     * @param backlog
-     *        The server socket backlog.
-     * @param localBindAddress
-     *        The local InetAddress the server will bind to
-     * @param allowedClasses additional class names to allow for deserialization
-     * @return a new a socket server
-     * @throws IOException
-     *         if an I/O error occurs when opening the socket.
-     * @since 2.8.2
-     */
-    @Deprecated
-    public static TcpSocketServer<ObjectInputStream> createSerializedSocketServer(
-        final int port, final int backlog, final InetAddress localBindAddress, final List<String> allowedClasses
-    ) throws IOException {
-        LOGGER.entry(port);
-        final TcpSocketServer<ObjectInputStream> socketServer = new TcpSocketServer<>(port, backlog, localBindAddress,
-                new ObjectInputStreamLogEventBridge(allowedClasses));
-        return LOGGER.exit(socketServer);
-    }
-
-    /**
      * Creates a socket server that reads XML log events.
      *
      * @param port
