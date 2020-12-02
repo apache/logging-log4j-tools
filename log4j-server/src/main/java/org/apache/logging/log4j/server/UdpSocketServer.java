@@ -115,7 +115,7 @@ public class UdpSocketServer<T extends InputStream> extends AbstractSocketServer
         final UdpSocketServer<InputStream> socketServer = UdpSocketServer
                 .createJsonSocketServer(cla.getPort());
         final Thread serverThread = socketServer.startNewThread();
-        if (cla.isInteractive()) {
+        if (cla.getInteractive()) {
             socketServer.awaitTermination(serverThread);
         }
     }

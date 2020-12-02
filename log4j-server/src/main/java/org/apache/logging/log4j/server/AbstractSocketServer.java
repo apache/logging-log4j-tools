@@ -70,16 +70,35 @@ public abstract class AbstractSocketServer<T extends InputStream> extends LogEve
         @Option(names = {"--classes", "-C"}, description = "Additional classes to allow deserialization")
         private List<String> allowedClasses;
 
+        @Option(names = { "--wire-format", }, description = "Wire format, one of JSON, SERIALIZED, XML; defaults to JSON.")
+        private WireFormat wireFormat = WireFormat.JSON;
+
+        List<String> getAllowedClasses() {
+            return allowedClasses == null ? Collections.<String>emptyList() : allowedClasses;
+        }
+
         String getConfigLocation() {
             return configLocation;
+        }
+
+        boolean getInteractive() {
+            return interactive;
+        }
+
+        InetAddress getLocalBindAddress() {
+            return localBindAddress;
         }
 
         int getPort() {
             return port;
         }
 
-        protected boolean isInteractive() {
-            return interactive;
+        WireFormat getWireFormat() {
+            return wireFormat;
+        }
+
+        void setAllowedClasses(final List<String> allowedClasses) {
+            this.allowedClasses = allowedClasses;
         }
 
         void setConfigLocation(final String configLocation) {
@@ -90,24 +109,16 @@ public abstract class AbstractSocketServer<T extends InputStream> extends LogEve
             this.interactive = interactive;
         }
 
-        void setPort(final int port) {
-            this.port = port;
-        }
-
-        InetAddress getLocalBindAddress() {
-            return localBindAddress;
-        }
-
         void setLocalBindAddress(final InetAddress localBindAddress) {
             this.localBindAddress = localBindAddress;
         }
 
-        List<String> getAllowedClasses() {
-            return allowedClasses == null ? Collections.<String>emptyList() : allowedClasses;
+        void setPort(final int port) {
+            this.port = port;
         }
 
-        void setAllowedClasses(final List<String> allowedClasses) {
-            this.allowedClasses = allowedClasses;
+        void setWireFormat(final WireFormat wireFormat) {
+            this.wireFormat = Objects.requireNonNull(wireFormat, "wireFormat");
         }
     }
 
@@ -178,27 +189,6 @@ public abstract class AbstractSocketServer<T extends InputStream> extends LogEve
         this.logEventInput = Objects.requireNonNull(logEventInput, "LogEventInput");
     }
 
-    protected boolean isActive() {
-        return this.active;
-    }
-
-    protected void setActive(final boolean isActive) {
-        this.active = isActive;
-    }
-
-    /**
-     * Start this server in a new thread.
-     *
-     * @return the new thread that running this server.
-     */
-    public Thread startNewThread() {
-        final Thread thread = new Log4jThread(this);
-        thread.start();
-        return thread;
-    }
-
-    public abstract void shutdown() throws Exception;
-
     public void awaitTermination(final Thread serverThread) throws Exception {
         final BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
         while (true) {
@@ -212,6 +202,27 @@ public abstract class AbstractSocketServer<T extends InputStream> extends LogEve
                 break;
             }
         }
+    }
+
+    protected boolean isActive() {
+        return this.active;
+    }
+
+    protected void setActive(final boolean isActive) {
+        this.active = isActive;
+    }
+
+    public abstract void shutdown() throws Exception;
+
+    /**
+     * Start this server in a new thread.
+     *
+     * @return the new thread that running this server.
+     */
+    public Thread startNewThread() {
+        final Thread thread = new Log4jThread(this);
+        thread.start();
+        return thread;
     }
 
 }

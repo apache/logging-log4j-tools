@@ -29,7 +29,6 @@ import org.apache.logging.log4j.core.net.Protocol;
 import org.apache.logging.log4j.core.net.ssl.KeyStoreConfiguration;
 import org.apache.logging.log4j.core.net.ssl.SslConfiguration;
 import org.apache.logging.log4j.core.net.ssl.StoreConfigurationException;
-import org.apache.logging.log4j.core.net.ssl.TestConstants;
 import org.apache.logging.log4j.core.net.ssl.TrustStoreConfiguration;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
