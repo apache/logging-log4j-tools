@@ -101,7 +101,7 @@ public abstract class InputStreamLogEventBridge extends AbstractLogEventBridge<I
 
     @Override
     public String toString() {
-        return "InputStreamLogEventBridge [bufferSize=" + bufferSize + ", charset=" + charset + ", eventEndMarker="
+        return getClass().getName() + " [bufferSize=" + bufferSize + ", charset=" + charset + ", eventEndMarker="
                 + eventEndMarker + ", parser=" + parser + "]";
     }
 
