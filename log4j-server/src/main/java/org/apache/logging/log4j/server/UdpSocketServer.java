@@ -70,16 +70,15 @@ public class UdpSocketServer<T extends InputStream> extends AbstractSocketServer
      * Creates a socket server that reads serialized log events.
      *
      * @param port the port to listen
-     * @param allowedClasses additional classes to allow for deserialization
+     * @param allowedExtraClasses additional classes to allow for deserialization
      * @return a new a socket server
      * @throws IOException if an I/O error occurs when opening the socket.
      * @since 2.8.2
      */
     @Deprecated
     public static UdpSocketServer<ObjectInputStream> createSerializedSocketServer(final int port,
-                                                                                  final List<String> allowedClasses)
-        throws IOException {
-        return new UdpSocketServer<>(port, new ObjectInputStreamLogEventBridge(allowedClasses));
+            final List<String> allowedExtraClasses) throws IOException {
+        return new UdpSocketServer<>(port, new ObjectInputStreamLogEventBridge(allowedExtraClasses));
     }
 
     /**

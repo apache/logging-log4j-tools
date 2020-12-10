@@ -36,7 +36,7 @@ import org.apache.logging.log4j.core.layout.SerializedLayout;
 @Deprecated
 public class ObjectInputStreamLogEventBridge extends AbstractLogEventBridge<ObjectInputStream> {
 
-    private final List<String> allowedClasses;
+    private final List<String> allowedExtraClasses;
 
     public ObjectInputStreamLogEventBridge() {
         this(Collections.<String>emptyList());
@@ -45,11 +45,11 @@ public class ObjectInputStreamLogEventBridge extends AbstractLogEventBridge<Obje
     /**
      * Constructs an ObjectInputStreamLogEventBridge with additional allowed classes to deserialize.
      *
-     * @param allowedClasses class names to also allow for deserialization
+     * @param allowedExtraClasses class names to also allow for deserialization
      * @since 2.8.2
      */
-    public ObjectInputStreamLogEventBridge(final List<String> allowedClasses) {
-        this.allowedClasses = allowedClasses;
+    public ObjectInputStreamLogEventBridge(final List<String> allowedExtraClasses) {
+        this.allowedExtraClasses = allowedExtraClasses;
     }
 
     @Override
@@ -64,6 +64,6 @@ public class ObjectInputStreamLogEventBridge extends AbstractLogEventBridge<Obje
 
     @Override
     public ObjectInputStream wrapStream(final InputStream inputStream) throws IOException {
-        return new FilteredObjectInputStream(inputStream, allowedClasses);
+        return new FilteredObjectInputStream(inputStream, allowedExtraClasses);
     }
 }
