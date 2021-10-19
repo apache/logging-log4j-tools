@@ -45,7 +45,7 @@ import static org.apache.logging.log4j.core.config.plugins.processor.PluginProce
 /**
  * 'log4j-maven-shade-plugin' transformer implementation.
  */
-public class PluginsCacheFileTransformer
+public class Log4j2PluginCacheFileTransformer
         implements ReproducibleResourceTransformer {
 
     /**
@@ -66,7 +66,7 @@ public class PluginsCacheFileTransformer
     /**
      * Default constructor, initializing internal state.
      */
-    public PluginsCacheFileTransformer() {
+    public Log4j2PluginCacheFileTransformer() {
         tempRelocators = new ArrayList<>();
         tempFiles = new ArrayList<>();
     }

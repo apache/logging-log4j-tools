@@ -30,13 +30,15 @@ For example a fat jar must be assembled with `org.apache.logging.log4j:log4j-web
 ## Usage
 
 The transformer configuration must augment standard [Apache Maven Shade Plugin](https://maven.apache.org/plugins/maven-shade-plugin/) configuration in `pom.xml`.
+
 ```xml
+
 <project>
-...
+    ...
     <build>
-...
+        ...
         <plugins>
-...
+            ...
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-shade-plugin</artifactId>
@@ -49,19 +51,19 @@ The transformer configuration must augment standard [Apache Maven Shade Plugin](
                         </goals>
                         <configuration>
                             <transformers>
-...
+                                ...
                                 <transformer
-                                        implementation="org.apache.logging.log4j.maven.plugins.shaded.transformer.PluginsCacheFileTransformer">
+                                        implementation="org.apache.logging.log4j.maven.plugins.shaded.transformer.Log4j2PluginCacheFileTransformer">
                                 </transformer>
                             </transformers>
-...
+                            ...
                         </configuration>
                     </execution>
                 </executions>
                 <dependencies>
                     <dependency>
-                        <groupId>com.github.edwgiz</groupId>
-                        <artifactId>maven-shade-plugin.log4j2-cachefile-transformer</artifactId>
+                        <groupId>org.apache.logging.maven</groupId>
+                        <artifactId>log4j-maven-plugins-shade-transformer</artifactId>
                         <version>${log4jVersion}</version>
                     </dependency>
                 </dependencies>
