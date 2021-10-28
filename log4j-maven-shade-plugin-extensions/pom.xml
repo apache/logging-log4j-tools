@@ -18,12 +18,12 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <parent>
-    <groupId>org.apache.logging.maven</groupId>
-    <artifactId>log4j-maven-plugins</artifactId>
+    <groupId>org.apache.logging.log4j</groupId>
+    <artifactId>log4j-tools</artifactId>
     <version>2.14.1-SNAPSHOT</version>
     <relativePath>../</relativePath>
   </parent>
-  <artifactId>log4j-maven-plugins-shade-transformer</artifactId>
+  <artifactId>log4j-maven-shade-plugin-extensions</artifactId>
   <packaging>jar</packaging>
   <name>Apache Log4j Maven Shade Plugin Transformer</name>
   <description>Transformer implementation to concatenate Log4j2Plugins.dat files</description>
@@ -31,7 +31,7 @@
     <log4jParentDir>${basedir}/..</log4jParentDir>
     <docLabel>Shaded Plugin Log4j2 Transformer</docLabel>
     <projectDir>/log4j-maven-plugins</projectDir>
-    <module.name>org.apache.logging.log4j.maven.plugins.shaded</module.name>
+    <module.name>org.apache.logging.log4j.maven.plugins.shade</module.name>
     <maven.doap.skip>true</maven.doap.skip>
   </properties>
   <dependencies>

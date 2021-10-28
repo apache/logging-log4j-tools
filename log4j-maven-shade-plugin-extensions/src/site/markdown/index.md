@@ -20,6 +20,13 @@
 
 This module provides support for [Apache Maven Shade Plugin](https://maven.apache.org/plugins/maven-shade-plugin/). 
 
+## Introduction to the problem
+
+Log4j 2 is composed of plugins and they are loaded from Log4j2Plugins.dat file found in the classpath at runtime.
+Shading overrides the cache files provided by each individual module. For instance, -web and -core, etc. ... 
+So if you happen to shade libraries providing Log4j 2 plugins, you need this thing.
+
+
 ## Overview
 
 This module includes the transformer for [Apache Maven Shade Plugin](https://maven.apache.org/plugins/maven-shade-plugin/), that concatenates `Log4j2Plugins.dat` files,
@@ -53,7 +60,7 @@ The transformer configuration must augment standard [Apache Maven Shade Plugin](
                             <transformers>
                                 ...
                                 <transformer
-                                        implementation="org.apache.logging.log4j.maven.plugins.shaded.transformer.Log4j2PluginCacheFileTransformer">
+                                        implementation="org.apache.logging.log4j.maven.plugins.shade.transformer.Log4j2PluginCacheFileTransformer">
                                 </transformer>
                             </transformers>
                             ...
@@ -63,7 +70,7 @@ The transformer configuration must augment standard [Apache Maven Shade Plugin](
                 <dependencies>
                     <dependency>
                         <groupId>org.apache.logging.maven</groupId>
-                        <artifactId>log4j-maven-plugins-shade-transformer</artifactId>
+                        <artifactId>log4j-maven-shade-plugin-extensions</artifactId>
                         <version>${log4jVersion}</version>
                     </dependency>
                 </dependencies>

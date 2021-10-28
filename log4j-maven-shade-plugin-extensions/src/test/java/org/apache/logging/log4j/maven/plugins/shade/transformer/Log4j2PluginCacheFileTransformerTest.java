@@ -15,7 +15,7 @@
  * limitations under the license.
  */
 
-package org.apache.logging.log4j.maven.plugins.shaded.transformer;
+package org.apache.logging.log4j.maven.plugins.shade.transformer;
 
 import org.apache.commons.io.IOUtils;
 import org.apache.logging.log4j.core.config.plugins.processor.PluginCache;

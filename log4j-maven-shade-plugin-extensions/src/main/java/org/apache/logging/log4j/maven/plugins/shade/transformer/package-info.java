@@ -15,32 +15,7 @@
  * limitations under the license.
  */
 
-package org.apache.logging.log4j.maven.plugins.shaded.transformer;
-
-
-import org.apache.commons.io.output.ProxyOutputStream;
-
-import java.io.IOException;
-import java.io.OutputStream;
-
-import static org.apache.commons.io.output.ClosedOutputStream.CLOSED_OUTPUT_STREAM;
-
 /**
- * Suppress the close of underlying output stream.
+ * Root package of the transformer.
  */
-final class CloseShieldOutputStream extends ProxyOutputStream {
-
-    /**
-     * @param out  the OutputStream to delegate to
-     */
-    /* default */ CloseShieldOutputStream(final OutputStream out) {
-        super(out);
-    }
-
-
-    @Override
-    public void close() throws IOException {
-        out.flush();
-        out = CLOSED_OUTPUT_STREAM;
-    }
-}
+package org.apache.logging.log4j.maven.plugins.shade.transformer;
