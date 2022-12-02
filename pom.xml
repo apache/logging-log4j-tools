@@ -65,15 +65,6 @@
 
   </properties>
 
-  <!-- An old, dummy dependency to test dependabot integration. -->
-  <dependencies>
-    <dependency>
-      <groupId>io.netty</groupId>
-      <artifactId>netty-all</artifactId>
-      <version>4.1.85.Final</version>
-    </dependency>
-  </dependencies>
-
   <build>
     <plugins>
 
