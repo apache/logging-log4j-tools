@@ -95,7 +95,8 @@ jobs:
           architecture: x64
           cache: maven
 
-      - name: Import GPG private key
+      - name: Import GPG private key (RELEASE)
+        if: startsWith(github.ref, 'refs/heads/release/')
         run: |
           echo -n "$GPG_PKEY" \
           | base64 --decode \
