@@ -154,6 +154,8 @@ jobs:
             --show-version --batch-mode --errors --no-transfer-progress \
             -Dgpg.skip=true \
             -DskipTests=true \
+            -DinstallAtEnd=true \
+            -DdeployAtEnd=true \
             --settings .github/workflows/maven-settings.xml \
             package install:install deploy:deploy
         env:
