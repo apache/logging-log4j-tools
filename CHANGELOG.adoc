@@ -17,4 +17,4 @@ limitations under the License.
 
 == 0.1.0 (????-??-??)
 
-* The first GA release.
+* Added `log4j-changelog` module (for https://issues.apache.org/jira/browse/LOG4J2-3628[LOG4J2-3628] by `vy`)

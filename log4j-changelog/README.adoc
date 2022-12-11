@@ -1,0 +1,238 @@
+////
+Licensed to the Apache Software Foundation (ASF) under one or more
+contributor license agreements. See the NOTICE file distributed with
+this work for additional information regarding copyright ownership.
+The ASF licenses this file to You under the Apache License, Version 2.0
+(the "License"); you may not use this file except in compliance with
+the License. You may obtain a copy of the License at
+
+    https://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+////
+
+This project contains tooling for changelogs of Apache Log4j projects.
+
+[#what-is-a-changelog]
+== What is a changelog?
+
+A changelog is a log of all notable changes made to a project.
+
+[#why-different]
+== Why yet another changelog tool?
+
+Existing changelog practices (e.g., https://keepachangelog.com[Keep a changelog], https://maven.apache.org/plugins/maven-changes-plugin/[maven-changes-plugin]) store changelog entries in the same file.
+This creates merge conflicts between different branches.
+Imagine multiple people working on multiple branches each containing a change to `CHANGELOG.md`.
+Whoever succeeds in merging their branch to `master` first will cause a merge-conflict for the others, even though their work might be totally unrelated from each other.
+
+This project embraces a model where changelog entries are kept in separate files and hence are not prone to merge conflicts.
+Similar to `maven-changes-plugin`, changelog sources and their exports (e.g., AsciiDoc-formatted) are split by design.
+
+[#look]
+== How does it look like?
+
+All changelog _sources_ are stored in folders under _changelog directory_ (e.g., `/src/changelog`):
+
+[source]
+----
+$ ls -a -1 src/changelog
+.
+..
+# ...
+2.18.0
+2.19.0
+.2.x.x
+----
+
+Changelog sources of _released versions_ are stored in `<changelogDirectory>/<releaseVersion>` folders (e.g., `/src/changelog/2.19.0`):
+
+[source]
+----
+$ ls -a -1 src/changelog/2.19.0
+.
+..
+.intro.adoc
+LOG4J2-2975_Add_implementation_of_SLF4J2_fluent_API.xml
+LOG4J2-3545_Add_correct_manifest_entries_for_OSGi_to_log4j_jcl.xml
+LOG4J2-3548_Improve_support_for_passwordless_keystores.xml
+# ...
+LOG4J2-3589_Allow_Plugins_to_be_injected_with_the_LoggerContext_referenc.xml
+LOG4J2-3590_Remove_SLF4J_1_8_x_binding.xml
+LOG4J2-3614_Harden_InstantFormatter_against_delegate_failures.xml
+LOG4J2-708_Add_async_support_to_Log4jServletFilter.xml
+.release.xml
+----
+
+Changelog sources of _upcoming releases_ are stored in `<changelogDirectory>/.<releaseVersionMajor>.x.x` folders (e.g., `/src/changelog/.2.x.x`):
+
+[source]
+----
+$ ls -a -1 src/changelog/.2.x.x
+.
+..
+LOG4J2-2678_Add_LogEvent_timestamp_to_ProducerRecord_in_KafkaAppender.xml
+LOG4J2-3628_new_changelog_infra.xml
+LOG4J2-3631_Fix_Configurator_setLevel_for_internal_classes.xml
+LOG4J2-3634_Fix_level_propagation_in_Log4jBridgeHandler.xml
+----
+
+A typical changelog entry looks as follows:
+
+[source]
+----
+$ cat src/changelog/.2.x.x/LOG4J2-3628_new_changelog_infra.xml
+<?xml version="1.0" encoding="UTF-8"?>
+<entry type="changed">
+  <issue id="LOG4J2-3628" link="https://issues.apache.org/jira/browse/LOG4J2-3628"/>
+  <author id="vy"/>
+  <description format="asciidoc">
+    Replaced `maven-changes-plugin` with a custom changelog implementation
+    </description>
+</entry>
+----
+
+All changelog folders, including the ones for the upcoming releases, can be exported to AsciiDoc:
+
+[source]
+----
+$ ls -1 target/generated-sources/site/asciidoc/changelog
+# ...
+2.18.0.adoc
+2.19.0.adoc
+2.x.x.adoc
+index.adoc
+----
+
+[#released-version-changelogs]
+== Released version changelogs
+
+Changelogs of past released versions are contained in `<changelogDirectory>/<releaseVersion>` directories (e.g., `/src/changelog/2.19.0`).
+A released version changelog directory consists of following files:
+
+`.release.xml`::
+the meta information about the release (e.g., release version and date)
+
+`.intro.adoc`::
+the introductory content used by the AsciiDoc exporter
+
+`[<issueId>_]<shortSummary>.xml`::
+changelog entry associated with a change
+
+The AsciiDoc exporter will compile these source files and output a `<releaseVersion>.adoc` (e.g., `2.19.0.adoc`) file for each release and an `index.adoc`.
+
+[#unreleased-version-changelogs]
+== Unreleased version changelogs
+
+Changelogs of upcoming release versions are stored in `<changelogDirectory>/.<releaseVersionMajor>.x.x` directories (e.g., `/src/changelog/.2.x.x`).
+Compared to released version changelog directories (e.g., `2.19.0`), `.<releaseVersionMajor>.x.x` directories only consist of changelog entry files (i.e., `[<issueId>_]<shortSummary>.xml`).
+
+The AsciiDoc exporter will compile these source files and output `<releaseVersionMajor>.x.x.adoc` (e.g., `2.x.x.adoc`) file for each upcoming release.
+
+[#changelog-entry-file]
+== Changelog entry file
+
+A changelog entry file consists of short meta information regarding a particular change.
+They are named following the `[<issueId>_]<shortSummary>.xml` pattern.
+Consider the following examples:
+
+* `LOG4J2-3556_JsonTemplateLayout_stack_trace_truncation_fix.xml`
+* `LOG4J2-3578_Generate_new_SSL_certs_for_testing.xml`
+* `Update_jackson_2_11_0_2_11_2.xml`
+
+A sample _changelog entry_ file is shared below.
+
+.`src/changelog/LOG4J2-3556_JsonTemplateLayout_stack_trace_truncation_fix.xml` file contents
+[source,xml]
+----
+<entry type="fixed">
+  <issue id="LOG4J2-3556" link="https://issues.apache.org/jira/browse/LOG4J2-3556"/>
+  <author id="vy"/>
+  <author name="Arthur Gavlyukovskiy"/>
+  <description format="asciidoc">Make `JsonTemplateLayout` stack trace truncation operate for each label block.</description>
+</entry>
+----
+
+Some remarks about the structure of changelog entry files:
+
+* The root element must be named `entry`.
+* `entry.type` attribute is required and must be one of the https://keepachangelog.com/en/1.0.0/#how[_Keep a Changelog_ change types]:
+** `added` – for new features
+** `changed` – for changes in existing functionality
+** `deprecated` – for soon-to-be removed features
+** `removed` – for now removed features
+** `fixed` – for any bug fixes
+** `security` – for vulnerabilities
+* `issue` element is optional, and, if present, must contain `id` and `link` attributes.
+* `author` element must have at least one of `id` or `name` attributes.
+* There must be at least one author.
+* There must be a single `description` element with non-blank content and `format="asciidoc"` attribute.
+
+[#qa]
+== Q&A
+
+[#qa-entry]
+=== How can I add an entry for a change I am about to commit?
+
+You have just committed, or better, about to commit a great feature you have been working on.
+Simply create a <<#changelog-entry-file>> and commit it along with your change!
+
+[#qa-generate]
+=== How can I export changelogs to AsciiDoc files?
+
+You need to use `AsciiDocExporter` as follows:
+
+[source,bash]
+----
+java \
+    -cp /path/to/log4j-changelog.jar \
+    -Dlog4j.changelog.directory=/path/to/changelog/directory \
+    -Dlog4j.changelog.exporter.outputDirectory=/path/to/asciiDocOutputDirectory \
+    org.apache.logging.log4j.changelog.exporter.AsciiDocExporter
+----
+
+[#qa-deploy-release]
+=== I am about to deploy a new Log4j release. What shall I do?
+
+Just before a release, two things need to happen in the changelog sources:
+
+. Changelog entries of the upcoming release directory `<changelogDirectory>/.<releaseVersionMajor>.x.x` needs to be moved to the release changelog directory `<changelogDirectory>/<releaseVersion>`
+. `.index.adoc` and `.release.xml` need to be created in the release changelog directory `<changelogDirectory>/<releaseVersion>`
+
+Due to the nature of release candidates, above steps might need to be repeated multiple times.
+
+[TIP]
+====
+Log4j _releases_ and _release candidates_ all get deployed to the same https://repository.apache.org/#stagingRepositories[_staging repository_].
+Their `pom.xml` files all contain the same release version, e.g., `2.19.0`.
+There are no `-rc1`, `-rc2`, etc. suffixes in the version of a release candidate.
+Once a release candidate voting reaches to a consensus for release, associated artifacts simply get promoted from the _staging_ to the _public_ repository.
+Hence, there are no differences between releases and release candidates.
+====
+
+How to carry out aforementioned two changes are explained below in steps:
+
+. Populate the `<changelogDirectory>/<releaseVersion>` directory (e.g., `/src/changelog/2.19.0`) from the upcoming release changelog directory (e.g., `<changelogDirectory>/.2.x.x`):
++
+[source,bash]
+----
+java \
+    -cp /path/to/log4j-changelog.jar \
+    -Dlog4j.changelog.directory=/path/to/changelog/directory \
+    -Dlog4j.changelog.releaseVersion=X.Y.Z \
+    org.apache.logging.log4j.changelog.releaser.ChangelogReleaser
+----
+. Verify that `<changelogDirectory>/.<releaseVersionMajor>.x.x` directory (e.g., `/src/changelog/.2.x.x`) is emptied
+. Verify that `<changelogDirectory>/<releaseVersion>` directory (e.g., `/src/changelog/2.19.0`) is created, and it contains `.intro.adoc`, `.release.xml`, and changelog entry files
++
+[IMPORTANT]
+====
+If `<changelogDirectory>/<releaseVersion>` directory (e.g., `/src/changelog/2.19.0`) already exists with certain content, `ChangelogReleaser` will only move new changelog entry files and override `.release.xml`; `.intro.adoc` will not be touched, if exists.
+This allows one to run `ChangelogReleaser` multiple times, e.g., to incorporate changes added to a release candidate.
+====
+. Edit the created `.intro.adoc`
+. `git add` the changes in the changelog directory (e.g., `/src/changelog`) and commit them

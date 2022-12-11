@@ -19,7 +19,10 @@ https://github.com/apache/logging-log4j-tools/actions[image:https://github.com/a
 https://search.maven.org/search?q=g:org.apache.logging.log4j%20a:log4j-tools[image:https://img.shields.io/maven-central/v/org.apache.logging.log4j/log4j-tools.svg[Maven Central]]
 https://www.apache.org/licenses/LICENSE-2.0.txt[image:https://img.shields.io/github/license/apache/logging-log4j-tools.svg[License]]
 
-Tooling internally used by the Apache Log4j project infrastructure.
+Tooling internally used by https://logging.apache.org/log4j/2.x/[the Apache Log4j project] infrastructure.
+
+xref:log4j-changelog/README.adoc[`log4j-changelog`]::
+Tooling to export AsciiDoc-formatted changelog files.
 
 == License
 
