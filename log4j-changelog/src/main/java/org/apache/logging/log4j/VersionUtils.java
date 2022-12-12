@@ -18,14 +18,14 @@ package org.apache.logging.log4j;
 
 public final class VersionUtils {
 
-    public static final String VERSION_PATTERN = "^\\d+\\.\\d+.\\d+$";
+    public static final String VERSION_PATTERN = "^\\d+\\.\\d+.\\d+(-SNAPSHOT)?$";
 
     private VersionUtils() {}
 
     public static void requireSemanticVersioning(final String version, final String name) {
-        if (version.matches(VERSION_PATTERN)) {
+        if (!version.matches(VERSION_PATTERN)) {
             final String message = String.format(
-                    "provided version in `%s` does not match the expected `major.minor.patch` pattern: `%s`",
+                    "provided version in `%s` does not match the expected `<major>.<minor>.<patch>[-SNAPSHOT]` pattern: `%s`",
                     name, version);
             throw new IllegalArgumentException(message);
         }
