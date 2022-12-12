@@ -14,22 +14,22 @@
  * See the license for the specific language governing permissions and
  * limitations under the license.
  */
-package org.apache.logging.log4j.changelog.importer;
+package org.apache.logging.log4j.tools.changelog.importer;
 
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
-import org.apache.logging.log4j.XmlReader;
+import org.apache.logging.log4j.tools.XmlReader;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
-import static org.apache.logging.log4j.StringUtils.isBlank;
-import static org.apache.logging.log4j.StringUtils.trimNullable;
-import static org.apache.logging.log4j.XmlReader.failureAtXmlNode;
-import static org.apache.logging.log4j.XmlReader.readXmlFileRootElement;
+import static org.apache.logging.log4j.tools.StringUtils.isBlank;
+import static org.apache.logging.log4j.tools.StringUtils.trimNullable;
+import static org.apache.logging.log4j.tools.XmlReader.failureAtXmlNode;
+import static org.apache.logging.log4j.tools.XmlReader.readXmlFileRootElement;
 
 final class MavenChanges {
 

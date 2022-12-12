@@ -14,13 +14,13 @@
  * See the license for the specific language governing permissions and
  * limitations under the license.
  */
-package org.apache.logging.log4j;
+package org.apache.logging.log4j.tools;
 
 import java.nio.file.InvalidPathException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
-import static org.apache.logging.log4j.StringUtils.isBlank;
+import static org.apache.logging.log4j.tools.StringUtils.isBlank;
 
 public final class PropertyUtils {
 

@@ -14,13 +14,13 @@
  * See the license for the specific language governing permissions and
  * limitations under the license.
  */
-package org.apache.logging.log4j.changelog.releaser;
+package org.apache.logging.log4j.tools.changelog.releaser;
 
-import org.apache.logging.log4j.AsciiDocUtils;
-import org.apache.logging.log4j.FileUtils;
-import org.apache.logging.log4j.VersionUtils;
-import org.apache.logging.log4j.changelog.ChangelogFiles;
-import org.apache.logging.log4j.changelog.ChangelogRelease;
+import org.apache.logging.log4j.tools.AsciiDocUtils;
+import org.apache.logging.log4j.tools.FileUtils;
+import org.apache.logging.log4j.tools.VersionUtils;
+import org.apache.logging.log4j.tools.changelog.ChangelogFiles;
+import org.apache.logging.log4j.tools.changelog.ChangelogRelease;
 
 import java.io.IOException;
 import java.io.UncheckedIOException;
@@ -30,7 +30,7 @@ import java.nio.file.Path;
 import java.time.LocalDate;
 
 import static java.time.format.DateTimeFormatter.ISO_DATE;
-import static org.apache.logging.log4j.changelog.ChangelogFiles.releaseDirectory;
+import static org.apache.logging.log4j.tools.changelog.ChangelogFiles.releaseDirectory;
 
 public final class ChangelogReleaser {
 

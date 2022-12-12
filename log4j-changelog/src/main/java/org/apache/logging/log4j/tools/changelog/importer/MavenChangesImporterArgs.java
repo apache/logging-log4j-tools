@@ -14,12 +14,12 @@
  * See the license for the specific language governing permissions and
  * limitations under the license.
  */
-package org.apache.logging.log4j.changelog.importer;
+package org.apache.logging.log4j.tools.changelog.importer;
 
 import java.nio.file.Path;
 
-import static org.apache.logging.log4j.PropertyUtils.requireNonBlankIntProperty;
-import static org.apache.logging.log4j.PropertyUtils.requireNonBlankPathProperty;
+import static org.apache.logging.log4j.tools.PropertyUtils.requireNonBlankIntProperty;
+import static org.apache.logging.log4j.tools.PropertyUtils.requireNonBlankPathProperty;
 
 final class MavenChangesImporterArgs {
 

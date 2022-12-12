@@ -27,7 +27,7 @@
     <version>7</version>
   </parent>
 
-  <groupId>org.apache.logging.log4j</groupId>
+  <groupId>org.apache.logging.log4j.tools</groupId>
   <artifactId>log4j-tools</artifactId>
   <packaging>pom</packaging>
   <version>${revision}</version>

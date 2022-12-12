@@ -192,7 +192,7 @@ java \
     -cp /path/to/log4j-changelog.jar \
     -Dlog4j.changelog.directory=/path/to/changelog/directory \
     -Dlog4j.changelog.exporter.outputDirectory=/path/to/asciiDocOutputDirectory \
-    org.apache.logging.log4j.changelog.exporter.AsciiDocExporter
+    org.apache.logging.log4j.tools.changelog.exporter.AsciiDocExporter
 ----
 
 [#qa-deploy-release]
@@ -224,7 +224,7 @@ java \
     -cp /path/to/log4j-changelog.jar \
     -Dlog4j.changelog.directory=/path/to/changelog/directory \
     -Dlog4j.changelog.releaseVersion=X.Y.Z \
-    org.apache.logging.log4j.changelog.releaser.ChangelogReleaser
+    org.apache.logging.log4j.tools.changelog.releaser.ChangelogReleaser
 ----
 . Verify that `<changelogDirectory>/.<releaseVersionMajor>.x.x` directory (e.g., `/src/changelog/.2.x.x`) is emptied
 . Verify that `<changelogDirectory>/<releaseVersion>` directory (e.g., `/src/changelog/2.19.0`) is created, and it contains `.intro.adoc`, `.release.xml`, and changelog entry files

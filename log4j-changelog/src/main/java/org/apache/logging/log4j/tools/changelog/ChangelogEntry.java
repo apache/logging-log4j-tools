@@ -14,18 +14,18 @@
  * See the license for the specific language governing permissions and
  * limitations under the license.
  */
-package org.apache.logging.log4j.changelog;
+package org.apache.logging.log4j.tools.changelog;
 
 import java.nio.file.Path;
 import java.util.List;
 import java.util.Locale;
 import java.util.stream.Collectors;
 
-import org.apache.logging.log4j.XmlReader;
-import org.apache.logging.log4j.XmlWriter;
+import org.apache.logging.log4j.tools.XmlReader;
+import org.apache.logging.log4j.tools.XmlWriter;
 import org.w3c.dom.Element;
 
-import static org.apache.logging.log4j.StringUtils.trimNullable;
+import static org.apache.logging.log4j.tools.StringUtils.trimNullable;
 
 public final class ChangelogEntry {
 

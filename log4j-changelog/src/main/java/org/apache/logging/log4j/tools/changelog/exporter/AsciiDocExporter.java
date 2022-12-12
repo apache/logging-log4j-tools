@@ -14,13 +14,13 @@
  * See the license for the specific language governing permissions and
  * limitations under the license.
  */
-package org.apache.logging.log4j.changelog.exporter;
+package org.apache.logging.log4j.tools.changelog.exporter;
 
-import org.apache.logging.log4j.AsciiDocUtils;
-import org.apache.logging.log4j.FileUtils;
-import org.apache.logging.log4j.changelog.ChangelogEntry;
-import org.apache.logging.log4j.changelog.ChangelogFiles;
-import org.apache.logging.log4j.changelog.ChangelogRelease;
+import org.apache.logging.log4j.tools.AsciiDocUtils;
+import org.apache.logging.log4j.tools.FileUtils;
+import org.apache.logging.log4j.tools.changelog.ChangelogEntry;
+import org.apache.logging.log4j.tools.changelog.ChangelogFiles;
+import org.apache.logging.log4j.tools.changelog.ChangelogRelease;
 
 import java.io.IOException;
 import java.io.UncheckedIOException;

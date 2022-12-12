@@ -23,7 +23,7 @@
 
   <parent>
     <artifactId>log4j-tools</artifactId>
-    <groupId>org.apache.logging.log4j</groupId>
+    <groupId>org.apache.logging.log4j.tools</groupId>
     <version>${revision}</version>
   </parent>
 

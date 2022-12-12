@@ -14,17 +14,17 @@
  * See the license for the specific language governing permissions and
  * limitations under the license.
  */
-package org.apache.logging.log4j.changelog.importer;
+package org.apache.logging.log4j.tools.changelog.importer;
 
-import org.apache.logging.log4j.changelog.ChangelogEntry;
-import org.apache.logging.log4j.changelog.ChangelogFiles;
-import org.apache.logging.log4j.changelog.ChangelogRelease;
+import org.apache.logging.log4j.tools.changelog.ChangelogEntry;
+import org.apache.logging.log4j.tools.changelog.ChangelogFiles;
+import org.apache.logging.log4j.tools.changelog.ChangelogRelease;
 
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.apache.logging.log4j.StringUtils.isBlank;
+import static org.apache.logging.log4j.tools.StringUtils.isBlank;
 
 public final class MavenChangesImporter {
 

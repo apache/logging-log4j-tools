@@ -14,27 +14,18 @@
  * See the license for the specific language governing permissions and
  * limitations under the license.
  */
-package org.apache.logging.log4j.changelog.exporter;
+package org.apache.logging.log4j.tools;
 
-import java.nio.file.Path;
+public final class StringUtils {
 
-import static org.apache.logging.log4j.PropertyUtils.requireNonBlankPathProperty;
+    private StringUtils() {}
 
-final class AsciiDocExporterArgs {
-
-    final Path changelogDirectory;
-
-    final Path outputDirectory;
-
-    private AsciiDocExporterArgs(final Path changelogDirectory, final Path outputDirectory) {
-        this.changelogDirectory = changelogDirectory;
-        this.outputDirectory = outputDirectory;
+    public static String trimNullable(final String input) {
+        return input != null ? input.trim() : null;
     }
 
-    static AsciiDocExporterArgs fromSystemProperties() {
-        final Path changelogDirectory = requireNonBlankPathProperty("log4j.changelog.directory");
-        final Path outputDirectory = requireNonBlankPathProperty("log4j.changelog.exporter.outputDirectory");
-        return new AsciiDocExporterArgs(changelogDirectory, outputDirectory);
+    public static boolean isBlank(final String input) {
+        return input == null || input.matches("\\s*");
     }
 
 }
