@@ -45,23 +45,37 @@ jobs:
           architecture: x64
           cache: maven
 
-      # `install` is required to verify reproducible builds: https://maven.apache.org/guides/mini/guide-reproducible-builds.html#how-to-test-my-maven-build-reproducibility
-      - name: Build using Maven
-        shell: bash
-        run: |
-          ./mvnw \
-            --show-version --batch-mode --errors --no-transfer-progress \
-            -DskipTests=true \
-            install
-
-      # `artifact:compare` is required to verify reproducible builds: https://maven.apache.org/guides/mini/guide-reproducible-builds.html#how-to-test-my-maven-build-reproducibility
-      - name: Verify using Maven
+      # We could have used `verify`, but `clean install` is required while generating the build reproducibility report, which is performed in the next step.
+      # For details, see: https://maven.apache.org/guides/mini/guide-reproducible-builds.html#how-to-test-my-maven-build-reproducibility
+      - name: Build
         shell: bash
         run: |
           ./mvnw \
             --show-version --batch-mode --errors --no-transfer-progress \
             -DtrimStackTrace=false \
-            verify artifact:compare
+            -DinstallAtEnd=true \
+            clean install
+
+      # `clean verify artifact:compare` is required to generate the build reproducibility report.
+      # For details, see: https://maven.apache.org/guides/mini/guide-reproducible-builds.html#how-to-test-my-maven-build-reproducibility
+      - name: Report build reproducibility
+        shell: bash
+        run: |
+          ./mvnw \
+            --show-version --batch-mode --errors --no-transfer-progress \
+            -DskipTests=true \
+            clean verify artifact:compare
+
+      - name: Verify build reproducibility
+        shell: bash
+        run: |
+          for report_file in target/*.buildcompare **/target/*.buildcompare; do
+            if ! grep -q "^ko=0$" "$report_file"; then
+              echo "Spotted build reproducibility failure in \`$report_file\`:"
+              cat "$report_file"
+              exit 1
+            fi
+          done
 
   merge:
 
