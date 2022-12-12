@@ -45,14 +45,23 @@ jobs:
           architecture: x64
           cache: maven
 
-      - name: Build with Maven
+      # `install` is required to verify reproducible builds: https://maven.apache.org/guides/mini/guide-reproducible-builds.html#how-to-test-my-maven-build-reproducibility
+      - name: Build using Maven
+        shell: bash
+        run: |
+          ./mvnw \
+            --show-version --batch-mode --errors --no-transfer-progress \
+            -DskipTests=true \
+            install
+
+      # `artifact:compare` is required to verify reproducible builds: https://maven.apache.org/guides/mini/guide-reproducible-builds.html#how-to-test-my-maven-build-reproducibility
+      - name: Verify using Maven
         shell: bash
         run: |
           ./mvnw \
             --show-version --batch-mode --errors --no-transfer-progress \
             -DtrimStackTrace=false \
-            -DskipTests=true \
-            verify
+            verify artifact:compare
 
   merge:
 
