@@ -18,7 +18,7 @@ package org.apache.logging.log4j;
 
 public final class VersionUtils {
 
-    public static final String VERSION_PATTERN = "^\\d+\\.\\d+.\\d+(-SNAPSHOT)?$";
+    public static final String VERSION_PATTERN = "^\\d+\\.\\d+\\.\\d+(-SNAPSHOT)?$";
 
     private VersionUtils() {}
 
