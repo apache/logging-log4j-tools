@@ -16,13 +16,13 @@
  */
 package org.apache.logging.log4j.tools.changelog.importer;
 
-import org.apache.logging.log4j.tools.changelog.ChangelogEntry;
-import org.apache.logging.log4j.tools.changelog.ChangelogFiles;
-import org.apache.logging.log4j.tools.changelog.ChangelogRelease;
-
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
+
+import org.apache.logging.log4j.tools.changelog.ChangelogEntry;
+import org.apache.logging.log4j.tools.changelog.ChangelogFiles;
+import org.apache.logging.log4j.tools.changelog.ChangelogRelease;
 
 import static org.apache.logging.log4j.tools.StringUtils.isBlank;
 

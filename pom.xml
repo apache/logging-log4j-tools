@@ -65,13 +65,48 @@
     <!-- `project.build.outputTimestamp` is required for reproducible builds: https://maven.apache.org/guides/mini/guide-reproducible-builds.html -->
     <project.build.outputTimestamp>0</project.build.outputTimestamp>
 
+    <!-- dependency versions -->
+    <spotbugs.version>4.7.3</spotbugs.version>
+
     <!-- plugin versions -->
     <error-prone.version>2.16</error-prone.version>
+    <findsecbugs-plugin.version>1.12.0</findsecbugs-plugin.version>
     <flatten-maven-plugin.version>1.3.0</flatten-maven-plugin.version>
+    <spotbugs-maven-plugin.version>${spotbugs.version}.0</spotbugs-maven-plugin.version>
+    <spotless-maven-plugin.version>2.28.0</spotless-maven-plugin.version>
 
   </properties>
 
+  <dependencyManagement>
+    <dependencies>
+      <dependency>
+        <groupId>com.github.spotbugs</groupId>
+        <artifactId>spotbugs-annotations</artifactId>
+        <version>${spotbugs.version}</version>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
+
   <build>
+
+    <pluginManagement>
+      <plugins>
+
+        <plugin>
+          <groupId>com.github.spotbugs</groupId>
+          <artifactId>spotbugs-maven-plugin</artifactId>
+          <version>${spotbugs-maven-plugin.version}</version>
+        </plugin>
+
+        <plugin>
+          <groupId>com.diffplug.spotless</groupId>
+          <artifactId>spotless-maven-plugin</artifactId>
+          <version>${spotless-maven-plugin.version}</version>
+        </plugin>
+
+      </plugins>
+    </pluginManagement>
+
     <plugins>
 
       <plugin>
@@ -124,7 +159,101 @@
         </executions>
       </plugin>
 
-    </plugins>
-  </build>
+      <!-- Apache RAT (Release Audit Tool) check to verify licenses.
+           `apache-rat-plugin`: https://creadur.apache.org/rat/apache-rat-plugin/
+           Release Audit Tool: https://creadur.apache.org/rat/index.html -->
+      <plugin>
+        <groupId>org.apache.rat</groupId>
+        <artifactId>apache-rat-plugin</artifactId>
+        <configuration>
+          <consoleOutput>true</consoleOutput>
+          <excludes>
+            <exclude>**/target/**/*</exclude>
+            <exclude>.java-version</exclude>
+            <exclude>.mvn/jvm.config</exclude>
+            <!-- IntelliJ IDEA files: -->
+            <exclude>.idea/**/*</exclude>
+            <exclude>**/*.iml</exclude>
+          </excludes>
+        </configuration>
+        <executions>
+          <execution>
+            <phase>verify</phase>
+            <goals>
+              <goal>check</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+
+      <!-- Ensure that version for each dependency resolved during a build, is equal to or higher than all transitive dependency declarations.
+           A failure here requires adding the dependency to the dependency management. -->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-enforcer-plugin</artifactId>
+        <executions>
+          <execution>
+            <id>enforce-upper-bound-deps</id>
+            <goals>
+              <goal>enforce</goal>
+            </goals>
+            <configuration>
+              <rules>
+                <requireUpperBoundDeps/>
+              </rules>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+
+  <!-- Configuration here must match the one in `.editorconfig`! -->
+  <plugin>
+    <groupId>com.diffplug.spotless</groupId>
+    <artifactId>spotless-maven-plugin</artifactId>
+    <executions>
+      <execution>
+        <id>default-spotless</id>
+        <phase>verify</phase>
+        <goals>
+          <goal>check</goal>
+        </goals>
+      </execution>
+    </executions>
+    <configuration>
+      <ratchetFrom>HEAD~31</ratchetFrom>
+      <java>
+        <importOrder>
+          <order>java,javax,org.apache.logging,,\#java,\#javax,\#org.apache.logging,\#</order>
+        </importOrder>
+      </java>
+    </configuration>
+  </plugin>
+
+  <plugin>
+    <groupId>com.github.spotbugs</groupId>
+    <artifactId>spotbugs-maven-plugin</artifactId>
+    <executions>
+      <execution>
+        <id>default-spotbugs</id>
+        <phase>verify</phase>
+        <goals>
+          <goal>check</goal>
+        </goals>
+      </execution>
+    </executions>
+    <configuration>
+      <plugins>
+        <plugin>
+          <groupId>com.h3xstream.findsecbugs</groupId>
+          <artifactId>findsecbugs-plugin</artifactId>
+          <version>${findsecbugs-plugin.version}</version>
+        </plugin>
+      </plugins>
+    </configuration>
+  </plugin>
+
+</plugins>
+
+</build>
 
 </project>

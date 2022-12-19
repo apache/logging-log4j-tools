@@ -23,6 +23,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardOpenOption;
 import java.util.function.Consumer;
+
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.transform.OutputKeys;
@@ -31,6 +32,7 @@ import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import org.w3c.dom.Comment;
 import org.w3c.dom.Document;
 
@@ -44,7 +46,10 @@ public final class XmlWriter {
         try {
             final String xml = toString(documentConsumer);
             final byte[] xmlBytes = xml.getBytes(ENCODING);
-            Files.createDirectories(filepath.getParent());
+            Path filepathParent = filepath.getParent();
+            if (filepathParent != null) {
+                Files.createDirectories(filepathParent);
+            }
             Files.write(filepath, xmlBytes, StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING);
         } catch (final Exception error) {
             final String message = String.format("failed writing XML to file `%s`", filepath);
@@ -91,6 +96,7 @@ public final class XmlWriter {
         }
     }
 
+    @SuppressFBWarnings({"XXE_DTD_TRANSFORM_FACTORY", "XXE_XSLT_TRANSFORM_FACTORY"})
     private static String serializeXmlDocument(final Document document) throws Exception {
         final Transformer transformer = TransformerFactory.newInstance().newTransformer();
         final StreamResult result = new StreamResult(new StringWriter());

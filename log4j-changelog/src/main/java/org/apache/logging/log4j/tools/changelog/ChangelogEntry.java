@@ -23,6 +23,7 @@ import java.util.stream.Collectors;
 
 import org.apache.logging.log4j.tools.XmlReader;
 import org.apache.logging.log4j.tools.XmlWriter;
+
 import org.w3c.dom.Element;
 
 import static org.apache.logging.log4j.tools.StringUtils.trimNullable;

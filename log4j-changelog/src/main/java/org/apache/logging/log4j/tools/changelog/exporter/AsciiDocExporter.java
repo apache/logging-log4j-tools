@@ -16,12 +16,6 @@
  */
 package org.apache.logging.log4j.tools.changelog.exporter;
 
-import org.apache.logging.log4j.tools.AsciiDocUtils;
-import org.apache.logging.log4j.tools.FileUtils;
-import org.apache.logging.log4j.tools.changelog.ChangelogEntry;
-import org.apache.logging.log4j.tools.changelog.ChangelogFiles;
-import org.apache.logging.log4j.tools.changelog.ChangelogRelease;
-
 import java.io.IOException;
 import java.io.UncheckedIOException;
 import java.nio.charset.StandardCharsets;
@@ -33,6 +27,14 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.stream.Collectors;
+
+import org.apache.logging.log4j.tools.AsciiDocUtils;
+import org.apache.logging.log4j.tools.FileUtils;
+import org.apache.logging.log4j.tools.changelog.ChangelogEntry;
+import org.apache.logging.log4j.tools.changelog.ChangelogFiles;
+import org.apache.logging.log4j.tools.changelog.ChangelogRelease;
+
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 public final class AsciiDocExporter {
 
@@ -181,7 +183,10 @@ public final class AsciiDocExporter {
             throws IOException {
         final String asciiDocFilename = changelogReleaseAsciiDocFilename(release);
         final Path asciiDocFile = outputDirectory.resolve(asciiDocFilename);
-        Files.createDirectories(asciiDocFile.getParent());
+        Path asciiDocFileParent = asciiDocFile.getParent();
+        if (asciiDocFileParent != null) {
+            Files.createDirectories(asciiDocFileParent);
+        }
         final String asciiDoc = exportReleaseToAsciiDoc(release, introAsciiDoc, entries);
         final byte[] asciiDocBytes = asciiDoc.getBytes(StandardCharsets.UTF_8);
         Files.write(asciiDocFile, asciiDocBytes, StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING);
@@ -365,6 +370,7 @@ public final class AsciiDocExporter {
         }
     }
 
+    @SuppressFBWarnings("VA_FORMAT_STRING_USES_NEWLINE")
     private static String exportReleaseIndexToAsciiDoc(final List<ChangelogRelease> changelogReleases) {
         final StringBuilder stringBuilder = new StringBuilder();
         stringBuilder

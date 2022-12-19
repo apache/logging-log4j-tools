@@ -16,12 +16,6 @@
  */
 package org.apache.logging.log4j.tools.changelog.releaser;
 
-import org.apache.logging.log4j.tools.AsciiDocUtils;
-import org.apache.logging.log4j.tools.FileUtils;
-import org.apache.logging.log4j.tools.VersionUtils;
-import org.apache.logging.log4j.tools.changelog.ChangelogFiles;
-import org.apache.logging.log4j.tools.changelog.ChangelogRelease;
-
 import java.io.IOException;
 import java.io.UncheckedIOException;
 import java.nio.charset.StandardCharsets;
@@ -29,7 +23,14 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.time.LocalDate;
 
+import org.apache.logging.log4j.tools.AsciiDocUtils;
+import org.apache.logging.log4j.tools.FileUtils;
+import org.apache.logging.log4j.tools.VersionUtils;
+import org.apache.logging.log4j.tools.changelog.ChangelogFiles;
+import org.apache.logging.log4j.tools.changelog.ChangelogRelease;
+
 import static java.time.format.DateTimeFormatter.ISO_DATE;
+
 import static org.apache.logging.log4j.tools.changelog.ChangelogFiles.releaseDirectory;
 
 public final class ChangelogReleaser {
