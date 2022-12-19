@@ -206,54 +206,63 @@
         </executions>
       </plugin>
 
-  <!-- Configuration here must match the one in `.editorconfig`! -->
-  <plugin>
-    <groupId>com.diffplug.spotless</groupId>
-    <artifactId>spotless-maven-plugin</artifactId>
-    <executions>
-      <execution>
-        <id>default-spotless</id>
-        <phase>verify</phase>
-        <goals>
-          <goal>check</goal>
-        </goals>
-      </execution>
-    </executions>
-    <configuration>
-      <ratchetFrom>HEAD~31</ratchetFrom>
-      <java>
-        <importOrder>
-          <order>java,javax,org.apache.logging,,\#java,\#javax,\#org.apache.logging,\#</order>
-        </importOrder>
-      </java>
-    </configuration>
-  </plugin>
+      <!-- Configuration here must match the one in `.editorconfig`! -->
+      <plugin>
+        <groupId>com.diffplug.spotless</groupId>
+        <artifactId>spotless-maven-plugin</artifactId>
+        <executions>
+          <execution>
+            <id>default-spotless</id>
+            <phase>verify</phase>
+            <goals>
+              <goal>check</goal>
+            </goals>
+          </execution>
+        </executions>
+        <configuration>
+          <java>
+            <licenseHeader>
+              <file>${maven.multiModuleProjectDirectory}/spotless-license-header.txt</file>
+            </licenseHeader>
+            <trimTrailingWhitespace/>
+            <endWithNewline/>
+            <removeUnusedImports/>
+            <indent>
+              <spaces>true</spaces>
+              <spacesPerTab>4</spacesPerTab>
+            </indent>
+            <importOrder>
+              <order>java,javax,org.apache.logging,,\#java,\#javax,\#org.apache.logging,\#</order>
+            </importOrder>
+          </java>
+        </configuration>
+      </plugin>
 
-  <plugin>
-    <groupId>com.github.spotbugs</groupId>
-    <artifactId>spotbugs-maven-plugin</artifactId>
-    <executions>
-      <execution>
-        <id>default-spotbugs</id>
-        <phase>verify</phase>
-        <goals>
-          <goal>check</goal>
-        </goals>
-      </execution>
-    </executions>
-    <configuration>
-      <plugins>
-        <plugin>
-          <groupId>com.h3xstream.findsecbugs</groupId>
-          <artifactId>findsecbugs-plugin</artifactId>
-          <version>${findsecbugs-plugin.version}</version>
-        </plugin>
-      </plugins>
-    </configuration>
-  </plugin>
+      <plugin>
+        <groupId>com.github.spotbugs</groupId>
+        <artifactId>spotbugs-maven-plugin</artifactId>
+        <executions>
+          <execution>
+            <id>default-spotbugs</id>
+            <phase>verify</phase>
+            <goals>
+              <goal>check</goal>
+            </goals>
+          </execution>
+        </executions>
+        <configuration>
+          <plugins>
+            <plugin>
+              <groupId>com.h3xstream.findsecbugs</groupId>
+              <artifactId>findsecbugs-plugin</artifactId>
+              <version>${findsecbugs-plugin.version}</version>
+            </plugin>
+          </plugins>
+        </configuration>
+      </plugin>
 
-</plugins>
+    </plugins>
 
-</build>
+  </build>
 
 </project>
