@@ -36,18 +36,6 @@
     <module>log4j-changelog</module>
   </modules>
 
-  <scm>
-    <url>https://github.com/apache/logging-log4j-tools</url>
-    <connection>scm:git:git@github.com:apache/logging-log4j-tools.git</connection>
-    <developerConnection>scm:git:git@github.com:apache/logging-log4j-tools.git</developerConnection>
-    <tag>HEAD</tag>
-  </scm>
-
-  <distributionManagement>
-    <!-- `repository` from parent `org.apache.logging:logging-parent` (id: `apache.releases.https`) -->
-    <!-- `snapshotRepository` from parent `org.apache.logging:logging-parent` (id: `apache.snapshots.https`) -->
-  </distributionManagement>
-
   <properties>
 
     <!-- common properties -->
@@ -264,5 +252,75 @@
     </plugins>
 
   </build>
+
+  <distributionManagement>
+    <!-- `repository` from parent `org.apache.logging:logging-parent` (id: `apache.releases.https`) -->
+    <!-- `snapshotRepository` from parent `org.apache.logging:logging-parent` (id: `apache.snapshots.https`) -->
+  </distributionManagement>
+
+  <scm>
+    <url>https://github.com/apache/logging-log4j-tools</url>
+    <connection>scm:git:git@github.com:apache/logging-log4j-tools.git</connection>
+    <developerConnection>scm:git:git@github.com:apache/logging-log4j-tools.git</developerConnection>
+    <tag>HEAD</tag>
+  </scm>
+
+  <url>https://github.com/apache/logging-log4j-tools</url>
+
+  <issueManagement>
+    <system>GitHub Issues</system>
+    <url>https://github.com/apache/logging-log4j-tools/issues</url>
+  </issueManagement>
+
+  <licenses>
+    <license>
+      <name>Apache License, Version 2.0</name>
+      <url>https://www.apache.org/licenses/LICENSE-2.0.txt</url>
+      <distribution>repo</distribution>
+      <comments>A business-friendly OSS license</comments>
+    </license>
+  </licenses>
+
+  <organization>
+    <name>Apache Software Foundation</name>
+    <url>https://apache.org</url>
+  </organization>
+
+  <inceptionYear>2022</inceptionYear>
+
+  <developers>
+
+    <developer>
+      <id>rgoers</id>
+      <name>Ralph Goers</name>
+      <email>rgoers@apache.org</email>
+      <organization>Nextiva</organization>
+      <roles>
+        <role>PMC Member</role>
+      </roles>
+      <timezone>America/Phoenix</timezone>
+    </developer>
+
+    <developer>
+      <id>vy</id>
+      <name>Volkan Yazıcı</name>
+      <email>vy@apache.org</email>
+      <roles>
+        <role>PMC Member</role>
+      </roles>
+      <timezone>Europe/Amsterdam</timezone>
+    </developer>
+
+    <developer>
+      <id>pkarwasz</id>
+      <name>Piotr P. Karwasz</name>
+      <email>pkarwasz@apache.org</email>
+      <roles>
+        <role>PMC Member</role>
+      </roles>
+      <timezone>Europe/Warsaw</timezone>
+    </developer>
+
+  </developers>
 
 </project>
