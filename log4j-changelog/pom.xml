@@ -22,9 +22,10 @@
   <modelVersion>4.0.0</modelVersion>
 
   <parent>
-    <artifactId>log4j-tools</artifactId>
+    <artifactId>log4j-tools-parent</artifactId>
     <groupId>org.apache.logging.log4j.tools</groupId>
     <version>${revision}</version>
+    <relativePath>../log4j-tools-parent/pom.xml</relativePath>
   </parent>
 
   <artifactId>log4j-changelog</artifactId>
