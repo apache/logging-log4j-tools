@@ -129,42 +129,41 @@ jobs:
 
       - name: Export artifact version
         run: |
-          ./mvnw \
+          export PROJECT_VERSION=$(./mvnw \
             --quiet --batch-mode -DforceStdout=true \
             -Dexpression=project.version \
             help:evaluate \
-            | tee /tmp/mvnw-project-version.out
+            | tail -n 1)
+          echo "PROJECT_VERSION=$PROJECT_VERSION" >> $GITHUB_ENV
 
       - name: Check version (SNAPSHOT)
         if: github.ref == 'refs/heads/master'
         run: |
-          export REVISION=$(</tmp/mvnw-project-version.out)
-          [[ "$REVISION" =~ ^[0-9]+\.[0-9]+\.[0-9]+-SNAPSHOT$ ]] || {
-            echo "was expecting a snapshot version, found: $REVISION" 1>&2
+          [[ "$PROJECT_VERSION" =~ ^[0-9]+\.[0-9]+\.[0-9]+-SNAPSHOT$ ]] || {
+            echo "was expecting a snapshot version, found: \"$PROJECT_VERSION\"" 1>&2
             exit 1
           }
 
       - name: Check version (RELEASE)
         if: startsWith(github.ref, 'refs/heads/release/')
         run: |
-          export REVISION=$(</tmp/mvnw-project-version.out)
-          [[ "${GITHUB_REF/refs\/heads\/release\//}" == "$REVISION" ]] || {
-            echo "git ref \"$GITHUB_REF\" mismatches with the version: \"$REVISION\"" 1>&2
+          [[ "${GITHUB_REF/refs\/heads\/release\//}" == "$PROJECT_VERSION" ]] || {
+            echo "git ref \"$GITHUB_REF\" mismatches with the version: \"$PROJECT_VERSION\"" 1>&2
             exit 1
           }
-          [[ "$REVISION" =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]] || {
-            echo "was expecting a release version, found: \"$REVISION\"" 1>&2
+          [[ "$PROJECT_VERSION" =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]] || {
+            echo "was expecting a release version, found: \"$PROJECT_VERSION\"" 1>&2
             exit 1
           }
           export CHANGELOG_VERSION=$(grep "^== " CHANGELOG.adoc | head -n 1 | sed -r 's/^== (.+) \(.+\)$/\1/')
-          [[ "$REVISION" == "$CHANGELOG_VERSION" ]] || {
-            echo "version \"$REVISION\" doesn't match the one in the CHANGELOG: \"$CHANGELOG_VERSION\"" 1>&2
+          [[ "$PROJECT_VERSION" == "$CHANGELOG_VERSION" ]] || {
+            echo "version \"$PROJECT_VERSION\" doesn't match the one in changelog: \"$CHANGELOG_VERSION\"" 1>&2
             exit 1
           }
           export CURRENT_DATE=$(date +%Y-%m-%d)
           export CHANGELOG_DATE=$(grep "^== " CHANGELOG.adoc | head -n 1 | sed -r 's/^== .+ \((.+)\)$/\1/')
           [[ "$CURRENT_DATE" == "$CHANGELOG_DATE" ]] || {
-            echo "current date \"$CURRENT_DATE\" doesn't match the one in the CHANGELOG: \"$CHANGELOG_DATE\"" 1>&2
+            echo "current date \"$CURRENT_DATE\" doesn't match the one in the changelog: \"$CHANGELOG_DATE\"" 1>&2
             exit 1
           }
 
@@ -185,12 +184,27 @@ jobs:
           NEXUS_USER: ${{ secrets.NEXUS_USER }}
           NEXUS_PW: ${{ secrets.NEXUS_PW }}
 
+      - name: Create artifacts (RELEASE)
+        if: startsWith(github.ref, 'refs/heads/release/')
+        run: |
+          git ls-files -z | xargs -0 /tmp/src.zip --
+          gpg --armor --sign --yes --pinentry-mode error /tmp/src.zip
+
+      - name: Upload artifacts (RELEASE)
+        if: startsWith(github.ref, 'refs/heads/release/')
+        uses: actions/upload-artifact@83fd05a356d7e2593de66fc9913b3002723633cb   # 3.1.1
+        with:
+          name: Sources
+          path: |
+            /tmp/src.zip
+            /tmp/src.zip.asc
+        if-no-files-found: error
+
       - name: Tag version (RELEASE)
         if: startsWith(github.ref, 'refs/heads/release/')
         run: |
-          export REVISION=$(</tmp/mvnw-project-version.out)
-          export TAG="v$REVISION"
+          export TAG="v$PROJECT_VERSION"
           git config user.name github-actions
           git config user.email github-actions@github.com
-          git tag "$TAG"
+          git tag --sign "$TAG"
           git push origin "$TAG"
