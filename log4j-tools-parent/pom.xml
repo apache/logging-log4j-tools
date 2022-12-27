@@ -38,7 +38,7 @@
     <project.build.resourceEncoding>UTF-8</project.build.resourceEncoding>
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
-    <!-- `minimalJavaBuildVersion` is employed by `org.apache:apache`, which is the parent of `org.apache.logging:logging-parent`, which is the parent of us.
+    <!-- `minimalJavaBuildVersion` is employed by `org.apache:apache`, which parents `org.apache.logging:logging-parent`, which parents `org.apache.logging.log4j.tools:log4j-tools-bom`, which parents us.
          `minimalJavaBuildVersion` is used for enforcing the compiler version.
          We will use `java.version` to enforce the target JVM byte code, which is 8. -->
     <minimalJavaBuildVersion>[11,12)</minimalJavaBuildVersion>
