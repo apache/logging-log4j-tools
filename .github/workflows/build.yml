@@ -198,7 +198,7 @@ jobs:
           path: |
             /tmp/src.zip
             /tmp/src.zip.asc
-        if-no-files-found: error
+          if-no-files-found: error
 
       - name: Tag version (RELEASE)
         if: startsWith(github.ref, 'refs/heads/release/')
