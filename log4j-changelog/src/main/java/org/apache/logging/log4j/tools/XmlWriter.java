@@ -17,8 +17,6 @@
 package org.apache.logging.log4j.tools;
 
 import java.io.StringWriter;
-import java.nio.charset.Charset;
-import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardOpenOption;
@@ -38,14 +36,12 @@ import org.w3c.dom.Document;
 
 public final class XmlWriter {
 
-    private static final Charset ENCODING = StandardCharsets.UTF_8;
-
     private XmlWriter() {}
 
     public static void toFile(final Path filepath, final Consumer<Document> documentConsumer) {
         try {
             final String xml = toString(documentConsumer);
-            final byte[] xmlBytes = xml.getBytes(ENCODING);
+            final byte[] xmlBytes = xml.getBytes(CharsetUtils.CHARSET);
             Path filepathParent = filepath.getParent();
             if (filepathParent != null) {
                 Files.createDirectories(filepathParent);
@@ -101,7 +97,7 @@ public final class XmlWriter {
         final Transformer transformer = TransformerFactory.newInstance().newTransformer();
         final StreamResult result = new StreamResult(new StringWriter());
         final DOMSource source = new DOMSource(document);
-        transformer.setOutputProperty(OutputKeys.ENCODING, ENCODING.name());
+        transformer.setOutputProperty(OutputKeys.ENCODING, CharsetUtils.CHARSET_NAME);
         transformer.setOutputProperty(OutputKeys.INDENT, "yes");
         transformer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "2");
         transformer.transform(source, result);

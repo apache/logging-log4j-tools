@@ -16,15 +16,14 @@
  */
 package org.apache.logging.log4j.tools.changelog;
 
-import java.io.IOException;
-import java.io.UncheckedIOException;
-import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
+
+import org.apache.logging.log4j.tools.FileUtils;
 
 public final class ChangelogFiles {
 
@@ -36,32 +35,26 @@ public final class ChangelogFiles {
     }
 
     public static Set<Integer> unreleasedDirectoryVersionMajors(final Path changelogDirectory) {
-        try {
-            return Files
-                    .walk(changelogDirectory, 1)
-                    .flatMap(path -> {
+        return FileUtils
+                .findAdjacentFiles(changelogDirectory, false)
+                .flatMap(path -> {
 
-                        // Skip the directory itself.
-                        if (path.equals(changelogDirectory)) {
-                            return Stream.empty();
-                        }
+                    // Only select directories matching with the `^\.(\d+)\.x\.x$` pattern.
+                    final Pattern versionPattern = Pattern.compile("^\\.(\\d+)\\.x\\.x$");
+                    final Matcher versionMatcher = versionPattern.matcher(path.getFileName().toString());
+                    if (!versionMatcher.matches()) {
+                        return Stream.empty();
+                    }
+                    final String versionMajorString = versionMatcher.group(1);
+                    final int versionMajor = Integer.parseInt(versionMajorString);
+                    return Stream.of(versionMajor);
 
-                        // Only select directories matching with the `^\.(\d+)\.x\.x$` pattern.
-                        final Pattern versionPattern = Pattern.compile("^\\.(\\d+)\\.x\\.x$");
-                        final Matcher versionMatcher = versionPattern.matcher(path.getFileName().toString());
-                        if (!versionMatcher.matches()) {
-                            return Stream.empty();
-                        }
-                        final String versionMajorString = versionMatcher.group(1);
-                        final int versionMajor = Integer.parseInt(versionMajorString);
-                        return Stream.of(versionMajor);
+                })
+                .collect(Collectors.toSet());
+    }
 
-                    })
-                    .collect(Collectors.toSet());
-        } catch (final IOException error) {
-            final String message = String.format("failed walking directory: `%s`", changelogDirectory);
-            throw new UncheckedIOException(message, error);
-        }
+    public static Path indexTemplateFile(final Path changelogDirectory) {
+        return changelogDirectory.resolve(".index.adoc.ftl");
     }
 
     public static Path releaseDirectory(final Path changelogDirectory, final String releaseVersion) {
@@ -72,8 +65,8 @@ public final class ChangelogFiles {
         return releaseDirectory.resolve(".release.xml");
     }
 
-    public static Path introAsciiDocFile(final Path releaseDirectory) {
-        return releaseDirectory.resolve(".intro.adoc");
+    public static Path releaseChangelogTemplateFile(final Path releaseDirectory) {
+        return releaseDirectory.resolve(".changelog.adoc.ftl");
     }
 
 }

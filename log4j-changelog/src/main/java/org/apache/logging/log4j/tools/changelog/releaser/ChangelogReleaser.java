@@ -18,12 +18,10 @@ package org.apache.logging.log4j.tools.changelog.releaser;
 
 import java.io.IOException;
 import java.io.UncheckedIOException;
-import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.time.LocalDate;
 
-import org.apache.logging.log4j.tools.AsciiDocUtils;
 import org.apache.logging.log4j.tools.FileUtils;
 import org.apache.logging.log4j.tools.VersionUtils;
 import org.apache.logging.log4j.tools.changelog.ChangelogFiles;
@@ -48,23 +46,22 @@ public final class ChangelogReleaser {
         System.out.format("using `%s` for the release date%n", releaseDate);
 
         // Populate the changelog entry files in the release directory.
+        final Path unreleasedDirectory = ChangelogFiles.unreleasedDirectory(args.changelogDirectory, releaseVersionMajor);
         final Path releaseDirectory = releaseDirectory(args.changelogDirectory, args.releaseVersion);
-        populateChangelogEntryFiles(args.changelogDirectory, releaseVersionMajor, releaseDirectory);
+        populateChangelogEntryFiles(unreleasedDirectory, releaseDirectory);
 
         // Write the release information.
         populateReleaseXmlFiles(releaseDate, args.releaseVersion, releaseDirectory);
 
-        // Write the release introduction.
-        populateReleaseIntroAsciiDocFile(releaseDirectory);
+        // Write the release changelog template.
+        populateReleaseChangelogTemplateFile(unreleasedDirectory, releaseDirectory);
 
     }
 
     private static void populateChangelogEntryFiles(
-            final Path changelogDirectory,
-            int releaseVersionMajor,
+            final Path unreleasedDirectory,
             final Path releaseDirectory)
             throws IOException {
-        final Path unreleasedDirectory = ChangelogFiles.unreleasedDirectory(changelogDirectory, releaseVersionMajor);
         if (Files.exists(releaseDirectory)) {
             System.out.format(
                     "release directory `%s` already exists, only moving the changelog entry files from `%s`%n",
@@ -80,7 +77,7 @@ public final class ChangelogReleaser {
 
     private static void moveUnreleasedChangelogEntryFiles(final Path unreleasedDirectory, final Path releaseDirectory) {
         FileUtils
-                .findAdjacentFiles(unreleasedDirectory)
+                .findAdjacentFiles(unreleasedDirectory, true)
                 .forEach(unreleasedChangelogEntryFile -> {
                     final String fileName = unreleasedChangelogEntryFile.getFileName().toString();
                     final Path releasedChangelogEntryFile = releaseDirectory.resolve(fileName);
@@ -90,11 +87,7 @@ public final class ChangelogReleaser {
                     try {
                         Files.move(unreleasedChangelogEntryFile, releasedChangelogEntryFile);
                     } catch (final IOException error) {
-                        final String message = String.format(
-                                "failed to move `%s` to `%s`",
-                                unreleasedChangelogEntryFile,
-                                releasedChangelogEntryFile);
-                        throw new UncheckedIOException(message, error);
+                        throw new UncheckedIOException(error);
                     }
                 });
     }
@@ -126,13 +119,17 @@ public final class ChangelogReleaser {
         changelogRelease.writeToXmlFile(releaseXmlFile);
     }
 
-    private static void populateReleaseIntroAsciiDocFile(final Path releaseDirectory) throws IOException {
-        final Path introAsciiDocFile = ChangelogFiles.introAsciiDocFile(releaseDirectory);
-        if (Files.exists(introAsciiDocFile)) {
-            System.out.format("keeping the existing intro file: `%s`%n", introAsciiDocFile);
+    private static void populateReleaseChangelogTemplateFile(
+            final Path unreleasedDirectory,
+            final Path releaseDirectory)
+            throws IOException {
+        final Path targetFile = ChangelogFiles.releaseChangelogTemplateFile(releaseDirectory);
+        if (Files.exists(targetFile)) {
+            System.out.format("keeping the existing changelog template file: `%s`%n", targetFile);
         } else {
-            Files.write(introAsciiDocFile, AsciiDocUtils.LICENSE_COMMENT_BLOCK.getBytes(StandardCharsets.UTF_8));
-            System.out.format("created the intro file: `%s`%n", introAsciiDocFile);
+            final Path sourceFile = ChangelogFiles.releaseChangelogTemplateFile(unreleasedDirectory);
+            System.out.format("moving the changelog template file `%s` to `%s`%n", sourceFile, targetFile);
+            Files.move(sourceFile, targetFile);
         }
     }
 

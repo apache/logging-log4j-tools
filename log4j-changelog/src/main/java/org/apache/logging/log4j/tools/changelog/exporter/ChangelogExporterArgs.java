@@ -20,21 +20,21 @@ import java.nio.file.Path;
 
 import static org.apache.logging.log4j.tools.PropertyUtils.requireNonBlankPathProperty;
 
-final class AsciiDocExporterArgs {
+final class ChangelogExporterArgs {
 
     final Path changelogDirectory;
 
     final Path outputDirectory;
 
-    private AsciiDocExporterArgs(final Path changelogDirectory, final Path outputDirectory) {
+    private ChangelogExporterArgs(final Path changelogDirectory, final Path outputDirectory) {
         this.changelogDirectory = changelogDirectory;
         this.outputDirectory = outputDirectory;
     }
 
-    static AsciiDocExporterArgs fromSystemProperties() {
+    static ChangelogExporterArgs fromSystemProperties() {
         final Path changelogDirectory = requireNonBlankPathProperty("log4j.changelog.directory");
         final Path outputDirectory = requireNonBlankPathProperty("log4j.changelog.exporter.outputDirectory");
-        return new AsciiDocExporterArgs(changelogDirectory, outputDirectory);
+        return new ChangelogExporterArgs(changelogDirectory, outputDirectory);
     }
 
 }

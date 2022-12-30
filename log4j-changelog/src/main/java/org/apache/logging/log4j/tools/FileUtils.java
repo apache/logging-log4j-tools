@@ -33,7 +33,7 @@ public final class FileUtils {
      * </p>
      */
     @SuppressWarnings("RedundantIfStatement")
-    public static Stream<Path> findAdjacentFiles(final Path directory) {
+    public static Stream<Path> findAdjacentFiles(final Path directory, final boolean dotFilesSkipped) {
         try {
             return Files
                     .walk(directory, 1)
@@ -45,7 +45,7 @@ public final class FileUtils {
                         }
 
                         // Skip hidden files.
-                        boolean hiddenFile = path.getFileName().toString().startsWith(".");
+                        boolean hiddenFile = dotFilesSkipped && path.getFileName().toString().startsWith(".");
                         if (hiddenFile) {
                             return false;
                         }
