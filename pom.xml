@@ -90,6 +90,11 @@
           <groupId>org.codehaus.mojo</groupId>
           <artifactId>flatten-maven-plugin</artifactId>
           <version>${flatten-maven-plugin.version}</version>
+          <configuration>
+            <!-- Setting `outputDirectory` to `project.build.directory`, which is cleaned by `default-clean` execution of `clean:clean`.
+                 This makes `flatten:clean` redundant. -->
+            <outputDirectory>${project.build.directory}</outputDirectory>
+          </configuration>
         </plugin>
       </plugins>
     </pluginManagement>
@@ -125,13 +130,6 @@
                 <dependencyManagement>interpolate</dependencyManagement>
               </pomElements>
             </configuration>
-          </execution>
-          <execution>
-            <id>clean-flattened-bom</id>
-            <phase>clean</phase>
-            <goals>
-              <goal>clean</goal>
-            </goals>
           </execution>
         </executions>
       </plugin>

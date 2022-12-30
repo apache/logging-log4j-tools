@@ -157,13 +157,6 @@
               <goal>flatten</goal>
             </goals>
           </execution>
-          <execution>
-            <id>clean-flattened-revision</id>
-            <phase>clean</phase>
-            <goals>
-              <goal>clean</goal>
-            </goals>
-          </execution>
         </executions>
       </plugin>
 
