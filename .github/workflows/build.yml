@@ -168,8 +168,11 @@ jobs:
           gpg --list-secret-keys
           cat ~/.m2/settings.xml
           ./mvnw \
-            --show-version --batch-mode --errors --no-transfer-progress \
-            -P release -X
+            -DskipTests=true \
+            -DinstallAtEnd=true \
+            -DdeployAtEnd=true \
+            --settings .github/workflows/maven-settings.xml \
+            package install:install deploy:deploy -X
         env:
           NEXUS_USERNAME: ${{ secrets.NEXUS_USER }}
           NEXUS_PASSWORD: ${{ secrets.NEXUS_PW }}
