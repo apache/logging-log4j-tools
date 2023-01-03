@@ -141,12 +141,19 @@
 
   <profiles>
     <profile>
+
       <id>release</id>
+
       <properties>
         <skipTests>true</skipTests>
+        <spotbugs.skip>true</spotbugs.skip>
+        <spotless.check.skip>true</spotless.check.skip>
       </properties>
+
       <build>
+
         <defaultGoal>deploy</defaultGoal>
+
         <plugins>
 
           <plugin>
@@ -176,7 +183,9 @@
           </plugin>
 
         </plugins>
+
       </build>
+
     </profile>
   </profiles>
 
