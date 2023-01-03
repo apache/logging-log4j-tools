@@ -171,6 +171,7 @@ jobs:
           NEXUS_USERNAME: ${{ secrets.NEXUS_USER }}
           NEXUS_PASSWORD: ${{ secrets.NEXUS_PW }}
           SIGN_KEY: ${{ secrets.GPG_SECRET_KEY }}
+          MAVEN_OPTS: "-Djavax.net.debug=ssl -Djava.util.logging.config.file=.github/workflows/simplelogger.properties"
 
       - name: Create artifacts (RELEASE)
         if: startsWith(github.ref, 'refs/heads/release/')
