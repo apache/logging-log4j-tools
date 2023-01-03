@@ -168,6 +168,7 @@ jobs:
           gpg --list-secret-keys
           cat ~/.m2/settings.xml
           ./mvnw \
+            --show-version --batch-mode --errors --no-transfer-progress \
             -DskipTests=true \
             -DinstallAtEnd=true \
             -DdeployAtEnd=true \
