@@ -171,7 +171,6 @@ jobs:
             -DskipTests=true \
             -DinstallAtEnd=true \
             -DdeployAtEnd=true \
-            --settings .github/workflows/maven-settings.xml \
             package install:install deploy:deploy -X
         env:
           NEXUS_USERNAME: ${{ secrets.NEXUS_USER }}
