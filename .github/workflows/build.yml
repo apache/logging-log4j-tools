@@ -120,7 +120,6 @@ jobs:
           server-id: ${{ github.ref == 'refs/heads/master' && 'apache.snapshots.https' || 'apache.releases.https' }}
           server-username: NEXUS_USERNAME
           server-password: NEXUS_PASSWORD
-          gpg-private-key: ${{ secrets.GPG_SECRET_KEY }}
 
       - name: Export artifact version
         run: |
@@ -168,17 +167,16 @@ jobs:
         # `package` must precede `gpg:sign`.
         run: |
           gpg --list-secret-keys
-          echo $RANDOM | gpg -a -s
-          cat ~/.m2/settings.xml
           ./mvnw \
             --show-version --batch-mode --errors --no-transfer-progress \
             -DskipTests=true \
             -DinstallAtEnd=true \
             -DdeployAtEnd=true \
-            package gpg:sign install:install deploy:deploy
+            package sign:sign install:install deploy:deploy
         env:
           NEXUS_USERNAME: ${{ secrets.NEXUS_USER }}
           NEXUS_PASSWORD: ${{ secrets.NEXUS_PW }}
+          SIGN_KEY: ${{ secrets.GPG_SECRET_KEY }}
 
       - name: Create artifacts (RELEASE)
         if: startsWith(github.ref, 'refs/heads/release/')
