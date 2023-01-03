@@ -165,7 +165,7 @@ jobs:
       - name: Deploy
         # `package install:install deploy:deploy` goal is needed to deploy without configuring the plugin in the POM.
         # For details see: https://maven.apache.org/plugins/maven-gpg-plugin/examples/deploy-signed-artifacts.html
-        # `package` is necessary before `gpg:sign` too.
+        # `package` must precede `gpg:sign`.
         run: |
           ./mvnw \
             --show-version --batch-mode --errors --no-transfer-progress \
