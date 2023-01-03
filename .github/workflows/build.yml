@@ -164,7 +164,6 @@ jobs:
       - name: Deploy
         # `package install:install deploy:deploy` goal is needed to deploy without configuring the plugin in the POM.
         # For details see: https://maven.apache.org/plugins/maven-gpg-plugin/examples/deploy-signed-artifacts.html
-        # `package` must precede `gpg:sign`.
         run: |
           gpg --list-secret-keys
           ./mvnw \
@@ -172,7 +171,8 @@ jobs:
             -DskipTests=true \
             -DinstallAtEnd=true \
             -DdeployAtEnd=true \
-            package sign:sign install:install deploy:deploy
+            -P release \
+            package install:install deploy:deploy
         env:
           NEXUS_USERNAME: ${{ secrets.NEXUS_USER }}
           NEXUS_PASSWORD: ${{ secrets.NEXUS_PW }}
