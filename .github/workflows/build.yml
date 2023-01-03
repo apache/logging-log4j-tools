@@ -124,7 +124,7 @@ jobs:
           | gpg -v --batch --import --yes --pinentry-mode error
           gpg --list-secret-keys
         env:
-          $GPG_SECRET_KEY: ${{ secrets.$GPG_SECRET_KEY }}
+          $GPG_SECRET_KEY: ${{ secrets.GPG_SECRET_KEY }}
 
       - name: Export artifact version
         run: |
