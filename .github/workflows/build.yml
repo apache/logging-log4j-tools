@@ -117,14 +117,10 @@ jobs:
           java-package: jdk
           architecture: x64
           cache: maven
-
-      - name: Import GPG secret key
-        run: |
-          echo -n "$GPG_SECRET_KEY" \
-          | gpg -v --batch --import --yes --pinentry-mode error
-          gpg --list-secret-keys
-        env:
-          $GPG_SECRET_KEY: ${{ secrets.GPG_SECRET_KEY }}
+          server-id: ${{ github.ref == 'refs/heads/master' && 'apache.snapshots.https' || 'apache.releases.https' }}
+          server-username: ${{ secrets.NEXUS_USER }}
+          server-password: ${{ secrets.NEXUS_PW }}
+          gpg-private-key: ${{ secrets.GPG_SECRET_KEY }}
 
       - name: Export artifact version
         run: |
@@ -176,11 +172,7 @@ jobs:
             -DskipTests=true \
             -DinstallAtEnd=true \
             -DdeployAtEnd=true \
-            --settings .github/workflows/maven-settings.xml \
             package gpg:sign install:install deploy:deploy
-        env:
-          NEXUS_USER: ${{ secrets.NEXUS_USER }}
-          NEXUS_PW: ${{ secrets.NEXUS_PW }}
 
       - name: Create artifacts (RELEASE)
         if: startsWith(github.ref, 'refs/heads/release/')
