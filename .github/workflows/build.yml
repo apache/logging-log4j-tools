@@ -169,8 +169,7 @@ jobs:
             -DskipTests=true \
             -DinstallAtEnd=true \
             -DdeployAtEnd=true \
-            -P release \
-            deploy
+            -P release
         env:
           NEXUS_USERNAME: ${{ secrets.NEXUS_USER }}
           NEXUS_PASSWORD: ${{ secrets.NEXUS_PW }}

@@ -143,6 +143,7 @@
     <profile>
       <id>release</id>
       <build>
+        <defaultGoal>install deploy:deploy</defaultGoal>
         <plugins>
 
           <plugin>
@@ -151,6 +152,7 @@
             <version>${sign-maven-plugin.version}</version>
             <executions>
               <execution>
+                <phase>verify</phase>
                 <goals>
                   <goal>sign</goal>
                 </goals>
@@ -164,6 +166,7 @@
             <executions>
               <execution>
                 <id>attach-sources</id>
+                <phase>package</phase>
                 <goals>
                   <goal>jar-no-fork</goal>
                 </goals>
