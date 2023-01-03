@@ -118,8 +118,8 @@ jobs:
           architecture: x64
           cache: maven
           server-id: ${{ github.ref == 'refs/heads/master' && 'apache.snapshots.https' || 'apache.releases.https' }}
-          server-username: ${{ secrets.NEXUS_USER }}
-          server-password: ${{ secrets.NEXUS_PW }}
+          server-username: NEXUS_USERNAME
+          server-password: NEXUS_PASSWORD
           gpg-private-key: ${{ secrets.GPG_SECRET_KEY }}
 
       - name: Export artifact version
@@ -173,6 +173,9 @@ jobs:
             -DinstallAtEnd=true \
             -DdeployAtEnd=true \
             package gpg:sign install:install deploy:deploy
+        env:
+          NEXUS_USERNAME: ${{ secrets.NEXUS_USER }}
+          NEXUS_PASSWORD: ${{ secrets.NEXUS_PW }}
 
       - name: Create artifacts (RELEASE)
         if: startsWith(github.ref, 'refs/heads/release/')
