@@ -124,20 +124,6 @@
         </configuration>
       </plugin>
 
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-source-plugin</artifactId>
-        <executions>
-          <execution>
-            <id>attach-sources</id>
-            <phase>verify</phase>
-            <goals>
-              <goal>jar-no-fork</goal>
-            </goals>
-          </execution>
-        </executions>
-      </plugin>
-
       <!-- Resolves `revision` property prior to deployment.
            Skipping this step would result in artifacts not consumable by Maven.
            https://maven.apache.org/maven-ci-friendly.html#install-deploy -->

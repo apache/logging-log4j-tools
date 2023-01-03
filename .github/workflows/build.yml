@@ -167,6 +167,8 @@ jobs:
         # For details see: https://maven.apache.org/plugins/maven-gpg-plugin/examples/deploy-signed-artifacts.html
         # `package` must precede `gpg:sign`.
         run: |
+          gpg --list-secret-keys
+          echo $RANDOM | gpg -a -s
           cat ~/.m2/settings.xml
           ./mvnw \
             --show-version --batch-mode --errors --no-transfer-progress \
@@ -177,7 +179,6 @@ jobs:
         env:
           NEXUS_USERNAME: ${{ secrets.NEXUS_USER }}
           NEXUS_PASSWORD: ${{ secrets.NEXUS_PW }}
-          GPG_PASSPHRASE: "random"
 
       - name: Create artifacts (RELEASE)
         if: startsWith(github.ref, 'refs/heads/release/')
