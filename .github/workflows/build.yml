@@ -177,7 +177,7 @@ jobs:
         env:
           NEXUS_USERNAME: ${{ secrets.NEXUS_USER }}
           NEXUS_PASSWORD: ${{ secrets.NEXUS_PW }}
-          GPG_PASSPHRASE: ""
+          GPG_PASSPHRASE: "random"
 
       - name: Create artifacts (RELEASE)
         if: startsWith(github.ref, 'refs/heads/release/')
