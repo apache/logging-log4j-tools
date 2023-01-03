@@ -166,9 +166,6 @@ jobs:
           gpg --list-secret-keys
           ./mvnw \
             --show-version --batch-mode --errors --no-transfer-progress \
-            -DskipTests=true \
-            -DinstallAtEnd=true \
-            -DdeployAtEnd=true \
             -P release
         env:
           NEXUS_USERNAME: ${{ secrets.NEXUS_USER }}

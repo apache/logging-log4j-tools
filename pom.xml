@@ -142,8 +142,11 @@
   <profiles>
     <profile>
       <id>release</id>
+      <properties>
+        <skipTests>true</skipTests>
+      </properties>
       <build>
-        <defaultGoal>install deploy:deploy</defaultGoal>
+        <defaultGoal>deploy</defaultGoal>
         <plugins>
 
           <plugin>
