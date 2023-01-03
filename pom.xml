@@ -146,6 +146,7 @@
       <id>release</id>
 
       <properties>
+        <installAtEnd>true</installAtEnd>
         <skipTests>true</skipTests>
         <spotbugs.skip>true</spotbugs.skip>
         <spotless.check.skip>true</spotless.check.skip>
