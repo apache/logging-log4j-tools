@@ -152,7 +152,6 @@
             <version>${sign-maven-plugin.version}</version>
             <executions>
               <execution>
-                <phase>verify</phase>
                 <goals>
                   <goal>sign</goal>
                 </goals>
@@ -166,12 +165,19 @@
             <executions>
               <execution>
                 <id>attach-sources</id>
-                <phase>package</phase>
                 <goals>
                   <goal>jar-no-fork</goal>
                 </goals>
               </execution>
             </executions>
+          </plugin>
+
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-deploy-plugin</artifactId>
+            <configuration>
+              <skip>false</skip>
+            </configuration>
           </plugin>
 
         </plugins>
