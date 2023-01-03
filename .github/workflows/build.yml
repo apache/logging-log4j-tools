@@ -181,7 +181,7 @@ jobs:
       - name: Create artifacts (RELEASE)
         if: startsWith(github.ref, 'refs/heads/release/')
         run: |
-          git ls-files -z | xargs -0 /tmp/src.zip --
+          git ls-files -z | xargs -0 zip -9 /tmp/src.zip --
           gpg --armor --sign --yes --pinentry-mode error /tmp/src.zip
 
       - name: Upload artifacts (RELEASE)
