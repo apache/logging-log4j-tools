@@ -166,7 +166,7 @@ jobs:
           gpg --list-secret-keys
           ./mvnw \
             --show-version --batch-mode --errors --no-transfer-progress \
-            -P release
+            -P release -X
         env:
           NEXUS_USERNAME: ${{ secrets.NEXUS_USER }}
           NEXUS_PASSWORD: ${{ secrets.NEXUS_PW }}
