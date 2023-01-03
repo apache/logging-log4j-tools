@@ -146,6 +146,7 @@
       <id>release</id>
 
       <properties>
+        <deployAtEnd>true</deployAtEnd>
         <installAtEnd>true</installAtEnd>
         <skipTests>true</skipTests>
         <spotbugs.skip>true</spotbugs.skip>
@@ -154,7 +155,7 @@
 
       <build>
 
-        <defaultGoal>package sign:sign install:install deploy:deploy</defaultGoal>
+        <defaultGoal>deploy</defaultGoal>
 
         <plugins>
 
@@ -182,15 +183,6 @@
                 </goals>
               </execution>
             </executions>
-          </plugin>
-
-          <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-deploy-plugin</artifactId>
-            <version>${maven-deploy-plugin.version}</version>
-            <configuration>
-              <deployAtEnd>true</deployAtEnd>
-            </configuration>
           </plugin>
 
         </plugins>

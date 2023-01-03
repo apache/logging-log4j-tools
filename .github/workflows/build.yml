@@ -109,7 +109,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@755da8c3cf115ac066823e79a1e1788f8940201b   # 3.2.0
 
-      - name: Setup JDK 11
+      - name: Setup Java & GPG
         uses: actions/setup-java@1df8dbefe2a8cbc99770194893dd902763bee34b   # 3.7.0
         with:
           distribution: temurin
@@ -166,17 +166,15 @@ jobs:
       - name: Deploy
         run: |
           gpg --list-secret-keys
-          cat ~/.m2/settings.xml
           ./mvnw \
             --show-version --batch-mode --errors --no-transfer-progress \
-            -Dgpg.skip=true \
-            -DskipTests=true \
-            --settings .github/workflows/maven-settings.xml \
-            package install:install deploy:deploy
+            -P release
         env:
-          NEXUS_USER: ${{ secrets.NEXUS_USER }}
-          NEXUS_PW: ${{ secrets.NEXUS_PW }}
-          MAVEN_OPTS: "-Djavax.net.debug=ssl -Djava.util.logging.config.file=.github/workflows/simplelogger.properties"
+          # `NEXUS_USERNAME` and `NEXUS_PASSWORD` are used in `~/.m2/settings.xml` created by `setup-java` action
+          NEXUS_USERNAME: ${{ secrets.NEXUS_USER }}
+          NEXUS_PASSWORD: ${{ secrets.NEXUS_PW }}
+          # `SIGN_KEY` is used by `sign-maven-plugin`
+          SIGN_KEY: ${{ secrets.GPG_SECRET_KEY }}
 
       - name: Create artifacts (RELEASE)
         if: startsWith(github.ref, 'refs/heads/release/')
