@@ -20,6 +20,11 @@
           xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.1.0 http://maven.apache.org/xsd/settings-1.1.0.xsd">
   <servers>
     <server>
+      <id>apache.releases.https</id>
+      <username>${env.NEXUS_USER}</username>
+      <password>${env.NEXUS_PW}</password>
+    </server>
+    <server>
       <id>apache.snapshots.https</id>
       <username>${env.NEXUS_USER}</username>
       <password>${env.NEXUS_PW}</password>

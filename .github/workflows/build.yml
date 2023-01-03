@@ -118,14 +118,13 @@ jobs:
           architecture: x64
           cache: maven
 
-      - name: Import GPG private key (RELEASE)
-        if: startsWith(github.ref, 'refs/heads/release/')
+      - name: Import GPG secret key
         run: |
-          echo -n "$GPG_PKEY" \
-          | base64 --decode \
+          echo -n "$GPG_SECRET_KEY" \
           | gpg -v --batch --import --yes --pinentry-mode error
+          gpg --list-secret-keys
         env:
-          GPG_PKEY: ${{ secrets.GPG_PKEY }}
+          $GPG_SECRET_KEY: ${{ secrets.$GPG_SECRET_KEY }}
 
       - name: Export artifact version
         run: |
@@ -168,18 +167,17 @@ jobs:
           }
 
       - name: Deploy
-        if: github.ref == 'refs/heads/master'
         # `package install:install deploy:deploy` goal is needed to deploy without configuring the plugin in the POM.
         # For details see: https://maven.apache.org/plugins/maven-gpg-plugin/examples/deploy-signed-artifacts.html
+        # `package` is necessary before `gpg:sign` too.
         run: |
           ./mvnw \
             --show-version --batch-mode --errors --no-transfer-progress \
-            -Dgpg.skip=true \
             -DskipTests=true \
             -DinstallAtEnd=true \
             -DdeployAtEnd=true \
             --settings .github/workflows/maven-settings.xml \
-            package install:install deploy:deploy
+            package gpg:sign install:install deploy:deploy
         env:
           NEXUS_USER: ${{ secrets.NEXUS_USER }}
           NEXUS_PW: ${{ secrets.NEXUS_PW }}
