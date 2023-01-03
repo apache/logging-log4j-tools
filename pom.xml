@@ -153,7 +153,7 @@
 
       <build>
 
-        <defaultGoal>deploy</defaultGoal>
+        <defaultGoal>package sign:sign install:install deploy:deploy</defaultGoal>
 
         <plugins>
 
