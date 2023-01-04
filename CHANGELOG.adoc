@@ -15,6 +15,6 @@ See the License for the specific language governing permissions and
 limitations under the License.
 ////
 
-== 0.1.0 (????-??-??)
+== 0.1.0 (2023-01-04)
 
-* Added `log4j-changelog` module (for https://issues.apache.org/jira/browse/LOG4J2-3628[LOG4J2-3628] by `vy`)
+* Added `log4j-tools-bom` and `log4j-changelog` modules (for https://issues.apache.org/jira/browse/LOG4J2-3628[LOG4J2-3628] by `vy`)
