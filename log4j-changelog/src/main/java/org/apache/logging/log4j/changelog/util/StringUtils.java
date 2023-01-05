@@ -14,25 +14,18 @@
  * See the license for the specific language governing permissions and
  * limitations under the license.
  */
-package org.apache.logging.log4j.tools;
+package org.apache.logging.log4j.changelog.util;
 
-public final class VersionUtils {
+public final class StringUtils {
 
-    public static final String VERSION_PATTERN = "^\\d+\\.\\d+\\.\\d+(-SNAPSHOT)?$";
+    private StringUtils() {}
 
-    private VersionUtils() {}
-
-    public static void requireSemanticVersioning(final String version, final String name) {
-        if (!version.matches(VERSION_PATTERN)) {
-            final String message = String.format(
-                    "provided version in `%s` does not match the expected `<major>.<minor>.<patch>[-SNAPSHOT]` pattern: `%s`",
-                    name, version);
-            throw new IllegalArgumentException(message);
-        }
+    public static String trimNullable(final String input) {
+        return input != null ? input.trim() : null;
     }
 
-    public static int versionMajor(final String version) {
-        return Integer.parseInt(version.split("\\.", 2)[0]);
+    public static boolean isBlank(final String input) {
+        return input == null || input.matches("\\s*");
     }
 
 }

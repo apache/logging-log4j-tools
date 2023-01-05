@@ -36,7 +36,7 @@
     <version>7</version>
   </parent>
 
-  <groupId>org.apache.logging.log4j.tools</groupId>
+  <groupId>org.apache.logging.log4j</groupId>
   <artifactId>log4j-tools-bom</artifactId>
   <packaging>pom</packaging>
   <version>${revision}</version>
@@ -77,7 +77,7 @@
   <dependencyManagement>
     <dependencies>
       <dependency>
-        <groupId>org.apache.logging.log4j.tools</groupId>
+        <groupId>org.apache.logging.log4j</groupId>
         <artifactId>log4j-changelog</artifactId>
         <version>${project.version}</version>
       </dependency>

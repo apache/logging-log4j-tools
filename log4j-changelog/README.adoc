@@ -194,7 +194,7 @@ Each `.changelog.adoc.ftl` FreeMarker templated AsciiDoc files are compiled by `
 * `release` -> `ChangelogRelease`
 * `entriesByType` -> `Map<ChangelogEntry.Type, List<ChangelogEntry>>`
 
-See xref:src/main/java/org/apache/logging/log4j/tools/changelog/ChangelogRelease.java[ChangelogRelease.java] and xref:src/main/java/org/apache/logging/log4j/tools/changelog/ChangelogEntry.java[ChangelogEntry.java] for details.
+See xref:src/main/java/org/apache/logging/log4j/changelog/ChangelogRelease.java[ChangelogRelease.java] and xref:src/main/java/org/apache/logging/log4j/changelog/ChangelogEntry.java[ChangelogEntry.java] for details.
 
 A sample changelog template file is shared below.
 
@@ -261,7 +261,7 @@ java \
     -cp /path/to/log4j-changelog.jar \
     -Dlog4j.changelog.directory=/path/to/changelog/directory \
     -Dlog4j.changelog.exporter.outputDirectory=/path/to/asciiDocOutputDirectory \
-    org.apache.logging.log4j.tools.changelog.exporter.ChangelogExporter
+    org.apache.logging.log4j.changelog.exporter.ChangelogExporter
 ----
 
 [#qa-deploy-release]
@@ -294,7 +294,7 @@ java \
     -cp /path/to/log4j-changelog.jar \
     -Dlog4j.changelog.directory=/path/to/changelog/directory \
     -Dlog4j.changelog.releaseVersion=X.Y.Z \
-    org.apache.logging.log4j.tools.changelog.releaser.ChangelogReleaser
+    org.apache.logging.log4j.changelog.releaser.ChangelogReleaser
 ----
 . Verify that all changelog entry files are moved from `<changelogDirectory>/.<releaseVersionMajor>.x.x` directory (e.g., `/src/changelog/.2.x.x`)
 . Verify that `<changelogDirectory>/<releaseVersion>` directory (e.g., `/src/changelog/2.19.0`) is created, and it contains `.changelog.adoc.ftl`, `.release.xml`, and changelog entry files

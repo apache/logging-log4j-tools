@@ -14,27 +14,32 @@
  * See the license for the specific language governing permissions and
  * limitations under the license.
  */
-package org.apache.logging.log4j.tools.changelog.exporter;
+package org.apache.logging.log4j.changelog.importer;
 
 import java.nio.file.Path;
 
-import static org.apache.logging.log4j.tools.PropertyUtils.requireNonBlankPathProperty;
+import static org.apache.logging.log4j.changelog.util.PropertyUtils.requireNonBlankIntProperty;
+import static org.apache.logging.log4j.changelog.util.PropertyUtils.requireNonBlankPathProperty;
 
-final class ChangelogExporterArgs {
+final class MavenChangesImporterArgs {
 
     final Path changelogDirectory;
 
-    final Path outputDirectory;
+    final Path changesXmlFile;
 
-    private ChangelogExporterArgs(final Path changelogDirectory, final Path outputDirectory) {
+    final int releaseVersionMajor;
+
+    private MavenChangesImporterArgs(final Path changelogDirectory, final Path changesXmlFile, final int releaseVersionMajor) {
         this.changelogDirectory = changelogDirectory;
-        this.outputDirectory = outputDirectory;
+        this.changesXmlFile = changesXmlFile;
+        this.releaseVersionMajor = releaseVersionMajor;
     }
 
-    static ChangelogExporterArgs fromSystemProperties() {
+    static MavenChangesImporterArgs fromSystemProperties() {
         final Path changelogDirectory = requireNonBlankPathProperty("log4j.changelog.directory");
-        final Path outputDirectory = requireNonBlankPathProperty("log4j.changelog.exporter.outputDirectory");
-        return new ChangelogExporterArgs(changelogDirectory, outputDirectory);
+        final Path changesXmlFile = requireNonBlankPathProperty("log4j.changelog.changesXmlFile");
+        final int releaseVersion = requireNonBlankIntProperty("log4j.changelog.releaseVersionMajor");
+        return new MavenChangesImporterArgs(changelogDirectory, changesXmlFile, releaseVersion);
     }
 
 }

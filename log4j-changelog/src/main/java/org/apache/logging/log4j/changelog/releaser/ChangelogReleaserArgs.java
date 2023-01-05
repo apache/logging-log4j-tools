@@ -14,13 +14,13 @@
  * See the license for the specific language governing permissions and
  * limitations under the license.
  */
-package org.apache.logging.log4j.tools.changelog.releaser;
+package org.apache.logging.log4j.changelog.releaser;
 
 import java.nio.file.Path;
 
-import static org.apache.logging.log4j.tools.PropertyUtils.requireNonBlankPathProperty;
-import static org.apache.logging.log4j.tools.PropertyUtils.requireNonBlankStringProperty;
-import static org.apache.logging.log4j.tools.VersionUtils.requireSemanticVersioning;
+import static org.apache.logging.log4j.changelog.util.PropertyUtils.requireNonBlankPathProperty;
+import static org.apache.logging.log4j.changelog.util.PropertyUtils.requireNonBlankStringProperty;
+import static org.apache.logging.log4j.changelog.util.VersionUtils.requireSemanticVersioning;
 
 final class ChangelogReleaserArgs {
 

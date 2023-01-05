@@ -14,19 +14,18 @@
  * See the license for the specific language governing permissions and
  * limitations under the license.
  */
-package org.apache.logging.log4j.tools.changelog;
+package org.apache.logging.log4j.changelog;
 
 import java.nio.file.Path;
 import java.util.List;
 import java.util.Locale;
 import java.util.stream.Collectors;
 
-import org.apache.logging.log4j.tools.XmlReader;
-import org.apache.logging.log4j.tools.XmlWriter;
+import org.apache.logging.log4j.changelog.util.StringUtils;
+import org.apache.logging.log4j.changelog.util.XmlReader;
+import org.apache.logging.log4j.changelog.util.XmlWriter;
 
 import org.w3c.dom.Element;
-
-import static org.apache.logging.log4j.tools.StringUtils.trimNullable;
 
 public final class ChangelogEntry {
 
@@ -197,7 +196,7 @@ public final class ChangelogEntry {
         // Read the `description` element.
         final Element descriptionElement = XmlReader.requireChildElementMatchingName(entryElement, "description");
         final String descriptionFormat = XmlReader.requireAttribute(descriptionElement, "format");
-        final String descriptionText = trimNullable(descriptionElement.getTextContent());
+        final String descriptionText = StringUtils.trimNullable(descriptionElement.getTextContent());
         final Description description = new Description(descriptionFormat, descriptionText);
 
         // Create the instance.

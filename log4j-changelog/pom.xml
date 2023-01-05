@@ -23,7 +23,7 @@
 
   <parent>
     <artifactId>log4j-tools-parent</artifactId>
-    <groupId>org.apache.logging.log4j.tools</groupId>
+    <groupId>org.apache.logging.log4j</groupId>
     <version>${revision}</version>
     <relativePath>../log4j-tools-parent/pom.xml</relativePath>
   </parent>

@@ -14,7 +14,7 @@
  * See the license for the specific language governing permissions and
  * limitations under the license.
  */
-package org.apache.logging.log4j.tools;
+package org.apache.logging.log4j.changelog.util;
 
 import java.io.FileInputStream;
 import java.io.InputStream;

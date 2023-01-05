@@ -14,7 +14,7 @@
  * See the license for the specific language governing permissions and
  * limitations under the license.
  */
-package org.apache.logging.log4j.tools.changelog;
+package org.apache.logging.log4j.changelog;
 
 import java.nio.file.Path;
 import java.util.Set;
@@ -23,7 +23,7 @@ import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import org.apache.logging.log4j.tools.FileUtils;
+import org.apache.logging.log4j.changelog.util.FileUtils;
 
 public final class ChangelogFiles {
 

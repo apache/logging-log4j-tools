@@ -14,7 +14,7 @@
  * See the license for the specific language governing permissions and
  * limitations under the license.
  */
-package org.apache.logging.log4j.tools.changelog.releaser;
+package org.apache.logging.log4j.changelog.releaser;
 
 import java.io.IOException;
 import java.io.UncheckedIOException;
@@ -22,14 +22,12 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.time.LocalDate;
 
-import org.apache.logging.log4j.tools.FileUtils;
-import org.apache.logging.log4j.tools.VersionUtils;
-import org.apache.logging.log4j.tools.changelog.ChangelogFiles;
-import org.apache.logging.log4j.tools.changelog.ChangelogRelease;
+import org.apache.logging.log4j.changelog.ChangelogFiles;
+import org.apache.logging.log4j.changelog.ChangelogRelease;
+import org.apache.logging.log4j.changelog.util.FileUtils;
+import org.apache.logging.log4j.changelog.util.VersionUtils;
 
 import static java.time.format.DateTimeFormatter.ISO_DATE;
-
-import static org.apache.logging.log4j.tools.changelog.ChangelogFiles.releaseDirectory;
 
 public final class ChangelogReleaser {
 
@@ -47,7 +45,7 @@ public final class ChangelogReleaser {
 
         // Populate the changelog entry files in the release directory.
         final Path unreleasedDirectory = ChangelogFiles.unreleasedDirectory(args.changelogDirectory, releaseVersionMajor);
-        final Path releaseDirectory = releaseDirectory(args.changelogDirectory, args.releaseVersion);
+        final Path releaseDirectory = ChangelogFiles.releaseDirectory(args.changelogDirectory, args.releaseVersion);
         populateChangelogEntryFiles(unreleasedDirectory, releaseDirectory);
 
         // Write the release information.

@@ -14,7 +14,7 @@
  * See the license for the specific language governing permissions and
  * limitations under the license.
  */
-package org.apache.logging.log4j.tools.changelog.exporter;
+package org.apache.logging.log4j.changelog.exporter;
 
 import java.io.BufferedWriter;
 import java.io.File;
@@ -24,7 +24,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardOpenOption;
 
-import org.apache.logging.log4j.tools.CharsetUtils;
+import org.apache.logging.log4j.changelog.util.CharsetUtils;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import freemarker.cache.FileTemplateLoader;

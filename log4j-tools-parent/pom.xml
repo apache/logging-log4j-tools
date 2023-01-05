@@ -22,7 +22,7 @@
   <modelVersion>4.0.0</modelVersion>
 
   <parent>
-    <groupId>org.apache.logging.log4j.tools</groupId>
+    <groupId>org.apache.logging.log4j</groupId>
     <artifactId>log4j-tools-bom</artifactId>
     <version>${revision}</version>
   </parent>
@@ -38,7 +38,7 @@
     <project.build.resourceEncoding>UTF-8</project.build.resourceEncoding>
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
-    <!-- `minimalJavaBuildVersion` is employed by `org.apache:apache`, which parents `org.apache.logging:logging-parent`, which parents `org.apache.logging.log4j.tools:log4j-tools-bom`, which parents us.
+    <!-- `minimalJavaBuildVersion` is employed by `org.apache:apache`, which parents `org.apache.logging:logging-parent`, which parents `org.apache.logging.log4j:log4j-tools-bom`, which parents us.
          `minimalJavaBuildVersion` is used for enforcing the compiler version.
          We will use `java.version` to enforce the target JVM byte code, which is 8. -->
     <minimalJavaBuildVersion>[11,12)</minimalJavaBuildVersion>

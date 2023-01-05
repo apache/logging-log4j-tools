@@ -14,7 +14,7 @@
  * See the license for the specific language governing permissions and
  * limitations under the license.
  */
-package org.apache.logging.log4j.tools.changelog.exporter;
+package org.apache.logging.log4j.changelog.exporter;
 
 import java.io.IOException;
 import java.io.UncheckedIOException;
@@ -23,10 +23,10 @@ import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
-import org.apache.logging.log4j.tools.FileUtils;
-import org.apache.logging.log4j.tools.changelog.ChangelogEntry;
-import org.apache.logging.log4j.tools.changelog.ChangelogFiles;
-import org.apache.logging.log4j.tools.changelog.ChangelogRelease;
+import org.apache.logging.log4j.changelog.ChangelogEntry;
+import org.apache.logging.log4j.changelog.ChangelogFiles;
+import org.apache.logging.log4j.changelog.ChangelogRelease;
+import org.apache.logging.log4j.changelog.util.FileUtils;
 
 public final class ChangelogExporter {
 
