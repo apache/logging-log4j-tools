@@ -35,11 +35,10 @@ public final class ChangelogFiles {
     }
 
     public static Set<Integer> unreleasedDirectoryVersionMajors(final Path changelogDirectory) {
-        return FileUtils
-                .findAdjacentFiles(changelogDirectory, false)
+        return FileUtils.findAdjacentFiles(changelogDirectory, false, paths -> paths
                 .flatMap(path -> {
 
-                    // Only select directories matching with the `^\.(\d+)\.x\.x$` pattern.
+                    // Only select directories matching with the `^\.(\d+)\.x\.x$` pattern
                     final Pattern versionPattern = Pattern.compile("^\\.(\\d+)\\.x\\.x$");
                     final Matcher versionMatcher = versionPattern.matcher(path.getFileName().toString());
                     if (!versionMatcher.matches()) {
@@ -50,7 +49,7 @@ public final class ChangelogFiles {
                     return Stream.of(versionMajor);
 
                 })
-                .collect(Collectors.toSet());
+                .collect(Collectors.toSet()));
     }
 
     public static Path indexTemplateFile(final Path changelogDirectory) {

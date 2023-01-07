@@ -34,22 +34,25 @@ public final class ChangelogExporter {
 
     public static void main(final String[] mainArgs) {
 
-        // Read arguments.
+        // Read arguments
         final ChangelogExporterArgs args = ChangelogExporterArgs.fromSystemProperties();
 
-        // Find release directories.
+        // Find release directories
         final List<Path> releaseDirectories = FileUtils
-                .findAdjacentFiles(args.changelogDirectory, true)
-                .filter(file -> file.toFile().isDirectory())
-                .sorted(Comparator.comparing(releaseDirectory -> {
-                    final Path releaseXmlFile = ChangelogFiles.releaseXmlFile(releaseDirectory);
-                    final ChangelogRelease changelogRelease = ChangelogRelease.readFromXmlFile(releaseXmlFile);
-                    return changelogRelease.date;
-                }))
-                .collect(Collectors.toList());
+                .findAdjacentFiles(
+                        args.changelogDirectory, true,
+                        paths -> paths
+                                .filter(file -> file.toFile().isDirectory())
+                                .sorted(Comparator.comparing(releaseDirectory -> {
+                                    final Path releaseXmlFile = ChangelogFiles.releaseXmlFile(releaseDirectory);
+                                    final ChangelogRelease changelogRelease =
+                                            ChangelogRelease.readFromXmlFile(releaseXmlFile);
+                                    return changelogRelease.date;
+                                }))
+                                .collect(Collectors.toList()));
         final int releaseDirectoryCount = releaseDirectories.size();
 
-        // Read the release information files.
+        // Read the release information files
         final List<ChangelogRelease> changelogReleases = releaseDirectories
                 .stream()
                 .map(releaseDirectory -> {
@@ -58,10 +61,10 @@ public final class ChangelogExporter {
                 })
                 .collect(Collectors.toList());
 
-        // Export releases.
+        // Export releases
         if (releaseDirectoryCount > 0) {
 
-            // Export each release directory.
+            // Export each release directory
             for (int releaseIndex = 0; releaseIndex < releaseDirectories.size(); releaseIndex++) {
                 final Path releaseDirectory = releaseDirectories.get(releaseIndex);
                 final ChangelogRelease changelogRelease = changelogReleases.get(releaseIndex);
@@ -79,7 +82,7 @@ public final class ChangelogExporter {
                 }
             }
 
-            // Report the operation.
+            // Report the operation
             if (releaseDirectoryCount == 1) {
                 System.out.format("exported a single release directory: `%s`%n", releaseDirectories.get(0));
             } else {
@@ -91,7 +94,7 @@ public final class ChangelogExporter {
 
         }
 
-        // Export unreleased.
+        // Export unreleased
         ChangelogFiles
                 .unreleasedDirectoryVersionMajors(args.changelogDirectory)
                 .stream()
@@ -111,7 +114,7 @@ public final class ChangelogExporter {
                     changelogReleases.add(upcomingRelease);
                 });
 
-        // Export the release index.
+        // Export the release index
         final Path changelogIndexTemplateFile = ChangelogFiles.indexTemplateFile(args.changelogDirectory);
         exportIndex(args.outputDirectory, changelogReleases, changelogIndexTemplateFile);
 
@@ -133,8 +136,7 @@ public final class ChangelogExporter {
 
     private static Map<ChangelogEntry.Type, List<ChangelogEntry>> readChangelogEntriesByType(
             final Path releaseDirectory) {
-        return FileUtils
-                .findAdjacentFiles(releaseDirectory, true)
+        return FileUtils.findAdjacentFiles(releaseDirectory, true, stream -> stream
                 // Sorting is needed to generate the same output between different runs
                 .sorted()
                 .map(ChangelogEntry::readFromXmlFile)
@@ -142,7 +144,7 @@ public final class ChangelogExporter {
                         changelogEntry -> changelogEntry.type,
                         // A sorted map is needed to generate the same output between different runs
                         TreeMap::new,
-                        Collectors.toList()));
+                        Collectors.toList())));
     }
 
     private static void exportRelease(
@@ -187,7 +189,7 @@ public final class ChangelogExporter {
     }
 
     private static String releaseChangelogFileName(final ChangelogRelease changelogRelease) {
-        // Using only the version (that is, avoiding the date) in the filename so that one can determine the link to the changelog of a particular release with only version information.
+        // Using only the version (that is, avoiding the date) in the filename so that one can determine the link to the changelog of a particular release with only version information
         return String.format("%s.adoc", changelogRelease.version);
     }
 

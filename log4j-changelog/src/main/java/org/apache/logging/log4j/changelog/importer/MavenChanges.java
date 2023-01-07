@@ -23,6 +23,7 @@ import java.util.Locale;
 
 import org.apache.logging.log4j.changelog.util.XmlReader;
 
+import edu.umd.cs.findbugs.annotations.Nullable;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
@@ -42,13 +43,13 @@ final class MavenChanges {
 
     static MavenChanges readFromFile(final Path file) {
 
-        // Read the root element.
+        // Read the root element
         final Element documentElement = readXmlFileRootElement(file, "document");
 
-        // Read the `body` element.
+        // Read the `body` element
         final Element bodyElement = XmlReader.requireChildElementMatchingName(documentElement, "body");
 
-        // Read releases.
+        // Read releases
         final List<Release> releases = new ArrayList<>();
         final NodeList releaseNodes = bodyElement.getChildNodes();
         final int releaseNodeCount = releaseNodes.getLength();
@@ -61,7 +62,7 @@ final class MavenChanges {
             }
         }
 
-        // Create the instance.
+        // Create the instance
         return new MavenChanges(releases);
 
     }
@@ -82,20 +83,20 @@ final class MavenChanges {
 
         private static Release fromElement(final Element element) {
 
-            // Read `version`.
+            // Read `version`
             final String version = trimNullable(element.getAttribute("version"));
             if (isBlank(version)) {
                 throw XmlReader.failureAtXmlNode(element, "blank attribute: `version`");
             }
 
-            // Read `date`.
+            // Read `date`
             final String date = trimNullable(element.getAttribute("date"));
             final String datePattern = "^(TBD|[0-9]{4}-[0-9]{2}-[0-9]{2})$";
             if (!date.matches(datePattern)) {
                 throw XmlReader.failureAtXmlNode(element, "`date` doesn't match with the `%s` pattern: `%s`", datePattern, date);
             }
 
-            // Read actions.
+            // Read actions
             final List<Action> actions = new ArrayList<>();
             final NodeList actionNodes = element.getChildNodes();
             final int actionNodeCount = actionNodes.getLength();
@@ -108,7 +109,7 @@ final class MavenChanges {
                 }
             }
 
-            // Create the instance.
+            // Create the instance
             return new Release(version, date, actions);
 
         }
@@ -122,12 +123,14 @@ final class MavenChanges {
 
     static final class Action {
 
+        @Nullable
         final String issue;
 
         final Type type;
 
         final String dev;
 
+        @Nullable
         final String dueTo;
 
         final String description;
@@ -135,10 +138,10 @@ final class MavenChanges {
         enum Type {ADD, FIX, UPDATE, REMOVE}
 
         private Action(
-                final String issue,
+                @Nullable final String issue,
                 final Type type,
                 final String dev,
-                final String dueTo,
+                @Nullable final String dueTo,
                 final String description) {
             this.issue = issue;
             this.type = type;
@@ -149,7 +152,8 @@ final class MavenChanges {
 
         private static Action fromElement(final Element element) {
 
-            // Read `issue`.
+            // Read `issue`
+            @Nullable
             String issue = trimNullable(element.getAttribute("issue"));
             final String issuePattern = "^LOG4J2-[0-9]+$";
             if (isBlank(issue)) {
@@ -158,7 +162,8 @@ final class MavenChanges {
                 throw XmlReader.failureAtXmlNode(element, "`issue` doesn't match with the `%s` pattern: `%s`", issuePattern, issue);
             }
 
-            // Read `type`.
+            // Read `type`
+            @Nullable
             final String typeString = trimNullable(element.getAttribute("type"));
             final Type type;
             if (isBlank(typeString)) {
@@ -171,25 +176,28 @@ final class MavenChanges {
                 }
             }
 
-            // Read `dev`.
+            // Read `dev`
+            @Nullable
             final String dev = trimNullable(element.getAttribute("dev"));
             if (isBlank(dev)) {
                 throw XmlReader.failureAtXmlNode(element, "blank attribute: `dev`");
             }
 
-            // Read `dueTo`.
+            // Read `dueTo`
+            @Nullable
             String dueTo = trimNullable(element.getAttribute("due-to"));
             if (isBlank(dueTo)) {
                 dueTo = null;
             }
 
-            // Read `description`.
+            // Read `description`
+            @Nullable
             final String description = trimNullable(element.getTextContent());
             if (isBlank(description)) {
                 throw XmlReader.failureAtXmlNode(element, "blank `description`");
             }
 
-            // Create the instance.
+            // Create the instance
             return new Action(issue, type, dev, dueTo, description);
 
         }

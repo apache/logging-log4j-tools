@@ -16,15 +16,18 @@
  */
 package org.apache.logging.log4j.changelog.util;
 
+import edu.umd.cs.findbugs.annotations.Nullable;
+
 public final class StringUtils {
 
     private StringUtils() {}
 
-    public static String trimNullable(final String input) {
+    @Nullable
+    public static String trimNullable(@Nullable final String input) {
         return input != null ? input.trim() : null;
     }
 
-    public static boolean isBlank(final String input) {
+    public static boolean isBlank(@Nullable final String input) {
         return input == null || input.matches("\\s*");
     }
 

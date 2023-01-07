@@ -30,6 +30,7 @@ import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 
+import edu.umd.cs.findbugs.annotations.Nullable;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import org.w3c.dom.Comment;
 import org.w3c.dom.Document;
@@ -42,7 +43,8 @@ public final class XmlWriter {
         try {
             final String xml = toString(documentConsumer);
             final byte[] xmlBytes = xml.getBytes(CharsetUtils.CHARSET);
-            Path filepathParent = filepath.getParent();
+            @Nullable
+            final Path filepathParent = filepath.getParent();
             if (filepathParent != null) {
                 Files.createDirectories(filepathParent);
             }
@@ -56,11 +58,11 @@ public final class XmlWriter {
     public static String toString(final Consumer<Document> documentConsumer) {
         try {
 
-            // Create the document.
+            // Create the document
             final DocumentBuilderFactory documentBuilderFactory = XmlUtils.createDocumentBuilderFactory();
             final DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
 
-            // Append the license comment.
+            // Append the license comment
             final Document document = documentBuilder.newDocument();
             document.setXmlStandalone(true);
             final Comment licenseComment = document.createComment("\n" +
@@ -81,10 +83,10 @@ public final class XmlWriter {
                     "\n");
             document.appendChild(licenseComment);
 
-            // Execute request changes.
+            // Execute request changes
             documentConsumer.accept(document);
 
-            // Serialize the document.
+            // Serialize the document
             return serializeXmlDocument(document);
 
         } catch (final Exception error) {
@@ -102,7 +104,7 @@ public final class XmlWriter {
         transformer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "2");
         transformer.transform(source, result);
         return result.getWriter().toString()
-                // Life is too short to solve DOM transformer issues decently.
+                // Life is too short to solve DOM transformer issues decently
                 .replace("?><!--", "?>\n<!--")
                 .replace("--><", "-->\n<");
     }

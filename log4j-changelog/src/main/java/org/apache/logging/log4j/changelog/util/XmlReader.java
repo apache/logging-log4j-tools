@@ -16,8 +16,8 @@
  */
 package org.apache.logging.log4j.changelog.util;
 
-import java.io.FileInputStream;
 import java.io.InputStream;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -43,7 +43,7 @@ public final class XmlReader {
     private XmlReader() {}
 
     public static Element readXmlFileRootElement(final Path path, final String rootElementName) {
-        try (final InputStream inputStream = new FileInputStream(path.toFile())) {
+        try (final InputStream inputStream = Files.newInputStream(path)) {
             final Document document = readXml(inputStream);
             final Element rootElement = document.getDocumentElement();
             if (!rootElementName.equals(rootElement.getNodeName())) {

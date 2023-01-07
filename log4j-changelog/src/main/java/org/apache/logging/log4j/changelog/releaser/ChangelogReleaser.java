@@ -35,23 +35,23 @@ public final class ChangelogReleaser {
 
     public static void main(final String[] mainArgs) throws Exception {
 
-        // Read arguments.
+        // Read arguments
         final ChangelogReleaserArgs args = ChangelogReleaserArgs.fromSystemProperties();
 
-        // Read the release date and version.
+        // Read the release date and version
         final String releaseDate = ISO_DATE.format(LocalDate.now());
         final int releaseVersionMajor = VersionUtils.versionMajor(args.releaseVersion);
         System.out.format("using `%s` for the release date%n", releaseDate);
 
-        // Populate the changelog entry files in the release directory.
+        // Populate the changelog entry files in the release directory
         final Path unreleasedDirectory = ChangelogFiles.unreleasedDirectory(args.changelogDirectory, releaseVersionMajor);
         final Path releaseDirectory = ChangelogFiles.releaseDirectory(args.changelogDirectory, args.releaseVersion);
         populateChangelogEntryFiles(unreleasedDirectory, releaseDirectory);
 
-        // Write the release information.
+        // Write the release information
         populateReleaseXmlFiles(releaseDate, args.releaseVersion, releaseDirectory);
 
-        // Write the release changelog template.
+        // Write the release changelog template
         populateReleaseChangelogTemplateFile(unreleasedDirectory, releaseDirectory);
 
     }
@@ -74,20 +74,21 @@ public final class ChangelogReleaser {
     }
 
     private static void moveUnreleasedChangelogEntryFiles(final Path unreleasedDirectory, final Path releaseDirectory) {
-        FileUtils
-                .findAdjacentFiles(unreleasedDirectory, true)
-                .forEach(unreleasedChangelogEntryFile -> {
-                    final String fileName = unreleasedChangelogEntryFile.getFileName().toString();
-                    final Path releasedChangelogEntryFile = releaseDirectory.resolve(fileName);
-                    System.out.format(
-                            "moving changelog entry file `%s` to `%s`%n",
-                            unreleasedChangelogEntryFile, releasedChangelogEntryFile);
-                    try {
-                        Files.move(unreleasedChangelogEntryFile, releasedChangelogEntryFile);
-                    } catch (final IOException error) {
-                        throw new UncheckedIOException(error);
-                    }
-                });
+        FileUtils.findAdjacentFiles(unreleasedDirectory, true, paths -> {
+            paths.forEach(unreleasedChangelogEntryFile -> {
+                final String fileName = unreleasedChangelogEntryFile.getFileName().toString();
+                final Path releasedChangelogEntryFile = releaseDirectory.resolve(fileName);
+                System.out.format(
+                        "moving changelog entry file `%s` to `%s`%n",
+                        unreleasedChangelogEntryFile, releasedChangelogEntryFile);
+                try {
+                    Files.move(unreleasedChangelogEntryFile, releasedChangelogEntryFile);
+                } catch (final IOException error) {
+                    throw new UncheckedIOException(error);
+                }
+            });
+            return 1;
+        });
     }
 
     private static void moveUnreleasedDirectory(

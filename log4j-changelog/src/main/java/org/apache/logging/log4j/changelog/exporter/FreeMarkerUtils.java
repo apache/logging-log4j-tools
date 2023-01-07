@@ -38,17 +38,18 @@ final class FreeMarkerUtils {
 
     @SuppressFBWarnings("DMI_HARDCODED_ABSOLUTE_FILENAME")
     private static Configuration createConfiguration() {
-        Configuration configuration = new Configuration(Configuration.VERSION_2_3_29);
+        final Configuration configuration = new Configuration(Configuration.VERSION_2_3_29);
         configuration.setDefaultEncoding(CharsetUtils.CHARSET_NAME);
         configuration.setTemplateExceptionHandler(TemplateExceptionHandler.RETHROW_HANDLER);
         try {
             configuration.setTemplateLoader(new FileTemplateLoader(new File("/")));
-        } catch (IOException error) {
+        } catch (final IOException error) {
             throw new UncheckedIOException(error);
         }
-        DefaultObjectWrapperBuilder objectWrapperBuilder = new DefaultObjectWrapperBuilder(Configuration.VERSION_2_3_27);
+        final DefaultObjectWrapperBuilder objectWrapperBuilder =
+                new DefaultObjectWrapperBuilder(Configuration.VERSION_2_3_27);
         objectWrapperBuilder.setExposeFields(true);
-        DefaultObjectWrapper objectWrapper = objectWrapperBuilder.build();
+        final DefaultObjectWrapper objectWrapper = objectWrapperBuilder.build();
         configuration.setObjectWrapper(objectWrapper);
         configuration.setLogTemplateExceptions(false);
         configuration.setWrapUncheckedExceptions(true);

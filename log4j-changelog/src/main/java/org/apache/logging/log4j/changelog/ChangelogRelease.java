@@ -18,7 +18,6 @@ package org.apache.logging.log4j.changelog;
 
 import java.nio.file.Path;
 
-import org.apache.logging.log4j.changelog.util.StringUtils;
 import org.apache.logging.log4j.changelog.util.XmlReader;
 import org.apache.logging.log4j.changelog.util.XmlWriter;
 
@@ -45,25 +44,10 @@ public final class ChangelogRelease {
     }
 
     public static ChangelogRelease readFromXmlFile(final Path path) {
-
-        // Read the XML file.
         final Element releaseElement = XmlReader.readXmlFileRootElement(path, "release");
-
-        // Read the `version` attribute.
-        final String version = StringUtils.trimNullable(releaseElement.getAttribute("version"));
-        if (version == null) {
-            throw new IllegalArgumentException("blank or missing attribute: `version`");
-        }
-
-        // Read the `date` attribute.
-        final String date = StringUtils.trimNullable(releaseElement.getAttribute("date"));
-        if (date == null) {
-            throw new IllegalArgumentException("blank or missing attribute: `date`");
-        }
-
-        // Create the instance.
+        final String version = XmlReader.requireAttribute(releaseElement, "version");
+        final String date = XmlReader.requireAttribute(releaseElement, "date");
         return new ChangelogRelease(version, date);
-
     }
 
 }

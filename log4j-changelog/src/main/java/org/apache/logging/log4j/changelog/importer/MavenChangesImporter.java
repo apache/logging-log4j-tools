@@ -52,15 +52,15 @@ public final class MavenChangesImporter {
 
     private static void writeReleased(final Path changelogDirectory, final MavenChanges.Release release) {
 
-        // Determine the directory for this particular release.
+        // Determine the directory for this particular release
         final Path releaseDirectory = ChangelogFiles.releaseDirectory(changelogDirectory, release.version);
 
-        // Write release information.
+        // Write release information
         final Path releaseFile = ChangelogFiles.releaseXmlFile(releaseDirectory);
         final ChangelogRelease changelogRelease = new ChangelogRelease(release.version, release.date);
         changelogRelease.writeToXmlFile(releaseFile);
 
-        // Write release actions.
+        // Write release actions
         release.actions.forEach(action -> writeAction(releaseDirectory, action));
 
     }
@@ -92,10 +92,10 @@ public final class MavenChangesImporter {
 
     private static ChangelogEntry changelogEntry(final MavenChanges.Action action) {
 
-        // Create the `type`.
+        // Create the `type`
         final ChangelogEntry.Type type = changelogType(action.type);
 
-        // Create the `issue`s.
+        // Create the `issue`s
         final List<ChangelogEntry.Issue> issues = new ArrayList<>(1);
         if (action.issue != null) {
             final String issueLink = String.format("https://issues.apache.org/jira/browse/%s", action.issue);
@@ -103,7 +103,7 @@ public final class MavenChangesImporter {
             issues.add(issue);
         }
 
-        // Create the `author`s.
+        // Create the `author`s
         final List<ChangelogEntry.Author> authors = new ArrayList<>(2);
         for (final String authorId : action.dev.split("\\s*,\\s*")) {
             if (!isBlank(authorId)) {
@@ -114,16 +114,16 @@ public final class MavenChangesImporter {
             authors.add(new ChangelogEntry.Author(null, action.dueTo));
         }
 
-        // Create the `description`.
+        // Create the `description`
         final ChangelogEntry.Description description = new ChangelogEntry.Description("asciidoc", action.description);
 
-        // Create the instance.
+        // Create the instance
         return new ChangelogEntry(type, issues, authors, description);
 
     }
 
     /**
-     * Maps `maven-changes-plugin` action types to their `Keep a Changelog` equivalents.
+     * Maps {@code maven-changes-plugin} action types to their {@code Keep a Changelog} equivalents.
      */
     private static ChangelogEntry.Type changelogType(final MavenChanges.Action.Type type) {
         if (MavenChanges.Action.Type.ADD.equals(type)) {

@@ -25,6 +25,7 @@ import org.apache.logging.log4j.changelog.util.StringUtils;
 import org.apache.logging.log4j.changelog.util.XmlReader;
 import org.apache.logging.log4j.changelog.util.XmlWriter;
 
+import edu.umd.cs.findbugs.annotations.Nullable;
 import org.w3c.dom.Element;
 
 public final class ChangelogEntry {
@@ -115,12 +116,12 @@ public final class ChangelogEntry {
     public void writeToXmlFile(final Path path) {
         XmlWriter.toFile(path, document -> {
 
-            // Create the `entry` root element.
+            // Create the `entry` root element
             final Element entryElement = document.createElement("entry");
             entryElement.setAttribute("type", type.toXmlAttribute());
             document.appendChild(entryElement);
 
-            // Create the `issue` elements.
+            // Create the `issue` elements
             issues.forEach(issue -> {
                 final Element issueElement = document.createElement("issue");
                 issueElement.setAttribute("id", issue.id);
@@ -128,7 +129,7 @@ public final class ChangelogEntry {
                 entryElement.appendChild(issueElement);
             });
 
-            // Create the `author` elements.
+            // Create the `author` elements
             authors.forEach(author -> {
                 final Element authorElement = document.createElement("author");
                 if (author.id != null) {
@@ -139,7 +140,7 @@ public final class ChangelogEntry {
                 entryElement.appendChild(authorElement);
             });
 
-            // Create the `description` element.
+            // Create the `description` element
             final Element descriptionElement = document.createElement("description");
             if (description.format != null) {
                 descriptionElement.setAttribute("format", description.format);
@@ -152,7 +153,7 @@ public final class ChangelogEntry {
 
     public static ChangelogEntry readFromXmlFile(final Path path) {
 
-        // Read the `entry` root element.
+        // Read the `entry` root element
         final Element entryElement = XmlReader.readXmlFileRootElement(path, "entry");
         final String typeAttribute = XmlReader.requireAttribute(entryElement, "type");
         final Type type;
@@ -162,7 +163,7 @@ public final class ChangelogEntry {
             throw XmlReader.failureAtXmlNode(error, entryElement, "`type` attribute read failure");
         }
 
-        // Read the `issue` elements.
+        // Read the `issue` elements
         final List<Issue> issues = XmlReader
                 .findChildElementsMatchingName(entryElement, "issue")
                 .map(issueElement -> {
@@ -172,13 +173,15 @@ public final class ChangelogEntry {
                 })
                 .collect(Collectors.toList());
 
-        // Read the `author` elements.
+        // Read the `author` elements
         final List<Author> authors = XmlReader
                 .findChildElementsMatchingName(entryElement, "author")
                 .map(authorElement -> {
+                    @Nullable
                     final String authorId = authorElement.hasAttribute("id")
                             ? authorElement.getAttribute("id")
                             : null;
+                    @Nullable
                     final String authorName = authorElement.hasAttribute("name")
                             ? authorElement.getAttribute("name")
                             : null;
@@ -193,13 +196,13 @@ public final class ChangelogEntry {
             throw XmlReader.failureAtXmlNode(entryElement, "no `author` elements found");
         }
 
-        // Read the `description` element.
+        // Read the `description` element
         final Element descriptionElement = XmlReader.requireChildElementMatchingName(entryElement, "description");
         final String descriptionFormat = XmlReader.requireAttribute(descriptionElement, "format");
         final String descriptionText = StringUtils.trimNullable(descriptionElement.getTextContent());
         final Description description = new Description(descriptionFormat, descriptionText);
 
-        // Create the instance.
+        // Create the instance
         return new ChangelogEntry(type, issues, authors, description);
 
     }

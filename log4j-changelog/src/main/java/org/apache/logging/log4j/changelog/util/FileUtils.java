@@ -20,6 +20,7 @@ import java.io.IOException;
 import java.io.UncheckedIOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.function.Function;
 import java.util.stream.Stream;
 
 public final class FileUtils {
@@ -33,27 +34,29 @@ public final class FileUtils {
      * </p>
      */
     @SuppressWarnings("RedundantIfStatement")
-    public static Stream<Path> findAdjacentFiles(final Path directory, final boolean dotFilesSkipped) {
-        try {
-            return Files
-                    .walk(directory, 1)
-                    .filter(path -> {
+    public static <V> V findAdjacentFiles(
+            final Path directory,
+            final boolean dotFilesSkipped,
+            final Function<Stream<Path>, V> consumer) {
+        try (final Stream<Path> paths = Files.walk(directory, 1)) {
+            final Stream<Path> filteredPaths = paths.filter(path -> {
 
-                        // Skip the directory itself.
-                        if (path.equals(directory)) {
-                            return false;
-                        }
+                // Skip the directory itself
+                if (path.equals(directory)) {
+                    return false;
+                }
 
-                        // Skip hidden files.
-                        boolean hiddenFile = dotFilesSkipped && path.getFileName().toString().startsWith(".");
-                        if (hiddenFile) {
-                            return false;
-                        }
+                // Skip hidden files
+                boolean hiddenFile = dotFilesSkipped && path.getFileName().toString().startsWith(".");
+                if (hiddenFile) {
+                    return false;
+                }
 
-                        // Accept the rest.
-                        return true;
+                // Accept the rest
+                return true;
 
-                    });
+            });
+            return consumer.apply(filteredPaths);
         } catch (final IOException error) {
             final String message = String.format("failed walking directory: `%s`", directory);
             throw new UncheckedIOException(message, error);

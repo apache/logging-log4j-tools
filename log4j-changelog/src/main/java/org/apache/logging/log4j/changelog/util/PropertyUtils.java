@@ -20,6 +20,8 @@ import java.nio.file.InvalidPathException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
+import edu.umd.cs.findbugs.annotations.Nullable;
+
 import static org.apache.logging.log4j.changelog.util.StringUtils.isBlank;
 
 public final class PropertyUtils {
@@ -47,6 +49,7 @@ public final class PropertyUtils {
     }
 
     public static String requireNonBlankStringProperty(final String key) {
+        @Nullable
         final String value = System.getProperty(key);
         if (isBlank(value)) {
             final String message = String.format("blank system property: `%s`", key);
