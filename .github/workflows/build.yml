@@ -180,8 +180,8 @@ jobs:
             -P release
         env:
           # `NEXUS_USERNAME` and `NEXUS_PASSWORD` are used in `~/.m2/settings.xml` created by `setup-java` action
-          NEXUS_USERNAME: ${{ secrets.NEXUS_USER }}
-          NEXUS_PASSWORD: ${{ secrets.NEXUS_PW }}
+          NEXUS_USERNAME: ${{ github.ref == 'refs/heads/master' && secrets.NEXUS_USER || secrets.LOGGING_STAGE_DEPLOYER_USER }}
+          NEXUS_PASSWORD: ${{ github.ref == 'refs/heads/master' && secrets.NEXUS_PW || secrets.LOGGING_STAGE_DEPLOYER_PW }}
           # `SIGN_KEY` is used by `sign-maven-plugin`
           SIGN_KEY: ${{ secrets.GPG_SECRET_KEY }}
 
