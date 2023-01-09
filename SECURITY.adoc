@@ -15,7 +15,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 ////
 
-= Security Policy
+= Security
 
 If you have encountered an unlisted security vulnerability or other unexpected behaviour that has security impact, please report them privately to mailto:security@logging.apache.org[the Log4j security mailing list].
 See https://logging.apache.org/log4j/2.x/security.html[the Log4j Security page] for further details.
