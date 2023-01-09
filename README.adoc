@@ -24,15 +24,18 @@ Tooling **internally** used by https://logging.apache.org/log4j/2.x/[the Apache 
 xref:log4j-changelog/README.adoc[`log4j-changelog`]::
 Tooling to export AsciiDoc-formatted changelog files.
 
-= Support
+== Support
 
 Please keep in mind that this project is intended for internal usage only.
 You can use GitHub Issues for feature requests and bug reports – not questions!
 For the rest, you can use mailto:security@logging.apache.org[the Log4j development mailing list].
 
-include::SECURITY.adoc[]
+== Security
 
-= License
+If you have encountered an unlisted security vulnerability or other unexpected behaviour that has security impact, please report them privately to mailto:security@logging.apache.org[the Log4j security mailing list].
+See https://logging.apache.org/log4j/2.x/security.html[the Log4j Security page] for further details.
+
+== License
 
 Licensed to the Apache Software Foundation (ASF) under one or more contributor license agreements.
 See the NOTICE file distributed with this work for additional information regarding copyright ownership.
