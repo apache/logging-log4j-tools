@@ -18,6 +18,7 @@ package org.apache.logging.log4j.changelog.exporter;
 
 import java.io.IOException;
 import java.io.UncheckedIOException;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -38,18 +39,7 @@ public final class ChangelogExporter {
         final ChangelogExporterArgs args = ChangelogExporterArgs.fromSystemProperties();
 
         // Find release directories
-        final List<Path> releaseDirectories = FileUtils
-                .findAdjacentFiles(
-                        args.changelogDirectory, true,
-                        paths -> paths
-                                .filter(file -> file.toFile().isDirectory())
-                                .sorted(Comparator.comparing(releaseDirectory -> {
-                                    final Path releaseXmlFile = ChangelogFiles.releaseXmlFile(releaseDirectory);
-                                    final ChangelogRelease changelogRelease =
-                                            ChangelogRelease.readFromXmlFile(releaseXmlFile);
-                                    return changelogRelease.date;
-                                }))
-                                .collect(Collectors.toList()));
+        final List<Path> releaseDirectories = findReleaseDirectories(args);
         final int releaseDirectoryCount = releaseDirectories.size();
 
         // Read the release information files
@@ -118,6 +108,25 @@ public final class ChangelogExporter {
         final Path changelogIndexTemplateFile = ChangelogFiles.indexTemplateFile(args.changelogDirectory);
         exportIndex(args.outputDirectory, changelogReleases, changelogIndexTemplateFile);
 
+    }
+
+    private static List<Path> findReleaseDirectories(ChangelogExporterArgs args) {
+        return FileUtils.findAdjacentFiles(
+                args.changelogDirectory, true,
+                paths -> paths
+                        .filter(ChangelogExporter::isNonEmptyDirectory)
+                        .sorted(Comparator.comparing(releaseDirectory -> {
+                            final Path releaseXmlFile = ChangelogFiles.releaseXmlFile(releaseDirectory);
+                            final ChangelogRelease changelogRelease =
+                                    ChangelogRelease.readFromXmlFile(releaseXmlFile);
+                            return changelogRelease.date;
+                        }))
+                        .collect(Collectors.toList()));
+    }
+
+    private static boolean isNonEmptyDirectory(final Path path) {
+        return Files.isDirectory(path) &&
+                FileUtils.findAdjacentFiles(path, false, paths -> paths.findFirst().isPresent());
     }
 
     private static void exportRelease(
