@@ -190,7 +190,7 @@ jobs:
         run: |
           export ZIP_FILEPATH="/tmp/apache-log4j-tools-${PROJECT_VERSION}-src.zip"
           git ls-files -z | xargs -0 zip -9 "$ZIP_FILEPATH" --
-          gpg --armor --sign --yes --pinentry-mode error "$ZIP_FILEPATH"
+          gpg --armor --detach-sign --yes --pinentry-mode error "$ZIP_FILEPATH"
 
       - name: Upload artifacts (RELEASE)
         if: startsWith(github.ref, 'refs/heads/release/')
