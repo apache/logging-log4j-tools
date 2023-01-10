@@ -206,5 +206,5 @@ jobs:
           export TAG="v$PROJECT_VERSION"
           git config user.name github-actions
           git config user.email github-actions@github.com
-          git tag "$TAG"
-          git push origin "$TAG"
+          git tag --force "$TAG"
+          git push --force origin "$TAG"
