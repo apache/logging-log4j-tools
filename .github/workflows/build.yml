@@ -188,17 +188,16 @@ jobs:
       - name: Create artifacts (RELEASE)
         if: startsWith(github.ref, 'refs/heads/release/')
         run: |
-          git ls-files -z | xargs -0 zip -9 /tmp/src.zip --
-          gpg --armor --sign --yes --pinentry-mode error /tmp/src.zip
+          export ZIP_FILEPATH="/tmp/apache-log4j-tools-${PROJECT_VERSION}-src.zip"
+          git ls-files -z | xargs -0 zip -9 "$ZIP_FILEPATH" --
+          gpg --armor --sign --yes --pinentry-mode error "$ZIP_FILEPATH"
 
       - name: Upload artifacts (RELEASE)
         if: startsWith(github.ref, 'refs/heads/release/')
         uses: actions/upload-artifact@0b7f8abb1508181956e8e162db84b466c27e18ce   # 3.1.2
         with:
           name: Sources
-          path: |
-            /tmp/src.zip
-            /tmp/src.zip.asc
+          path: /tmp/apache-log4j-tools-*-src.zip*
           if-no-files-found: error
 
       - name: Tag version (RELEASE)
