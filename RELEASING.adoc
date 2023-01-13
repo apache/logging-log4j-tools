@@ -41,19 +41,49 @@ If not, commit necessary fixes, push, and repeat.
 
 == Vote the release
 
-Collect release votes via email to `dev@logging.apache.org`
+Collect release votes via email to `dev@logging.apache.org` using the following template
+
+[source]
+----
+The Apache Log4j Tools 7.8.0 release is now available for voting.
+
+This release contains minor enhancements and bug fixes.
+
+Source repository: https://github.com/apache/logging-log4j-tools
+Branch: release/7.8.0
+Commit: e82a44142280d013bd76ea18951fde00dcee192b
+CI run: https://github.com/apache/logging-log4j-tools/actions/runs/3882476949
+Artifacts: https://dist.apache.org/repos/dist/dev/logging/log4j/
+Nexus repository: https://repository.apache.org/content/repositories/orgapachelogging-1096
+Signing key: https://keyserver.ubuntu.com/pks/lookup?search=077e8893a6dcc33dd4a4d5b256e73ba9a0b592d0&fingerprint=on&op=index
+
+Please download, test, and cast your votes on the Log4j developers list.
+
+[ ] +1, release the artifacts
+[ ] -1, don't release, because...
+
+The vote will remain open for 24 hours (or more if required). All votes are welcome and we encourage everyone to test the release, but only the Logging Services PMC votes are officially counted. At least 3 +1 votes and more positive than negative votes are required.
+----
+
+[WARNING]
+====
+Make sure your email is sent in plain text, that is, https://infra.apache.org/contrib-email-tips#nohtml[no HTML]!
+If you are using GMail, simply enable the _"Plain text mode"_ while composing your message.
+====
 
 == Publish the release
 
 . _Release_ the repository in https://repository.apache.org/[repository.apache.org]
 . In https://dist.apache.org/repos/dist/release/logging/log4j[dist.apache.org/repos/dist] Subversion repository,
-.. move the signed sources from `*dev*/logging/log4j` directory to `*release*/logging/log4j`
+.. move the signed sources from `*dev*/logging/log4j` directory to `*release*/logging/log4j-tools/7.8.0`
 .. delete files from an earlier release
 .. commit changes
+. Report the release at https://reporter.apache.org/[reporter.apache.org]
 . Merge `release/7.8.0` changes to `master`
 . Set the revision property to the next development version (e.g., `7.9.0-SNAPSHOT`) in xref:pom.xml[`pom.xml`]
 . Update xref:CHANGELOG.adoc[`CHANGELOG.adoc`] accordingly
 . Push the `master` branch
+. Delete the `release/7.8.0` branch
 . Once the artifacts are visible in https://central.sonatype.dev/[central.sonatype.dev], https://github.com/apache/logging-log4j-tools/releases/new[create a new release in GitHub]
 .. Use the `v7.8.0` tag created by the GitHub Actions workflow
 .. Copy necessary changes from xref:CHANGELOG.adoc[`CHANGELOG.adoc`] (formatting needs to be converted to Markdown!)
