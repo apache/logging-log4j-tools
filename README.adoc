@@ -31,7 +31,7 @@ In accordance with the Apache Software Foundation's release https://infra.apache
 * ASF https://repository.apache.org/content/repositories/releases[Release] and https://repository.apache.org/content/repositories/snapshots[snapshot] repositories (mirrored to https://central.sonatype.dev/[the Maven Central Repository])
 * ASF https://downloads.apache.org/logging/log4j-tools[Distribution directory]
 
-See xref:RELEASING.adoc[RELEASING.adoc] for instructions on how to perform a release.
+See xref:RELEASING.adoc[release instructions] for further details.
 
 == Support
 
