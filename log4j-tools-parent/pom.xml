@@ -52,7 +52,7 @@
     <maven.site.deploy.skip>true</maven.site.deploy.skip>
 
     <!-- dependency versions -->
-    <freemarker.version>2.3.31</freemarker.version>
+    <freemarker.version>2.3.32</freemarker.version>
     <spotbugs.version>4.7.3</spotbugs.version>
 
     <!-- plugin versions -->
