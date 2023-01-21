@@ -34,10 +34,10 @@ public final class ChangelogExporter {
     private ChangelogExporter() {}
 
     public static void main(final String[] mainArgs) {
+        performExport(ChangelogExporterArgs.fromSystemProperties());
+    }
 
-        // Read arguments
-        final ChangelogExporterArgs args = ChangelogExporterArgs.fromSystemProperties();
-
+    public static void performExport(final ChangelogExporterArgs args) {
         // Find release directories
         final List<Path> releaseDirectories = findReleaseDirectories(args);
         final int releaseDirectoryCount = releaseDirectories.size();
@@ -107,7 +107,6 @@ public final class ChangelogExporter {
         // Export the release index
         final Path changelogIndexTemplateFile = ChangelogFiles.indexTemplateFile(args.changelogDirectory);
         exportIndex(args.outputDirectory, changelogReleases, changelogIndexTemplateFile);
-
     }
 
     private static List<Path> findReleaseDirectories(ChangelogExporterArgs args) {

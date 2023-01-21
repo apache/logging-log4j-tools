@@ -22,7 +22,7 @@ import static org.apache.logging.log4j.changelog.util.PropertyUtils.requireNonBl
 import static org.apache.logging.log4j.changelog.util.PropertyUtils.requireNonBlankStringProperty;
 import static org.apache.logging.log4j.changelog.util.VersionUtils.requireSemanticVersioning;
 
-final class ChangelogReleaserArgs {
+public final class ChangelogReleaserArgs {
 
     final Path changelogDirectory;
 
@@ -38,6 +38,10 @@ final class ChangelogReleaserArgs {
         final String releaseVersionProperty = "log4j.changelog.releaseVersion";
         final String releaseVersion = requireNonBlankStringProperty(releaseVersionProperty);
         requireSemanticVersioning(releaseVersion, releaseVersionProperty);
+        return new ChangelogReleaserArgs(changelogDirectory, releaseVersion);
+    }
+
+    public static ChangelogReleaserArgs fromArgs(final Path changelogDirectory, final String releaseVersion) {
         return new ChangelogReleaserArgs(changelogDirectory, releaseVersion);
     }
 
