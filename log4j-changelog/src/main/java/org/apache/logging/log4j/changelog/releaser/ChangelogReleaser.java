@@ -35,9 +35,10 @@ public final class ChangelogReleaser {
 
     public static void main(final String[] mainArgs) throws Exception {
 
-        // Read arguments
-        final ChangelogReleaserArgs args = ChangelogReleaserArgs.fromSystemProperties();
+        performRelease(ChangelogReleaserArgs.fromSystemProperties());
+    }
 
+    public static void performRelease(final ChangelogReleaserArgs args) throws Exception {
         // Read the release date and version
         final String releaseDate = ISO_DATE.format(LocalDate.now());
         final int releaseVersionMajor = VersionUtils.versionMajor(args.releaseVersion);
@@ -53,7 +54,6 @@ public final class ChangelogReleaser {
 
         // Write the release changelog template
         populateReleaseChangelogTemplateFile(unreleasedDirectory, releaseDirectory);
-
     }
 
     private static void populateChangelogEntryFiles(
