@@ -44,18 +44,18 @@ import org.apache.maven.plugins.annotations.Mojo;
 import org.apache.maven.plugins.annotations.Parameter;
 
 /**
- * Goal which creates a changelog.
+ * Goal which creates changelog for a release.
  */
-@Mojo(name = "release", defaultPhase = LifecyclePhase.PRE_SITE)
+@Mojo(name = "release", defaultPhase = LifecyclePhase.VALIDATE)
 public class ReleaseMojo extends AbstractMojo {
     /**
-     * Location of the file.
+     * The release version.
      */
     @Parameter(property = "version", required = true)
     private String releaseVersion;
 
     /**
-     * Location of the file.
+     * Location of the files.
      */
     @Parameter(defaultValue = "${project.basedir}/src/changelog", property = "changeLogDir", required = true)
     private File changeLogDirectory;
