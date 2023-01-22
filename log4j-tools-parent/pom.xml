@@ -181,6 +181,9 @@
             <!-- IntelliJ IDEA files: -->
             <exclude>.idea/**/*</exclude>
             <exclude>**/*.iml</exclude>
+            <!-- License headers in GitHub templates pollute the prompt displayed to the user: -->
+            <exclude>.github/ISSUE_TEMPLATE/*.md</exclude>
+            <exclude>.github/pull_request_template.md</exclude>
           </excludes>
         </configuration>
         <executions>
