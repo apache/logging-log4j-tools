@@ -54,7 +54,7 @@
   <complexType name="issueType">
     <simpleContent>
       <extension base="string">
-        <attribute name="id" type="ID" use="required"/>
+        <attribute name="id" type="string" use="required"/>
         <attribute name="link" type="anyURI" use="required"/>
       </extension>
     </simpleContent>
