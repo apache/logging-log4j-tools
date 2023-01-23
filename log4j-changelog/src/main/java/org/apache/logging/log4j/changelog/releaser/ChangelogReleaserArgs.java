@@ -24,6 +24,10 @@ import static org.apache.logging.log4j.changelog.util.VersionUtils.requireSemant
 
 public final class ChangelogReleaserArgs {
 
+    public static final String CHANGELOG_DIRECTORY_PROPERTY_NAME = "log4j.changelog.directory";
+
+    public static final String RELEASE_VERSION_PROPERTY_NAME = "log4j.changelog.releaseVersion";
+
     final Path changelogDirectory;
 
     final String releaseVersion;
@@ -34,10 +38,9 @@ public final class ChangelogReleaserArgs {
     }
 
     static ChangelogReleaserArgs fromSystemProperties() {
-        final Path changelogDirectory = requireNonBlankPathProperty("log4j.changelog.directory");
-        final String releaseVersionProperty = "log4j.changelog.releaseVersion";
-        final String releaseVersion = requireNonBlankStringProperty(releaseVersionProperty);
-        requireSemanticVersioning(releaseVersion, releaseVersionProperty);
+        final Path changelogDirectory = requireNonBlankPathProperty(CHANGELOG_DIRECTORY_PROPERTY_NAME);
+        final String releaseVersion = requireNonBlankStringProperty(RELEASE_VERSION_PROPERTY_NAME);
+        requireSemanticVersioning(releaseVersion, RELEASE_VERSION_PROPERTY_NAME);
         return new ChangelogReleaserArgs(changelogDirectory, releaseVersion);
     }
 

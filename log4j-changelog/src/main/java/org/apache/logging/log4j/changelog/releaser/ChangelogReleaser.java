@@ -33,27 +33,35 @@ public final class ChangelogReleaser {
 
     private ChangelogReleaser() {}
 
-    public static void main(final String[] mainArgs) throws Exception {
-
+    public static void main(final String[] mainArgs) {
         performRelease(ChangelogReleaserArgs.fromSystemProperties());
     }
 
-    public static void performRelease(final ChangelogReleaserArgs args) throws Exception {
+    public static void performRelease(final ChangelogReleaserArgs args) {
+
         // Read the release date and version
         final String releaseDate = ISO_DATE.format(LocalDate.now());
         final int releaseVersionMajor = VersionUtils.versionMajor(args.releaseVersion);
         System.out.format("using `%s` for the release date%n", releaseDate);
 
-        // Populate the changelog entry files in the release directory
-        final Path unreleasedDirectory = ChangelogFiles.unreleasedDirectory(args.changelogDirectory, releaseVersionMajor);
-        final Path releaseDirectory = ChangelogFiles.releaseDirectory(args.changelogDirectory, args.releaseVersion);
-        populateChangelogEntryFiles(unreleasedDirectory, releaseDirectory);
+        try {
 
-        // Write the release information
-        populateReleaseXmlFiles(releaseDate, args.releaseVersion, releaseDirectory);
+            // Populate the changelog entry files in the release directory
+            final Path unreleasedDirectory =
+                    ChangelogFiles.unreleasedDirectory(args.changelogDirectory, releaseVersionMajor);
+            final Path releaseDirectory = ChangelogFiles.releaseDirectory(args.changelogDirectory, args.releaseVersion);
+            populateChangelogEntryFiles(unreleasedDirectory, releaseDirectory);
 
-        // Write the release changelog template
-        populateReleaseChangelogTemplateFile(unreleasedDirectory, releaseDirectory);
+            // Write the release information
+            populateReleaseXmlFiles(releaseDate, args.releaseVersion, releaseDirectory);
+
+            // Write the release changelog template
+            populateReleaseChangelogTemplateFile(unreleasedDirectory, releaseDirectory);
+
+        } catch (final IOException error) {
+            throw new UncheckedIOException(error);
+        }
+
     }
 
     private static void populateChangelogEntryFiles(

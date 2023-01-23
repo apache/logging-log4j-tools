@@ -260,7 +260,7 @@ You need to use `ChangelogExporter` as follows:
 java \
     -cp /path/to/log4j-changelog.jar \
     -Dlog4j.changelog.directory=/path/to/changelog/directory \
-    -Dlog4j.changelog.exporter.outputDirectory=/path/to/asciiDocOutputDirectory \
+    -Dlog4j.changelog.outputDirectory=/path/to/asciiDocOutputDirectory \
     org.apache.logging.log4j.changelog.exporter.ChangelogExporter
 ----
 

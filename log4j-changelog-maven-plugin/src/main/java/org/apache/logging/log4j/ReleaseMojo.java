@@ -16,56 +16,44 @@
  */
 package org.apache.logging.log4j;
 
-/*
- * Copyright 2001-2005 The Apache Software Foundation.
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-
 import java.io.File;
 
 import org.apache.logging.log4j.changelog.releaser.ChangelogReleaser;
 import org.apache.logging.log4j.changelog.releaser.ChangelogReleaserArgs;
 
 import org.apache.maven.plugin.AbstractMojo;
-import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugins.annotations.LifecyclePhase;
 import org.apache.maven.plugins.annotations.Mojo;
 import org.apache.maven.plugins.annotations.Parameter;
 
 /**
- * Goal which creates changelog for a release.
+ * Goal moving the contents of an unreleased changelog directory (e.g., {@code .2.x.x} to a released one (e.g., {@code 2.19.0}).
+ *
+ * @see ChangelogReleaser
  */
 @Mojo(name = "release", defaultPhase = LifecyclePhase.VALIDATE)
 public class ReleaseMojo extends AbstractMojo {
+
     /**
-     * The release version.
+     * Directory containing release folders composed of changelog entry XML files.
      */
-    @Parameter(property = "version", required = true)
+    @Parameter(
+            defaultValue = "${project.basedir}/src/changelog",
+            property = ChangelogReleaserArgs.CHANGELOG_DIRECTORY_PROPERTY_NAME,
+            required = true)
+    private File changelogDirectory;
+
+    /**
+     * The version to be released, e.g., {@code 2.19.0}.
+     */
+    @Parameter(
+            property = ChangelogReleaserArgs.RELEASE_VERSION_PROPERTY_NAME,
+            required = true)
     private String releaseVersion;
 
-    /**
-     * Location of the files.
-     */
-    @Parameter(defaultValue = "${project.basedir}/src/changelog", property = "changeLogDir", required = true)
-    private File changeLogDirectory;
-
-    public void execute() throws MojoExecutionException {
-        try {
-            ChangelogReleaser.performRelease(ChangelogReleaserArgs.fromArgs(changeLogDirectory.toPath(),
-                    releaseVersion));
-        } catch (Exception ex) {
-            throw new MojoExecutionException("Error performing release", ex);
-        }
+    public void execute() {
+        ChangelogReleaserArgs args = ChangelogReleaserArgs.fromArgs(changelogDirectory.toPath(), releaseVersion);
+        ChangelogReleaser.performRelease(args);
     }
+
 }

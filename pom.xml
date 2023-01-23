@@ -48,7 +48,8 @@
 
     <!-- Modules here must have a corresponding entry in `dependencyManagement > dependencies` block below! -->
     <module>log4j-changelog</module>
-    <module>log4j-maven-changelog-plugin</module>
+    <module>log4j-changelog-maven-plugin</module>
+
   </modules>
 
   <properties>
@@ -76,11 +77,19 @@
        Modules here must have a corresponding entry in `modules` block above! -->
   <dependencyManagement>
     <dependencies>
+
       <dependency>
         <groupId>org.apache.logging.log4j</groupId>
         <artifactId>log4j-changelog</artifactId>
         <version>${project.version}</version>
       </dependency>
+
+      <dependency>
+        <groupId>org.apache.logging.log4j</groupId>
+        <artifactId>log4j-changelog-maven-plugin</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+
     </dependencies>
   </dependencyManagement>
 
