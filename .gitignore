@@ -18,4 +18,8 @@ target/
 *.iml
 *.iws
 /out
-dependency-reduced-pom.xml
+.flattened-pom.xml
+# Eclipse
+.project
+.classpath
+.settings/
