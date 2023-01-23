@@ -67,6 +67,7 @@
       <enumeration value="deprecated"/>
       <enumeration value="removed"/>
       <enumeration value="fixed"/>
+      <enumeration value="security"/>
     </restriction>
   </simpleType>
 
