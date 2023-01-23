@@ -15,6 +15,10 @@ See the License for the specific language governing permissions and
 limitations under the License.
 ////
 
+== Unreleased
+
+* Added `log4j-changelog-maven-plugin` module and renamed `log4j.changelog.exporter.outputDirectory` property to `log4j.changelog.outputDirectory` (for https://github.com/apache/logging-log4j-tools/issues/20[#20] by Ralph Goers, Volkan Yazıcı)
+
 == 0.1.0 (2023-01-10)
 
-* Added `log4j-tools-bom` and `log4j-changelog` modules (for https://issues.apache.org/jira/browse/LOG4J2-3628[LOG4J2-3628] by `vy`)
+* Added `log4j-tools-bom` and `log4j-changelog` modules (for https://issues.apache.org/jira/browse/LOG4J2-3628[LOG4J2-3628] by Volkan Yazıcı)

@@ -23,6 +23,12 @@ import static org.apache.logging.log4j.changelog.util.PropertyUtils.requireNonBl
 
 final class MavenChangesImporterArgs {
 
+    public static final String CHANGELOG_DIRECTORY_PROPERTY_NAME = "log4j.changelog.directory";
+
+    public static final String CHANGES_XML_FILE_PROPERTY_NAME = "log4j.changelog.changesXmlFile";
+
+    public static final String RELEASE_VERSION_MAJOR_PROPERTY_NAME = "log4j.changelog.releaseVersionMajor";
+
     final Path changelogDirectory;
 
     final Path changesXmlFile;
@@ -36,10 +42,10 @@ final class MavenChangesImporterArgs {
     }
 
     static MavenChangesImporterArgs fromSystemProperties() {
-        final Path changelogDirectory = requireNonBlankPathProperty("log4j.changelog.directory");
-        final Path changesXmlFile = requireNonBlankPathProperty("log4j.changelog.changesXmlFile");
-        final int releaseVersion = requireNonBlankIntProperty("log4j.changelog.releaseVersionMajor");
-        return new MavenChangesImporterArgs(changelogDirectory, changesXmlFile, releaseVersion);
+        final Path changelogDirectory = requireNonBlankPathProperty(CHANGELOG_DIRECTORY_PROPERTY_NAME);
+        final Path changesXmlFile = requireNonBlankPathProperty(CHANGES_XML_FILE_PROPERTY_NAME);
+        final int releaseVersionMajor = requireNonBlankIntProperty(RELEASE_VERSION_MAJOR_PROPERTY_NAME);
+        return new MavenChangesImporterArgs(changelogDirectory, changesXmlFile, releaseVersionMajor);
     }
 
 }

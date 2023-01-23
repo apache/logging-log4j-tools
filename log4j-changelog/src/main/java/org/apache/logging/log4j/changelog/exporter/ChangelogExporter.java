@@ -34,9 +34,10 @@ public final class ChangelogExporter {
     private ChangelogExporter() {}
 
     public static void main(final String[] mainArgs) {
+        performExport(ChangelogExporterArgs.fromSystemProperties());
+    }
 
-        // Read arguments
-        final ChangelogExporterArgs args = ChangelogExporterArgs.fromSystemProperties();
+    public static void performExport(final ChangelogExporterArgs args) {
 
         // Find release directories
         final List<Path> releaseDirectories = findReleaseDirectories(args);
