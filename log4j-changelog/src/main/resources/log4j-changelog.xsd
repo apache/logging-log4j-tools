@@ -16,29 +16,20 @@
   limitations under the License.
 -->
 <schema xmlns="http://www.w3.org/2001/XMLSchema"
-  targetNamespace="https://logging.apache.org/log4j/log4j-changelog"
-  xmlns:cl="https://logging.apache.org/log4j/log4j-changelog" elementFormDefault="qualified">
+  targetNamespace="https://logging.apache.org/log4j/changelog"
+  xmlns:cl="https://logging.apache.org/log4j/changelog" elementFormDefault="qualified">
 
   <element name="release">
     <complexType>
       <simpleContent>
         <extension base="string">
           <attribute name="version" use="required"/>
-          <attribute name="date" use="required">
-            <simpleType>
-              <union memberTypes="date cl:tbd"/>
-            </simpleType>
-          </attribute>
+          <attribute name="date" type="date" use="required"/>
+          <attribute name="schemaVersion" use="required" fixed="1.0"/>
         </extension>
       </simpleContent>
     </complexType>
   </element>
-
-  <simpleType name="tbd">
-    <restriction base="string">
-      <enumeration value="TBD"/>
-    </restriction>
-  </simpleType>
 
   <element name="entry">
     <complexType>
@@ -48,6 +39,7 @@
         <element name="description" type="cl:descriptionType"/>
       </sequence>
       <attribute name="type" type="cl:changeType" use="required"/>
+      <attribute name="schemaVersion" use="required" fixed="1.0"/>
     </complexType>
   </element>
 
@@ -74,7 +66,7 @@
   <complexType name="authorType">
     <simpleContent>
       <extension base="string">
-        <attribute name="id" type="ID"/>
+        <attribute name="id" type="string"/>
         <attribute name="name"/>
       </extension>
     </simpleContent>
