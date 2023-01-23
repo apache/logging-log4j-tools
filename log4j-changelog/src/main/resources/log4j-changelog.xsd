@@ -83,7 +83,7 @@
   <complexType name="descriptionType">
     <simpleContent>
       <extension base="string">
-        <attribute name="type" use="required"/>
+        <attribute name="format" type="string" use="required" fixed="asciidoc"/>
       </extension>
     </simpleContent>
   </complexType>
