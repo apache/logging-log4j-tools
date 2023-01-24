@@ -16,8 +16,8 @@
   limitations under the License.
 -->
 <schema xmlns="http://www.w3.org/2001/XMLSchema"
-        targetNamespace="https://logging.apache.org/log4j/changelog"
-        xmlns:cl="https://logging.apache.org/log4j/changelog"
+        targetNamespace="http://logging.apache.org/log4j/changelog"
+        xmlns:cl="http://logging.apache.org/log4j/changelog"
         elementFormDefault="qualified"
         version="0.1.0">
 
