@@ -56,7 +56,7 @@ ij_any_while_brace_force = always
 ij_java_doc_align_param_comments = false
 ij_java_doc_align_exception_comments = false
 
-[*.{xml,properties,yml,yaml,json}]
+[*.{xml,xsd,properties,yml,yaml,json}]
 indent_size = 2
 
 [*.{md,adoc}]
