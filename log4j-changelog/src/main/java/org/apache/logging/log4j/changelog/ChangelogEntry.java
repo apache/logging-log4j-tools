@@ -48,9 +48,7 @@ public final class ChangelogEntry {
 
         REMOVED,
 
-        FIXED,
-
-        SECURITY;
+        FIXED;
 
         private String toXmlAttribute() {
             return toString().toLowerCase(Locale.US);

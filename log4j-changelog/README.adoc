@@ -174,13 +174,12 @@ A sample _changelog entry_ file is shared below.
 Some remarks about the structure of changelog entry files:
 
 * The root element must be named `entry`
-* `entry.type` attribute is required and must be one of the https://keepachangelog.com/en/1.0.0/#how[_Keep a Changelog_ change types]:
+* `entry.type` attribute is required and must be one of the change types:
 ** `added` – for new features
 ** `changed` – for changes in existing functionality
 ** `deprecated` – for soon-to-be removed features
 ** `removed` – for now removed features
 ** `fixed` – for any bug fixes
-** `security` – for vulnerabilities
 * `issue` element is optional, and, if present, must contain `id` and `link` attributes
 * `author` element must have at least one of `id` or `name` attributes
 * There must be at least one `author`

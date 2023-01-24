@@ -17,6 +17,8 @@ limitations under the License.
 
 == Unreleased
 
+* Removed `security` as a change type from `log4j-changelog` (for https://github.com/apache/logging-log4j-tools/issues/14[#14] by Ralph Goers, Volkan Yazıcı)
+
 * Added XSD for `log4j-changelog` XML files (for https://github.com/apache/logging-log4j-tools/issues/13[#13] by Piotr P. Karwasz, Volkan Yazıcı)
 
 * Added `log4j-changelog-maven-plugin` module and renamed `log4j.changelog.exporter.outputDirectory` property to `log4j.changelog.outputDirectory` (for https://github.com/apache/logging-log4j-tools/issues/20[#20] by Ralph Goers, Volkan Yazıcı)
