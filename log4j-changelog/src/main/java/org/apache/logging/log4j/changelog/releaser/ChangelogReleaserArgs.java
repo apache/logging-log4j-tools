@@ -17,6 +17,8 @@
 package org.apache.logging.log4j.changelog.releaser;
 
 import java.nio.file.Path;
+import java.time.LocalDate;
+import java.util.Objects;
 
 import static org.apache.logging.log4j.changelog.util.PropertyUtils.requireNonBlankPathProperty;
 import static org.apache.logging.log4j.changelog.util.PropertyUtils.requireNonBlankStringProperty;
@@ -32,20 +34,31 @@ public final class ChangelogReleaserArgs {
 
     final String releaseVersion;
 
-    private ChangelogReleaserArgs(final Path changelogDirectory, final String releaseVersion) {
+    final LocalDate releaseDate;
+
+    public ChangelogReleaserArgs(
+            final Path changelogDirectory,
+            final String releaseVersion,
+            final LocalDate releaseDate) {
+
+        // Check arguments
+        Objects.requireNonNull(changelogDirectory, "changelogDirectory");
+        Objects.requireNonNull(releaseVersion, "releaseVersion");
+        requireSemanticVersioning(releaseVersion, RELEASE_VERSION_PROPERTY_NAME);
+        Objects.requireNonNull(releaseDate, "releaseDate");
+
+        // Set fields
         this.changelogDirectory = changelogDirectory;
         this.releaseVersion = releaseVersion;
+        this.releaseDate = releaseDate;
+
     }
 
     static ChangelogReleaserArgs fromSystemProperties() {
         final Path changelogDirectory = requireNonBlankPathProperty(CHANGELOG_DIRECTORY_PROPERTY_NAME);
         final String releaseVersion = requireNonBlankStringProperty(RELEASE_VERSION_PROPERTY_NAME);
-        requireSemanticVersioning(releaseVersion, RELEASE_VERSION_PROPERTY_NAME);
-        return new ChangelogReleaserArgs(changelogDirectory, releaseVersion);
-    }
-
-    public static ChangelogReleaserArgs fromArgs(final Path changelogDirectory, final String releaseVersion) {
-        return new ChangelogReleaserArgs(changelogDirectory, releaseVersion);
+        final LocalDate releaseDate = LocalDate.now();
+        return new ChangelogReleaserArgs(changelogDirectory, releaseVersion, releaseDate);
     }
 
 }

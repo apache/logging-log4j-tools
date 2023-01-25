@@ -34,7 +34,8 @@ public final class ChangelogReleaser {
     private ChangelogReleaser() {}
 
     public static void main(final String[] mainArgs) {
-        performRelease(ChangelogReleaserArgs.fromSystemProperties());
+        final ChangelogReleaserArgs args = ChangelogReleaserArgs.fromSystemProperties();
+        performRelease(args);
     }
 
     public static void performRelease(final ChangelogReleaserArgs args) {

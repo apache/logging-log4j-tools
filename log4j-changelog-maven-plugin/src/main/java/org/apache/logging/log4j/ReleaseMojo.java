@@ -17,6 +17,7 @@
 package org.apache.logging.log4j;
 
 import java.io.File;
+import java.time.LocalDate;
 
 import org.apache.logging.log4j.changelog.releaser.ChangelogReleaser;
 import org.apache.logging.log4j.changelog.releaser.ChangelogReleaserArgs;
@@ -52,7 +53,10 @@ public class ReleaseMojo extends AbstractMojo {
     private String releaseVersion;
 
     public void execute() {
-        ChangelogReleaserArgs args = ChangelogReleaserArgs.fromArgs(changelogDirectory.toPath(), releaseVersion);
+        ChangelogReleaserArgs args = new ChangelogReleaserArgs(
+                changelogDirectory.toPath(),
+                releaseVersion,
+                LocalDate.now());
         ChangelogReleaser.performRelease(args);
     }
 

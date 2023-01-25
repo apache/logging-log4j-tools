@@ -53,7 +53,7 @@ public class ExportMojo extends AbstractMojo {
     private File outputDirectory;
 
     public void execute() {
-        ChangelogExporterArgs args = ChangelogExporterArgs.fromArgs(
+        ChangelogExporterArgs args = new ChangelogExporterArgs(
                 changelogDirectory.toPath(),
                 outputDirectory.toPath());
         ChangelogExporter.performExport(args);

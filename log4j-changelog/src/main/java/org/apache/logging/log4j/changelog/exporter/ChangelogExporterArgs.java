@@ -42,8 +42,4 @@ public final class ChangelogExporterArgs {
         return new ChangelogExporterArgs(changelogDirectory, outputDirectory);
     }
 
-    public static ChangelogExporterArgs fromArgs(final Path changelogDirectory, final Path outputDirectory) {
-        return new ChangelogExporterArgs(changelogDirectory, outputDirectory);
-    }
-
 }

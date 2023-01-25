@@ -16,14 +16,14 @@
  */
 package org.apache.logging.log4j.changelog.util;
 
+import java.io.InputStream;
+
 import javax.xml.XMLConstants;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.stream.StreamSource;
 import javax.xml.validation.Schema;
 import javax.xml.validation.SchemaFactory;
-
-import java.io.InputStream;
 
 final class XmlUtils {
 
