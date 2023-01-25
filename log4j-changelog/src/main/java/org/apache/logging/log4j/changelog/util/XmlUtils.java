@@ -16,18 +16,36 @@
  */
 package org.apache.logging.log4j.changelog.util;
 
+import javax.xml.XMLConstants;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.stream.StreamSource;
+import javax.xml.validation.Schema;
+import javax.xml.validation.SchemaFactory;
+
+import java.io.InputStream;
 
 final class XmlUtils {
 
+    static final String XML_NAMESPACE = "http://logging.apache.org/log4j/changelog";
+
+    static final String XML_SCHEMA_LOCATION = "https://logging.apache.org/log4j/changelog-0.1.0.xsd";
+
     private XmlUtils() {}
+
+    static DocumentBuilderFactory createDocumentBuilderFactory() {
+        final DocumentBuilderFactory dbf = createSecureDocumentBuilderFactory();
+        final Schema schema = readSchema();
+        dbf.setSchema(schema);
+        dbf.setValidating(true);
+        return dbf;
+    }
 
     /**
      * @return a {@link DocumentBuilderFactory} instance configured with certain XXE protection measures
      * @see <a href="https://cheatsheetseries.owasp.org/cheatsheets/XML_External_Entity_Prevention_Cheat_Sheet.html#jaxp-documentbuilderfactory-saxparserfactory-and-dom4j">XML External Entity Prevention Cheat Sheet</a>
      */
-    static DocumentBuilderFactory createDocumentBuilderFactory() {
+    private static DocumentBuilderFactory createSecureDocumentBuilderFactory() {
         final DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
         String feature = null;
         try {
@@ -66,6 +84,28 @@ final class XmlUtils {
             throw new RuntimeException(message, error);
         }
         return dbf;
+    }
+
+    private static Schema readSchema() {
+
+        // Read the schema file resource
+        final String schemaFileName = "/log4j-changelog.xsd";
+        final InputStream schemaInputStream = XmlUtils.class.getResourceAsStream(schemaFileName);
+        if (schemaInputStream == null) {
+            final String message = String.format("could not find the schema file resource: `%s`", schemaFileName);
+            throw new RuntimeException(message);
+        }
+
+        // Read the schema
+        try {
+            final StreamSource schemaSource = new StreamSource(schemaInputStream);
+            final SchemaFactory schemaFactory = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
+            return schemaFactory.newSchema(schemaSource);
+        } catch (final Exception error) {
+            final String message = String.format("failed to load schema from file resource: `%s`", schemaFileName);
+            throw new RuntimeException(message, error);
+        }
+
     }
 
 }

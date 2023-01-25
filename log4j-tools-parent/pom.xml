@@ -52,7 +52,9 @@
     <maven.site.deploy.skip>true</maven.site.deploy.skip>
 
     <!-- dependency versions -->
+    <assertj.version>3.24.0</assertj.version>
     <freemarker.version>2.3.32</freemarker.version>
+    <junit.version>5.9.2</junit.version>
     <maven-plugin.version>3.7.1</maven-plugin.version>
     <maven-plugin-api.version>3.8.7</maven-plugin-api.version>
     <spotbugs.version>4.7.3</spotbugs.version>
@@ -69,9 +71,21 @@
     <dependencies>
 
       <dependency>
+        <groupId>org.assertj</groupId>
+        <artifactId>assertj-core</artifactId>
+        <version>${assertj.version}</version>
+      </dependency>
+
+      <dependency>
         <groupId>org.freemarker</groupId>
         <artifactId>freemarker</artifactId>
         <version>${freemarker.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>org.junit.jupiter</groupId>
+        <artifactId>junit-jupiter-engine</artifactId>
+        <version>${junit.version}</version>
       </dependency>
 
       <dependency>

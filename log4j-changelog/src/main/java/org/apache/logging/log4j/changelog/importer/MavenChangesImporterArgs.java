@@ -17,11 +17,12 @@
 package org.apache.logging.log4j.changelog.importer;
 
 import java.nio.file.Path;
+import java.util.Objects;
 
 import static org.apache.logging.log4j.changelog.util.PropertyUtils.requireNonBlankIntProperty;
 import static org.apache.logging.log4j.changelog.util.PropertyUtils.requireNonBlankPathProperty;
 
-final class MavenChangesImporterArgs {
+public final class MavenChangesImporterArgs {
 
     public static final String CHANGELOG_DIRECTORY_PROPERTY_NAME = "log4j.changelog.directory";
 
@@ -35,10 +36,26 @@ final class MavenChangesImporterArgs {
 
     final int releaseVersionMajor;
 
-    private MavenChangesImporterArgs(final Path changelogDirectory, final Path changesXmlFile, final int releaseVersionMajor) {
+    public MavenChangesImporterArgs(
+            final Path changelogDirectory,
+            final Path changesXmlFile,
+            final int releaseVersionMajor) {
+
+        // Check arguments
+        Objects.requireNonNull(changelogDirectory, "changelogDirectory");
+        Objects.requireNonNull(changesXmlFile, "changesXmlFile");
+        if (releaseVersionMajor < 0) {
+            final String message = String.format(
+                    "was expecting `releaseVersionMajor >= 0`, found: %d",
+                    releaseVersionMajor);
+            throw new IllegalArgumentException(message);
+        }
+
+        // Set fields
         this.changelogDirectory = changelogDirectory;
         this.changesXmlFile = changesXmlFile;
         this.releaseVersionMajor = releaseVersionMajor;
+
     }
 
     static MavenChangesImporterArgs fromSystemProperties() {

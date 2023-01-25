@@ -31,4 +31,17 @@ public final class StringUtils {
         return input == null || input.matches("\\s*");
     }
 
+    public static String repeat(final String input, final int count) {
+        if (count < 0) {
+            final String message = String.format("was expecting `count >= 0`, found: %d", count);
+            throw new IllegalArgumentException(message);
+        }
+        final int length = Math.multiplyExact(input.length(), count);
+        final StringBuilder stringBuilder = new StringBuilder(length);
+        for (int i = 0; i < count; i++) {
+            stringBuilder.append(input);
+        }
+        return stringBuilder.toString();
+    }
+
 }

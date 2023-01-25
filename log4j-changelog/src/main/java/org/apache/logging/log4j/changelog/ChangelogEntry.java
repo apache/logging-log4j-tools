@@ -112,12 +112,10 @@ public final class ChangelogEntry {
     }
 
     public void writeToXmlFile(final Path path) {
-        XmlWriter.toFile(path, document -> {
+        XmlWriter.toFile(path, "entry", (document, entryElement) -> {
 
             // Create the `entry` root element
-            final Element entryElement = document.createElement("entry");
             entryElement.setAttribute("type", type.toXmlAttribute());
-            document.appendChild(entryElement);
 
             // Create the `issue` elements
             issues.forEach(issue -> {

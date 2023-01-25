@@ -32,6 +32,10 @@ public final class MavenChangesImporter {
 
     public static void main(final String[] mainArgs) {
         final MavenChangesImporterArgs args = MavenChangesImporterArgs.fromSystemProperties();
+        performImport(args);
+    }
+
+    public static void performImport(final MavenChangesImporterArgs args) {
         final MavenChanges mavenChanges = MavenChanges.readFromFile(args.changesXmlFile);
         mavenChanges.releases.forEach(release -> {
             if ("TBD".equals(release.date)) {
@@ -81,11 +85,14 @@ public final class MavenChangesImporter {
         }
         final String sanitizedDescription = action
                 .description
-                .substring(0, Math.min(action.description.length(), 60))
                 .replaceAll("[^A-Za-z0-9]", "_")
                 .replaceAll("_+", "_")
-                .replaceAll("[^A-Za-z0-9]$", "");
-        actionRelativeFileBuilder.append(sanitizedDescription);
+                .replaceAll("^[^A-Za-z0-9]*", "")
+                .replaceAll("[^A-Za-z0-9]*$", "");
+        final String shortenedSanitizedDescription = sanitizedDescription.length() > 60
+                ? sanitizedDescription.substring(0, 60)
+                : sanitizedDescription;
+        actionRelativeFileBuilder.append(shortenedSanitizedDescription);
         actionRelativeFileBuilder.append(".xml");
         return actionRelativeFileBuilder.toString();
     }

@@ -89,7 +89,10 @@ A typical `.release.xml` looks as follows:
 ----
 $ cat src/changelog/2.19.0/release.xml
 <?xml version="1.0" encoding="UTF-8"?>
-<release date="2022-09-09" version="2.19.0"/>
+<release xmlns="http://logging.apache.org/log4j/changelog"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://logging.apache.org/log4j/changelog https://logging.apache.org/log4j/changelog-0.1.0.xsd"
+         date="2022-09-09" version="2.19.0"/>
 ----
 
 A typical changelog entry file looks as follows:
@@ -98,7 +101,10 @@ A typical changelog entry file looks as follows:
 ----
 $ cat src/changelog/.2.x.x/LOG4J2-3628_new_changelog_infra.xml
 <?xml version="1.0" encoding="UTF-8"?>
-<entry type="fixed">
+<entry xmlns="http://logging.apache.org/log4j/changelog"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://logging.apache.org/log4j/changelog https://logging.apache.org/log4j/changelog-0.1.0.xsd"
+       type="fixed">
   <issue id="LOG4J2-3556" link="https://issues.apache.org/jira/browse/LOG4J2-3556"/>
   <author id="vy"/>
   <author name="Arthur Gavlyukovskiy"/>
@@ -161,7 +167,10 @@ A sample _changelog entry_ file is shared below.
 .`src/changelog/LOG4J2-3556_JsonTemplateLayout_stack_trace_truncation_fix.xml` file contents
 [source,xml]
 ----
-<entry type="fixed">
+<entry xmlns="http://logging.apache.org/log4j/changelog"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://logging.apache.org/log4j/changelog https://logging.apache.org/log4j/changelog-0.1.0.xsd"
+       type="fixed">
   <issue id="LOG4J2-3556" link="https://issues.apache.org/jira/browse/LOG4J2-3556"/>
   <author id="vy"/>
   <author name="Arthur Gavlyukovskiy"/>

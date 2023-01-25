@@ -35,11 +35,9 @@ public final class ChangelogRelease {
     }
 
     public void writeToXmlFile(final Path path) {
-        XmlWriter.toFile(path, document -> {
-            final Element releaseElement = document.createElement("release");
+        XmlWriter.toFile(path, "release", (document, releaseElement) -> {
             releaseElement.setAttribute("version", version);
             releaseElement.setAttribute("date", date);
-            document.appendChild(releaseElement);
         });
     }
 
