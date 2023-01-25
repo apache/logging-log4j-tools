@@ -34,7 +34,8 @@ public final class ChangelogExporter {
     private ChangelogExporter() {}
 
     public static void main(final String[] mainArgs) {
-        performExport(ChangelogExporterArgs.fromSystemProperties());
+        final ChangelogExporterArgs args = ChangelogExporterArgs.fromSystemProperties();
+        performExport(args);
     }
 
     public static void performExport(final ChangelogExporterArgs args) {
