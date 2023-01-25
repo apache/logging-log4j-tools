@@ -89,7 +89,7 @@ public final class ChangelogExporter {
         ChangelogFiles
                 .unreleasedDirectoryVersionMajors(args.changelogDirectory)
                 .stream()
-                .sorted(Comparator.reverseOrder())
+                .sorted()
                 .forEach(upcomingReleaseVersionMajor -> {
                     final Path upcomingReleaseDirectory =
                             ChangelogFiles.unreleasedDirectory(args.changelogDirectory, upcomingReleaseVersionMajor);
