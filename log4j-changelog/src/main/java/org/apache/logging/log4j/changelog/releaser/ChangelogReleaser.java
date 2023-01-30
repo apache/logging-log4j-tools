@@ -41,7 +41,7 @@ public final class ChangelogReleaser {
     public static void performRelease(final ChangelogReleaserArgs args) {
 
         // Read the release date and version
-        final String releaseDate = ISO_DATE.format(LocalDate.now());
+        final String releaseDate = ISO_DATE.format(args.releaseDate != null ? args.releaseDate : LocalDate.now());
         final int releaseVersionMajor = VersionUtils.versionMajor(args.releaseVersion);
         System.out.format("using `%s` for the release date%n", releaseDate);
 
