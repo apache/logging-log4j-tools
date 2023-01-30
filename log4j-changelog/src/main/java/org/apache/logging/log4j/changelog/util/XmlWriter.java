@@ -93,9 +93,6 @@ public final class XmlWriter {
 
             // Apply requested changes
             documentConsumer.accept(document, rootElement);
-//            rootElement.setAttribute("xmlns", XmlUtils.XML_NAMESPACE);
-//            rootElement.setAttribute("xmlns:xsi", "http://www.w3.org/2001/XMLSchema-instance");
-//            rootElement.setAttribute("xsi:schemaLocation", XmlUtils.XML_NAMESPACE + " "+ XmlUtils.XML_SCHEMA_LOCATION);
 
             // Serialize the document
             return serializeXmlDocument(document, rootElementName);
