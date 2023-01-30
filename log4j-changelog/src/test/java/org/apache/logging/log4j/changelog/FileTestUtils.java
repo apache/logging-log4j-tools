@@ -44,7 +44,7 @@ final class FileTestUtils {
             final Path actualFilePath = actualContents.get(relativeFilePath);
             final Path expectedFilePath = expectedContents.get(relativeFilePath);
             if (!Files.isDirectory(actualFilePath) || !Files.isDirectory(expectedFilePath)) {
-                assertThat(actualFilePath).hasSameBinaryContentAs(expectedFilePath);
+                assertThat(actualFilePath).hasSameTextualContentAs(expectedFilePath);
             }
         });
 

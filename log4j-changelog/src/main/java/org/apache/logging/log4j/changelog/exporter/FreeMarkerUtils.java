@@ -17,7 +17,6 @@
 package org.apache.logging.log4j.changelog.exporter;
 
 import java.io.BufferedWriter;
-import java.io.File;
 import java.io.IOException;
 import java.io.UncheckedIOException;
 import java.nio.file.Files;
@@ -28,21 +27,23 @@ import org.apache.logging.log4j.changelog.util.CharsetUtils;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import freemarker.cache.FileTemplateLoader;
-import freemarker.template.*;
+import freemarker.template.Configuration;
+import freemarker.template.DefaultObjectWrapper;
+import freemarker.template.DefaultObjectWrapperBuilder;
+import freemarker.template.Template;
+import freemarker.template.TemplateExceptionHandler;
 
 final class FreeMarkerUtils {
 
     private FreeMarkerUtils() {}
 
-    private static final Configuration CONFIGURATION = createConfiguration();
-
     @SuppressFBWarnings("DMI_HARDCODED_ABSOLUTE_FILENAME")
-    private static Configuration createConfiguration() {
+    private static Configuration createConfiguration(final Path root) {
         final Configuration configuration = new Configuration(Configuration.VERSION_2_3_29);
         configuration.setDefaultEncoding(CharsetUtils.CHARSET_NAME);
         configuration.setTemplateExceptionHandler(TemplateExceptionHandler.RETHROW_HANDLER);
         try {
-            configuration.setTemplateLoader(new FileTemplateLoader(new File("/")));
+            configuration.setTemplateLoader(new FileTemplateLoader(root.toFile()));
         } catch (final IOException error) {
             throw new UncheckedIOException(error);
         }
@@ -58,9 +59,14 @@ final class FreeMarkerUtils {
     }
 
     @SuppressFBWarnings("TEMPLATE_INJECTION_FREEMARKER")
-    static void render(final Path templateFile, final Object templateData, final Path outputFile) {
+    static void render(
+            final Path templateDirectory,
+            final String templateFile,
+            final Object templateData,
+            final Path outputFile) {
         try {
-            final Template template = CONFIGURATION.getTemplate(templateFile.toAbsolutePath().toString());
+            final Configuration configuration = createConfiguration(templateDirectory);
+            final Template template = configuration.getTemplate(templateFile);
             final Path outputFileParent = outputFile.getParent();
             if (outputFileParent != null) {
                 Files.createDirectories(outputFileParent);
