@@ -40,7 +40,7 @@ class ChangelogReleaserTest {
             throws Exception {
 
         // Clone the directory to avoid `move` operations cluttering the reference folder
-        copyDirectory(new File("src/test/resources/5-unlinked"), changelogDirectory.toFile());
+        copyDirectory(new File("src/test/resources/3-enriched"), changelogDirectory.toFile());
 
         // Invoke the releaser
         ChangelogReleaserArgs args = new ChangelogReleaserArgs(
@@ -51,7 +51,7 @@ class ChangelogReleaserTest {
 
         // Empty folders are not tracked by git, though created by `ChangelogReleaser`.
         // Create the `.2.x.x` folder to match the actual output.
-        final Path expectedChangelogDirectory = Paths.get("src/test/resources/6-released");
+        final Path expectedChangelogDirectory = Paths.get("src/test/resources/5-released");
         final Path emptyFolder = expectedChangelogDirectory.resolve(".2.x.x");
         if (!Files.exists(emptyFolder)) {
             Files.createDirectories(emptyFolder);
