@@ -191,6 +191,8 @@ jobs:
           export ZIP_FILEPATH="/tmp/apache-log4j-tools-${PROJECT_VERSION}-src.zip"
           git ls-files -z | xargs -0 zip -9 "$ZIP_FILEPATH" --
           gpg --armor --detach-sign --yes --pinentry-mode error "$ZIP_FILEPATH"
+          sha256sum "$ZIP_FILEPATH" > "$ZIP_FILEPATH.sha256"
+          sha512sum "$ZIP_FILEPATH" > "$ZIP_FILEPATH.sha512"
 
       - name: Upload artifacts (RELEASE)
         if: startsWith(github.ref, 'refs/heads/release/')
