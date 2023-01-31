@@ -38,6 +38,8 @@ import org.w3c.dom.Element;
 
 public final class XmlWriter {
 
+    private static final String LS = System.lineSeparator();
+
     private XmlWriter() {}
 
     public static void toFile(
@@ -69,22 +71,21 @@ public final class XmlWriter {
             // Append the license comment
             final Document document = documentBuilder.newDocument();
             document.setXmlStandalone(true);
-            final Comment licenseComment = document.createComment("\n" +
-                    "  Licensed to the Apache Software Foundation (ASF) under one or more\n" +
-                    "  contributor license agreements. See the NOTICE file distributed with\n" +
-                    "  this work for additional information regarding copyright ownership.\n" +
-                    "  The ASF licenses this file to You under the Apache License, Version 2.0\n" +
-                    "  (the \"License\"); you may not use this file except in compliance with\n" +
-                    "  the License. You may obtain a copy of the License at\n" +
-                    "\n" +
-                    "      https://www.apache.org/licenses/LICENSE-2.0\n" +
-                    "\n" +
-                    "  Unless required by applicable law or agreed to in writing, software\n" +
-                    "  distributed under the License is distributed on an \"AS IS\" BASIS,\n" +
-                    "  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\n" +
-                    "  See the License for the specific language governing permissions and\n" +
-                    "  limitations under the License." +
-                    "\n");
+            final Comment licenseComment = document.createComment(LS +
+                    "  Licensed to the Apache Software Foundation (ASF) under one or more" + LS +
+                    "  contributor license agreements. See the NOTICE file distributed with" + LS +
+                    "  this work for additional information regarding copyright ownership." + LS +
+                    "  The ASF licenses this file to You under the Apache License, Version 2.0" + LS +
+                    "  (the \"License\"); you may not use this file except in compliance with" + LS +
+                    "  the License. You may obtain a copy of the License at" + LS +
+                    LS +
+                    "      https://www.apache.org/licenses/LICENSE-2.0" + LS +
+                    LS +
+                    "  Unless required by applicable law or agreed to in writing, software" + LS +
+                    "  distributed under the License is distributed on an \"AS IS\" BASIS," + LS +
+                    "  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied." + LS +
+                    "  See the License for the specific language governing permissions and" + LS +
+                    "  limitations under the License." + LS);
             document.appendChild(licenseComment);
 
             // Create the root element
@@ -117,13 +118,13 @@ public final class XmlWriter {
         final String xml = result.getWriter().toString();
         final String padding = StringUtils.repeat(" ", rootElementName.length() + 2);
         return xml
-                .replace("?><!--", "?>\n<!--")
-                .replace("--><", "-->\n<")
+                .replace("?><!--", "?>" + LS + "<!--")
+                .replace("--><", "-->" + LS + "<")
                 .replaceFirst(
-                        '<' + rootElementName + " (.+>\n)",
-                        ('<' + rootElementName + " xmlns=\"" + XmlUtils.XML_NAMESPACE + "\"\n" +
-                                padding + "xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"\n" +
-                                padding + "xsi:schemaLocation=\"" + XmlUtils.XML_NAMESPACE + " "+ XmlUtils.XML_SCHEMA_LOCATION + "\"\n" +
+                        '<' + rootElementName + " (.+>" + LS + ")",
+                        ('<' + rootElementName + " xmlns=\"" + XmlUtils.XML_NAMESPACE + "\"" + LS +
+                                padding + "xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"" + LS +
+                                padding + "xsi:schemaLocation=\"" + XmlUtils.XML_NAMESPACE + " "+ XmlUtils.XML_SCHEMA_LOCATION + "\"" + LS +
                                 padding + "$1"));
 
     }

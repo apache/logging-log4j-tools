@@ -27,28 +27,25 @@ import org.apache.logging.log4j.changelog.util.CharsetUtils;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import freemarker.cache.FileTemplateLoader;
-import freemarker.template.Configuration;
-import freemarker.template.DefaultObjectWrapper;
-import freemarker.template.DefaultObjectWrapperBuilder;
-import freemarker.template.Template;
-import freemarker.template.TemplateExceptionHandler;
+import freemarker.template.*;
 
 final class FreeMarkerUtils {
 
     private FreeMarkerUtils() {}
 
     @SuppressFBWarnings("DMI_HARDCODED_ABSOLUTE_FILENAME")
-    private static Configuration createConfiguration(final Path root) {
-        final Configuration configuration = new Configuration(Configuration.VERSION_2_3_29);
+    private static Configuration createConfiguration(final Path templateDirectory) {
+        final Version configurationVersion = Configuration.VERSION_2_3_29;
+        final Configuration configuration = new Configuration(configurationVersion);
         configuration.setDefaultEncoding(CharsetUtils.CHARSET_NAME);
         configuration.setTemplateExceptionHandler(TemplateExceptionHandler.RETHROW_HANDLER);
         try {
-            configuration.setTemplateLoader(new FileTemplateLoader(root.toFile()));
+            configuration.setTemplateLoader(new FileTemplateLoader(templateDirectory.toFile()));
         } catch (final IOException error) {
             throw new UncheckedIOException(error);
         }
         final DefaultObjectWrapperBuilder objectWrapperBuilder =
-                new DefaultObjectWrapperBuilder(Configuration.VERSION_2_3_27);
+                new DefaultObjectWrapperBuilder(configurationVersion);
         objectWrapperBuilder.setExposeFields(true);
         final DefaultObjectWrapper objectWrapper = objectWrapperBuilder.build();
         configuration.setObjectWrapper(objectWrapper);
@@ -61,12 +58,12 @@ final class FreeMarkerUtils {
     @SuppressFBWarnings("TEMPLATE_INJECTION_FREEMARKER")
     static void render(
             final Path templateDirectory,
-            final String templateFile,
+            final String templateName,
             final Object templateData,
             final Path outputFile) {
         try {
             final Configuration configuration = createConfiguration(templateDirectory);
-            final Template template = configuration.getTemplate(templateFile);
+            final Template template = configuration.getTemplate(templateName);
             final Path outputFileParent = outputFile.getParent();
             if (outputFileParent != null) {
                 Files.createDirectories(outputFileParent);
@@ -81,7 +78,7 @@ final class FreeMarkerUtils {
         } catch (final Exception error) {
             final String message = String.format(
                     "failed rendering template `%s` to file `%s`",
-                    templateFile,
+                    templateName,
                     outputFile);
             throw new RuntimeException(message, error);
         }

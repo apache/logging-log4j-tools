@@ -17,6 +17,8 @@ limitations under the License.
 
 == Unreleased
 
+* Fixed Windows compatibility (for https://github.com/apache/logging-log4j-tools/issues/19[#19] by Piotr P. Karwasz, Volkan Yazıcı)
+
 * Fixed unreleased directory order in `ChangelogExporter` (for https://github.com/apache/logging-log4j-tools/issues/17[#17] by Volkan Yazıcı)
 
 * Removed `security` as a change type from `log4j-changelog` (for https://github.com/apache/logging-log4j-tools/issues/14[#14] by Ralph Goers, Volkan Yazıcı)
