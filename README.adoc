@@ -27,6 +27,11 @@ Tooling to export AsciiDoc-formatted changelog files.
 xref:log4j-changelog-maven-plugin/README.adoc[`log4j-changelog-maven-plugin`]::
 Maven plugin for xref:log4j-changelog/README.adoc[`log4j-changelog`].
 
+== Build
+
+This project generates Java 8 bytecode, though requires Java 11 for compilation.
+You can build and test sources using `./mvnw verify` command.
+
 == Distribution
 
 In accordance with the Apache Software Foundation's release https://infra.apache.org/release-distribution.html[distribution policy] and https://infra.apache.org/release-publishing.html[creation process], project artifacts are _officially_ accessible from the following locations:
