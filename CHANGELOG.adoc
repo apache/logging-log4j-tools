@@ -15,7 +15,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 ////
 
-== Unreleased
+== 0.2.0 (2023-01-31)
 
 * Fixed Windows compatibility (for https://github.com/apache/logging-log4j-tools/issues/19[#19] by Piotr P. Karwasz, Volkan Yazıcı)
 
