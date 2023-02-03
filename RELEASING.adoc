@@ -74,7 +74,6 @@ If you are using GMail, simply enable the _"Plain text mode"_ while composing yo
 
 == Publish the release
 
-. _Release_ the repository in https://repository.apache.org/[repository.apache.org]
 . In https://dist.apache.org/repos/dist/release/logging/log4j[dist.apache.org/repos/dist] Subversion repository,
 .. move the signed sources and their checksums from `*dev*/logging/log4j` directory to `*release*/logging/log4j-tools/7.8.0`
 .. delete the folder from an earlier release in `*release*/logging/log4j-tools`
@@ -82,8 +81,7 @@ If you are using GMail, simply enable the _"Plain text mode"_ while composing yo
 . Report the release at https://reporter.apache.org/[reporter.apache.org]
 . Merge `release/7.8.0` changes to `master`
 . Set the revision property to the next development version (e.g., `7.9.0-SNAPSHOT`) in xref:pom.xml[`pom.xml`]
-. Update xref:CHANGELOG.adoc[`CHANGELOG.adoc`] accordingly
-. Push the `master` branch
+. Commit changes and push the `master` branch
 . Delete the `release/7.8.0` branch
 . Once the artifacts are visible in https://central.sonatype.dev/[central.sonatype.dev], https://github.com/apache/logging-log4j-tools/releases/new[create a new release in GitHub]
 .. Use the `v7.8.0` tag created by the GitHub Actions workflow
