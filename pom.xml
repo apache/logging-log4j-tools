@@ -55,7 +55,7 @@
   <properties>
 
     <!-- project version -->
-    <revision>0.2.0</revision>
+    <revision>0.3.0-SNAPSHOT</revision>
 
     <!-- `minimalJavaBuildVersion` is employed by `org.apache:apache`, which is the parent of `org.apache.logging:logging-parent`, which is the parent of us.
          `minimalJavaBuildVersion` is used for enforcing the compiler version.
