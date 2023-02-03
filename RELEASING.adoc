@@ -85,4 +85,13 @@ If you are using GMail, simply enable the _"Plain text mode"_ while composing yo
 . Delete the `release/7.8.0` branch
 . Once the artifacts are visible in https://central.sonatype.dev/[central.sonatype.dev], https://github.com/apache/logging-log4j-tools/releases/new[create a new release in GitHub]
 .. Use the `v7.8.0` tag created by the GitHub Actions workflow
-.. Copy necessary changes from xref:CHANGELOG.adoc[`CHANGELOG.adoc`] (formatting needs to be converted to Markdown!)
+.. Copy necessary changes from xref:CHANGELOG.adoc[`CHANGELOG.adoc`]
+... formatting needs to be converted from AsciiDoc to https://github.github.com/gfm/[GitHub Flavored Markdown]
+... GitHub Issue links need to be converted from
++
+[source]
+----
+https://github.com/apache/logging-log4j-tools/issues/19[#19]
+----
++
+AsciiDoc-formatted links to simply `#19`
