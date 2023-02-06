@@ -37,7 +37,7 @@ In the code examples below, assuming the version to be released is `7.8.0`.
 +
 If not, commit necessary fixes, push, and repeat.
 . _Close_ the repository in https://repository.apache.org/[repository.apache.org]
-. Commit _the signed sources and its checksum_ (e.g., `apache-log4j-tools-7.8.0-src.zip` and `apache-log4j-tools-7.8.0-src.zip.{asc,sha512}`) to https://dist.apache.org/repos/dist/dev/logging/log4j[dist.apache.org/repos/dist/**dev**/logging/log4j] Subversion repository and delete any artifacts from old releases
+. Commit _the signed sources and its checksum_ (e.g., `apache-log4j-tools-7.8.0-src.{zip,.zip.asc,.zip.sha512}`) to https://dist.apache.org/repos/dist/dev/logging/log4j[dist.apache.org/repos/dist/**dev**/logging/log4j] Subversion repository and delete any artifacts from old releases
 
 == Vote the release
 
