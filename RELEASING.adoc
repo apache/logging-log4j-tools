@@ -31,13 +31,20 @@ In the code examples below, assuming the version to be released is `7.8.0`.
 . Make sure that `./mvnw clean verify` succeeds – if not, commit necessary fixes
 . Push the `release/7.8.0` branch
 . Make sure the associated https://github.com/apache/logging-log4j-tools/actions[GitHub Actions workflow] succeeds:
-.. **Signed artifacts** are uploaded to the _Staging Repositories_ in https://repository.apache.org/[repository.apache.org]
-.. **Signed sources and their checksums** are uploaded as GitHub Actions workflow artifacts
+.. *Signed artifacts* are uploaded to the _Staging Repositories_ in https://repository.apache.org/[repository.apache.org]
+.. *Signed sources and their checksum* are uploaded as GitHub Actions workflow artifacts
+.. `*rel/7.8.0-rc.1*` git tag should be created
++
+[IMPORTANT]
+====
+The ASF infrastructure treats ``rel/``-prefixed git tags special and ensures they are immutable for provenance reasons.
+To make the above operation idempotent and allow retries, the release candidate enumeration used in the tag will be incremented automatically; `rel/7.8.0-rc.1`, `rel/7.8.0-rc.2`, etc.
+====
 
 +
 If not, commit necessary fixes, push, and repeat.
 . _Close_ the repository in https://repository.apache.org/[repository.apache.org]
-. Commit _the signed sources and its checksum_ (e.g., `apache-log4j-tools-7.8.0-src.{zip,.zip.asc,.zip.sha512}`) to https://dist.apache.org/repos/dist/dev/logging/log4j[dist.apache.org/repos/dist/**dev**/logging/log4j] Subversion repository and delete any artifacts from old releases
+. Commit _the signed sources and their checksum_ (e.g., `apache-log4j-tools-7.8.0-src.{zip,.zip.asc,.zip.sha512}`) to https://dist.apache.org/repos/dist/dev/logging/log4j[dist.apache.org/repos/dist/**dev**/logging/log4j] Subversion repository and delete any artifacts from old releases
 
 == Vote the release
 
@@ -51,7 +58,7 @@ The Apache Log4j Tools 7.8.0 release is now available for voting.
 This release contains minor enhancements and bug fixes.
 
 Source repository: https://github.com/apache/logging-log4j-tools
-Branch: release/7.8.0
+Tag: rel/7.8.0-rc.1
 Commit: e82a44142280d013bd76ea18951fde00dcee192b
 CI run: https://github.com/apache/logging-log4j-tools/actions/runs/3882476949
 Artifacts: https://dist.apache.org/repos/dist/dev/logging/log4j/
@@ -74,20 +81,37 @@ If you are using GMail, simply enable the _"Plain text mode"_ while composing yo
 
 == Publish the release
 
-. In https://dist.apache.org/repos/dist/release/logging/log4j[dist.apache.org/repos/dist] Subversion repository,
-.. move the signed sources and its checksum from `*dev*/logging/log4j` directory to `*release*/logging/log4j-tools/7.8.0`
-.. delete the folder from an earlier release in `*release*/logging/log4j-tools`
-.. commit changes
-. Report the release at https://reporter.apache.org/[reporter.apache.org]
+=== In git repository
+
+. Pull the most recent changes and tags
+. Tag the release (e.g., `rel/7.8.0`) and push it
++
+[IMPORTANT]
+====
+The ASF infrastructure treats ``rel/``-prefixed git tags special and ensures they are immutable for provenance reasons.
+====
 . Merge `release/7.8.0` changes to `master`
 . Set the revision property to the next development version (e.g., `7.9.0-SNAPSHOT`) in xref:pom.xml[`pom.xml`]
 . Commit changes and push the `master` branch
-. Delete the `release/7.8.0` branch
-. Once the artifacts are visible in https://central.sonatype.dev/[central.sonatype.dev], https://github.com/apache/logging-log4j-tools/releases/new[create a new release in GitHub]
-.. Use the `v7.8.0` tag created by the GitHub Actions workflow
-.. Copy necessary changes from xref:CHANGELOG.adoc[`CHANGELOG.adoc`]
-... formatting needs to be converted from AsciiDoc to https://github.github.com/gfm/[GitHub Flavored Markdown]
-... GitHub Issue links need to be converted from
+. Delete the local and remote copies of the `release/7.8.0` branch
+
+=== In the ASF infrastructure
+
+. _Release_ the repository in https://repository.apache.org/[repository.apache.org]
+. In https://dist.apache.org/repos/dist/release/logging/log4j[dist.apache.org/repos/dist] Subversion repository,
+.. move the signed sources and their checksum from `*dev*/logging/log4j` directory to `*release*/logging/log4j-tools/7.8.0`
+.. delete the folder from an earlier release in `*release*/logging/log4j-tools`
+.. commit changes
+. Report the release at https://reporter.apache.org/[reporter.apache.org]
+
+=== In GitHub
+
+Once the artifacts are visible in https://central.sonatype.dev/[central.sonatype.dev], https://github.com/apache/logging-log4j-tools/releases/new[create a new release in GitHub]
+
+. Use the `rel/7.8.0` tag
+. Copy necessary changes from xref:CHANGELOG.adoc[`CHANGELOG.adoc`]
+.. formatting needs to be converted from AsciiDoc to https://github.github.com/gfm/[GitHub Flavored Markdown]
+.. GitHub Issue links need to be converted from
 +
 [source]
 ----
