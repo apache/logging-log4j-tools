@@ -1,3 +1,5 @@
+# All text files should use LF for reproducibility of builds
+* text=auto eol=lf
 # Maven Wrapper need LF line endings
 /.mvn/wrapper/maven-wrapper.properties eol=lf
 /mvnw                                  eol=lf
