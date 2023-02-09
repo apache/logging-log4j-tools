@@ -24,3 +24,5 @@ target/
 .project
 .classpath
 .settings/
+# Maven Wrapper
+/.mvn/wrapper/maven-wrapper.jar
