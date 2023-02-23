@@ -19,6 +19,7 @@ target/
 *.iws
 /out
 .flattened-pom.xml
+/.mvn/wrapper/maven-wrapper.jar
 # Eclipse
 .project
 .classpath
