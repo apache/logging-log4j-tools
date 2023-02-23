@@ -53,6 +53,10 @@ public final class ChangelogExporter {
                     return ChangelogRelease.readFromXmlFile(releaseXmlFile);
                 })
                 .collect(Collectors.toList());
+        final List<Integer> changelogEntryCounts = releaseDirectories
+                .stream()
+                .map(ignored -> 0)
+                .collect(Collectors.toList());
 
         // Export releases
         if (releaseDirectoryCount > 0) {
@@ -62,8 +66,9 @@ public final class ChangelogExporter {
                 final Path releaseDirectory = releaseDirectories.get(releaseIndex);
                 final ChangelogRelease changelogRelease = changelogReleases.get(releaseIndex);
                 final Path releaseChangelogTemplateFile = ChangelogFiles.releaseChangelogTemplateFile(releaseDirectory);
+                final int changelogEntryCount;
                 try {
-                    exportRelease(
+                    changelogEntryCount = exportRelease(
                             args.outputDirectory,
                             args.changelogDirectory,
                             releaseDirectory,
@@ -74,6 +79,7 @@ public final class ChangelogExporter {
                             String.format("failed exporting release from directory `%s`", releaseDirectory);
                     throw new RuntimeException(message, error);
                 }
+                changelogEntryCounts.set(releaseIndex, changelogEntryCount);
             }
 
             // Report the operation
@@ -100,20 +106,22 @@ public final class ChangelogExporter {
                     final Path upcomingReleaseChangelogTemplateFile =
                             ChangelogFiles.releaseChangelogTemplateFile(upcomingReleaseDirectory);
                     System.out.format("exporting upcoming release directory: `%s`%n", upcomingReleaseDirectory);
-                    exportRelease(
+                    final int changelogEntryCount = exportRelease(
                             args.outputDirectory,
                             args.changelogDirectory,
                             upcomingReleaseDirectory,
                             upcomingRelease,
                             upcomingReleaseChangelogTemplateFile);
                     changelogReleases.add(upcomingRelease);
+                    changelogEntryCounts.add(changelogEntryCount);
                 });
 
         // Export the release index
         exportIndex(
                 args.outputDirectory,
                 args.changelogDirectory,
-                changelogReleases);
+                changelogReleases,
+                changelogEntryCounts);
 
     }
 
@@ -136,7 +144,7 @@ public final class ChangelogExporter {
                 FileUtils.findAdjacentFiles(path, false, paths -> paths.findFirst().isPresent());
     }
 
-    private static void exportRelease(
+    private static int exportRelease(
             final Path outputDirectory,
             final Path changelogDirectory,
             final Path releaseDirectory,
@@ -155,6 +163,11 @@ public final class ChangelogExporter {
             final String message = String.format("failed exporting release from directory `%s`", releaseDirectory);
             throw new UncheckedIOException(message, error);
         }
+        return changelogEntriesByType
+                .values()
+                .stream()
+                .mapToInt(Collection::size)
+                .sum();
     }
 
     private static Map<ChangelogEntry.Type, List<ChangelogEntry>> readChangelogEntriesByType(
@@ -198,7 +211,8 @@ public final class ChangelogExporter {
     private static void exportIndex(
             final Path outputDirectory,
             final Path changelogDirectory,
-            final List<ChangelogRelease> changelogReleases) {
+            final List<ChangelogRelease> changelogReleases,
+            final List<Integer> changelogEntryCounts) {
         final Object indexTemplateData = Collections.singletonMap(
                 "releases", IntStream
                         .range(0, changelogReleases.size())
@@ -206,9 +220,11 @@ public final class ChangelogExporter {
                         .sorted(Comparator.reverseOrder())
                         .map(releaseIndex -> {
                             final ChangelogRelease changelogRelease = changelogReleases.get(releaseIndex);
+                            final int changelogEntryCount = changelogEntryCounts.get(releaseIndex);
                             Map<String, Object> changelogReleaseData = new LinkedHashMap<>();
                             changelogReleaseData.put("version", changelogRelease.version);
                             changelogReleaseData.put("date", changelogRelease.date);
+                            changelogReleaseData.put("changelogEntryCount", changelogEntryCount);
                             changelogReleaseData.put("changelogFileName", releaseChangelogFileName(changelogRelease));
                             return (Object) changelogReleaseData;
                         })

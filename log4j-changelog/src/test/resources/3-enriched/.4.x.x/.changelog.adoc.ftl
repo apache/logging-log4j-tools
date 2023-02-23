@@ -15,8 +15,8 @@
     limitations under the License.
 ////
 
-= Release changelogs
+= ${release.version}<#if release.date?has_content> (${release.date})</#if>
 
-<#list releases as release><#if release.changelogEntryCount gt 0>
-* xref:${release.changelogFileName}[${release.version}]<#if release.date?has_content> (${release.date})</#if>
-</#if></#list>
+Changes staged for the next 4.x.x version that is yet to be released.
+
+<#include "../.changelog-entries.adoc.ftl">

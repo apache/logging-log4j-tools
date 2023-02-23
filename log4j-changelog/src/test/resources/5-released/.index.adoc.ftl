@@ -17,6 +17,6 @@
 
 = Release changelogs
 
-<#list releases as release>
+<#list releases as release><#if release.changelogEntryCount gt 0>
 * xref:${release.changelogFileName}[${release.version}]<#if release.date?has_content> (${release.date})</#if>
-</#list>
+</#if></#list>
