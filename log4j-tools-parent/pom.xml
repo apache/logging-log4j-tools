@@ -56,7 +56,7 @@
     <commons-io.version>2.11.0</commons-io.version>
     <freemarker.version>2.3.32</freemarker.version>
     <junit.version>5.9.2</junit.version>
-    <maven-plugin.version>3.7.1</maven-plugin.version>
+    <maven-plugin.version>3.8.1</maven-plugin.version>
     <maven-plugin-api.version>3.6.3</maven-plugin-api.version>
     <spotbugs.version>4.7.3</spotbugs.version>
 
