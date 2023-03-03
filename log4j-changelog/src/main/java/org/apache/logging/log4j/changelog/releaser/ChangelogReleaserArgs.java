@@ -20,8 +20,6 @@ import java.nio.file.Path;
 import java.time.LocalDate;
 import java.util.Objects;
 
-import static org.apache.logging.log4j.changelog.util.PropertyUtils.requireNonBlankPathProperty;
-import static org.apache.logging.log4j.changelog.util.PropertyUtils.requireNonBlankStringProperty;
 import static org.apache.logging.log4j.changelog.util.VersionUtils.requireSemanticVersioning;
 
 public final class ChangelogReleaserArgs {
@@ -52,13 +50,6 @@ public final class ChangelogReleaserArgs {
         this.releaseVersion = releaseVersion;
         this.releaseDate = releaseDate;
 
-    }
-
-    static ChangelogReleaserArgs fromSystemProperties() {
-        final Path changelogDirectory = requireNonBlankPathProperty(CHANGELOG_DIRECTORY_PROPERTY_NAME);
-        final String releaseVersion = requireNonBlankStringProperty(RELEASE_VERSION_PROPERTY_NAME);
-        final LocalDate releaseDate = LocalDate.now();
-        return new ChangelogReleaserArgs(changelogDirectory, releaseVersion, releaseDate);
     }
 
 }

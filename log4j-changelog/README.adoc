@@ -261,16 +261,14 @@ Simply create a <<#changelog-entry-file>> and commit it along with your change!
 [#qa-generate]
 === How can I export changelogs to AsciiDoc files?
 
-You need to use `ChangelogExporter` as follows:
+You need to use `ChangelogExporter`, which is accessible through the following goals of xref:../log4j-changelog-maven-plugin/README.adoc[the Maven plugin]:
 
-[source,bash]
-----
-java \
-    -cp /path/to/log4j-changelog.jar \
-    -Dlog4j.changelog.directory=/path/to/changelog/directory \
-    -Dlog4j.changelog.outputDirectory=/path/to/asciiDocOutputDirectory \
-    org.apache.logging.log4j.changelog.exporter.ChangelogExporter
-----
+`log4j-changelog:export`::
+It exports the entire changelog directory (e.g., `src/changelog`) using `.index.adoc.ftl` and `.changelog.adoc.ftl` template files.
+
+`log4j-changelog:export-single`::
+It exports a single release changelog directory against a particular template file.
+For instance, you can use it to export `src/changelog/2.19.0` using `src/changelog/.changelog-email.txt.ftl` to `/tmp/changelog-email.txt`.
 
 [#qa-deploy-release]
 === I am about to deploy a new Log4j release. What shall I do?
@@ -294,15 +292,13 @@ Hence, there are no differences between releases and release candidates.
 
 How to carry out aforementioned changes are explained below in steps:
 
-. Populate the `<changelogDirectory>/<releaseVersion>` directory (e.g., `/src/changelog/2.19.0`) from the upcoming release changelog directory (e.g., `<changelogDirectory>/.2.x.x`):
+. Populate the `<changelogDirectory>/<releaseVersion>` directory (e.g., `/src/changelog/2.19.0`) from the upcoming release changelog directory (e.g., `<changelogDirectory>/.2.x.x`) using the xref:../log4j-changelog-maven-plugin/README.adoc#release[`release` Maven goal]:
 +
 [source,bash]
 ----
-java \
-    -cp /path/to/log4j-changelog.jar \
+./mvnw log4j-changelog:release \
     -Dlog4j.changelog.directory=/path/to/changelog/directory \
-    -Dlog4j.changelog.releaseVersion=X.Y.Z \
-    org.apache.logging.log4j.changelog.releaser.ChangelogReleaser
+    -Dlog4j.changelog.releaseVersion=X.Y.Z
 ----
 . Verify that all changelog entry files are moved from `<changelogDirectory>/.<releaseVersionMajor>.x.x` directory (e.g., `/src/changelog/.2.x.x`)
 . Verify that `<changelogDirectory>/<releaseVersion>` directory (e.g., `/src/changelog/2.19.0`) is created, and it contains `.changelog.adoc.ftl`, `.release.xml`, and changelog entry files

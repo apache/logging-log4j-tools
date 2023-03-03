@@ -56,10 +56,6 @@ public final class ChangelogFiles {
         return changelogDirectory.resolve(".index.adoc.ftl");
     }
 
-    public static String indexTemplateFile(final Path changelogDirectory, final Path baseDir) {
-        return baseDir.relativize(indexTemplateFile(changelogDirectory)).toString().replaceAll("\\\\", "/");
-    }
-
     public static Path releaseDirectory(final Path changelogDirectory, final String releaseVersion) {
         return changelogDirectory.resolve(releaseVersion);
     }
@@ -72,7 +68,4 @@ public final class ChangelogFiles {
         return releaseDirectory.resolve(".changelog.adoc.ftl");
     }
 
-    public static String releaseChangelogTemplateFile(final Path releaseDirectory, final Path baseDir) {
-        return baseDir.relativize(releaseChangelogTemplateFile(releaseDirectory)).toString().replaceAll("\\\\", "/");
-    }
 }

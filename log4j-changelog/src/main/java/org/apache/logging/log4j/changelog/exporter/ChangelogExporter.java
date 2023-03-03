@@ -34,15 +34,45 @@ public final class ChangelogExporter {
 
     private ChangelogExporter() {}
 
-    public static void main(final String[] mainArgs) {
-        final ChangelogExporterArgs args = ChangelogExporterArgs.fromSystemProperties();
-        performExport(args);
+    public static void performExport(final ChangelogExporterArgs args) {
+        Objects.requireNonNull(args, "args");
+        if (ChangelogExporterArgs.Mode.SINGLE.equals(args.mode)) {
+            performSingleExport(args.changelogDirectory, args.releaseVersion, args.templateFile, args.outputFile);
+        } else if (ChangelogExporterArgs.Mode.MULTI.equals(args.mode)) {
+            performMultiExport(args.changelogDirectory, args.outputDirectory);
+        } else {
+            throw new IllegalArgumentException("unknown mode: " + args.mode);
+        }
     }
 
-    public static void performExport(final ChangelogExporterArgs args) {
+    private static void performSingleExport(
+            final Path changelogDirectory,
+            final String releaseVersion,
+            final Path templateFile,
+            final Path outputFile) {
+        final Path releaseDirectory = ChangelogFiles.releaseDirectory(changelogDirectory, releaseVersion);
+        final Path releaseXmlFile = ChangelogFiles.releaseXmlFile(releaseDirectory);
+        final ChangelogRelease changelogRelease = ChangelogRelease.readFromXmlFile(releaseXmlFile);
+        final Map<ChangelogEntry.Type, List<ChangelogEntry>> changelogEntriesByType =
+                readChangelogEntriesByType(releaseDirectory);
+        try {
+            exportRelease(
+                    outputFile,
+                    changelogDirectory,
+                    changelogRelease,
+                    changelogEntriesByType,
+                    templateFile);
+        } catch (final IOException error) {
+            final String message =
+                    String.format("failed exporting release from directory `%s`", releaseDirectory);
+            throw new RuntimeException(message, error);
+        }
+    }
+
+    public static void performMultiExport(final Path changelogDirectory, final Path outputDirectory) {
 
         // Find release directories
-        final List<Path> releaseDirectories = findReleaseDirectories(args);
+        final List<Path> releaseDirectories = findReleaseDirectories(changelogDirectory);
         final int releaseDirectoryCount = releaseDirectories.size();
 
         // Read the release information files
@@ -69,8 +99,8 @@ public final class ChangelogExporter {
                 final int changelogEntryCount;
                 try {
                     changelogEntryCount = exportRelease(
-                            args.outputDirectory,
-                            args.changelogDirectory,
+                            outputDirectory,
+                            changelogDirectory,
                             releaseDirectory,
                             changelogRelease,
                             releaseChangelogTemplateFile);
@@ -96,19 +126,19 @@ public final class ChangelogExporter {
 
         // Export unreleased
         ChangelogFiles
-                .unreleasedDirectoryVersionMajors(args.changelogDirectory)
+                .unreleasedDirectoryVersionMajors(changelogDirectory)
                 .stream()
                 .sorted()
                 .forEach(upcomingReleaseVersionMajor -> {
                     final Path upcomingReleaseDirectory =
-                            ChangelogFiles.unreleasedDirectory(args.changelogDirectory, upcomingReleaseVersionMajor);
+                            ChangelogFiles.unreleasedDirectory(changelogDirectory, upcomingReleaseVersionMajor);
                     final ChangelogRelease upcomingRelease = upcomingRelease(upcomingReleaseVersionMajor);
                     final Path upcomingReleaseChangelogTemplateFile =
                             ChangelogFiles.releaseChangelogTemplateFile(upcomingReleaseDirectory);
                     System.out.format("exporting upcoming release directory: `%s`%n", upcomingReleaseDirectory);
                     final int changelogEntryCount = exportRelease(
-                            args.outputDirectory,
-                            args.changelogDirectory,
+                            outputDirectory,
+                            changelogDirectory,
                             upcomingReleaseDirectory,
                             upcomingRelease,
                             upcomingReleaseChangelogTemplateFile);
@@ -118,16 +148,16 @@ public final class ChangelogExporter {
 
         // Export the release index
         exportIndex(
-                args.outputDirectory,
-                args.changelogDirectory,
+                outputDirectory,
+                changelogDirectory,
                 changelogReleases,
                 changelogEntryCounts);
 
     }
 
-    private static List<Path> findReleaseDirectories(ChangelogExporterArgs args) {
+    private static List<Path> findReleaseDirectories(final Path changelogDirectory) {
         return FileUtils.findAdjacentFiles(
-                args.changelogDirectory, true,
+                changelogDirectory, true,
                 paths -> paths
                         .filter(ChangelogExporter::isNonEmptyDirectory)
                         .sorted(Comparator.comparing(releaseDirectory -> {
@@ -152,9 +182,11 @@ public final class ChangelogExporter {
             final Path releaseChangelogTemplateFile) {
         final Map<ChangelogEntry.Type, List<ChangelogEntry>> changelogEntriesByType =
                 readChangelogEntriesByType(releaseDirectory);
+        final String releaseChangelogFileName = releaseChangelogFileName(changelogRelease);
+        final Path releaseChangelogFile = outputDirectory.resolve(releaseChangelogFileName);
         try {
             exportRelease(
-                    outputDirectory,
+                    releaseChangelogFile,
                     changelogDirectory,
                     changelogRelease,
                     changelogEntriesByType,
@@ -184,14 +216,12 @@ public final class ChangelogExporter {
     }
 
     private static void exportRelease(
-            final Path outputDirectory,
+            final Path outputFile,
             final Path changelogDirectory,
             final ChangelogRelease release,
             final Map<ChangelogEntry.Type, List<ChangelogEntry>> entriesByType,
             final Path releaseChangelogTemplateFile)
             throws IOException {
-        final String releaseChangelogFileName = releaseChangelogFileName(release);
-        final Path releaseChangelogFile = outputDirectory.resolve(releaseChangelogFileName);
         final Map<String, Object> releaseChangelogTemplateData = new LinkedHashMap<>();
         releaseChangelogTemplateData.put("release", release);
         releaseChangelogTemplateData.put("entriesByType", entriesByType);
@@ -200,7 +230,7 @@ public final class ChangelogExporter {
                 changelogDirectory,
                 releaseChangelogTemplateName,
                 releaseChangelogTemplateData,
-                releaseChangelogFile);
+                outputFile);
     }
 
     private static ChangelogRelease upcomingRelease(final int versionMajor) {

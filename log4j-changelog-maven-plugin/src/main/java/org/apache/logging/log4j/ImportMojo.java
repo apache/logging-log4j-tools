@@ -17,46 +17,55 @@
 package org.apache.logging.log4j;
 
 import java.io.File;
-import java.time.LocalDate;
 
+import org.apache.logging.log4j.changelog.importer.MavenChangesImporter;
+import org.apache.logging.log4j.changelog.importer.MavenChangesImporterArgs;
 import org.apache.logging.log4j.changelog.releaser.ChangelogReleaser;
-import org.apache.logging.log4j.changelog.releaser.ChangelogReleaserArgs;
 
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugins.annotations.Mojo;
 import org.apache.maven.plugins.annotations.Parameter;
 
 /**
- * Goal moving the contents of an unreleased changelog directory (e.g., {@code .2.x.x} to a released one (e.g., {@code 2.19.0}).
+ * Goal populating a changelog directory from <a href="https://maven.apache.org/plugins/maven-changes-plugin/">maven-changes-plugin</a> source XML.
  *
  * @see ChangelogReleaser
  */
-@Mojo(name = "release")
-public class ReleaseMojo extends AbstractMojo {
+@Mojo(name = "import")
+public class ImportMojo extends AbstractMojo {
 
     /**
      * Directory containing release folders composed of changelog entry XML files.
      */
     @Parameter(
             defaultValue = "${project.basedir}/src/changelog",
-            property = ChangelogReleaserArgs.CHANGELOG_DIRECTORY_PROPERTY_NAME,
+            property = MavenChangesImporterArgs.CHANGELOG_DIRECTORY_PROPERTY_NAME,
             required = true)
     private File changelogDirectory;
 
     /**
-     * The version to be released, e.g., {@code 2.19.0}.
+     * <a href="https://maven.apache.org/plugins/maven-changes-plugin/">maven-changes-plugin</a> source XML, {@code changes.xml}, location.
      */
     @Parameter(
-            property = ChangelogReleaserArgs.RELEASE_VERSION_PROPERTY_NAME,
+            defaultValue = "${project.basedir}/src/changes/changes.xml",
+            property = MavenChangesImporterArgs.CHANGES_XML_FILE_PROPERTY_NAME,
             required = true)
-    private String releaseVersion;
+    private File changesXmlFile;
+
+    /**
+     * The upcoming release version major number, e.g., {@code 2} for {@code 2.x.x} releases.
+     */
+    @Parameter(
+            property = MavenChangesImporterArgs.RELEASE_VERSION_MAJOR_PROPERTY_NAME,
+            required = true)
+    private int releaseVersionMajor;
 
     public void execute() {
-        ChangelogReleaserArgs args = new ChangelogReleaserArgs(
+        MavenChangesImporterArgs args = new MavenChangesImporterArgs(
                 changelogDirectory.toPath(),
-                releaseVersion,
-                LocalDate.now());
-        ChangelogReleaser.performRelease(args);
+                changesXmlFile.toPath(),
+                releaseVersionMajor);
+        MavenChangesImporter.performImport(args);
     }
 
 }

@@ -21,11 +21,11 @@ Changes staged for the next 2.x.x version that is yet to be released.
 
 == Changes
 
-== Changed
+=== Changed
 
 * Add `getExplicitLevel` method to `LoggerConfig` (for https://issues.apache.org/jira/browse/LOG4J2-3572[LOG4J2-3572] by Ralph Goers)
 
-== Fixed
+=== Fixed
 
 * Make `StatusConsoleListener` use `SimpleLogger` internally (for https://issues.apache.org/jira/browse/LOG4J2-3584[LOG4J2-3584] by Volkan Yazıcı)
 * Harden `InstantFormatter` against delegate failures (for https://issues.apache.org/jira/browse/LOG4J2-3614[LOG4J2-3614] by Volkan Yazıcı, strainu)

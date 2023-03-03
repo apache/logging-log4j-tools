@@ -22,17 +22,16 @@ import org.apache.logging.log4j.changelog.exporter.ChangelogExporter;
 import org.apache.logging.log4j.changelog.exporter.ChangelogExporterArgs;
 
 import org.apache.maven.plugin.AbstractMojo;
-import org.apache.maven.plugins.annotations.LifecyclePhase;
 import org.apache.maven.plugins.annotations.Mojo;
 import org.apache.maven.plugins.annotations.Parameter;
 
 /**
- * Goal exporting the changelog directory.
+ * Goal exporting a release changelog directory against a single template.
  *
  * @see ChangelogExporter
  */
-@Mojo(name = "export", defaultPhase = LifecyclePhase.PRE_SITE)
-public class ExportMojo extends AbstractMojo {
+@Mojo(name = "export-single")
+public class ExportSingleMojo extends AbstractMojo {
 
     /**
      * Directory containing release folders composed of changelog entry XML files.
@@ -44,16 +43,35 @@ public class ExportMojo extends AbstractMojo {
     private File changelogDirectory;
 
     /**
-     * Directory to write generated changelog files.
+     * The version to be released, e.g., {@code 2.19.0}.
      */
     @Parameter(
-            defaultValue = "${project.build.directory}/generated-sources/site/asciidoc/changelog",
-            property = ChangelogExporterArgs.OUTPUT_DIRECTORY_PROPERTY_NAME,
+            property = ChangelogExporterArgs.RELEASE_VERSION_PROPERTY_NAME,
             required = true)
-    private File outputDirectory;
+    private String releaseVersion;
+
+    /**
+     * The template file, e.g., {@code src/changelog/changelog-email.txt.ftl}.
+     */
+    @Parameter(
+            property = ChangelogExporterArgs.TEMPLATE_FILE_PROPERTY_NAME,
+            required = true)
+    private File templateFile;
+
+    /**
+     * The output file, e.g., {@code /tmp/changelog-email.txt}.
+     */
+    @Parameter(
+            property = ChangelogExporterArgs.OUTPUT_FILE_PROPERTY_NAME,
+            required = true)
+    private File outputFile;
 
     public void execute() {
-        ChangelogExporterArgs args = ChangelogExporterArgs.of(changelogDirectory.toPath(), outputDirectory.toPath());
+        ChangelogExporterArgs args = ChangelogExporterArgs.ofSingle(
+                changelogDirectory.toPath(),
+                releaseVersion,
+                templateFile.toPath(),
+                outputFile.toPath());
         ChangelogExporter.performExport(args);
     }
 

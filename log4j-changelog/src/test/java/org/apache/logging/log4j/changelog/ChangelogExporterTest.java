@@ -31,12 +31,25 @@ import static org.apache.logging.log4j.changelog.FileTestUtils.assertDirectoryCo
 class ChangelogExporterTest {
 
     @Test
-    void output_should_match(@TempDir(cleanup = CleanupMode.ON_SUCCESS) final Path outputDirectory) {
-        ChangelogExporterArgs args = new ChangelogExporterArgs(
+    void multi_mode_output_should_match(@TempDir(cleanup = CleanupMode.ON_SUCCESS) final Path outputDirectory) {
+        ChangelogExporterArgs args = ChangelogExporterArgs.of(
                 Paths.get("src/test/resources/3-enriched"),
                 outputDirectory);
         ChangelogExporter.performExport(args);
-        assertDirectoryContentMatches(outputDirectory, Paths.get("src/test/resources/4-exported"));
+        assertDirectoryContentMatches(outputDirectory, Paths.get("src/test/resources/4-exported-multi"));
+    }
+
+    @Test
+    void single_mode_with_releaseVersion_output_should_match(
+            @TempDir(cleanup = CleanupMode.ON_SUCCESS) final Path outputDirectory) {
+        final Path outputFile = outputDirectory.resolve(".changelog-email.txt");
+        ChangelogExporterArgs args = ChangelogExporterArgs.ofSingle(
+                Paths.get("src/test/resources/3-enriched"),
+                "2.18.0",
+                Paths.get("src/test/resources/3-enriched/.changelog-email.txt.ftl"),
+                outputFile);
+        ChangelogExporter.performExport(args);
+        assertDirectoryContentMatches(outputDirectory, Paths.get("src/test/resources/4-exported-single"));
     }
 
 }

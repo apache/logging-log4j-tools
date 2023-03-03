@@ -21,6 +21,7 @@ import java.io.UncheckedIOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.time.LocalDate;
+import java.util.Objects;
 
 import org.apache.logging.log4j.changelog.ChangelogFiles;
 import org.apache.logging.log4j.changelog.ChangelogRelease;
@@ -33,14 +34,10 @@ public final class ChangelogReleaser {
 
     private ChangelogReleaser() {}
 
-    public static void main(final String[] mainArgs) {
-        final ChangelogReleaserArgs args = ChangelogReleaserArgs.fromSystemProperties();
-        performRelease(args);
-    }
-
     public static void performRelease(final ChangelogReleaserArgs args) {
 
         // Read the release date and version
+        Objects.requireNonNull(args, "args");
         final String releaseDate = ISO_DATE.format(args.releaseDate != null ? args.releaseDate : LocalDate.now());
         final int releaseVersionMajor = VersionUtils.versionMajor(args.releaseVersion);
         System.out.format("using `%s` for the release date%n", releaseDate);
