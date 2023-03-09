@@ -21,12 +21,6 @@ import java.util.Objects;
 
 public final class MavenChangesImporterArgs {
 
-    public static final String CHANGELOG_DIRECTORY_PROPERTY_NAME = "log4j.changelog.directory";
-
-    public static final String CHANGES_XML_FILE_PROPERTY_NAME = "log4j.changelog.changesXmlFile";
-
-    public static final String RELEASE_VERSION_MAJOR_PROPERTY_NAME = "log4j.changelog.releaseVersionMajor";
-
     final Path changelogDirectory;
 
     final Path changesXmlFile;

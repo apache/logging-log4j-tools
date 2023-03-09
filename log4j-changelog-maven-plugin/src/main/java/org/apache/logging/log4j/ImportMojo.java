@@ -39,7 +39,7 @@ public class ImportMojo extends AbstractMojo {
      */
     @Parameter(
             defaultValue = "${project.basedir}/src/changelog",
-            property = MavenChangesImporterArgs.CHANGELOG_DIRECTORY_PROPERTY_NAME,
+            property = "log4j.changelog.directory",
             required = true)
     private File changelogDirectory;
 
@@ -48,7 +48,7 @@ public class ImportMojo extends AbstractMojo {
      */
     @Parameter(
             defaultValue = "${project.basedir}/src/changes/changes.xml",
-            property = MavenChangesImporterArgs.CHANGES_XML_FILE_PROPERTY_NAME,
+            property = "log4j.changelog.changesXmlFile",
             required = true)
     private File changesXmlFile;
 
@@ -56,7 +56,7 @@ public class ImportMojo extends AbstractMojo {
      * The upcoming release version major number, e.g., {@code 2} for {@code 2.x.x} releases.
      */
     @Parameter(
-            property = MavenChangesImporterArgs.RELEASE_VERSION_MAJOR_PROPERTY_NAME,
+            property = "log4j.changelog.releaseVersionMajor",
             required = true)
     private int releaseVersionMajor;
 

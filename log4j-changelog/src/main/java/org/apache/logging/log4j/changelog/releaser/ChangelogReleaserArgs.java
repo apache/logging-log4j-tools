@@ -22,10 +22,6 @@ import java.util.Objects;
 
 public final class ChangelogReleaserArgs {
 
-    public static final String CHANGELOG_DIRECTORY_PROPERTY_NAME = "log4j.changelog.directory";
-
-    public static final String RELEASE_VERSION_PROPERTY_NAME = "log4j.changelog.releaseVersion";
-
     final Path changelogDirectory;
 
     final String releaseVersion;
@@ -40,7 +36,7 @@ public final class ChangelogReleaserArgs {
         // Check arguments
         Objects.requireNonNull(changelogDirectory, "changelogDirectory");
         Objects.requireNonNull(releaseVersion, "releaseVersion");
-        VersionUtils.requireSemanticVersioning(releaseVersion, RELEASE_VERSION_PROPERTY_NAME);
+        VersionUtils.requireSemanticVersioning(releaseVersion, "releaseVersion");
         Objects.requireNonNull(releaseDate, "releaseDate");
 
         // Set fields

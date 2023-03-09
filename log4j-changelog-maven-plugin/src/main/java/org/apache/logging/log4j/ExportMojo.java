@@ -39,7 +39,7 @@ public class ExportMojo extends AbstractMojo {
      */
     @Parameter(
             defaultValue = "${project.basedir}/src/changelog",
-            property = ChangelogExporterArgs.CHANGELOG_DIRECTORY_PROPERTY_NAME,
+            property = "log4j.changelog.directory",
             required = true)
     private File changelogDirectory;
 
@@ -48,7 +48,7 @@ public class ExportMojo extends AbstractMojo {
      */
     @Parameter(
             defaultValue = "${project.build.directory}/generated-sources/site/asciidoc/changelog",
-            property = ChangelogExporterArgs.OUTPUT_DIRECTORY_PROPERTY_NAME,
+            property = "log4j.changelog.outputDirectory",
             required = true)
     private File outputDirectory;
 

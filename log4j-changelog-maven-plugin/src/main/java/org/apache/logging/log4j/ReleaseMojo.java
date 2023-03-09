@@ -40,7 +40,7 @@ public class ReleaseMojo extends AbstractMojo {
      */
     @Parameter(
             defaultValue = "${project.basedir}/src/changelog",
-            property = ChangelogReleaserArgs.CHANGELOG_DIRECTORY_PROPERTY_NAME,
+            property = "log4j.changelog.directory",
             required = true)
     private File changelogDirectory;
 
@@ -48,7 +48,7 @@ public class ReleaseMojo extends AbstractMojo {
      * The version to be released, e.g., {@code 2.19.0}.
      */
     @Parameter(
-            property = ChangelogReleaserArgs.RELEASE_VERSION_PROPERTY_NAME,
+            property = "log4j.changelog.releaseVersion",
             required = true)
     private String releaseVersion;
 
