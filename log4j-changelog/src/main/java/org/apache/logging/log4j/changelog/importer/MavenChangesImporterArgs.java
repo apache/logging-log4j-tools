@@ -19,9 +19,6 @@ package org.apache.logging.log4j.changelog.importer;
 import java.nio.file.Path;
 import java.util.Objects;
 
-import static org.apache.logging.log4j.changelog.util.PropertyUtils.requireNonBlankIntProperty;
-import static org.apache.logging.log4j.changelog.util.PropertyUtils.requireNonBlankPathProperty;
-
 public final class MavenChangesImporterArgs {
 
     public static final String CHANGELOG_DIRECTORY_PROPERTY_NAME = "log4j.changelog.directory";
@@ -56,13 +53,6 @@ public final class MavenChangesImporterArgs {
         this.changesXmlFile = changesXmlFile;
         this.releaseVersionMajor = releaseVersionMajor;
 
-    }
-
-    static MavenChangesImporterArgs fromSystemProperties() {
-        final Path changelogDirectory = requireNonBlankPathProperty(CHANGELOG_DIRECTORY_PROPERTY_NAME);
-        final Path changesXmlFile = requireNonBlankPathProperty(CHANGES_XML_FILE_PROPERTY_NAME);
-        final int releaseVersionMajor = requireNonBlankIntProperty(RELEASE_VERSION_MAJOR_PROPERTY_NAME);
-        return new MavenChangesImporterArgs(changelogDirectory, changesXmlFile, releaseVersionMajor);
     }
 
 }

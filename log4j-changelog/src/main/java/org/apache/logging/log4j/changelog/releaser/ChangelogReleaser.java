@@ -33,11 +33,6 @@ public final class ChangelogReleaser {
 
     private ChangelogReleaser() {}
 
-    public static void main(final String[] mainArgs) {
-        final ChangelogReleaserArgs args = ChangelogReleaserArgs.fromSystemProperties();
-        performRelease(args);
-    }
-
     public static void performRelease(final ChangelogReleaserArgs args) {
 
         // Read the release date and version

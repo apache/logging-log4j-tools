@@ -30,11 +30,6 @@ public final class MavenChangesImporter {
 
     private MavenChangesImporter() {}
 
-    public static void main(final String[] mainArgs) {
-        final MavenChangesImporterArgs args = MavenChangesImporterArgs.fromSystemProperties();
-        performImport(args);
-    }
-
     public static void performImport(final MavenChangesImporterArgs args) {
         final MavenChanges mavenChanges = MavenChanges.readFromFile(args.changesXmlFile);
         mavenChanges.releases.forEach(release -> {

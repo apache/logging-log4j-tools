@@ -19,8 +19,6 @@ package org.apache.logging.log4j.changelog.exporter;
 import java.nio.file.Path;
 import java.util.Objects;
 
-import static org.apache.logging.log4j.changelog.util.PropertyUtils.requireNonBlankPathProperty;
-
 public final class ChangelogExporterArgs {
 
     public static final String CHANGELOG_DIRECTORY_PROPERTY_NAME = "log4j.changelog.directory";
@@ -34,12 +32,6 @@ public final class ChangelogExporterArgs {
     public ChangelogExporterArgs(final Path changelogDirectory, final Path outputDirectory) {
         this.changelogDirectory = Objects.requireNonNull(changelogDirectory, "changelogDirectory");
         this.outputDirectory = Objects.requireNonNull(outputDirectory, "outputDirectory");
-    }
-
-    static ChangelogExporterArgs fromSystemProperties() {
-        final Path changelogDirectory = requireNonBlankPathProperty(CHANGELOG_DIRECTORY_PROPERTY_NAME);
-        final Path outputDirectory = requireNonBlankPathProperty(OUTPUT_DIRECTORY_PROPERTY_NAME);
-        return new ChangelogExporterArgs(changelogDirectory, outputDirectory);
     }
 
 }

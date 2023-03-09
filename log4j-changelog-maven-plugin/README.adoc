@@ -17,31 +17,21 @@ limitations under the License.
 
 This project ships a Maven plugin providing convenient access to the `ChangelogExporter` and `ChangelogReleaser` of xref:../log4j-changelog/README.adoc[log4j-changelog].
 
-== Exporting changelogs to AsciiDoc files
+[#export]
+== Exporting changelogs
 
-You can use the `export` goal wrapping xref:../log4j-changelog/README.adoc#qa-generate[`ChangelogExporter` to generate AsciiDoc files from a changelog directory].
+You can use the `export` goal to export a changelog directory (e.g., `src/changelog`) using provided templates (i.e., `.index.adoc.ftl` and `.changelog.adoc.ftl`) and generate `index.adoc`, `2.18.0.adoc`, `2.19.0.adoc`, etc.
 An example usage is shared below.
 
-.`pom.xml` snippet that goes into the `project > build > plugins` block
-[source,xml]
+.Export AsciiDoc-formatted release notes to `target/generated-sources/site/asciidoc/changelog`
+[source,bash]
 ----
-<!-- export AsciiDoc-formatted sources to `target/generated-sources/site/asciidoc/changelog` -->
-<plugin>
-  <groupId>org.apache.logging.log4j</groupId>
-  <artifactId>log4j-changelog-maven-plugin</artifactId>
-  <inherited>false</inherited>
-  <executions>
-    <execution>
-      <id>generate-changelog</id>
-      <goals>
-        <goal>export</goal>
-      </goals>
-    </execution>
-  </executions>
-</plugin>
+./mvnw -N log4j-changelog:export
 ----
 
-`export` goal by defaults runs during the `pre-site` phase and accepts the following configuration parameters:
+Note that above we are using `-N` (`--non-recursive`) to avoid visiting submodules, which also makes the run faster.
+
+`export` goal by default runs during the `pre-site` phase and accepts the following configuration parameters:
 
 `changelogDirectory`::
 Directory containing release folders composed of changelog entry XML files.
@@ -51,18 +41,21 @@ It defaults to `${project.basedir}/src/changelog` and can be set using the `log4
 Directory to write generated changelog files.
 It defaults to `${project.build.directory}/generated-sources/site/asciidoc/changelog` and can be set using the `log4j.changelog.exporter.outputDirectory` property.
 
+[#release]
 == Populating a release changelog directory
 
 You can use the `release` goal wrapping xref:../log4j-changelog/README.adoc#qa-deploy-release[`ChangelogReleaser` to populate a release changelog directory].
 An example usage is shared below.
 
+.Populate `src/changelog/2.19.0` from `src/changelog/.2.x.x`
 [source,bash]
 ----
-# Populate `src/changelog/<releaseVersion>` from `src/changelog/.<releaseVersionMajor>.x.x`
-./mvnw -N log4j-changelog:releaser -Dlog4j.changelog.releaseVersion=2.19.0
+./mvnw -N log4j-changelog:release -Dlog4j.changelog.releaseVersion=2.19.0
 ----
 
-`release` goal by defaults runs during the `validate` phase and accepts the following configuration parameters:
+Note that above we are using `-N` (`--non-recursive`) to avoid visiting submodules, which also makes the run faster.
+
+`release` goal does not have default phase and accepts the following configuration parameters:
 
 `changelogDirectory`::
 Directory containing release folders composed of changelog entry XML files.
