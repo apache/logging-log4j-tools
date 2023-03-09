@@ -20,8 +20,6 @@ import java.nio.file.Path;
 import java.time.LocalDate;
 import java.util.Objects;
 
-import static org.apache.logging.log4j.changelog.util.VersionUtils.requireSemanticVersioning;
-
 public final class ChangelogReleaserArgs {
 
     public static final String CHANGELOG_DIRECTORY_PROPERTY_NAME = "log4j.changelog.directory";
@@ -42,7 +40,7 @@ public final class ChangelogReleaserArgs {
         // Check arguments
         Objects.requireNonNull(changelogDirectory, "changelogDirectory");
         Objects.requireNonNull(releaseVersion, "releaseVersion");
-        requireSemanticVersioning(releaseVersion, RELEASE_VERSION_PROPERTY_NAME);
+        VersionUtils.requireSemanticVersioning(releaseVersion, RELEASE_VERSION_PROPERTY_NAME);
         Objects.requireNonNull(releaseDate, "releaseDate");
 
         // Set fields

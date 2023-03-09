@@ -25,7 +25,6 @@ import java.time.LocalDate;
 import org.apache.logging.log4j.changelog.ChangelogFiles;
 import org.apache.logging.log4j.changelog.ChangelogRelease;
 import org.apache.logging.log4j.changelog.util.FileUtils;
-import org.apache.logging.log4j.changelog.util.VersionUtils;
 
 import static java.time.format.DateTimeFormatter.ISO_DATE;
 
