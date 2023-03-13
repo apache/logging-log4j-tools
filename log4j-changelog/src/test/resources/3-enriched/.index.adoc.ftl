@@ -15,8 +15,8 @@
     limitations under the License.
 ////
 
-= Release changelogs
+= Release notes
 
 <#list releases as release><#if release.changelogEntryCount gt 0>
-* xref:${release.changelogFileName}[${release.version}]<#if release.date?has_content> (${release.date})</#if>
+* xref:${release.version}.adoc[${release.version}]<#if release.date?has_content> (${release.date})</#if>
 </#if></#list>

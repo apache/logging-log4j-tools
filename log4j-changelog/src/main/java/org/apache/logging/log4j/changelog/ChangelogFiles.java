@@ -52,10 +52,6 @@ public final class ChangelogFiles {
                 .collect(Collectors.toSet()));
     }
 
-    public static Path indexTemplateFile(final Path changelogDirectory) {
-        return changelogDirectory.resolve(".index.adoc.ftl");
-    }
-
     public static Path releaseDirectory(final Path changelogDirectory, final String releaseVersion) {
         return changelogDirectory.resolve(releaseVersion);
     }
@@ -64,8 +60,8 @@ public final class ChangelogFiles {
         return releaseDirectory.resolve(".release.xml");
     }
 
-    public static Path releaseChangelogTemplateFile(final Path releaseDirectory) {
-        return releaseDirectory.resolve(".changelog.adoc.ftl");
+    public static String templateFileNameExtension() {
+        return "ftl";
     }
 
 }

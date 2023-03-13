@@ -17,8 +17,6 @@
 package org.apache.logging.log4j.changelog.exporter;
 
 import java.io.File;
-import java.io.IOException;
-import java.io.UncheckedIOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.*;
@@ -60,7 +58,6 @@ public final class ChangelogExporter {
             for (int releaseIndex = 0; releaseIndex < releaseDirectories.size(); releaseIndex++) {
                 final Path releaseDirectory = releaseDirectories.get(releaseIndex);
                 final ChangelogRelease changelogRelease = changelogReleases.get(releaseIndex);
-                final Path releaseChangelogTemplateFile = ChangelogFiles.releaseChangelogTemplateFile(releaseDirectory);
                 final int changelogEntryCount;
                 try {
                     changelogEntryCount = exportRelease(
@@ -68,7 +65,7 @@ public final class ChangelogExporter {
                             args.changelogDirectory,
                             releaseDirectory,
                             changelogRelease,
-                            releaseChangelogTemplateFile);
+                            args.changelogTemplates);
                 } catch (final Exception error) {
                     final String message =
                             String.format("failed exporting release from directory `%s`", releaseDirectory);
@@ -98,15 +95,13 @@ public final class ChangelogExporter {
                     final Path upcomingReleaseDirectory =
                             ChangelogFiles.unreleasedDirectory(args.changelogDirectory, upcomingReleaseVersionMajor);
                     final ChangelogRelease upcomingRelease = upcomingRelease(upcomingReleaseVersionMajor);
-                    final Path upcomingReleaseChangelogTemplateFile =
-                            ChangelogFiles.releaseChangelogTemplateFile(upcomingReleaseDirectory);
                     System.out.format("exporting upcoming release directory: `%s`%n", upcomingReleaseDirectory);
                     final int changelogEntryCount = exportRelease(
                             args.outputDirectory,
                             args.changelogDirectory,
                             upcomingReleaseDirectory,
                             upcomingRelease,
-                            upcomingReleaseChangelogTemplateFile);
+                            args.changelogTemplates);
                     changelogReleases.add(upcomingRelease);
                     changelogEntryCounts.add(changelogEntryCount);
                 });
@@ -115,6 +110,7 @@ public final class ChangelogExporter {
         exportIndex(
                 args.outputDirectory,
                 args.changelogDirectory,
+                args.indexTemplates,
                 changelogReleases,
                 changelogEntryCounts);
 
@@ -144,19 +140,20 @@ public final class ChangelogExporter {
             final Path changelogDirectory,
             final Path releaseDirectory,
             final ChangelogRelease changelogRelease,
-            final Path releaseChangelogTemplateFile) {
+            final Set<ChangelogExporterTemplate> changelogTemplates) {
         final Map<ChangelogEntry.Type, List<ChangelogEntry>> changelogEntriesByType =
                 readChangelogEntriesByType(releaseDirectory);
         try {
             exportRelease(
                     outputDirectory,
                     changelogDirectory,
+                    releaseDirectory,
                     changelogRelease,
                     changelogEntriesByType,
-                    releaseChangelogTemplateFile);
-        } catch (final IOException error) {
+                    changelogTemplates);
+        } catch (final Exception error) {
             final String message = String.format("failed exporting release from directory `%s`", releaseDirectory);
-            throw new UncheckedIOException(message, error);
+            throw new RuntimeException(message, error);
         }
         return changelogEntriesByType
                 .values()
@@ -181,21 +178,30 @@ public final class ChangelogExporter {
     private static void exportRelease(
             final Path outputDirectory,
             final Path changelogDirectory,
+            final Path releaseDirectory,
             final ChangelogRelease release,
             final Map<ChangelogEntry.Type, List<ChangelogEntry>> entriesByType,
-            final Path releaseChangelogTemplateFile)
-            throws IOException {
-        final String releaseChangelogFileName = releaseChangelogFileName(release);
-        final Path releaseChangelogFile = outputDirectory.resolve(releaseChangelogFileName);
-        final Map<String, Object> releaseChangelogTemplateData = new LinkedHashMap<>();
-        releaseChangelogTemplateData.put("release", release);
-        releaseChangelogTemplateData.put("entriesByType", entriesByType);
-        final String releaseChangelogTemplateName = templateName(changelogDirectory, releaseChangelogTemplateFile);
-        FreeMarkerUtils.render(
-                changelogDirectory,
-                releaseChangelogTemplateName,
-                releaseChangelogTemplateData,
-                releaseChangelogFile);
+            final Set<ChangelogExporterTemplate> changelogTemplates) {
+        final Map<String, Object> changelogTemplateData = new LinkedHashMap<>();
+        changelogTemplateData.put("release", release);
+        changelogTemplateData.put("entriesByType", entriesByType);
+        for (final ChangelogExporterTemplate changelogTemplate : changelogTemplates) {
+            final Path changelogTemplateSourceFile = releaseDirectory.resolve(changelogTemplate.sourceFileName);
+            if (Files.exists(changelogTemplateSourceFile)) {
+                final String changelogTemplateName = templateName(changelogDirectory, changelogTemplateSourceFile);
+                final String changelogTemplateTargetFileName =
+                        changelogTemplate.targetFileName.replaceAll("%v", release.version);
+                final Path changelogTemplateTargetFile = outputDirectory.resolve(changelogTemplateTargetFileName);
+                FreeMarkerUtils.render(
+                        changelogDirectory,
+                        changelogTemplateName,
+                        changelogTemplateData,
+                        changelogTemplateTargetFile);
+            } else if (changelogTemplate.failIfNotFound) {
+                final String message = String.format("could not find template file: `%s`", changelogTemplateSourceFile);
+                throw new IllegalStateException(message);
+            }
+        }
     }
 
     private static ChangelogRelease upcomingRelease(final int versionMajor) {
@@ -206,6 +212,7 @@ public final class ChangelogExporter {
     private static void exportIndex(
             final Path outputDirectory,
             final Path changelogDirectory,
+            final Set<ChangelogExporterTemplate> indexTemplates,
             final List<ChangelogRelease> changelogReleases,
             final List<Integer> changelogEntryCounts) {
         final Object indexTemplateData = Collections.singletonMap(
@@ -220,19 +227,24 @@ public final class ChangelogExporter {
                             changelogReleaseData.put("version", changelogRelease.version);
                             changelogReleaseData.put("date", changelogRelease.date);
                             changelogReleaseData.put("changelogEntryCount", changelogEntryCount);
-                            changelogReleaseData.put("changelogFileName", releaseChangelogFileName(changelogRelease));
                             return (Object) changelogReleaseData;
                         })
                         .collect(Collectors.toList()));
-        final Path indexTemplateFile = ChangelogFiles.indexTemplateFile(changelogDirectory);
-        final String indexTemplateName = templateName(changelogDirectory, indexTemplateFile);
-        final Path indexFile = outputDirectory.resolve("index.adoc");
-        FreeMarkerUtils.render(changelogDirectory, indexTemplateName, indexTemplateData, indexFile);
-    }
-
-    private static String releaseChangelogFileName(final ChangelogRelease changelogRelease) {
-        // Using only the version (that is, avoiding the date) in the filename so that one can determine the link to the changelog of a particular release with only version information
-        return String.format("%s.adoc", changelogRelease.version);
+        indexTemplates.forEach(indexTemplate -> {
+            final Path indexTemplateSourceFile = changelogDirectory.resolve(indexTemplate.sourceFileName);
+            if (Files.exists(indexTemplateSourceFile)) {
+                final String indexTemplateSourceName = templateName(changelogDirectory, indexTemplateSourceFile);
+                final Path indexTemplateTargetFile = outputDirectory.resolve(indexTemplate.targetFileName);
+                FreeMarkerUtils.render(
+                        changelogDirectory,
+                        indexTemplateSourceName,
+                        indexTemplateData,
+                        indexTemplateTargetFile);
+            } else if (indexTemplate.failIfNotFound) {
+                final String message = String.format("could not find template file: `%s`", indexTemplateSourceFile);
+                throw new IllegalStateException(message);
+            }
+        });
     }
 
     /**

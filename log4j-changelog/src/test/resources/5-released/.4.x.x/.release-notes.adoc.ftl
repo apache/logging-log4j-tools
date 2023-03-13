@@ -19,4 +19,4 @@
 
 Changes staged for the next 4.x.x version that is yet to be released.
 
-<#include "../.changelog-entries.adoc.ftl">
+<#include "../.changelog.adoc.ftl">

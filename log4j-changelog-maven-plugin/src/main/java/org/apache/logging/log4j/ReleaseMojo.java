@@ -33,7 +33,7 @@ import org.apache.maven.plugins.annotations.Parameter;
  * @see ChangelogReleaser
  */
 @Mojo(name = "release", defaultPhase = LifecyclePhase.VALIDATE)
-public class ReleaseMojo extends AbstractMojo {
+public final class ReleaseMojo extends AbstractMojo {
 
     /**
      * Directory containing release folders composed of changelog entry XML files.
@@ -53,7 +53,7 @@ public class ReleaseMojo extends AbstractMojo {
     private String releaseVersion;
 
     public void execute() {
-        ChangelogReleaserArgs args = new ChangelogReleaserArgs(
+        final ChangelogReleaserArgs args = new ChangelogReleaserArgs(
                 changelogDirectory.toPath(),
                 releaseVersion,
                 LocalDate.now());

@@ -15,6 +15,8 @@ See the License for the specific language governing permissions and
 limitations under the License.
 ////
 
+:freemarker-link: https://freemarker.apache.org[FreeMarker]
+
 This project contains tooling for changelogs of Apache Log4j projects.
 
 [#what-is-a-changelog]
@@ -36,120 +38,58 @@ Similar to `maven-changes-plugin`, changelog sources and their exports (e.g., As
 [#look]
 == What does it look like?
 
-All changelog _sources_ are stored in folders under _changelog directory_ (e.g., `/src/changelog`):
+All changelog _sources_ and templates used to _export_ them are stored in folders under _the changelog directory_ (e.g., `/src/changelog`):
 
 [source]
 ----
-$ ls -a -1 src/changelog
-.
-..
-# ...
-2.18.0
-2.19.0
-.2.x.x
-.index.adoc.ftl
+$ tree -a src/changelog
+├── 2.18.0                              # <1>
+│   ├── LOG4J2-3424_Properties_defined_in_configuration_using_a_value_attribute.xml   # <4>
+│   ├── LOG4J2-3425_Syslog_appender_lacks_the_SocketOptions_setting.xml               # <4>
+│   ├── LOG4J2-3426_Log4j_1_2_bridge_should_not_wrap_components_unnecessarily.xml     # <4>
+│   ├── LOG4J2-3427_Improves_ServiceLoader_support_on_servlet_containers.xml          # <4>
+│   ├── .release-notes.adoc.ftl         # <5>
+│   └── .release.xml                    # <3>
+├── 2.19.0                              # <1>
+│   ├── LOG4J2-3588_Allow_PropertySources_to_be_added.xml                             # <4>
+│   ├── LOG4J2-3590_Remove_SLF4J_1_8_x_binding.xml                                    # <4>
+│   ├── LOG4J2-3614_Harden_InstantFormatter_against_delegate_failures.xml             # <4>
+│   ├── LOG4J2-3556_JsonTemplateLayout_stack_trace_truncation_fix.xml                 # <4>
+│   ├── .release-notes.adoc.ftl         # <5>
+│   └── .release.xml                    # <3>
+├── .2.x.x                              # <2>
+│   ├── LOG4J2-1284_redirect_old_javadoc_urls.xml                                     # <4>
+│   └── .release-notes.adoc.ftl         # <5>
+├── .changelog.adoc.ftl                 # <5>
+└── .index.adoc.ftl                     # <5>
 ----
+<1> Changelog sources of _released versions_ are stored in `<changelogDirectory>/<releaseVersion>` folders (e.g., `src/changelog/2.19.0`)
+<2> Changelog sources of _upcoming releases_ are stored in `<changelogDirectory>/.<releaseVersionMajor>.x.x` folders (e.g., `/src/changelog/.2.x.x`)
+<3> `.release.xml` contains the information about the associated release.
+Note that upcoming release folders (e.g., `src/changelog/.2.x.x`) don't contain a `.release.xml`, since these releases are by definition not done yet.
+<4> All XML files not prefixed with a `.` (e.g., `src/changelog/.2.x.x/LOG4J2-3628_new_changelog_infra.xml`) constitute changelog entries
+<5> {freemarker-link} templates are used to _export_ this information to various forms; AsciiDoc-formatted pages for the website, Markdown-formatted files for GitHub Releases, etc.
 
-Changelog sources of _released versions_ are stored in `<changelogDirectory>/<releaseVersion>` folders (e.g., `/src/changelog/2.19.0`):
+[#release-entry-file]
+== Release entry file
 
-[source]
+A release entry file, `.release.xml`, consists of meta information regarding a particular release.
+A sample _release entry_ file is shared below.
+
+.`src/changelog/2.19.0/release.xml` file contents
+[source,xml]
 ----
-$ ls -a -1 src/changelog/2.19.0
-.
-..
-.changelog.adoc.ftl
-LOG4J2-2975_Add_implementation_of_SLF4J2_fluent_API.xml
-LOG4J2-3545_Add_correct_manifest_entries_for_OSGi_to_log4j_jcl.xml
-LOG4J2-3548_Improve_support_for_passwordless_keystores.xml
-# ...
-LOG4J2-3589_Allow_Plugins_to_be_injected_with_the_LoggerContext_referenc.xml
-LOG4J2-3590_Remove_SLF4J_1_8_x_binding.xml
-LOG4J2-3614_Harden_InstantFormatter_against_delegate_failures.xml
-LOG4J2-708_Add_async_support_to_Log4jServletFilter.xml
-.release.xml
-----
-
-Changelog sources of _upcoming releases_ are stored in `<changelogDirectory>/.<releaseVersionMajor>.x.x` folders (e.g., `/src/changelog/.2.x.x`):
-
-[source]
-----
-$ ls -a -1 src/changelog/.2.x.x
-.
-..
-.changelog.adoc.ftl
-LOG4J2-2678_Add_LogEvent_timestamp_to_ProducerRecord_in_KafkaAppender.xml
-LOG4J2-3628_new_changelog_infra.xml
-LOG4J2-3631_Fix_Configurator_setLevel_for_internal_classes.xml
-LOG4J2-3634_Fix_level_propagation_in_Log4jBridgeHandler.xml
-----
-
-A typical `.release.xml` looks as follows:
-
-[source]
-----
-$ cat src/changelog/2.19.0/release.xml
 <?xml version="1.0" encoding="UTF-8"?>
 <release xmlns="http://logging.apache.org/log4j/changelog"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://logging.apache.org/log4j/changelog https://logging.apache.org/log4j/changelog-0.1.0.xsd"
-         date="2022-09-09" version="2.19.0"/>
+         xsi:schemaLocation="
+             http://logging.apache.org/log4j/changelog
+             https://logging.apache.org/log4j/changelog-0.1.1.xsd"
+         date="2022-09-09"
+         version="2.19.0"/>
 ----
 
-A typical changelog entry file looks as follows:
-
-[source]
-----
-$ cat src/changelog/.2.x.x/LOG4J2-3628_new_changelog_infra.xml
-<?xml version="1.0" encoding="UTF-8"?>
-<entry xmlns="http://logging.apache.org/log4j/changelog"
-       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xsi:schemaLocation="http://logging.apache.org/log4j/changelog https://logging.apache.org/log4j/changelog-0.1.0.xsd"
-       type="fixed">
-  <issue id="LOG4J2-3556" link="https://issues.apache.org/jira/browse/LOG4J2-3556"/>
-  <author id="vy"/>
-  <author name="Arthur Gavlyukovskiy"/>
-  <description format="asciidoc">
-    Make `JsonTemplateLayout` stack trace truncation operate for each label block
-  </description>
-</entry>
-----
-
-All changelog folders, including the ones for the upcoming releases, can be exported to AsciiDoc:
-
-[source]
-----
-$ ls -1 target/generated-sources/site/asciidoc/changelog
-# ...
-2.18.0.adoc
-2.19.0.adoc
-2.x.x.adoc
-index.adoc
-----
-
-[#released-version-changelogs]
-== Released version changelogs
-
-Changelogs of past released versions are contained in `<changelogDirectory>/<releaseVersion>` directories (e.g., `/src/changelog/2.19.0`).
-A released version changelog directory consists of following files:
-
-`.release.xml`::
-the meta information about the release (e.g., release version and date)
-
-`.changelog.adoc.ftl`::
-FreeMarker templated AsciiDoc file used by `ChangelogExporter`
-
-`[<issueId>_]<shortSummary>.xml`::
-changelog entry associated with a change
-
-`ChangelogExporter` compiles these source files and outputs a `<releaseVersion>.adoc` (e.g., `2.19.0.adoc`) file for each release.
-
-[#unreleased-version-changelogs]
-== Unreleased version changelogs
-
-Changelogs of upcoming release versions are stored in `<changelogDirectory>/.<releaseVersionMajor>.x.x` directories (e.g., `/src/changelog/.2.x.x`).
-Compared to released version changelog directories (e.g., `2.19.0`), `.<releaseVersionMajor>.x.x` directories do not contain a `.release.xml`.
-
-`ChangelogExporter` compiles these source files and outputs `<releaseVersionMajor>.x.x.adoc` (e.g., `2.x.x.adoc`) file for each upcoming release.
+Note that upcoming release folders (e.g., `src/changelog/.2.x.x`) don't contain a `.release.xml`, since these releases are by definition not done yet.
 
 [#changelog-entry-file]
 == Changelog entry file
@@ -164,12 +104,14 @@ Consider the following examples:
 
 A sample _changelog entry_ file is shared below.
 
-.`src/changelog/LOG4J2-3556_JsonTemplateLayout_stack_trace_truncation_fix.xml` file contents
+.`src/changelog/2.19.0/LOG4J2-3556_JsonTemplateLayout_stack_trace_truncation_fix.xml` file contents
 [source,xml]
 ----
 <entry xmlns="http://logging.apache.org/log4j/changelog"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xsi:schemaLocation="http://logging.apache.org/log4j/changelog https://logging.apache.org/log4j/changelog-0.1.0.xsd"
+       xsi:schemaLocation="
+           http://logging.apache.org/log4j/changelog
+           https://logging.apache.org/log4j/changelog-0.1.1.xsd"
        type="fixed">
   <issue id="LOG4J2-3556" link="https://issues.apache.org/jira/browse/LOG4J2-3556"/>
   <author id="vy"/>
@@ -192,26 +134,43 @@ Some remarks about the structure of changelog entry files:
 * `issue` element is optional, and, if present, must contain `id` and `link` attributes
 * `author` element must have at least one of `id` or `name` attributes
 * There must be at least one `author`
-* There must be a single `description` element with non-blank content and `format="asciidoc"` attribute
+* There must be a single `description` element with non-blank content and `format` attribute
 
-[#changelog-template-file]
-== Changelog template file
+[#export]
+== Exporting changelogs
 
-Each `.changelog.adoc.ftl` FreeMarker templated AsciiDoc files are compiled by `ChangelogExporter` with the following input data hash:
+_Exporting_ changelogs is the act of feeding provided changelog and release information into {freemarker-link} templates to generate certain files; e.g., release notes for the website.
+There are two types template files supported:
 
-* `release` -> `ChangelogRelease`
-* `entriesByType` -> `Map<ChangelogEntry.Type, List<ChangelogEntry>>`
+xref:#changelog-template[Changelog templates]::
+These templates are rendered with the release and changelog information of a particular release.
+These are generally used to generate release notes for a particular release.
 
-See xref:src/main/java/org/apache/logging/log4j/changelog/ChangelogRelease.java[ChangelogRelease.java] and xref:src/main/java/org/apache/logging/log4j/changelog/ChangelogEntry.java[ChangelogEntry.java] for details.
+xref:#index-template[Index templates]::
+These templates are rendered with the release information of all releases.
+These are generally used to generate the index page referencing to release notes of each release.
 
+xref:src/main/java/org/apache/logging/log4j/changelog/exporter/ChangelogExporter.java[`ChangelogExporter`] is responsible for performing the export operation.
+
+[#changelog-template]
+=== Changelog templates
+
+Changelog template files (e.g., `src/changelog/2.19.0/.release-notes.adoc.ftl` ) are rendered with the release and changelog information of a particular release using the following input data hash:
+
+* `release` → `ChangelogRelease`
+* `entriesByType` → `Map<ChangelogEntry.Type, List<ChangelogEntry>>`
+
+See xref:src/main/java/org/apache/logging/log4j/changelog/ChangelogRelease.java[`ChangelogRelease`] and xref:src/main/java/org/apache/logging/log4j/changelog/ChangelogEntry.java[`ChangelogEntry`] for details.
+
+These templates are generally used to generate release notes for a particular release.
 A sample changelog template file is shared below.
 
-.`src/changelog/2.19.0/.changelog.adoc.ftl` file contents
+.`src/changelog/2.19.0/.release-notes.adoc.ftl` file contents
 [source,asciidoc]
 ----
 = ${release.version}<#if release.date?has_content> (${release.date})</#if>
 
-Changes staged for the next version that is yet to be released.
+This release primarily contains bug fixes and minor enhancements.
 
 <#if entriesByType?size gt 0>== Changes
 <#list entriesByType as entryType, entries>
@@ -227,16 +186,16 @@ by <#list entry.authors as author><#if author.name?has_content>${author.name}<#e
 </#if>
 ----
 
-[#index-template-file]
-== Index template file
+[#index-template]
+=== Index templates
 
-`.index.adoc.ftl` FreeMarker templated AsciiDoc file is compiled by `ChangelogExporter` with the following input data hash:
+Index template files (e.g., `src/changelog/.index.adoc.ftl`) are rendered with the release information of all releases using the following input data hash:
 
 * `releases` -> list of hashes containing following keys:
 ** `version`
 ** `date`
-** `changelogFileName`
 
+These template files are generally used to generate the index page referencing to release notes of each release.
 A sample index template file is shared below.
 
 .`src/changelog/.index.adoc.ftl` file contents
@@ -245,7 +204,7 @@ A sample index template file is shared below.
 = Release changelogs
 
 <#list releases as release>
-* xref:${release.changelogFileName}[${release.version}]<#if release.date?has_content> (${release.date})</#if>
+* xref:${release.version}.adoc[${release.version}]<#if release.date?has_content> (${release.date})</#if>
 </#list>
 ----
 
@@ -259,18 +218,17 @@ You have just committed, or better, about to commit a great feature you have bee
 Simply create a <<#changelog-entry-file>> and commit it along with your change!
 
 [#qa-generate]
-=== How can I export changelogs to AsciiDoc files?
+=== How can I export changelogs to AsciiDoc, Markdown, etc. files?
 
-You need to use `ChangelogExporter`, which is accessible through xref:../log4j-changelog-maven-plugin/README.adoc#export[the `export` goal the Maven plugin].
-It exports the entire changelog directory (e.g., `src/changelog`) using `.index.adoc.ftl` and `.changelog.adoc.ftl` template files.
+You need to use xref:../log4j-changelog-maven-plugin/README.adoc#export[the `export` goal the Maven plugin].
 
 [#qa-deploy-release]
-=== I am about to deploy a new Log4j release. What shall I do?
+=== I am about to deploy a new release. What shall I do?
 
 Just before a release, three things need to happen in the changelog sources:
 
 . *Changelog entry files needs to be moved* from the _upcoming_ release changelog directory `<changelogDirectory>/.<releaseVersionMajor>.x.x`  to the _new_ release changelog directory `<changelogDirectory>/<releaseVersion>`
-. *`.changelog.adoc.ftl` needs to be copied* from the _upcoming_ release changelog directory to the _new_ release changelog directory, unless it already exists in the target
+. *Templates need to be copied* from the _upcoming_ release changelog directory to the _new_ release changelog directory, unless it already exists in the target
 . *`.release.xml` needs to be created* in the _new_ release changelog directory
 
 Due to the nature of release candidates, above steps might need to be repeated multiple times.
@@ -281,7 +239,7 @@ Log4j _releases_ and _release candidates_ all get deployed to the same https://r
 Their `pom.xml` files all contain the same release version, e.g., `2.19.0`.
 There are no `-rc1`, `-rc2`, etc. suffixes in the version of a release candidate.
 Once a release candidate voting reaches to a consensus for release, associated artifacts simply get promoted from the _staging_ to the _public_ repository.
-Hence, there are no differences between releases and release candidates.
+Hence, there are no differences between releases and release candidates from the point of view of changelogs.
 ====
 
 How to carry out aforementioned changes are explained below in steps:
@@ -295,12 +253,12 @@ How to carry out aforementioned changes are explained below in steps:
     -Dlog4j.changelog.releaseVersion=X.Y.Z
 ----
 . Verify that all changelog entry files are moved from `<changelogDirectory>/.<releaseVersionMajor>.x.x` directory (e.g., `/src/changelog/.2.x.x`)
-. Verify that `<changelogDirectory>/<releaseVersion>` directory (e.g., `/src/changelog/2.19.0`) is created, and it contains `.changelog.adoc.ftl`, `.release.xml`, and changelog entry files
+. Verify that `<changelogDirectory>/<releaseVersion>` directory (e.g., `/src/changelog/2.19.0`) is created, and it contains templates, changelog entry files, and a `.release.xml`
 +
 [IMPORTANT]
 ====
-If `<changelogDirectory>/<releaseVersion>` directory (e.g., `/src/changelog/2.19.0`) already exists with certain content, `ChangelogReleaser` will only move new changelog entry files and override `.release.xml`; `.changelog.adoc.ftl` will not be touched, if it already exists.
+If `<changelogDirectory>/<releaseVersion>` directory (e.g., `/src/changelog/2.19.0`) already exists with certain content, `ChangelogReleaser` will only move new changelog entry files and override `.release.xml`; templates will not be overridden.
 This allows one to run `ChangelogReleaser` multiple times, e.g., to incorporate changes added to a release candidate.
 ====
-. Edit the populated `.changelog.adoc.ftl`
+. Edit the populated templates (e.g., update the release notes with a short summary paragraph)
 . `git add` the changes in the changelog directory (e.g., `/src/changelog`) and commit them

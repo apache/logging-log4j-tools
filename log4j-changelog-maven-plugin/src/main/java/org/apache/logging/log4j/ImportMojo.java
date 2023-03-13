@@ -32,7 +32,7 @@ import org.apache.maven.plugins.annotations.Parameter;
  * @see ChangelogReleaser
  */
 @Mojo(name = "import")
-public class ImportMojo extends AbstractMojo {
+public final class ImportMojo extends AbstractMojo {
 
     /**
      * Directory containing release folders composed of changelog entry XML files.
@@ -61,7 +61,7 @@ public class ImportMojo extends AbstractMojo {
     private int releaseVersionMajor;
 
     public void execute() {
-        MavenChangesImporterArgs args = new MavenChangesImporterArgs(
+        final MavenChangesImporterArgs args = new MavenChangesImporterArgs(
                 changelogDirectory.toPath(),
                 changesXmlFile.toPath(),
                 releaseVersionMajor);

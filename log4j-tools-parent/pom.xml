@@ -201,6 +201,7 @@
             <exclude>**/target/**/*</exclude>
             <exclude>.java-version</exclude>
             <exclude>.mvn/jvm.config</exclude>
+            <exclude>**/*.txt</exclude>
             <!-- IntelliJ IDEA files: -->
             <exclude>.idea/**/*</exclude>
             <exclude>**/*.iml</exclude>

@@ -32,18 +32,9 @@ public final class ChangelogReleaserArgs {
             final Path changelogDirectory,
             final String releaseVersion,
             final LocalDate releaseDate) {
-
-        // Check arguments
-        Objects.requireNonNull(changelogDirectory, "changelogDirectory");
-        Objects.requireNonNull(releaseVersion, "releaseVersion");
-        VersionUtils.requireSemanticVersioning(releaseVersion, "releaseVersion");
-        Objects.requireNonNull(releaseDate, "releaseDate");
-
-        // Set fields
-        this.changelogDirectory = changelogDirectory;
-        this.releaseVersion = releaseVersion;
-        this.releaseDate = releaseDate;
-
+        this.changelogDirectory = Objects.requireNonNull(changelogDirectory, "changelogDirectory");
+        this.releaseVersion = VersionUtils.requireSemanticVersioning(releaseVersion, "releaseVersion");
+        this.releaseDate = Objects.requireNonNull(releaseDate, "releaseDate");
     }
 
 }

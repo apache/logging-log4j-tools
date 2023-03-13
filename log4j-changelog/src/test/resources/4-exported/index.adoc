@@ -15,7 +15,7 @@
     limitations under the License.
 ////
 
-= Release changelogs
+= Release notes
 
 * xref:3.x.x.adoc[3.x.x]
 * xref:2.x.x.adoc[2.x.x]

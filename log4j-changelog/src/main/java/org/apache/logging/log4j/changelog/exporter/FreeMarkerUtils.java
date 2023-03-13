@@ -77,8 +77,9 @@ final class FreeMarkerUtils {
             }
         } catch (final Exception error) {
             final String message = String.format(
-                    "failed rendering template `%s` to file `%s`",
+                    "failed rendering template `%s` in directory `%s` to file `%s`",
                     templateName,
+                    templateDirectory,
                     outputFile);
             throw new RuntimeException(message, error);
         }

@@ -21,6 +21,8 @@ import java.io.UncheckedIOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.time.LocalDate;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 import org.apache.logging.log4j.changelog.ChangelogFiles;
 import org.apache.logging.log4j.changelog.ChangelogRelease;
@@ -125,14 +127,28 @@ public final class ChangelogReleaser {
             final Path unreleasedDirectory,
             final Path releaseDirectory)
             throws IOException {
-        final Path targetFile = ChangelogFiles.releaseChangelogTemplateFile(releaseDirectory);
-        if (Files.exists(targetFile)) {
-            System.out.format("keeping the existing changelog template file: `%s`%n", targetFile);
-        } else {
-            final Path sourceFile = ChangelogFiles.releaseChangelogTemplateFile(unreleasedDirectory);
-            System.out.format("moving the changelog template file `%s` to `%s`%n", sourceFile, targetFile);
-            Files.move(sourceFile, targetFile);
+        Set<String> releaseChangelogTemplateFileNames = releaseChangelogTemplateFileNames(unreleasedDirectory);
+        for (final String releaseChangelogTemplateFileName : releaseChangelogTemplateFileNames) {
+            final Path targetFile = releaseDirectory.resolve(releaseChangelogTemplateFileName);
+            if (Files.exists(targetFile)) {
+                System.out.format("keeping the existing changelog template file: `%s`%n", targetFile);
+            } else {
+                final Path sourceFile = unreleasedDirectory.resolve(releaseChangelogTemplateFileName);
+                System.out.format("moving the changelog template file `%s` to `%s`%n", sourceFile, targetFile);
+                Files.move(sourceFile, targetFile);
+            }
         }
+    }
+
+    private static Set<String> releaseChangelogTemplateFileNames(final Path releaseDirectory) {
+        final String templateFileNameSuffix = '.' + ChangelogFiles.templateFileNameExtension();
+        return FileUtils.findAdjacentFiles(
+                releaseDirectory,
+                false,
+                paths -> paths
+                        .filter(path -> path.endsWith(templateFileNameSuffix))
+                        .map(path -> path.getFileName().toString())
+                        .collect(Collectors.toSet()));
     }
 
 }

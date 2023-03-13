@@ -18,9 +18,13 @@ package org.apache.logging.log4j.changelog;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Set;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import org.apache.logging.log4j.changelog.exporter.ChangelogExporter;
 import org.apache.logging.log4j.changelog.exporter.ChangelogExporterArgs;
+import org.apache.logging.log4j.changelog.exporter.ChangelogExporterTemplate;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.CleanupMode;
@@ -32,11 +36,22 @@ class ChangelogExporterTest {
 
     @Test
     void output_should_match(@TempDir(cleanup = CleanupMode.ON_SUCCESS) final Path outputDirectory) {
-        ChangelogExporterArgs args = new ChangelogExporterArgs(
+        final ChangelogExporterArgs args = new ChangelogExporterArgs(
                 Paths.get("src/test/resources/3-enriched"),
+                setOf(
+                        new ChangelogExporterTemplate(".index.adoc.ftl", "index.adoc", true),
+                        new ChangelogExporterTemplate(".index.txt.ftl", "index.adoc", false)),
+                setOf(
+                        new ChangelogExporterTemplate(".release-notes.adoc.ftl", "%v.adoc", true),
+                        new ChangelogExporterTemplate(".release-notes.txt.ftl", "%v.txt", false)),
                 outputDirectory);
         ChangelogExporter.performExport(args);
         assertDirectoryContentMatches(outputDirectory, Paths.get("src/test/resources/4-exported"));
+    }
+
+    @SafeVarargs
+    private static <V> Set<V> setOf(V... values) {
+        return Stream.of(values).collect(Collectors.toSet());
     }
 
 }

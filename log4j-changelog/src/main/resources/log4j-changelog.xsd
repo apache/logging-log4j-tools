@@ -19,7 +19,7 @@
         targetNamespace="http://logging.apache.org/log4j/changelog"
         xmlns:cl="http://logging.apache.org/log4j/changelog"
         elementFormDefault="qualified"
-        version="0.1.0">
+        version="0.1.1">
 
   <element name="release">
     <complexType>
@@ -74,7 +74,7 @@
   <complexType name="descriptionType">
     <simpleContent>
       <extension base="string">
-        <attribute name="format" type="string" use="required" fixed="asciidoc"/>
+        <attribute name="format" type="string" use="required"/>
       </extension>
     </simpleContent>
   </complexType>

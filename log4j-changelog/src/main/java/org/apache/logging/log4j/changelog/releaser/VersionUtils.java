@@ -16,19 +16,23 @@
  */
 package org.apache.logging.log4j.changelog.releaser;
 
+import java.util.Objects;
+
 final class VersionUtils {
 
     private static final String VERSION_PATTERN = "^\\d+\\.\\d+\\.\\d+(-SNAPSHOT)?$";
 
     private VersionUtils() {}
 
-    static void requireSemanticVersioning(final String version, final String name) {
+    static String requireSemanticVersioning(final String version, final String fieldName) {
+        Objects.requireNonNull(version, fieldName);
         if (!version.matches(VERSION_PATTERN)) {
             final String message = String.format(
                     "provided version in `%s` does not match the expected `<major>.<minor>.<patch>[-SNAPSHOT]` pattern: `%s`",
-                    name, version);
+                    fieldName, version);
             throw new IllegalArgumentException(message);
         }
+        return version;
     }
 
     static int versionMajor(final String version) {

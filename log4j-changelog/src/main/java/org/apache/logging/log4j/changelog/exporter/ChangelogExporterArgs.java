@@ -18,15 +18,26 @@ package org.apache.logging.log4j.changelog.exporter;
 
 import java.nio.file.Path;
 import java.util.Objects;
+import java.util.Set;
 
 public final class ChangelogExporterArgs {
 
     final Path changelogDirectory;
 
+    final Set<ChangelogExporterTemplate> indexTemplates;
+
+    final Set<ChangelogExporterTemplate> changelogTemplates;
+
     final Path outputDirectory;
 
-    public ChangelogExporterArgs(final Path changelogDirectory, final Path outputDirectory) {
+    public ChangelogExporterArgs(
+            final Path changelogDirectory,
+            final Set<ChangelogExporterTemplate> indexTemplates,
+            final Set<ChangelogExporterTemplate> changelogTemplates,
+            final Path outputDirectory) {
         this.changelogDirectory = Objects.requireNonNull(changelogDirectory, "changelogDirectory");
+        this.indexTemplates = Objects.requireNonNull(indexTemplates, "indexTemplates");
+        this.changelogTemplates = Objects.requireNonNull(changelogTemplates, "changelogTemplates");
         this.outputDirectory = Objects.requireNonNull(outputDirectory, "outputDirectory");
     }
 

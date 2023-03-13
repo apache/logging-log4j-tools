@@ -16,7 +16,6 @@
 ////
 
 = ${release.version}<#if release.date?has_content> (${release.date})</#if>
+<#include ".release-notes.common.ftl">
 
-Changes staged for the next 3.x.x version that is yet to be released.
-
-<#include "../.changelog-entries.adoc.ftl">
+<#include "../.changelog.adoc.ftl">

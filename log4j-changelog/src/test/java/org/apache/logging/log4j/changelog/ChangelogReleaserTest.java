@@ -43,7 +43,7 @@ class ChangelogReleaserTest {
         copyDirectory(new File("src/test/resources/3-enriched"), changelogDirectory.toFile());
 
         // Invoke the releaser
-        ChangelogReleaserArgs args = new ChangelogReleaserArgs(
+        final ChangelogReleaserArgs args = new ChangelogReleaserArgs(
                 changelogDirectory,
                 "2.19.0",
                 LocalDate.parse("2023-01-25"));
