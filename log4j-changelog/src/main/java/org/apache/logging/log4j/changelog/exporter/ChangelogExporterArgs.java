@@ -19,9 +19,7 @@ package org.apache.logging.log4j.changelog.exporter;
 import java.nio.file.Path;
 import java.util.Objects;
 
-import edu.umd.cs.findbugs.annotations.Nullable;
-
-import static org.apache.logging.log4j.changelog.util.VersionUtils.requireSemanticVersioning;
+import static org.apache.logging.log4j.changelog.util.PropertyUtils.requireNonBlankPathProperty;
 
 public final class ChangelogExporterArgs {
 
@@ -29,74 +27,19 @@ public final class ChangelogExporterArgs {
 
     public static final String OUTPUT_DIRECTORY_PROPERTY_NAME = "log4j.changelog.outputDirectory";
 
-    public static final String RELEASE_VERSION_PROPERTY_NAME = "log4j.changelog.releaseVersion";
-
-    public static final String TEMPLATE_FILE_PROPERTY_NAME = "log4j.changelog.templateFile";
-
-    public static final String OUTPUT_FILE_PROPERTY_NAME = "log4j.changelog.outputFile";
-
-    public enum Mode { MULTI, SINGLE }
-
-    final Mode mode;
-
     final Path changelogDirectory;
 
-    @Nullable
     final Path outputDirectory;
 
-    @Nullable
-    final String releaseVersion;
-
-    @Nullable
-    final Path templateFile;
-
-    @Nullable
-    final Path outputFile;
-
-    private ChangelogExporterArgs(
-            final Mode mode,
-            final Path changelogDirectory,
-            @Nullable final Path outputDirectory,
-            @Nullable final String releaseVersion,
-            @Nullable final Path templateFile,
-            @Nullable final Path outputFile) {
-        this.mode = mode;
-        this.changelogDirectory = changelogDirectory;
-        this.outputDirectory = outputDirectory;
-        this.releaseVersion = releaseVersion;
-        this.templateFile = templateFile;
-        this.outputFile = outputFile;
+    public ChangelogExporterArgs(final Path changelogDirectory, final Path outputDirectory) {
+        this.changelogDirectory = Objects.requireNonNull(changelogDirectory, "changelogDirectory");
+        this.outputDirectory = Objects.requireNonNull(outputDirectory, "outputDirectory");
     }
 
-    public static ChangelogExporterArgs of(final Path changelogDirectory, final Path outputDirectory) {
-        Objects.requireNonNull(changelogDirectory, "changelogDirectory");
-        Objects.requireNonNull(outputDirectory, "outputDirectory");
-        return new ChangelogExporterArgs(
-                Mode.MULTI,
-                changelogDirectory,
-                outputDirectory,
-                null,
-                null,
-                null);
-    }
-
-    public static ChangelogExporterArgs ofSingle(
-            final Path changelogDirectory,
-            final String releaseVersion,
-            final Path templateFile,
-            final Path outputFile) {
-        Objects.requireNonNull(changelogDirectory, "changelogDirectory");
-        Objects.requireNonNull(releaseVersion, "releaseVersion");
-        requireSemanticVersioning(releaseVersion, RELEASE_VERSION_PROPERTY_NAME);
-        Objects.requireNonNull(templateFile, "templateFile");
-        Objects.requireNonNull(outputFile, "outputFile");
-        return new ChangelogExporterArgs(
-                Mode.SINGLE,
-                changelogDirectory,
-                null,
-                releaseVersion,
-                templateFile,
-                outputFile);
+    static ChangelogExporterArgs fromSystemProperties() {
+        final Path changelogDirectory = requireNonBlankPathProperty(CHANGELOG_DIRECTORY_PROPERTY_NAME);
+        final Path outputDirectory = requireNonBlankPathProperty(OUTPUT_DIRECTORY_PROPERTY_NAME);
+        return new ChangelogExporterArgs(changelogDirectory, outputDirectory);
     }
 
 }

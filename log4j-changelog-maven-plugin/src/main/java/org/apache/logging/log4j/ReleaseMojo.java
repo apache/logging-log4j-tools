@@ -23,6 +23,7 @@ import org.apache.logging.log4j.changelog.releaser.ChangelogReleaser;
 import org.apache.logging.log4j.changelog.releaser.ChangelogReleaserArgs;
 
 import org.apache.maven.plugin.AbstractMojo;
+import org.apache.maven.plugins.annotations.LifecyclePhase;
 import org.apache.maven.plugins.annotations.Mojo;
 import org.apache.maven.plugins.annotations.Parameter;
 
@@ -31,7 +32,7 @@ import org.apache.maven.plugins.annotations.Parameter;
  *
  * @see ChangelogReleaser
  */
-@Mojo(name = "release")
+@Mojo(name = "release", defaultPhase = LifecyclePhase.VALIDATE)
 public class ReleaseMojo extends AbstractMojo {
 
     /**

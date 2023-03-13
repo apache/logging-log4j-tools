@@ -207,8 +207,6 @@
             <!-- License headers in GitHub templates pollute the prompt displayed to the user: -->
             <exclude>.github/ISSUE_TEMPLATE/*.md</exclude>
             <exclude>.github/pull_request_template.md</exclude>
-            <!-- We cannot place a license header into an email: -->
-            <exclude>src/test/resources/4-exported-single/.changelog-email.txt</exclude>
           </excludes>
         </configuration>
         <executions>

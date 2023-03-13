@@ -46,11 +46,11 @@ For complete information on Apache Log4j 2, including instructions on how to sub
 
 == Changes
 
-=== Removed
+== Removed
 
 * Fix `ThreadContextDataInjector` initialization deadlock (for https://issues.apache.org/jira/browse/LOG4J2-3333[LOG4J2-3333] by Carter Kozak)
 * Document that the Spring Boot Lookup requires the `log4j-spring-boot` dependency (for https://issues.apache.org/jira/browse/LOG4J2-3405[LOG4J2-3405] by Ralph Goers)
 
-=== Fixed
+== Fixed
 
 * Flag `LogManager` as initialized if the `LoggerFactory` is provided as a property (for https://issues.apache.org/jira/browse/LOG4J2-3304[LOG4J2-3304] by Ralph Goers, francis-FY)

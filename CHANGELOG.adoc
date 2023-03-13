@@ -17,10 +17,6 @@ limitations under the License.
 
 == 0.x.x
 
-* Removed the default lifecycle from `log4j-changelog:release` Maven goal
-
-* Added xref:log4j-changelog-maven-plugin/README.adoc#export-single[`log4j-changelog:export-single` Maven goal] to export a single release directory against a custom template (for https://github.com/apache/logging-log4j-tools/issues/38[#38] by Volkan Yazıcı)
-
 * The changelog release models passed to the index template file (`.index.adoc.ftl`) is enriched with `changelogEntryCount` fields (for https://github.com/apache/logging-log4j-tools/issues/37[#37] by Volkan Yazıcı)
 
 == 0.2.0 (2023-01-31)

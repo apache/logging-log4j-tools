@@ -19,7 +19,6 @@ package org.apache.logging.log4j.changelog.importer;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 import org.apache.logging.log4j.changelog.ChangelogEntry;
 import org.apache.logging.log4j.changelog.ChangelogFiles;
@@ -31,8 +30,12 @@ public final class MavenChangesImporter {
 
     private MavenChangesImporter() {}
 
+    public static void main(final String[] mainArgs) {
+        final MavenChangesImporterArgs args = MavenChangesImporterArgs.fromSystemProperties();
+        performImport(args);
+    }
+
     public static void performImport(final MavenChangesImporterArgs args) {
-        Objects.requireNonNull(args, "args");
         final MavenChanges mavenChanges = MavenChanges.readFromFile(args.changesXmlFile);
         mavenChanges.releases.forEach(release -> {
             if ("TBD".equals(release.date)) {
