@@ -17,6 +17,8 @@ limitations under the License.
 
 == 0.x.x
 
+* Upgrade the compiler version to Java 17, yet still target Java 8 (by Volkan Yazıcı)
+
 * Support multiple and formatting-agnostic template files (for https://github.com/apache/logging-log4j-tools/issues/44[#44] by Volkan Yazıcı)
 
 * The changelog release models passed to the index template file (`.index.adoc.ftl`) is enriched with `changelogEntryCount` fields (for https://github.com/apache/logging-log4j-tools/issues/37[#37] by Volkan Yazıcı)
