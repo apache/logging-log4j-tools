@@ -29,7 +29,7 @@ Maven plugin for xref:log4j-changelog/README.adoc[`log4j-changelog`].
 
 == Build
 
-This project generates Java 8 bytecode, though requires Java 11 for compilation.
+This project generates Java 8 bytecode, though requires Java 17 for compilation.
 You can build and test sources using `./mvnw verify` command.
 
 == Distribution
