@@ -79,6 +79,15 @@ Make sure your email is sent in plain text, that is, https://infra.apache.org/co
 If you are using GMail, simply enable the _"Plain text mode"_ while composing your message.
 ====
 
+Once the consensus is reached within the set time frame, respond to the first post in the thread as follows:
+
+[source]
+----
+Adding my +1.
+
+With that, the release passes with 3 binding +1 votes from me, Piotr, and Matt.
+----
+
 == Publish the release
 
 === In git repository
