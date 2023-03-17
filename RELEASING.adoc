@@ -33,12 +33,12 @@ In the code examples below, assuming the version to be released is `7.8.0`.
 . Make sure the associated https://github.com/apache/logging-log4j-tools/actions[GitHub Actions workflow] succeeds:
 .. *Signed artifacts* are uploaded to the _Staging Repositories_ in https://repository.apache.org/[repository.apache.org]
 .. *Signed sources and their checksum* are uploaded as GitHub Actions workflow artifacts
-.. `*rel/7.8.0-rc.1*` git tag should be created
+.. `*rel/7.8.0-rc1*` git tag should be created
 +
 [IMPORTANT]
 ====
 The ASF infrastructure treats ``rel/``-prefixed git tags special and ensures they are immutable for provenance reasons.
-To make the above operation idempotent and allow retries, the release candidate enumeration used in the tag will be incremented automatically; `rel/7.8.0-rc.1`, `rel/7.8.0-rc.2`, etc.
+To make the above operation idempotent and allow retries, the release candidate enumeration used in the tag will be incremented automatically; `rel/7.8.0-rc1`, `rel/7.8.0-rc2`, etc.
 ====
 
 +
@@ -58,7 +58,7 @@ The Apache Log4j Tools 7.8.0 release is now available for voting.
 This release contains minor enhancements and bug fixes.
 
 Source repository: https://github.com/apache/logging-log4j-tools
-Tag: rel/7.8.0-rc.1
+Tag: rel/7.8.0-rc1
 Commit: e82a44142280d013bd76ea18951fde00dcee192b
 CI run: https://github.com/apache/logging-log4j-tools/actions/runs/3882476949
 Artifacts: https://dist.apache.org/repos/dist/dev/logging/log4j/
@@ -99,7 +99,7 @@ With that, the release passes with 3 binding +1 votes from me, Piotr, and Matt.
 ====
 The ASF infrastructure treats ``rel/``-prefixed git tags special and ensures they are immutable for provenance reasons.
 ====
-. Merge `release/7.8.0` changes to `master`
+. Rebase `release/7.8.0` changes to `master`
 . Set the revision property to the next development version (e.g., `7.9.0-SNAPSHOT`) in xref:pom.xml[`pom.xml`]
 . Commit changes and push the `master` branch
 . Delete the local and remote copies of the `release/7.8.0` branch

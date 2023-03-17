@@ -205,7 +205,7 @@ jobs:
         if: startsWith(github.ref, 'refs/heads/release/')
         run: |
           export RCN=$[ $(git tag -l "rel/$PROJECT_VERSION-rc*" | wc -l) + 1 ]
-          export TAG="rel/$PROJECT_VERSION-rc.$RCN"
+          export TAG="rel/$PROJECT_VERSION-rc$RCN"
           git config user.name github-actions
           git config user.email github-actions@github.com
           git tag "$TAG" -m ""
