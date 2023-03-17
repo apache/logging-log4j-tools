@@ -269,6 +269,7 @@
               <order>java,javax,org.apache.logging,,\#java,\#javax,\#org.apache.logging,\#</order>
             </importOrder>
           </java>
+          <lineEndings>UNIX</lineEndings>
         </configuration>
       </plugin>
 
