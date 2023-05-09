@@ -61,7 +61,7 @@
     <spotbugs.version>4.7.3</spotbugs.version>
 
     <!-- plugin versions -->
-    <error-prone.version>2.18.0</error-prone.version>
+    <error-prone.version>2.19.0</error-prone.version>
     <findsecbugs-plugin.version>1.12.0</findsecbugs-plugin.version>
     <spotbugs-maven-plugin.version>4.7.3.4</spotbugs-maven-plugin.version>
     <spotless-maven-plugin.version>2.36.0</spotless-maven-plugin.version>
