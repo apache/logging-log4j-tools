@@ -15,6 +15,10 @@ See the License for the specific language governing permissions and
 limitations under the License.
 ////
 
+== Unreleased
+
+* Add `versionPattern` parameter to `release` Maven goal (https://github.com/apache/logging-log4j-tools/issues/63[#63])
+
 == 0.3.0 (2023-03-14)
 
 * Upgrade the compiler version to Java 17, yet still target Java 8

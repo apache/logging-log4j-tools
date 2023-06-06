@@ -46,6 +46,7 @@ class ChangelogReleaserTest {
         final ChangelogReleaserArgs args = new ChangelogReleaserArgs(
                 changelogDirectory,
                 "2.19.0",
+                null,
                 LocalDate.parse("2023-01-25"));
         ChangelogReleaser.performRelease(args);
 

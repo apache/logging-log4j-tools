@@ -18,6 +18,7 @@ package org.apache.logging.log4j;
 
 import java.io.File;
 import java.time.LocalDate;
+import java.util.regex.Pattern;
 
 import org.apache.logging.log4j.changelog.releaser.ChangelogReleaser;
 import org.apache.logging.log4j.changelog.releaser.ChangelogReleaserArgs;
@@ -52,10 +53,26 @@ public final class ReleaseMojo extends AbstractMojo {
             required = true)
     private String releaseVersion;
 
+    /**
+     * The regular expression pattern for parsing versions.
+     * <p>
+     * The pattern must provide the following named groups:
+     * </p>
+     * <ol>
+     * <li>major</li>
+     * <li>minor</li>
+     * <li>patch</li>
+     * </ol>
+     */
+    @Parameter(property = "log4j.changelog.versionPattern")
+    private String versionPattern;
+
     public void execute() {
+        Pattern compiledVersionPattern = versionPattern != null ? Pattern.compile(versionPattern) : null;
         final ChangelogReleaserArgs args = new ChangelogReleaserArgs(
                 changelogDirectory.toPath(),
                 releaseVersion,
+                compiledVersionPattern,
                 LocalDate.now());
         ChangelogReleaser.performRelease(args);
     }

@@ -38,14 +38,13 @@ public final class ChangelogReleaser {
 
         // Read the release date and version
         final String releaseDate = ISO_DATE.format(args.releaseDate != null ? args.releaseDate : LocalDate.now());
-        final int releaseVersionMajor = VersionUtils.versionMajor(args.releaseVersion);
         System.out.format("using `%s` for the release date%n", releaseDate);
 
         try {
 
             // Populate the changelog entry files in the release directory
             final Path unreleasedDirectory =
-                    ChangelogFiles.unreleasedDirectory(args.changelogDirectory, releaseVersionMajor);
+                    ChangelogFiles.unreleasedDirectory(args.changelogDirectory, args.releaseVersionMajor);
             final Path releaseDirectory = ChangelogFiles.releaseDirectory(args.changelogDirectory, args.releaseVersion);
             populateChangelogEntryFiles(unreleasedDirectory, releaseDirectory);
 
