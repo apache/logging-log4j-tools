@@ -120,10 +120,15 @@ Note that above we are using `-N` (`--non-recursive`) to avoid visiting submodul
 
 `release` goal does not have default phase and accepts the following configuration parameters:
 
-`changelogDirectory`::
+`changelogDirectory` (parameter)::
 Directory containing release folders composed of changelog entry XML files.
 It defaults to `${project.basedir}/src/changelog` and can be set using the `log4j.changelog.directory` property.
 
-`releaseVersion`::
+`releaseVersion` (parameter)::
 The version to be released.
 It can be set using the `log4j.changelog.releaseVersion` property.
+
+`versionPattern` (parameter)::
+The regular expression pattern for parsing versions.
+The pattern must provide the following named groups: `major`, `minor`, and `patch`.
+It defaults to `^(?<major>0|[1-9]\d*)\.(?<minor>0|[1-9]\d*)\.(?<patch>0|[1-9]\d*(-[a-zA-Z][0-9a-zA-Z-]*)?)$` and can be set using the `log4j.changelog.versionPattern` property.
