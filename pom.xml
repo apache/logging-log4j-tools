@@ -1,23 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-  Licensed to the Apache Software Foundation (ASF) under one or more
-  contributor license agreements. See the NOTICE file distributed with
-  this work for additional information regarding copyright ownership.
-  The ASF licenses this file to You under the Apache License, Version 2.0
-  (the "License"); you may not use this file except in compliance with
-  the License. You may obtain a copy of the License at
-
-      https://www.apache.org/licenses/LICENSE-2.0
-
-  Unless required by applicable law or agreed to in writing, software
-  distributed under the License is distributed on an "AS IS" BASIS,
-  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-  See the License for the specific language governing permissions and
-  limitations under the License.
--->
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  ~ Licensed to the Apache Software Foundation (ASF) under one or more
+  ~ contributor license agreements.  See the NOTICE file distributed with
+  ~ this work for additional information regarding copyright ownership.
+  ~ The ASF licenses this file to you under the Apache License, Version 2.0
+  ~ (the "License"); you may not use this file except in compliance with
+  ~ the License.  You may obtain a copy of the License at
+  ~
+  ~      http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+  -->
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 
   <!-- ██     ██  █████  ██████  ███    ██ ██ ███    ██  ██████  ██
        ██     ██ ██   ██ ██   ██ ████   ██ ██ ████   ██ ██       ██
@@ -33,13 +31,66 @@
   <parent>
     <groupId>org.apache.logging</groupId>
     <artifactId>logging-parent</artifactId>
-    <version>8</version>
+    <version>9</version>
   </parent>
 
   <groupId>org.apache.logging.log4j</groupId>
   <artifactId>log4j-tools-bom</artifactId>
-  <packaging>pom</packaging>
   <version>${revision}</version>
+  <packaging>pom</packaging>
+
+  <url>https://github.com/apache/logging-log4j-tools</url>
+
+  <inceptionYear>2022</inceptionYear>
+
+  <organization>
+    <name>Apache Software Foundation</name>
+    <url>https://apache.org</url>
+  </organization>
+
+  <licenses>
+    <license>
+      <name>Apache License, Version 2.0</name>
+      <url>https://www.apache.org/licenses/LICENSE-2.0.txt</url>
+      <distribution>repo</distribution>
+      <comments>A business-friendly OSS license</comments>
+    </license>
+  </licenses>
+
+  <developers>
+
+    <developer>
+      <id>rgoers</id>
+      <name>Ralph Goers</name>
+      <email>rgoers@apache.org</email>
+      <organization>Nextiva</organization>
+      <roles>
+        <role>PMC Member</role>
+      </roles>
+      <timezone>America/Phoenix</timezone>
+    </developer>
+
+    <developer>
+      <id>vy</id>
+      <name>Volkan Yazıcı</name>
+      <email>vy@apache.org</email>
+      <roles>
+        <role>PMC Member</role>
+      </roles>
+      <timezone>Europe/Amsterdam</timezone>
+    </developer>
+
+    <developer>
+      <id>pkarwasz</id>
+      <name>Piotr P. Karwasz</name>
+      <email>pkarwasz@apache.org</email>
+      <roles>
+        <role>PMC Member</role>
+      </roles>
+      <timezone>Europe/Warsaw</timezone>
+    </developer>
+
+  </developers>
 
   <modules>
 
@@ -51,6 +102,28 @@
     <module>log4j-changelog-maven-plugin</module>
 
   </modules>
+
+  <scm>
+    <connection>scm:git:git@github.com:apache/logging-log4j-tools.git</connection>
+    <developerConnection>scm:git:git@github.com:apache/logging-log4j-tools.git</developerConnection>
+    <tag>HEAD</tag>
+    <url>https://github.com/apache/logging-log4j-tools</url>
+  </scm>
+
+  <issueManagement>
+    <system>GitHub Issues</system>
+    <url>https://github.com/apache/logging-log4j-tools/issues</url>
+  </issueManagement>
+
+  <ciManagement>
+    <system>GitHub Actions</system>
+    <url>https://github.com/apache/logging-log4j-tools/actions</url>
+  </ciManagement>
+
+  <distributionManagement>
+    <!-- `repository` from parent `org.apache.logging:logging-parent` (id: `apache.releases.https`) -->
+    <!-- `snapshotRepository` from parent `org.apache.logging:logging-parent` (id: `apache.snapshots.https`) -->
+  </distributionManagement>
 
   <properties>
 
@@ -67,9 +140,12 @@
     <project.build.outputTimestamp>0</project.build.outputTimestamp>
 
     <!-- plugin versions -->
+    <error-prone.version>2.19.1</error-prone.version>
+    <findsecbugs-plugin.version>1.12.0</findsecbugs-plugin.version>
     <flatten-maven-plugin.version>1.5.0</flatten-maven-plugin.version>
     <maven-deploy-plugin.version>3.0.0</maven-deploy-plugin.version>
     <sign-maven-plugin.version>1.0.1</sign-maven-plugin.version>
+    <spotbugs-maven-plugin.version>4.7.3.4</spotbugs-maven-plugin.version>
 
   </properties>
 
@@ -97,6 +173,7 @@
 
     <pluginManagement>
       <plugins>
+
         <plugin>
           <groupId>org.codehaus.mojo</groupId>
           <artifactId>flatten-maven-plugin</artifactId>
@@ -107,6 +184,19 @@
             <outputDirectory>${project.build.directory}</outputDirectory>
           </configuration>
         </plugin>
+
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-plugin-plugin</artifactId>
+          <version>${maven-plugin.version}</version>
+        </plugin>
+
+        <plugin>
+          <groupId>com.github.spotbugs</groupId>
+          <artifactId>spotbugs-maven-plugin</artifactId>
+          <version>${spotbugs-maven-plugin.version}</version>
+        </plugin>
+
       </plugins>
     </pluginManagement>
 
@@ -123,10 +213,10 @@
         <executions>
           <execution>
             <id>flatten-bom</id>
-            <phase>process-resources</phase>
             <goals>
               <goal>flatten</goal>
             </goals>
+            <phase>process-resources</phase>
             <configuration>
               <flattenMode>bom</flattenMode>
               <!-- POM `ElementHandling` is pretty cryptic: https://www.mojohaus.org/flatten-maven-plugin/apidocs/org/codehaus/mojo/flatten/ElementHandling.html
@@ -141,6 +231,101 @@
                 <dependencyManagement>interpolate</dependencyManagement>
               </pomElements>
             </configuration>
+          </execution>
+        </executions>
+      </plugin>
+
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <configuration>
+          <release>${java.version}</release>
+          <encoding>${project.build.sourceEncoding}</encoding>
+          <compilerArgs>
+            <arg>-Xlint:all</arg>
+            <arg>-XDcompilePolicy=simple</arg>
+            <arg>-Xplugin:ErrorProne</arg>
+          </compilerArgs>
+          <annotationProcessorPaths>
+            <path>
+              <groupId>com.google.errorprone</groupId>
+              <artifactId>error_prone_core</artifactId>
+              <version>${error-prone.version}</version>
+            </path>
+          </annotationProcessorPaths>
+        </configuration>
+      </plugin>
+
+      <!-- Apache RAT (Release Audit Tool) check to verify licenses.
+           `apache-rat-plugin`: https://creadur.apache.org/rat/apache-rat-plugin/
+           Release Audit Tool: https://creadur.apache.org/rat/index.html -->
+      <plugin>
+        <groupId>org.apache.rat</groupId>
+        <artifactId>apache-rat-plugin</artifactId>
+        <configuration>
+          <consoleOutput>true</consoleOutput>
+          <excludes>
+            <exclude>**/target/**/*</exclude>
+            <exclude>.java-version</exclude>
+            <exclude>.mvn/jvm.config</exclude>
+            <exclude>**/*.txt</exclude>
+            <!-- IntelliJ IDEA files: -->
+            <exclude>.idea/**/*</exclude>
+            <exclude>**/*.iml</exclude>
+            <!-- License headers in GitHub templates pollute the prompt displayed to the user: -->
+            <exclude>.github/ISSUE_TEMPLATE/*.md</exclude>
+            <exclude>.github/pull_request_template.md</exclude>
+          </excludes>
+        </configuration>
+        <executions>
+          <execution>
+            <goals>
+              <goal>check</goal>
+            </goals>
+            <phase>verify</phase>
+          </execution>
+        </executions>
+      </plugin>
+
+      <!-- Ensure that version for each dependency resolved during a build, is equal to or higher than all transitive dependency declarations.
+           A failure here requires adding the dependency to the dependency management. -->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-enforcer-plugin</artifactId>
+        <executions>
+          <execution>
+            <id>enforce-upper-bound-deps</id>
+            <goals>
+              <goal>enforce</goal>
+            </goals>
+            <configuration>
+              <rules>
+                <requireUpperBoundDeps />
+              </rules>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+
+      <plugin>
+        <groupId>com.github.spotbugs</groupId>
+        <artifactId>spotbugs-maven-plugin</artifactId>
+        <configuration>
+          <plugins>
+            <plugin>
+              <groupId>com.h3xstream.findsecbugs</groupId>
+              <artifactId>findsecbugs-plugin</artifactId>
+              <version>${findsecbugs-plugin.version}</version>
+            </plugin>
+          </plugins>
+        </configuration>
+        <executions>
+          <execution>
+            <id>default-spotbugs</id>
+            <goals>
+              <goal>check</goal>
+            </goals>
+            <phase>verify</phase>
           </execution>
         </executions>
       </plugin>
@@ -200,80 +385,5 @@
 
     </profile>
   </profiles>
-
-  <distributionManagement>
-    <!-- `repository` from parent `org.apache.logging:logging-parent` (id: `apache.releases.https`) -->
-    <!-- `snapshotRepository` from parent `org.apache.logging:logging-parent` (id: `apache.snapshots.https`) -->
-  </distributionManagement>
-
-  <scm>
-    <url>https://github.com/apache/logging-log4j-tools</url>
-    <connection>scm:git:git@github.com:apache/logging-log4j-tools.git</connection>
-    <developerConnection>scm:git:git@github.com:apache/logging-log4j-tools.git</developerConnection>
-    <tag>HEAD</tag>
-  </scm>
-
-  <url>https://github.com/apache/logging-log4j-tools</url>
-
-  <ciManagement>
-    <system>GitHub Actions</system>
-    <url>https://github.com/apache/logging-log4j-tools/actions</url>
-  </ciManagement>
-
-  <issueManagement>
-    <system>GitHub Issues</system>
-    <url>https://github.com/apache/logging-log4j-tools/issues</url>
-  </issueManagement>
-
-  <licenses>
-    <license>
-      <name>Apache License, Version 2.0</name>
-      <url>https://www.apache.org/licenses/LICENSE-2.0.txt</url>
-      <distribution>repo</distribution>
-      <comments>A business-friendly OSS license</comments>
-    </license>
-  </licenses>
-
-  <organization>
-    <name>Apache Software Foundation</name>
-    <url>https://apache.org</url>
-  </organization>
-
-  <inceptionYear>2022</inceptionYear>
-
-  <developers>
-
-    <developer>
-      <id>rgoers</id>
-      <name>Ralph Goers</name>
-      <email>rgoers@apache.org</email>
-      <organization>Nextiva</organization>
-      <roles>
-        <role>PMC Member</role>
-      </roles>
-      <timezone>America/Phoenix</timezone>
-    </developer>
-
-    <developer>
-      <id>vy</id>
-      <name>Volkan Yazıcı</name>
-      <email>vy@apache.org</email>
-      <roles>
-        <role>PMC Member</role>
-      </roles>
-      <timezone>Europe/Amsterdam</timezone>
-    </developer>
-
-    <developer>
-      <id>pkarwasz</id>
-      <name>Piotr P. Karwasz</name>
-      <email>pkarwasz@apache.org</email>
-      <roles>
-        <role>PMC Member</role>
-      </roles>
-      <timezone>Europe/Warsaw</timezone>
-    </developer>
-
-  </developers>
 
 </project>
