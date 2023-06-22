@@ -67,7 +67,7 @@ public final class ExportMojo extends AbstractMojo {
      * Directory to write rendered templates.
      */
     @Parameter(
-            defaultValue = "${project.build.directory}/generated-sources/site/asciidoc/changelog",
+            defaultValue = "${project.build.directory}/generated-sources/site/changelog",
             property = "log4j.changelog.outputDirectory",
             required = true)
     private File outputDirectory;

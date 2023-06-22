@@ -158,19 +158,8 @@ jobs:
             echo "git ref \"$GITHUB_REF\" mismatches with the version: \"$PROJECT_VERSION\"" 1>&2
             exit 1
           }
-          [[ "$PROJECT_VERSION" =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]] || {
-            echo "was expecting a release version, found: \"$PROJECT_VERSION\"" 1>&2
-            exit 1
-          }
-          export CHANGELOG_VERSION=$(grep "^== " CHANGELOG.adoc | head -n 1 | sed -r 's/^== (.+) \(.+\)$/\1/')
-          [[ "$PROJECT_VERSION" == "$CHANGELOG_VERSION" ]] || {
-            echo "version \"$PROJECT_VERSION\" doesn't match the one in changelog: \"$CHANGELOG_VERSION\"" 1>&2
-            exit 1
-          }
-          export CURRENT_DATE=$(date +%Y-%m-%d)
-          export CHANGELOG_DATE=$(grep "^== " CHANGELOG.adoc | head -n 1 | sed -r 's/^== .+ \((.+)\)$/\1/')
-          [[ "$CURRENT_DATE" == "$CHANGELOG_DATE" ]] || {
-            echo "current date \"$CURRENT_DATE\" doesn't match the one in the changelog: \"$CHANGELOG_DATE\"" 1>&2
+          [[ "$PROJECT_VERSION" =~ ^(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*(-[a-zA-Z][0-9a-zA-Z-]*)?)$ ]] || {
+            echo "invalid release version: \"$PROJECT_VERSION\"" 1>&2
             exit 1
           }
 
@@ -179,7 +168,7 @@ jobs:
           gpg --list-secret-keys
           ./mvnw \
             --show-version --batch-mode --errors --no-transfer-progress \
-            -P release
+            -P deploy
         env:
           # `NEXUS_USERNAME` and `NEXUS_PASSWORD` are used in `~/.m2/settings.xml` created by `setup-java` action
           NEXUS_USERNAME: ${{ github.ref == 'refs/heads/master' && secrets.NEXUS_USER || secrets.LOGGING_STAGE_DEPLOYER_USER }}
@@ -202,13 +191,3 @@ jobs:
           name: Sources
           path: /tmp/apache-log4j-tools-*-src.zip*
           if-no-files-found: error
-
-      - name: Tag version (RELEASE)
-        if: startsWith(github.ref, 'refs/heads/release/')
-        run: |
-          export RCN=$[ $(git tag -l "rel/$PROJECT_VERSION-rc*" | wc -l) + 1 ]
-          export TAG="rel/$PROJECT_VERSION-rc$RCN"
-          git config user.name github-actions
-          git config user.email github-actions@github.com
-          git tag "$TAG" -m ""
-          git push origin "$TAG"

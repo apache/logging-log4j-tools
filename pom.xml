@@ -60,6 +60,16 @@
   <developers>
 
     <developer>
+      <id>pkarwasz</id>
+      <name>Piotr P. Karwasz</name>
+      <email>pkarwasz@apache.org</email>
+      <roles>
+        <role>PMC Member</role>
+      </roles>
+      <timezone>Europe/Warsaw</timezone>
+    </developer>
+
+    <developer>
       <id>rgoers</id>
       <name>Ralph Goers</name>
       <email>rgoers@apache.org</email>
@@ -78,16 +88,6 @@
         <role>PMC Member</role>
       </roles>
       <timezone>Europe/Amsterdam</timezone>
-    </developer>
-
-    <developer>
-      <id>pkarwasz</id>
-      <name>Piotr P. Karwasz</name>
-      <email>pkarwasz@apache.org</email>
-      <roles>
-        <role>PMC Member</role>
-      </roles>
-      <timezone>Europe/Warsaw</timezone>
     </developer>
 
   </developers>
@@ -143,9 +143,11 @@
     <error-prone.version>2.19.1</error-prone.version>
     <findsecbugs-plugin.version>1.12.0</findsecbugs-plugin.version>
     <flatten-maven-plugin.version>1.5.0</flatten-maven-plugin.version>
+    <log4j-changelog-maven-plugin.version>0.3.0</log4j-changelog-maven-plugin.version>
     <maven-deploy-plugin.version>3.0.0</maven-deploy-plugin.version>
     <sign-maven-plugin.version>1.0.1</sign-maven-plugin.version>
     <spotbugs-maven-plugin.version>4.7.3.4</spotbugs-maven-plugin.version>
+    <xml-maven-plugin.version>1.0.2</xml-maven-plugin.version>
 
   </properties>
 
@@ -330,11 +332,93 @@
         </executions>
       </plugin>
 
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>xml-maven-plugin</artifactId>
+        <version>${xml-maven-plugin.version}</version>
+        <inherited>false</inherited>
+        <executions>
+          <execution>
+            <goals>
+              <goal>validate</goal>
+            </goals>
+            <configuration>
+              <validationSets>
+                <validationSet>
+                  <dir>src/changelog</dir>
+                  <includes>**/*.xml</includes>
+                  <publicId>http://logging.apache.org/log4j/changelog</publicId>
+                  <systemId>https://logging.apache.org/log4j/changelog-0.1.1.xsd</systemId>
+                  <validating>true</validating>
+                </validationSet>
+              </validationSets>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+
     </plugins>
 
   </build>
 
   <profiles>
+
+    <!-- `changelog-export` profile to export changelogs.
+         It is manually enabled by users to generate release notes.
+         See `RELEASING.adoc` for instructions. -->
+    <profile>
+      <id>changelog-export</id>
+      <build>
+        <defaultGoal>log4j-changelog:export</defaultGoal>
+        <plugins>
+          <plugin>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-changelog-maven-plugin</artifactId>
+            <version>${log4j-changelog-maven-plugin.version}</version>
+            <inherited>false</inherited>
+            <configuration>
+              <!-- `outputDirectory` was broken in 0.3.0, below line can be removed in 0.4.0 onwards: -->
+              <outputDirectory>${project.build.directory}/generated-sources/site/release-notes</outputDirectory>
+              <indexTemplates>
+                <template>
+                  <source>.index.md.ftl</source>
+                </template>
+              </indexTemplates>
+              <changelogTemplates>
+                <template>
+                  <source>.release-notes.md.ftl</source>
+                  <target>%v.md</target>
+                </template>
+              </changelogTemplates>
+            </configuration>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+
+    <!-- `changelog-release` profile to move `src/changelog/.0.x.x` contents to their associated release directory.
+         It is manually enabled by users to while cutting a release.
+         See `RELEASING.adoc` for instructions. -->
+    <profile>
+      <id>changelog-release</id>
+      <build>
+        <defaultGoal>log4j-changelog:release</defaultGoal>
+        <plugins>
+          <plugin>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-changelog-maven-plugin</artifactId>
+            <version>${log4j-changelog-maven-plugin.version}</version>
+            <inherited>false</inherited>
+            <configuration>
+              <releaseVersion>${revision}</releaseVersion>
+            </configuration>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+
+    <!-- `release` profile activating release-specific configuration.
+         It is manually enabled by `.github/workflows/build.yml` while releasing. -->
     <profile>
 
       <id>release</id>
@@ -384,6 +468,7 @@
       </build>
 
     </profile>
+
   </profiles>
 
 </project>
