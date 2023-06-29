@@ -34,11 +34,33 @@ import static org.apache.logging.log4j.changelog.FileTestUtils.assertDirectoryCo
 class ChangelogReleaserTest {
 
     @Test
-    void output_should_match(@TempDir(cleanup = CleanupMode.ON_SUCCESS) final Path changelogDirectory)
+    void first_time_release_output_should_match(
+            @TempDir(cleanup = CleanupMode.ON_SUCCESS) final Path changelogDirectory)
+            throws Exception {
+        verifyReleaseOutput(
+                changelogDirectory,
+                "src/test/resources/3-enriched",
+                "src/test/resources/5-released");
+    }
+
+    @Test
+    void second_time_release_output_should_match(
+            @TempDir(cleanup = CleanupMode.ON_SUCCESS) final Path changelogDirectory)
+            throws Exception {
+        verifyReleaseOutput(
+                changelogDirectory,
+                "src/test/resources/6-enriched-again",
+                "src/test/resources/7-released-again");
+    }
+
+    private static void verifyReleaseOutput(
+            final Path changelogDirectory,
+            final String referenceChangelogDirectory,
+            final String expectedOutputDirectory)
             throws Exception {
 
-        // Clone the directory to avoid `move` operations cluttering the reference folder
-        copyDirectory(new File("src/test/resources/3-enriched"), changelogDirectory.toFile());
+        // Clone the directory to avoid `copy`/`move` operations cluttering the reference folder
+        copyDirectory(new File(referenceChangelogDirectory), changelogDirectory.toFile());
 
         // Invoke the releaser
         final ChangelogReleaserArgs args = new ChangelogReleaserArgs(
@@ -50,7 +72,7 @@ class ChangelogReleaserTest {
 
         // Empty folders are not tracked by git, though created by `ChangelogReleaser`.
         // Create the `.2.x.x` folder to match the actual output.
-        final Path expectedChangelogDirectory = Paths.get("src/test/resources/5-released");
+        final Path expectedChangelogDirectory = Paths.get(expectedOutputDirectory);
         final Path emptyFolder = expectedChangelogDirectory.resolve(".2.x.x");
         if (!Files.exists(emptyFolder)) {
             Files.createDirectories(emptyFolder);

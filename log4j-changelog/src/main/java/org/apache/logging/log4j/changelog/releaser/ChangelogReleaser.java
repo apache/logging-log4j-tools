@@ -145,8 +145,8 @@ public final class ChangelogReleaser {
                 releaseDirectory,
                 false,
                 paths -> paths
-                        .filter(path -> path.endsWith(templateFileNameSuffix))
                         .map(path -> path.getFileName().toString())
+                        .filter(path -> path.endsWith(templateFileNameSuffix))
                         .collect(Collectors.toSet()));
     }
 
