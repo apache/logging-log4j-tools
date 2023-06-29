@@ -20,5 +20,5 @@
        xsi:schemaLocation="http://logging.apache.org/log4j/changelog https://logging.apache.org/log4j/changelog-0.1.1.xsd"
        type="changed">
   <author id="vy"/>
-  <description format="markdown">Migrated from `CHANGELOG.adoc` to using `log4j-changelog-maven-plugin`</description>
+  <description format="markdown">Migrate from `CHANGELOG.adoc` to using `log4j-changelog-maven-plugin`</description>
 </entry>
