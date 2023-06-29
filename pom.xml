@@ -417,11 +417,11 @@
       </build>
     </profile>
 
-    <!-- `release` profile activating release-specific configuration.
+    <!-- `deploy` profile activating deployment-specific configuration.
          It is manually enabled by `.github/workflows/build.yml` while releasing. -->
     <profile>
 
-      <id>release</id>
+      <id>deploy</id>
 
       <properties>
         <deployAtEnd>true</deployAtEnd>
