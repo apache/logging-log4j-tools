@@ -28,8 +28,8 @@ In the code examples below, assuming the version to be released is `7.8.0`.
 . Perform and commit following changes:
 .. Set the `revision` property to `7.8.0` in xref:pom.xml[`pom.xml`]
 .. For release notes
-... Run `./mvnw -N changelog-release` and verify `src/changelog` content (e.g., `.release-notes.md.ftl`)
-... Run `./mvnw -N changelog-export` and verify `target/generated-sources/site/changelog` content
+... Run `./mvnw -N -P changelog-release` and verify `src/changelog` content (e.g., `.release-notes.md.ftl`)
+... Run `./mvnw -N -P changelog-export` and verify `target/generated-sources/site/changelog` content
 ... Replace `RELEASE-NOTES.md` with `target/generated-sources/site/changelog/7.8.0.md`
 . Make sure that `./mvnw clean verify` succeeds – if not, implement necessary fixes
 . Commit and push the `release/7.8.0` branch

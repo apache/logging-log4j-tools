@@ -18,5 +18,5 @@
 This project uses itself, i.e., `log4j-changelog-maven-plugin`, for keeping a changelog and generating release notes.
 
 Changelog files are located under [`src/changelog`](src/changelog).
-Release notes can be generated using `./mvnw -N log4j-changelog:export` command.
+Release notes can be generated using `./mvnw -N -P changelog-export` command.
 See [`log4j-changelog-maven-plugin`](log4j-changelog-maven-plugin) for details on how it all works.
