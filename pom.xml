@@ -139,7 +139,11 @@
     <!-- `project.build.outputTimestamp` is required for reproducible builds: https://maven.apache.org/guides/mini/guide-reproducible-builds.html -->
     <project.build.outputTimestamp>0</project.build.outputTimestamp>
 
+    <!-- dependency versions -->
+    <org.eclipse.jgit.version>6.6.0.202305301015-r</org.eclipse.jgit.version>
+
     <!-- plugin versions -->
+    <beanshell-maven-plugin.version>1.4</beanshell-maven-plugin.version>
     <error-prone.version>2.20.0</error-prone.version>
     <findsecbugs-plugin.version>1.12.0</findsecbugs-plugin.version>
     <flatten-maven-plugin.version>1.5.0</flatten-maven-plugin.version>
@@ -412,6 +416,100 @@
             <configuration>
               <releaseVersion>${revision}</releaseVersion>
             </configuration>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+
+    <profile>
+      <id>distribution</id>
+      <build>
+        <defaultGoal>bsh:run</defaultGoal>
+        <plugins>
+          <plugin>
+            <groupId>com.github.genthaler</groupId>
+            <artifactId>beanshell-maven-plugin</artifactId>
+            <version>${beanshell-maven-plugin.version}</version>
+            <configuration>
+              <script><![CDATA[import java.io.*;
+                import java.nio.file.*;
+                import java.util.*;
+                import java.util.function.*;
+                import java.util.stream.*;
+                import java.util.zip.*;
+
+                import org.eclipse.jgit.dircache.*;
+                import org.eclipse.jgit.lib.Repository;
+                import org.eclipse.jgit.storage.file.FileRepositoryBuilder;
+
+                // Read tracked file paths
+                SortedMap pathByFile = new TreeMap();
+                Repository repo = new FileRepositoryBuilder().readEnvironment().findGitDir().build();
+                DirCache repoCache = repo.readDirCache();
+                String repoDirectoryParent = repo.getDirectory().getParent();
+                for (int repoCacheEntryIndex = 0; repoCacheEntryIndex < repoCache.getEntryCount(); repoCacheEntryIndex++) {
+                    DirCacheEntry repoCacheEntry = repoCache.getEntry(repoCacheEntryIndex);
+                    String repoCacheEntryPath = repoCacheEntry.getPathString();
+                    pathByFile.put(repoCacheEntryPath, new File(repoDirectoryParent, repoCacheEntryPath).toPath());
+                }
+
+                // Compress tracked files
+                OutputStream outputStream = new FileOutputStream("target/src.zip");
+                ZipOutputStream zipOutputStream = new ZipOutputStream(outputStream);
+                try {
+                    for (String file : pathByFile.keySet()) {
+                        Path path = pathByFile.get(file);
+                        ZipEntry zipEntry = new ZipEntry(file);
+                        zipEntry.setTime(0);
+                        zipOutputStream.putNextEntry(zipEntry);
+                        zipOutputStream.write(Files.readAllBytes(path));
+                        zipOutputStream.closeEntry();
+                    }
+                } finally {
+                    zipOutputStream.close();
+                }
+
+                // Find JAR files along with the created `src.zip`
+                Stream stream = Files.walk(new File(repoDirectoryParent).toPath(), 8, new FileVisitOption[0]);
+                List paths;
+                try {
+                     paths = stream
+                            .filter(new Predicate() {
+                                public boolean test(Path path) {
+                                    File file = path.toFile();
+                                    return file.getParentFile().getName().equals("target") &&
+                                            (file.getName().equals("src.zip") ||
+                                                    file.getName().matches("^log4j-.*[0-9](-SNAPSHOT)?\\.jar$"));
+                                }
+                            })
+                            .sorted()
+                            .collect(Collectors.toList());
+                } finally {
+                    stream.close();
+                }
+
+                // Archive all found JAR files along with the `src.zip`
+                OutputStream outputStream = new FileOutputStream("target/log4j-tools-${revision}.zip");
+                ZipOutputStream zipOutputStream = new ZipOutputStream(outputStream);
+                try {
+                    for (Path path : paths) {
+                        ZipEntry zipEntry = new ZipEntry(path.toFile().getName());
+                        zipEntry.setTime(0);
+                        zipOutputStream.putNextEntry(zipEntry);
+                        zipOutputStream.write(Files.readAllBytes(path));
+                        zipOutputStream.closeEntry();
+                    }
+                } finally {
+                    zipOutputStream.close();
+                }]]></script>
+            </configuration>
+            <dependencies>
+              <dependency>
+                <groupId>org.eclipse.jgit</groupId>
+                <artifactId>org.eclipse.jgit</artifactId>
+                <version>${org.eclipse.jgit.version}</version>
+              </dependency>
+            </dependencies>
           </plugin>
         </plugins>
       </build>
