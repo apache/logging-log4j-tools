@@ -443,7 +443,7 @@
             <artifactId>log4j-changelog-maven-plugin</artifactId>
             <version>${log4j-changelog-maven-plugin.version}</version>
             <configuration>
-              <outputDirectory>${project.build.directory}/generated-sources/site/release-notes</outputDirectory>
+              <outputDirectory>${project.build.directory}/release-notes</outputDirectory>
               <indexTemplates>
                 <template>
                   <source>.index.md.ftl</source>
