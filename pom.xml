@@ -151,7 +151,7 @@
     <maven-deploy-plugin.version>3.0.0</maven-deploy-plugin.version>
     <sign-maven-plugin.version>1.0.1</sign-maven-plugin.version>
     <spotbugs-maven-plugin.version>4.7.3.5</spotbugs-maven-plugin.version>
-    <xml-maven-plugin.version>1.0.2</xml-maven-plugin.version>
+    <xml-maven-plugin.version>1.1.0</xml-maven-plugin.version>
 
   </properties>
 
