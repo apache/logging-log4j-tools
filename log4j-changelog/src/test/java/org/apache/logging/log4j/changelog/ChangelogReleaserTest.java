@@ -17,7 +17,6 @@
 package org.apache.logging.log4j.changelog;
 
 import java.io.File;
-import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.LocalDate;
@@ -70,16 +69,8 @@ class ChangelogReleaserTest {
                 LocalDate.parse("2023-01-25"));
         ChangelogReleaser.performRelease(args);
 
-        // Empty folders are not tracked by git, though created by `ChangelogReleaser`.
-        // Create the `.2.x.x` folder to match the actual output.
-        final Path expectedChangelogDirectory = Paths.get(expectedOutputDirectory);
-        final Path emptyFolder = expectedChangelogDirectory.resolve(".2.x.x");
-        if (!Files.exists(emptyFolder)) {
-            Files.createDirectories(emptyFolder);
-        }
-
         // Compare the output
-        assertDirectoryContentMatches(changelogDirectory, expectedChangelogDirectory);
+        assertDirectoryContentMatches(changelogDirectory, Paths.get(expectedOutputDirectory));
 
     }
 

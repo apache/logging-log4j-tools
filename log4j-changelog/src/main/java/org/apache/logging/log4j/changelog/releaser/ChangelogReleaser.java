@@ -42,17 +42,15 @@ public final class ChangelogReleaser {
 
         try {
 
-            // Populate the changelog entry files in the release directory
+            // Determine released and unreleased directories
             final Path unreleasedDirectory =
                     ChangelogFiles.unreleasedDirectory(args.changelogDirectory, args.releaseVersionMajor);
             final Path releaseDirectory = ChangelogFiles.releaseDirectory(args.changelogDirectory, args.releaseVersion);
-            populateChangelogEntryFiles(unreleasedDirectory, releaseDirectory);
 
-            // Write the release information
+            // Populate the release changelog files
+            populateReleaseChangelogEntryFiles(unreleasedDirectory, releaseDirectory);
             populateReleaseXmlFiles(releaseDate, args.releaseVersion, releaseDirectory);
-
-            // Write the release changelog template
-            populateReleaseChangelogTemplateFile(unreleasedDirectory, releaseDirectory);
+            populateReleaseChangelogTemplateFiles(unreleasedDirectory, releaseDirectory);
 
         } catch (final IOException error) {
             throw new UncheckedIOException(error);
@@ -60,24 +58,13 @@ public final class ChangelogReleaser {
 
     }
 
-    private static void populateChangelogEntryFiles(
+    private static void populateReleaseChangelogEntryFiles(
             final Path unreleasedDirectory,
             final Path releaseDirectory)
             throws IOException {
-        if (Files.exists(releaseDirectory)) {
-            System.out.format(
-                    "release directory `%s` already exists, only moving the changelog entry files from `%s`%n",
-                    releaseDirectory, unreleasedDirectory);
-            moveUnreleasedChangelogEntryFiles(unreleasedDirectory, releaseDirectory);
-        } else {
-            System.out.format(
-                    "release directory `%s` doesn't exist, simply renaming the unreleased directory `%s`%n",
-                    releaseDirectory, unreleasedDirectory);
-            moveUnreleasedDirectory(unreleasedDirectory, releaseDirectory);
+        if (!Files.exists(releaseDirectory)) {
+            Files.createDirectories(releaseDirectory);
         }
-    }
-
-    private static void moveUnreleasedChangelogEntryFiles(final Path unreleasedDirectory, final Path releaseDirectory) {
         FileUtils.findAdjacentFiles(unreleasedDirectory, true, paths -> {
             paths.forEach(unreleasedChangelogEntryFile -> {
                 final String fileName = unreleasedChangelogEntryFile.getFileName().toString();
@@ -95,21 +82,6 @@ public final class ChangelogReleaser {
         });
     }
 
-    private static void moveUnreleasedDirectory(
-            final Path unreleasedDirectory,
-            final Path releaseDirectory)
-            throws IOException {
-        if (!Files.exists(unreleasedDirectory)) {
-            final String message = String.format(
-                    "`%s` does not exist! A release without any changelogs don't make sense!",
-                    unreleasedDirectory);
-            throw new IllegalStateException(message);
-        }
-        System.out.format("moving changelog directory `%s` to `%s`%n", unreleasedDirectory, releaseDirectory);
-        Files.move(unreleasedDirectory, releaseDirectory);
-        Files.createDirectories(unreleasedDirectory);
-    }
-
     private static void populateReleaseXmlFiles(
             final String releaseDate,
             final String releaseVersion,
@@ -122,7 +94,7 @@ public final class ChangelogReleaser {
         changelogRelease.writeToXmlFile(releaseXmlFile);
     }
 
-    private static void populateReleaseChangelogTemplateFile(
+    private static void populateReleaseChangelogTemplateFiles(
             final Path unreleasedDirectory,
             final Path releaseDirectory)
             throws IOException {
@@ -133,8 +105,8 @@ public final class ChangelogReleaser {
                 System.out.format("keeping the existing changelog template file: `%s`%n", targetFile);
             } else {
                 final Path sourceFile = unreleasedDirectory.resolve(releaseChangelogTemplateFileName);
-                System.out.format("moving the changelog template file `%s` to `%s`%n", sourceFile, targetFile);
-                Files.move(sourceFile, targetFile);
+                System.out.format("copying the changelog template file `%s` to `%s`%n", sourceFile, targetFile);
+                Files.copy(sourceFile, targetFile);
             }
         }
     }
