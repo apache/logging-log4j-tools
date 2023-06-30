@@ -179,8 +179,11 @@ jobs:
       - name: Create artifacts (RELEASE)
         if: startsWith(github.ref, 'refs/heads/release/')
         run: |
-          export ZIP_FILEPATH="/tmp/apache-log4j-tools-${PROJECT_VERSION}-src.zip"
-          git ls-files -z | xargs -0 zip -9 "$ZIP_FILEPATH" --
+          ./mvnw \
+            --show-version --batch-mode --errors --no-transfer-progress \
+            --non-recursive -P distribution
+          export ZIP_FILEPATH="/tmp/apache-log4j-tools-${PROJECT_VERSION}.zip"
+          mv "target/dist.zip" "$ZIP_FILEPATH"
           gpg --armor --detach-sign --yes --pinentry-mode error "$ZIP_FILEPATH"
           sha512sum "$ZIP_FILEPATH" > "$ZIP_FILEPATH.sha512"
 
