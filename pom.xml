@@ -480,12 +480,18 @@
                     ZipOutputStream zipOutputStream = new ZipOutputStream(outputStream);
                     try {
                         for (String file : pathByFile.keySet()) {
-                            Path path = pathByFile.get(file);
-                            ZipEntry zipEntry = new ZipEntry(file);
-                            zipEntry.setTime(0);
-                            zipOutputStream.putNextEntry(zipEntry);
-                            zipOutputStream.write(Files.readAllBytes(path));
-                            zipOutputStream.closeEntry();
+                            try {
+                                Path path = pathByFile.get(file);
+                                ZipEntry zipEntry = new ZipEntry(file);
+                                zipEntry.setTime(0);
+                                zipOutputStream.putNextEntry(zipEntry);
+                                zipOutputStream.write(Files.readAllBytes(path));
+                                zipOutputStream.closeEntry();
+                            } catch (Exception error) {
+                                System.err.println("failed to add file to ZIP: " + path);
+                                error.printStackTrace();
+                                System.exit(1);
+                            }
                         }
                     } finally {
                         zipOutputStream.close();
@@ -576,7 +582,7 @@
 
       <build>
 
-        <defaultGoal>deploy</defaultGoal>
+        <defaultGoal>install</defaultGoal>
 
         <plugins>
 
