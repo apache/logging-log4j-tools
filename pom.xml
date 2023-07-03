@@ -509,7 +509,7 @@
 
                 // Find auxiliary files that will go into the distribution
                 SortedMap pathByFile = new TreeMap();
-                pathByFile.put("target/src.zip", new File("src.zip").toPath());
+                pathByFile.put("src.zip", new File("target/src.zip").toPath());
                 pathByFile.put("RELEASE-NOTES.md", new File("target/release-notes/${revision}.md").toPath());
                 pathByFile.put("NOTICE.txt", new File("NOTICE.txt").toPath());
                 pathByFile.put("LICENSE.txt", new File("LICENSE.txt").toPath());
