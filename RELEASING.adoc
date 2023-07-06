@@ -73,6 +73,12 @@ I will continue the release process.
 . Pull the most recent changes and tags
 . Tag the release (e.g., `rel/7.8.0`) and push it
 +
+[source,bash]
+----
+git tag -a rel/7.8.0 <COMMIT-ID> -m 7.8.0
+git push origin rel/7.8.0
+----
++
 [IMPORTANT]
 ====
 The ASF infrastructure treats ``rel/``-prefixed git tags special and ensures they are immutable for provenance reasons.
