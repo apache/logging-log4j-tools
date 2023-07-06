@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <!--
   ~ Licensed to the Apache Software Foundation (ASF) under one or more
   ~ contributor license agreements.  See the NOTICE file distributed with
@@ -15,10 +14,10 @@
   ~ See the License for the specific language governing permissions and
   ~ limitations under the License.
   -->
-<entry xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xmlns="http://logging.apache.org/log4j/changelog"
-       xsi:schemaLocation="http://logging.apache.org/log4j/changelog https://logging.apache.org/log4j/changelog-0.1.1.xsd"
-       type="fixed">
-  <author id="vy"/>
-  <description format="markdown">Fix changelog entry and template file population on multiple Maven `release` goal invocations</description>
-</entry>
+
+# ${release.version}<#if release.date?has_content> (${release.date})</#if>
+
+This minor release contains small enhancements.
+Most importantly, this marks the first release where the project uses itself to generate release notes!
+
+<#include "../.changelog.md.ftl">

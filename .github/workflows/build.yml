@@ -179,15 +179,49 @@ jobs:
       - name: Create artifacts (RELEASE)
         if: startsWith(github.ref, 'refs/heads/release/')
         run: |
-          export ZIP_FILEPATH="/tmp/apache-log4j-tools-${PROJECT_VERSION}-src.zip"
-          git ls-files -z | xargs -0 zip -9 "$ZIP_FILEPATH" --
-          gpg --armor --detach-sign --yes --pinentry-mode error "$ZIP_FILEPATH"
-          sha512sum "$ZIP_FILEPATH" > "$ZIP_FILEPATH.sha512"
+          ./mvnw \
+            --show-version --batch-mode --errors --no-transfer-progress \
+            --non-recursive -P distribution
+          export DIST_FILEPATH="/tmp/apache-log4j-tools-${PROJECT_VERSION}.zip"
+          mv "target/dist.zip" "$DIST_FILEPATH"
+          gpg --armor --detach-sign --yes --pinentry-mode error "$DIST_FILEPATH"
+          sha512sum "$DIST_FILEPATH" > "$DIST_FILEPATH.sha512"
+          echo "DIST_FILEPATH=$DIST_FILEPATH" >> $GITHUB_ENV
 
       - name: Upload artifacts (RELEASE)
         if: startsWith(github.ref, 'refs/heads/release/')
         uses: actions/upload-artifact@0b7f8abb1508181956e8e162db84b466c27e18ce   # 3.1.2
         with:
-          name: Sources
-          path: /tmp/apache-log4j-tools-*-src.zip*
+          name: Distribution
+          path: ${{ env.DIST_FILEPATH }}*
           if-no-files-found: error
+
+      - name: Create VOTE email (RELEASE)
+        if: startsWith(github.ref, 'refs/heads/release/')
+        run: |
+          cat << EOF
+          To: dev@logging.apache.org
+          Title: [VOTE] Release Apache Log4j Tools $PROJECT_VERSION
+
+          This is a vote to release the Apache Log4j Tools $PROJECT_VERSION.
+
+          Source repository: https://github.com/apache/logging-log4j-tools
+          Commit: $GITHUB_SHA
+          Distribution: https://dist.apache.org/repos/dist/dev/logging/log4j
+          Nexus: https://repository.apache.org/content/repositories/orgapachelogging-1113
+          Signing key: 0x077e8893a6dcc33dd4a4d5b256e73ba9a0b592d0
+
+          Please download, test, and cast your votes on the Log4j developers list.
+
+          [ ] +1, release the artifacts
+          [ ] -1, don't release, because...
+
+          This vote is open for 72 hours and will pass unless getting a net
+          negative vote count. All votes are welcome and we encourage everyone to
+          test the release, but only the Logging Services PMC votes are officially
+          counted. At least 3 +1 votes and more positive than negative votes are
+          required.
+
+          # Release Notes
+          $(awk "f{print} /^# $PROJECT_VERSION/{f=1}" target/release-notes/$PROJECT_VERSION.md)
+          EOF

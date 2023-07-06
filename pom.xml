@@ -128,7 +128,7 @@
   <properties>
 
     <!-- project version -->
-    <revision>0.4.0-SNAPSHOT</revision>
+    <revision>0.4.0</revision>
 
     <!-- `minimalJavaBuildVersion` is employed by `org.apache:apache`, which is the parent of `org.apache.logging:logging-parent`, which is the parent of us.
          `minimalJavaBuildVersion` is used for enforcing the compiler version.
@@ -381,8 +381,7 @@
             <version>${log4j-changelog-maven-plugin.version}</version>
             <inherited>false</inherited>
             <configuration>
-              <!-- `outputDirectory` was broken in 0.3.0, below line can be removed in 0.4.0 onwards: -->
-              <outputDirectory>${project.build.directory}/generated-sources/site/release-notes</outputDirectory>
+              <outputDirectory>${project.build.directory}/release-notes</outputDirectory>
               <indexTemplates>
                 <template>
                   <source>.index.md.ftl</source>
@@ -401,7 +400,7 @@
     </profile>
 
     <!-- `changelog-release` profile to move `src/changelog/.0.x.x` contents to their associated release directory.
-         It is manually enabled by users to while cutting a release.
+         It is manually enabled by users while cutting a release.
          See `RELEASING.adoc` for instructions. -->
     <profile>
       <id>changelog-release</id>
@@ -421,11 +420,45 @@
       </build>
     </profile>
 
+    <!-- `distribution` profile creating the distribution ZIP containing:
+         1. Git-tracked sources
+         2. Generated JAR files
+         3. Release notes
+
+         This profile must be executed after a successful `package` phase, since we need JARs.
+         This profile is manually enabled by `.github/workflows/build.yml` while releasing. -->
     <profile>
+
       <id>distribution</id>
+
       <build>
-        <defaultGoal>bsh:run</defaultGoal>
+
+        <defaultGoal>log4j-changelog:export bsh:run</defaultGoal>
+
         <plugins>
+
+          <!-- Generate release notes -->
+          <plugin>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-changelog-maven-plugin</artifactId>
+            <version>${log4j-changelog-maven-plugin.version}</version>
+            <configuration>
+              <outputDirectory>${project.build.directory}/release-notes</outputDirectory>
+              <indexTemplates>
+                <template>
+                  <source>.index.md.ftl</source>
+                </template>
+              </indexTemplates>
+              <changelogTemplates>
+                <template>
+                  <source>.release-notes.md.ftl</source>
+                  <target>%v.md</target>
+                </template>
+              </changelogTemplates>
+            </configuration>
+          </plugin>
+
+          <!-- Create the distribution ZIP -->
           <plugin>
             <groupId>com.github.genthaler</groupId>
             <artifactId>beanshell-maven-plugin</artifactId>
@@ -442,7 +475,24 @@
                 import org.eclipse.jgit.lib.Repository;
                 import org.eclipse.jgit.storage.file.FileRepositoryBuilder;
 
-                // Read tracked file paths
+                zip(String zipFileName, Map pathByFile) {
+                    OutputStream outputStream = new FileOutputStream(zipFileName);
+                    ZipOutputStream zipOutputStream = new ZipOutputStream(outputStream);
+                    try {
+                        for (String file : pathByFile.keySet()) {
+                            Path path = pathByFile.get(file);
+                            ZipEntry zipEntry = new ZipEntry(file);
+                            zipEntry.setTime(0);
+                            zipOutputStream.putNextEntry(zipEntry);
+                            zipOutputStream.write(Files.readAllBytes(path));
+                            zipOutputStream.closeEntry();
+                        }
+                    } finally {
+                        zipOutputStream.close();
+                    }
+                }
+
+                // Find Git-tracked files
                 SortedMap pathByFile = new TreeMap();
                 Repository repo = new FileRepositoryBuilder().readEnvironment().findGitDir().build();
                 DirCache repoCache = repo.readDirCache();
@@ -453,54 +503,47 @@
                     pathByFile.put(repoCacheEntryPath, new File(repoDirectoryParent, repoCacheEntryPath).toPath());
                 }
 
-                // Compress tracked files
-                OutputStream outputStream = new FileOutputStream("target/src.zip");
-                ZipOutputStream zipOutputStream = new ZipOutputStream(outputStream);
+                // Create `src.zip` using Git-tracked files
+                zip("target/src.zip", pathByFile);
+                System.out.format("Generated source ZIP containing %d files.%n", new Object[]{pathByFile.size()});
+
+                // Find auxiliary files that will go into the distribution
+                SortedMap pathByFile = new TreeMap();
+                pathByFile.put("src.zip", new File("target/src.zip").toPath());
+                pathByFile.put("RELEASE-NOTES.md", new File("target/release-notes/${revision}.md").toPath());
+                pathByFile.put("NOTICE.txt", new File("NOTICE.txt").toPath());
+                pathByFile.put("LICENSE.txt", new File("LICENSE.txt").toPath());
+
+                // Find JAR files that will go into the distribution
+                Stream paths = Files.walk(new File(repoDirectoryParent).toPath(), 8, new FileVisitOption[0]);
+                int[] jarCount = {0};
                 try {
-                    for (String file : pathByFile.keySet()) {
-                        Path path = pathByFile.get(file);
-                        ZipEntry zipEntry = new ZipEntry(file);
-                        zipEntry.setTime(0);
-                        zipOutputStream.putNextEntry(zipEntry);
-                        zipOutputStream.write(Files.readAllBytes(path));
-                        zipOutputStream.closeEntry();
-                    }
+                    paths.forEach(new Consumer() {
+                        public void accept(Path path) {
+                            File file = path.toFile();
+                            if (file.getParentFile().getName().equals("target") &&
+                                    file.getName().matches("^log4j-(.+)-${revision}(-tests)?\\.jar$")) {
+                                pathByFile.put(file.getName(), path);
+                                jarCount[0]++;
+                            }
+                        }
+                    });
                 } finally {
-                    zipOutputStream.close();
+                    paths.close();
                 }
 
-                // Find JAR files along with the created `src.zip`
-                Stream stream = Files.walk(new File(repoDirectoryParent).toPath(), 8, new FileVisitOption[0]);
-                List paths;
-                try {
-                     paths = stream
-                            .filter(new Predicate() {
-                                public boolean test(Path path) {
-                                    File file = path.toFile();
-                                    return file.getParentFile().getName().equals("target") &&
-                                            (file.getName().equals("src.zip") ||
-                                                    file.getName().matches("^log4j-.*[0-9](-SNAPSHOT)?\\.jar$"));
-                                }
-                            })
-                            .sorted()
-                            .collect(Collectors.toList());
-                } finally {
-                    stream.close();
+                // Check if no JARs are found
+                if (jarCount[0] == 0) {
+                    System.err.println("Error: Could not find any JARs!");
+                    System.err.println("Tip: Have you already executed the Maven `package` goal?");
+                    System.exit(1);
                 }
 
-                // Archive all found JAR files along with the `src.zip`
-                OutputStream outputStream = new FileOutputStream("target/log4j-tools-${revision}.zip");
-                ZipOutputStream zipOutputStream = new ZipOutputStream(outputStream);
-                try {
-                    for (Path path : paths) {
-                        ZipEntry zipEntry = new ZipEntry(path.toFile().getName());
-                        zipEntry.setTime(0);
-                        zipOutputStream.putNextEntry(zipEntry);
-                        zipOutputStream.write(Files.readAllBytes(path));
-                        zipOutputStream.closeEntry();
-                    }
-                } finally {
-                    zipOutputStream.close();
+                // Create the distribution ZIP
+                zip("target/dist.zip", pathByFile);
+                System.out.format("Generated distribution ZIP containing following %d files:%n", new Object[] {pathByFile.size()});
+                for (String file : pathByFile.keySet()) {
+                    System.out.println("-> " + file);
                 }]]></script>
             </configuration>
             <dependencies>
@@ -511,8 +554,11 @@
               </dependency>
             </dependencies>
           </plugin>
+
         </plugins>
+
       </build>
+
     </profile>
 
     <!-- `deploy` profile activating deployment-specific configuration.

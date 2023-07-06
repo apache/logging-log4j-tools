@@ -29,57 +29,41 @@ In the code examples below, assuming the version to be released is `7.8.0`.
 .. Set the `revision` property to `7.8.0` in xref:pom.xml[`pom.xml`]
 .. For release notes
 ... Run `./mvnw -N -P changelog-release` and verify `src/changelog` content (e.g., `.release-notes.md.ftl`)
-... Run `./mvnw -N -P changelog-export` and verify `target/generated-sources/site/changelog` content
-... Replace `RELEASE-NOTES.md` with `target/generated-sources/site/changelog/7.8.0.md`
+... Run `./mvnw -N -P changelog-export` and verify `target/release-notes` content
 . Make sure that `./mvnw clean verify` succeeds – if not, implement necessary fixes
 . Commit and push the `release/7.8.0` branch
 . Make sure the associated https://github.com/apache/logging-log4j-tools/actions[GitHub Actions workflow] succeeds:
 .. *Signed artifacts* are uploaded to the _Staging Repositories_ in https://repository.apache.org/[repository.apache.org]
-.. *Signed sources and their checksum* are uploaded as GitHub Actions workflow artifacts
+.. *Signed distribution and its checksum* are uploaded as GitHub Actions workflow artifacts
 
 +
 If not, commit necessary fixes, push, and repeat.
 . _Close_ the repository in https://repository.apache.org/[repository.apache.org]
-. Commit _the signed sources and their checksum_ (e.g., `apache-log4j-tools-7.8.0-src.{zip,.zip.asc,.zip.sha512}`) to https://dist.apache.org/repos/dist/dev/logging/log4j[dist.apache.org/repos/dist/**dev**/logging/log4j] Subversion repository and delete any artifacts from old releases
+. Commit _the signed distribution and its checksum_ (e.g., `apache-log4j-tools-7.8.0.{zip,.zip.asc,.zip.sha512}`) to https://dist.apache.org/repos/dist/dev/logging/log4j[dist.apache.org/repos/dist/**dev**/logging/log4j] Subversion repository and delete any artifacts from old releases
 
 == Vote the release
 
-Collect release votes via email using the following template:
-
-.`[VOTE][LAZY] Release Apache Log4j Tools 7.8.0` titled email to `dev@logging.apache.org`
-[source]
-----
-This is a lazy vote to release the Apache Log4j Tools 7.8.0.
-
-This release contains minor enhancements and bug fixes.
-
-Source repository: https://github.com/apache/logging-log4j-tools
-Commit: e82a44142280d013bd76ea18951fde00dcee192b
-Artifacts: https://dist.apache.org/repos/dist/dev/logging/log4j
-Signing key: 0x077e8893a6dcc33dd4a4d5b256e73ba9a0b592d0
-
-Please download, test, and cast your votes on the Log4j developers list.
-
-[ ] +1, release the artifacts
-[ ] -1, don't release, because...
-
-This vote is open for 72 hours and will pass unless getting a net negative vote count.
-All votes are welcome and we encourage everyone to test the release, but only the Logging Services PMC votes are officially counted.
-----
-
+. GitHub Actions workflow generates the vote email, send that email.
++
+[WARNING]
+====
+Double-check the cited https://repository.apache.org[repository.apache.org] URL in the generated email, it might have changed!
+====
++
 [WARNING]
 ====
 Make sure your email is sent in plain text, that is, https://infra.apache.org/contrib-email-tips#nohtml[no HTML]!
 If you are using GMail, simply enable the _"Plain text mode"_ while composing your message.
 ====
 
-Once the consensus is reached within the set time frame, respond to the first post in the thread as follows:
-
+. Once the consensus is reached within the set time frame, respond to the first post in the thread as follows:
++
 [source]
 ----
 Adding my +1.
 
-With that, the release passes with 3 binding +1 votes from me, Piotr, and Matt.
+With that, the release passes with 3 binding +1 votes from <PMC-member-1>, ..., <PMC-member-N>, and me.
+I will continue the release process.
 ----
 
 == Publish the release
@@ -89,11 +73,17 @@ With that, the release passes with 3 binding +1 votes from me, Piotr, and Matt.
 . Pull the most recent changes and tags
 . Tag the release (e.g., `rel/7.8.0`) and push it
 +
+[source,bash]
+----
+git tag -a rel/7.8.0 <COMMIT-ID> -m 7.8.0
+git push origin rel/7.8.0
+----
++
 [IMPORTANT]
 ====
 The ASF infrastructure treats ``rel/``-prefixed git tags special and ensures they are immutable for provenance reasons.
 ====
-. If you have committed any fixes to `release/7.8.0`, `cherry-pick` them onto `master`
+. Merge `release/7.8.0` to `master`
 . Set the revision property to the next development version (e.g., `7.9.0-SNAPSHOT`) in xref:pom.xml[`pom.xml`]
 . Commit changes and push the `master` branch
 . Delete the local and remote copies of the `release/7.8.0` branch
@@ -112,4 +102,4 @@ The ASF infrastructure treats ``rel/``-prefixed git tags special and ensures the
 Once the artifacts are visible in https://central.sonatype.dev/[central.sonatype.dev], https://github.com/apache/logging-log4j-tools/releases/new[create a new release in GitHub]
 
 . Use the `rel/7.8.0` tag
-. Copy release notes from the generated `target/generated-sources/site/changelog/7.8.0.md`
+. Copy release notes from the generated `target/release-notes/7.8.0.md`
