@@ -208,6 +208,7 @@ jobs:
           Source repository: https://github.com/apache/logging-log4j-tools
           Commit: $GITHUB_SHA
           Distribution: https://dist.apache.org/repos/dist/dev/logging/log4j
+          Nexus: https://repository.apache.org/content/repositories/orgapachelogging-1113
           Signing key: 0x077e8893a6dcc33dd4a4d5b256e73ba9a0b592d0
 
           Please download, test, and cast your votes on the Log4j developers list.

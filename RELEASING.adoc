@@ -47,6 +47,11 @@ If not, commit necessary fixes, push, and repeat.
 +
 [WARNING]
 ====
+Double-check the cited https://repository.apache.org[repository.apache.org] URL in the generated email, it might have changed!
+====
++
+[WARNING]
+====
 Make sure your email is sent in plain text, that is, https://infra.apache.org/contrib-email-tips#nohtml[no HTML]!
 If you are using GMail, simply enable the _"Plain text mode"_ while composing your message.
 ====
@@ -57,7 +62,8 @@ If you are using GMail, simply enable the _"Plain text mode"_ while composing yo
 ----
 Adding my +1.
 
-With that, the release passes with 3 binding +1 votes from me, <PMC-member-1>, ..., and <PMC-member-N>.
+With that, the release passes with 3 binding +1 votes from <PMC-member-1>, ..., <PMC-member-N>, and me.
+I will continue the release process.
 ----
 
 == Publish the release
