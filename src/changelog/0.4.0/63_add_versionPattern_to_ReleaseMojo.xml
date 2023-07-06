@@ -20,7 +20,7 @@
        xsi:schemaLocation="http://logging.apache.org/log4j/changelog https://logging.apache.org/log4j/changelog-0.1.1.xsd"
        type="added">
   <issue id="63" link="https://github.com/apache/logging-log4j-tools/issues/63"/>
-  <author id="vy"/>
-  <author id="rgoers"/>
+  <author id="github:vy"/>
+  <author id="github:rgoers"/>
   <description format="markdown">Add `versionPattern` (i.e., the regular expression pattern for parsing versions) parameter to the Maven `release` goal</description>
 </entry>

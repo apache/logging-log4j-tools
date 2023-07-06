@@ -20,6 +20,6 @@
        xsi:schemaLocation="http://logging.apache.org/log4j/changelog https://logging.apache.org/log4j/changelog-0.1.1.xsd"
        type="fixed">
   <issue id="17" link="https://github.com/apache/logging-log4j-tools/issues/17"/>
-  <author id="vy"/>
+  <author id="github:vy"/>
   <description format="markdown">Fix unreleased directory order in `ChangelogExporter`</description>
 </entry>
