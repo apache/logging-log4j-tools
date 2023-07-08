@@ -487,6 +487,10 @@
                             zipOutputStream.write(Files.readAllBytes(path));
                             zipOutputStream.closeEntry();
                         }
+                    } catch (Exception error) {
+                        // Supplement diagnostics
+                        error.printStackTrace(System.err);
+                        throw error;
                     } finally {
                         zipOutputStream.close();
                     }
