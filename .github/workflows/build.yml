@@ -134,7 +134,7 @@ jobs:
           # We won't use `maven-gpg-plugin`, but this is convenient to import the GPG secret key
           gpg-private-key: ${{ secrets.GPG_SECRET_KEY }}
 
-      - name: Export artifact version
+      - name: Export version
         run: |
           export PROJECT_VERSION=$(./mvnw \
             --quiet --batch-mode -DforceStdout=true \
@@ -163,7 +163,7 @@ jobs:
             exit 1
           }
 
-      - name: Deploy
+      - name: Upload to Nexus
         run: |
           gpg --list-secret-keys
           ./mvnw \
@@ -176,36 +176,55 @@ jobs:
           # `SIGN_KEY` is used by `sign-maven-plugin`
           SIGN_KEY: ${{ secrets.GPG_SECRET_KEY }}
 
-      - name: Create artifacts (RELEASE)
+      - name: Create distribution artifacts (RELEASE)
         if: startsWith(github.ref, 'refs/heads/release/')
         run: |
           ./mvnw \
             --show-version --batch-mode --errors --no-transfer-progress \
             --non-recursive -P distribution
-          export DIST_FILEPATH="/tmp/apache-log4j-tools-${PROJECT_VERSION}.zip"
+          export DIST_FILENAME_PREFIX="apache-log4j-tools"
+          export DIST_FILENAME_VERSIONED_PREFIX="${DIST_FILENAME_PREFIX}-${PROJECT_VERSION}"
+          export DIST_FILEPATH="/tmp/${DIST_FILENAME_VERSIONED_PREFIX}.zip"
           mv "target/dist.zip" "$DIST_FILEPATH"
           gpg --armor --detach-sign --yes --pinentry-mode error "$DIST_FILEPATH"
           sha512sum "$DIST_FILEPATH" > "$DIST_FILEPATH.sha512"
-          echo "DIST_FILEPATH=$DIST_FILEPATH" >> $GITHUB_ENV
+          cat >> $GITHUB_ENV << EOF
+          DIST_FILENAME_PREFIX=$DIST_FILENAME_PREFIX
+          DIST_FILENAME_VERSIONED_PREFIX=$DIST_FILENAME_VERSIONED_PREFIX
+          DIST_FILEPATH=$DIST_FILEPATH
+          EOF
 
-      - name: Generate vote email (RELEASE)
+      - name: Upload to Subversion (RELEASE)
         if: startsWith(github.ref, 'refs/heads/release/')
         run: |
-          ./.github/generate-email.sh vote $PROJECT_VERSION $GITHUB_SHA \
-            > /tmp/email-vote.txt
 
-      - name: Generate announcement email (RELEASE)
-        if: startsWith(github.ref, 'refs/heads/release/')
-        run: |
-          ./.github/generate-email.sh announce $PROJECT_VERSION $GITHUB_SHA \
-            > /tmp/email-announce.txt
+          # Checkout the SVN repository
+          export SVN_DIR="/tmp/svn-repo"
+          svn co \
+            --depth files \
+            https://dist.apache.org/repos/dist/dev/logging/log4j \
+            "$SVN_DIR"
+          cd "$SVN_DIR"
 
-      - name: Upload the distribution (RELEASE)
-        if: startsWith(github.ref, 'refs/heads/release/')
-        uses: actions/upload-artifact@0b7f8abb1508181956e8e162db84b466c27e18ce   # 3.1.2
-        with:
-          name: Distribution
-          path: |
-            ${{ env.DIST_FILEPATH }}*
-            /tmp/email-*.txt
-          if-no-files-found: error
+          # Clean up old files
+          find . -name "${DIST_FILENAME_PREFIX}*" -type f -print0 | xargs -0 -r svn delete
+
+          # Generate emails
+          for EMAIL_TYPE in vote announce; do
+            "$GITHUB_WORKSPACE/.github/generate-email.sh" $EMAIL_TYPE $PROJECT_VERSION $GITHUB_SHA \
+              > "${DIST_FILENAME_VERSIONED_PREFIX}-email-${EMAIL_TYPE}.txt"
+          done
+
+          # Copy the distribution
+          cp "$DIST_FILEPATH"* .
+
+          # Add & commit changes
+          svn add "${DIST_FILENAME_PREFIX}"*
+          svn commit \
+            --username "$SVN_USERNAME" \
+            --password "$SVN_PASSWORD" \
+            -m "Added *fake* \`${DIST_FILENAME_PREFIX}\` artifacts for release \`${PROJECT_VERSION}\`"
+
+        env:
+          SVN_USERNAME: ${{ secrets.SVN_USERNAME }}
+          SVN_PASSWORD: ${{ secrets.SVN_PASSWORD }}
