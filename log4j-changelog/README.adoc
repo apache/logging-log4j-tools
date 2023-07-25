@@ -17,7 +17,8 @@ limitations under the License.
 
 :freemarker-link: https://freemarker.apache.org[FreeMarker]
 
-This project contains tooling for changelogs of Apache Log4j projects.
+This project contains tools to maintain changelogs.
+It is designed for Apache Log4j, but can be used for any Java project.
 
 [#what-is-a-changelog]
 == What is a changelog?

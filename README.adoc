@@ -22,7 +22,7 @@ https://www.apache.org/licenses/LICENSE-2.0.txt[image:https://img.shields.io/git
 Tooling **internally** used by https://logging.apache.org/log4j/2.x/[the Apache Log4j project] infrastructure.
 
 xref:log4j-changelog/README.adoc[`log4j-changelog`]::
-Tooling to export AsciiDoc-formatted changelog files.
+Tools to maintain changelogs.
 
 xref:log4j-changelog-maven-plugin/README.adoc[`log4j-changelog-maven-plugin`]::
 Maven plugin for xref:log4j-changelog/README.adoc[`log4j-changelog`].
