@@ -24,7 +24,7 @@ In the code examples below, assuming the version to be released is `7.8.0`.
 
 == Stage the release
 
-. Checkout the release branch: `git checkout -B release/7.8.0 origin/master`
+. Checkout the release branch: `git checkout -B release/7.8.0 origin/main`
 . Perform and commit following changes:
 .. Set the `revision` property to `7.8.0` in xref:pom.xml[`pom.xml`]
 .. For release notes
@@ -82,9 +82,9 @@ git push origin rel/7.8.0
 ====
 The ASF infrastructure treats ``rel/``-prefixed git tags special and ensures they are immutable for provenance reasons.
 ====
-. Merge `release/7.8.0` to `master`
+. Merge `release/7.8.0` to `main`
 . Set the revision property to the next development version (e.g., `7.9.0-SNAPSHOT`) in xref:pom.xml[`pom.xml`]
-. Commit changes and push the `master` branch
+. Commit changes and push the `main` branch
 . Delete the local and remote copies of the `release/7.8.0` branch
 
 === In the ASF infrastructure

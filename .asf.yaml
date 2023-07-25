@@ -31,7 +31,7 @@ github:
 
   # Prevent force pushes to primary branches
   protected_branches:
-    master:
+    main:
       required_signatures: true
   # Attempt to make the auto-generated github emails more easily readable in email clients.
   custom_subjects:

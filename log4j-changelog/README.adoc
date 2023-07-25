@@ -30,7 +30,7 @@ A changelog is a log of all notable changes made to a project.
 Existing changelog practices (e.g., https://keepachangelog.com[Keep a changelog], https://maven.apache.org/plugins/maven-changes-plugin/[maven-changes-plugin]) store changelog entries in the same file.
 This creates merge conflicts between different branches.
 Imagine multiple people working on multiple branches each containing a change to `CHANGELOG.md`.
-Whoever succeeds in merging their branch to `master` first will cause a merge-conflict for the others, even though their work might be totally unrelated from each other.
+Whoever succeeds in merging their branch to `main` first will cause a merge-conflict for the others, even though their work might be totally unrelated from each other.
 
 This project embraces a model where changelog entries are kept in separate files and hence are not prone to merge conflicts.
 Similar to `maven-changes-plugin`, changelog sources and their exports (e.g., AsciiDoc-formatted) are split by design.
