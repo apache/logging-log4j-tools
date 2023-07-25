@@ -16,6 +16,8 @@
 # limitations under the License.
 #
 
+SCRIPT_DIR=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" &> /dev/null && pwd)
+
 stderr() {
     echo "$*" 1>&2
 }
@@ -36,14 +38,14 @@ PROJECT_VERSION="$2"
 COMMIT_ID="$3"
 
 # Check release notes file
-RELEASE_NOTES_FILE="target/release-notes/$PROJECT_VERSION.md"
+RELEASE_NOTES_FILE="$SCRIPT_DIR/../target/release-notes/$PROJECT_VERSION.md"
 [ -f "$RELEASE_NOTES_FILE" ] || {
     stderr "Couldn't find release notes file: $RELEASE_NOTES_FILE"
     exit 1
 }
 
 dump_release_notes() {
-    awk "f{print} /^# $PROJECT_VERSION/{f=1}" target/release-notes/$PROJECT_VERSION.md
+    awk "f{print} /^# $PROJECT_VERSION/{f=1}" "$RELEASE_NOTES_FILE"
 }
 
 case $1 in
