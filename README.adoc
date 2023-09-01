@@ -45,7 +45,7 @@ See xref:RELEASING.adoc[release instructions] for further details.
 
 Please keep in mind that this project is intended for internal usage only.
 You can use GitHub Issues for feature requests and bug reports – not questions!
-For the rest, you can use mailto:security@logging.apache.org[the Log4j development mailing list].
+See https://logging.apache.org/log4j/2.x/support.html[the Log4j support policy] for details.
 
 == Security
 
