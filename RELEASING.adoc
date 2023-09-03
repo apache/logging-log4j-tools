@@ -15,6 +15,25 @@ See the License for the specific language governing permissions and
 limitations under the License.
 ////
 
+// ██     ██  █████  ██████  ███    ██ ██ ███    ██  ██████  ██
+// ██     ██ ██   ██ ██   ██ ████   ██ ██ ████   ██ ██       ██
+// ██  █  ██ ███████ ██████  ██ ██  ██ ██ ██ ██  ██ ██   ███ ██
+// ██ ███ ██ ██   ██ ██   ██ ██  ██ ██ ██ ██  ██ ██ ██    ██
+//  ███ ███  ██   ██ ██   ██ ██   ████ ██ ██   ████  ██████  ██
+//
+// Below instructions are shared by all Maven-based Apache Logging Services projects.
+// Be extremely cautious while making changes!
+
+// Configuration ///////////////////////////////////////////////////////////////
+
+// Name of the GitHub repository; `logging-parent`, `logging-log4j2`, `logging-log4j-tools`, etc.
+:repository-name: logging-log4j-tools
+
+// Name of the project; `logging-parent`, `log4j`, `log4j-tools`
+:project-name: log4j-tools
+
+// Instructions ////////////////////////////////////////////////////////////////
+
 = Release instructions
 
 [WARNING]
@@ -32,9 +51,9 @@ In the code examples below, assuming the version to be released is `7.8.0`.
 ... Run `./mvnw -N -P changelog-export` and verify `target/release-notes` content
 . Make sure that `./mvnw clean verify` succeeds – if not, implement necessary fixes
 . Commit and push the `release/7.8.0` branch
-. Make sure the associated https://github.com/apache/logging-log4j-tools/actions[GitHub Actions workflow] succeeds:
+. Make sure the associated https://github.com/apache/{repository-name}/actions[GitHub Actions workflow] succeeds:
 .. *Signed artifacts* are uploaded to the _Staging Repositories_ in https://repository.apache.org/[repository.apache.org]
-.. *Signed distribution and its checksum* (e.g., `apache-log4j-tools-7.8.0.{zip,.zip.asc,.zip.sha512}`) are uploaded to https://dist.apache.org/repos/dist/dev/logging/log4j[dist.apache.org/repos/dist/**dev**/logging/log4j] Subversion repository (along with auxiliary files; email texts, etc.)
+.. *Signed distribution and its checksum* (e.g., `apache-{project-name}-7.8.0.{zip,.zip.asc,.zip.sha512}`) are uploaded to https://dist.apache.org/repos/dist/dev/logging/log4j[dist.apache.org/repos/dist/**dev**/logging/log4j] Subversion repository (along with auxiliary files; email texts, etc.)
 
 +
 If not, commit necessary fixes, push, and repeat.
@@ -90,15 +109,30 @@ The ASF infrastructure treats ``rel/``-prefixed git tags special and ensures the
 === In the ASF infrastructure
 
 . _Release_ the repository in https://reporter.apache.org/addrelease.html?logging[repository.apache.org]
-. In https://dist.apache.org/repos/dist/release/logging/log4j[dist.apache.org/repos/dist] Subversion repository,
-.. create the `*release*/logging/log4j-tools/7.8.0` folder, and copy the signed sources and their checksum from `*dev*/logging/log4j` to there
-.. delete the folder from an earlier release in `*release*/logging/log4j-tools`
+. In https://dist.apache.org/repos/dist/release/logging/{project-name}[dist.apache.org/repos/dist] Subversion repository,
+.. create the `*release*/logging/{project-name}/7.8.0` folder, and copy the signed sources and their checksum from `*dev*/logging/{project-name}` to there
+.. delete the folder from an earlier release in `*release*/logging/{project-name}`
 .. commit changes
 . Report the release at https://reporter.apache.org/[reporter.apache.org]
 
 === In GitHub
 
-Once the artifacts are visible in https://central.sonatype.dev/[central.sonatype.dev], https://github.com/apache/logging-log4j-tools/releases/new[create a new release in GitHub]
+Once the artifacts are visible in https://central.sonatype.dev/[central.sonatype.dev], https://github.com/apache/{repository-name}/releases/new[create a new release in GitHub]
 
 . Use the `rel/7.8.0` tag
 . Copy release notes from the generated emails
+
+== Announce the release
+
+. Send the announcement email uploaded to the https://dist.apache.org/repos/dist/dev/logging/{project-name}[dist.apache.org/repos/dist/**dev**/logging/{project-name}] Subversion repository
++
+[WARNING]
+====
+Double-check the cited https://repository.apache.org[repository.apache.org] URL in the generated email, it might have changed!
+====
++
+[WARNING]
+====
+Make sure your email is sent in plain text, that is, https://infra.apache.org/contrib-email-tips#nohtml[no HTML]!
+If you are using GMail, simply enable the _"Plain text mode"_ while composing your message.
+====
