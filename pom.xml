@@ -140,7 +140,7 @@
     <project.build.outputTimestamp>0</project.build.outputTimestamp>
 
     <!-- dependency versions -->
-    <org.eclipse.jgit.version>6.6.1.202309021850-r</org.eclipse.jgit.version>
+    <org.eclipse.jgit.version>6.7.0.202309050840-r</org.eclipse.jgit.version>
 
     <!-- plugin versions -->
     <beanshell-maven-plugin.version>1.4</beanshell-maven-plugin.version>
