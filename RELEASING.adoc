@@ -43,20 +43,29 @@ In the code examples below, assuming the version to be released is `7.8.0`.
 
 == Stage the release
 
-. Checkout the release branch: `git checkout -B release/7.8.0 origin/main`
-. Perform and commit following changes:
-.. Set the `revision` property to `7.8.0` in xref:pom.xml[`pom.xml`]
-.. For release notes
-... Run `./mvnw -N -P changelog-release` and verify `src/changelog` content (e.g., `.release-notes.md.ftl`)
-... Run `./mvnw -N -P changelog-export` and verify `target/release-notes` content
-. Make sure that `./mvnw clean verify` succeeds – if not, implement necessary fixes
-. Commit and push the `release/7.8.0` branch
-. Make sure the associated https://github.com/apache/{repository-name}/actions[GitHub Actions workflow] succeeds:
+. Create and push the release branch:
++
+[source,bash]
+----
+git fetch -p
+git checkout -B release/7.8.0 origin/main
+git push origin release/7.8.0
+----
+. Verify that the associated https://github.com/apache/{repository-name}/actions[GitHub Actions workflow] succeeds:
+.. `revision` property in `pom.xml` is updated
+.. Changelog is released (i.e., `src/changelog/7.8.0` folder is populated)
 .. *Signed artifacts* are uploaded to the _Staging Repositories_ in https://repository.apache.org/[repository.apache.org]
-.. *Signed distribution and its checksum* (e.g., `apache-{project-name}-7.8.0.{zip,.zip.asc,.zip.sha512}`) are uploaded to https://dist.apache.org/repos/dist/dev/logging/log4j[dist.apache.org/repos/dist/**dev**/logging/log4j] Subversion repository (along with auxiliary files; email texts, etc.)
+.. *Signed distribution and its checksum* (e.g., `apache-{project-name}-7.8.0-{bin,src}.{zip,.zip.asc,.zip.sha512}`) are uploaded to https://dist.apache.org/repos/dist/dev/logging/log4j[dist.apache.org/repos/dist/**dev**/logging/log4j] Subversion repository (along with auxiliary files; email texts, etc.)
 
 +
 If not, commit necessary fixes, push, and repeat.
+
++
+[TIP]
+====
+GitHub Actions workflow is idempotent.
+You can iterate on the `release/7.8.0` branch to perfect it.
+====
 . _Close_ the repository in https://repository.apache.org/[repository.apache.org]
 
 == Vote the release
@@ -65,7 +74,8 @@ If not, commit necessary fixes, push, and repeat.
 +
 [WARNING]
 ====
-Double-check the cited https://repository.apache.org[repository.apache.org] URL in the generated email, it might have changed!
+**Fix the cited https://repository.apache.org[repository.apache.org] URL** in the generated email!
+It changes after every Nexus deployment.
 ====
 +
 [WARNING]
@@ -89,19 +99,32 @@ I will continue the release process.
 === In the git repository
 
 . Pull the most recent changes and tags
++
+[source,bash]
+----
+git fetch -p
+----
 . Tag the release (e.g., `rel/7.8.0`) and push it
 +
 [source,bash]
 ----
-git tag -a rel/7.8.0 <COMMIT-ID> -m 7.8.0
+git tag -a rel/7.8.0 <COMMIT-ID> -m 7.8.0     # <1>
 git push origin rel/7.8.0
 ----
++
+<1> You can find the `COMMIT-ID` in the generated vote email.
 +
 [IMPORTANT]
 ====
 The ASF infrastructure treats ``rel/``-prefixed git tags special and ensures they are immutable for provenance reasons.
 ====
 . Merge `release/7.8.0` to `main`
++
+[source,bash]
+----
+git checkout main
+git merge release/7.8.0
+----
 . Set the revision property to the next development version (e.g., `7.9.0-SNAPSHOT`) in xref:pom.xml[`pom.xml`]
 . Commit changes and push the `main` branch
 . Delete the local and remote copies of the `release/7.8.0` branch
@@ -111,9 +134,9 @@ The ASF infrastructure treats ``rel/``-prefixed git tags special and ensures the
 . _Release_ the repository in https://reporter.apache.org/addrelease.html?logging[repository.apache.org]
 . In https://dist.apache.org/repos/dist/release/logging/{project-name}[dist.apache.org/repos/dist] Subversion repository,
 .. create the `*release*/logging/{project-name}/7.8.0` folder, and copy the signed sources and their checksum from `*dev*/logging/{project-name}` to there
-.. delete the folder from an earlier release in `*release*/logging/{project-name}`
+.. delete the folder from an earlier release in `*release*/logging/{project-name}` (stash the generated announcement email somewhere, you will need it later on)
 .. commit changes
-. Report the release at https://reporter.apache.org/[reporter.apache.org]
+. Report the release at https://reporter.apache.org/addrelease.html?logging[reporter.apache.org]
 
 === In GitHub
 
@@ -125,11 +148,6 @@ Once the artifacts are visible in https://central.sonatype.dev/[central.sonatype
 == Announce the release
 
 . Send the announcement email uploaded to the https://dist.apache.org/repos/dist/dev/logging/{project-name}[dist.apache.org/repos/dist/**dev**/logging/{project-name}] Subversion repository
-+
-[WARNING]
-====
-Double-check the cited https://repository.apache.org[repository.apache.org] URL in the generated email, it might have changed!
-====
 +
 [WARNING]
 ====

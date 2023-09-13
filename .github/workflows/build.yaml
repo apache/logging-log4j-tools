@@ -38,7 +38,7 @@ permissions: read-all
 jobs:
 
   build:
-    uses: apache/logging-parent/.github/workflows/build-reusable.yml@main
+    uses: apache/logging-parent/.github/workflows/build-reusable.yaml@main
     # Write permissions to allow merge of `dependabot` PRs
     permissions:
       contents: write
@@ -47,13 +47,17 @@ jobs:
   deploy-snapshot:
     needs: build
     if: github.repository == 'apache/logging-log4j-tools' && github.ref == 'refs/heads/main'
-    uses: apache/logging-parent/.github/workflows/deploy-snapshot-reusable.yml@main
+    uses: apache/logging-parent/.github/workflows/deploy-snapshot-reusable.yaml@main
     secrets: inherit
 
   deploy-release:
     needs: build
     if: github.repository == 'apache/logging-log4j-tools' && startsWith(github.ref, 'refs/heads/release/')
-    uses: apache/logging-parent/.github/workflows/deploy-release-reusable.yml@main
+    uses: apache/logging-parent/.github/workflows/deploy-release-reusable.yaml@main
     secrets: inherit
+    # Write permissions to allow the Maven `revision` property update, changelog release, etc.
+    permissions:
+      contents: write
     with:
       project-name: log4j-tools
+      distribution-attachment-count: 2

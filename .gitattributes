@@ -13,9 +13,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# All text files should use LF for reproducibility of builds
-* text=auto eol=lf
-# Maven Wrapper need LF line endings
-/.mvn/wrapper/maven-wrapper.properties eol=lf
-/mvnw                                  eol=lf
-/mvnw.cmd                              eol=crlf
+# Checked by Spotless (LF line endings)
+*.java text eol=lf
+*.xml  text eol=lf
+*.yaml text eol=lf
+*.yml  text eol=lf
