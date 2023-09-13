@@ -20,7 +20,7 @@
 ### ${entryType?capitalize}
 
 <#list entries as entry>
-* ${entry.description.text?replace("\\s+", " ", "r")}<#if entry.issues?has_content> (<#list entry.issues as issue><#if issue.link?starts_with("https://github.com")>#${issue.id}<#else>[${issue.id}](${issue.link})</#if><#if issue?has_next>, </#if></#list>)</#if>
+* ${entry.description.text?replace("\\s+", " ", "r")}<#if entry.issues?has_content> (<#list entry.issues as issue><#if issue.link?starts_with("https://github.com/apache/logging-log4j-tools")>#${issue.id}<#else>[${issue.id}](${issue.link})</#if><#if issue?has_next>, </#if></#list>)</#if>
 </#list>
 </#list>
 </#if>
