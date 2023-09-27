@@ -21,5 +21,5 @@
        type="fixed">
   <issue id="17" link="https://github.com/apache/logging-log4j-tools/issues/17"/>
   <author id="github:vy"/>
-  <description format="markdown">Fix unreleased directory order in `ChangelogExporter`</description>
+  <description format="asciidoc">Fix unreleased directory order in `ChangelogExporter`</description>
 </entry>

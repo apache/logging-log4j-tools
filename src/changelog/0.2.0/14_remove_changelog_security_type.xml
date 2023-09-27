@@ -22,5 +22,5 @@
   <issue id="14" link="https://github.com/apache/logging-log4j-tools/issues/14"/>
   <author id="github:rgoers"/>
   <author id="github:vy"/>
-  <description format="markdown">Remove `security` as a change type from `log4j-changelog`</description>
+  <description format="asciidoc">Remove `security` as a change type from `log4j-changelog`</description>
 </entry>

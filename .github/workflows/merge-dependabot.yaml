@@ -15,23 +15,28 @@
 # limitations under the License.
 #
 
-# `.asf.yaml` documentation: https://cwiki.apache.org/confluence/display/INFRA/Git+-+.asf.yaml+features
+name: merge-dependabot
 
-github:
+on:
+  pull_request_target:
+    paths-ignore:
+      - "**.adoc"
+      - "**.md"
+      - "**.txt"
 
-  description: "Tools internally used by the Apache Log4j project"
-  homepage: https://logging.apache.org/log4j/2.x/
-  labels:
-    - apache
-    - java
-    - log4j
-    - log4j2
-    - logging
+permissions: read-all
 
-  features:
-    issues: true
+jobs:
 
-  # Prevent force pushes to primary branches
-  protected_branches:
-    main:
-      required_signatures: true
+  build:
+    if: github.repository == 'apache/logging-log4j-tools' && github.event_name == 'pull_request_target' && github.actor == 'dependabot[bot]'
+    uses: apache/logging-parent/.github/workflows/build-reusable.yaml@main
+
+  merge-dependabot:
+    needs: build
+    uses: apache/logging-parent/.github/workflows/merge-dependabot-reusable.yaml@main
+    permissions:
+      contents: write                                     # to push changelog commits
+      pull-requests: write                                # to close the PR
+    secrets:
+      GPG_SECRET_KEY: ${{ secrets.GPG_SECRET_KEY }}       # to sign commits

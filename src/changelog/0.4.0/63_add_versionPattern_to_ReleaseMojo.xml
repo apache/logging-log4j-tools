@@ -22,5 +22,5 @@
   <issue id="63" link="https://github.com/apache/logging-log4j-tools/issues/63"/>
   <author id="github:vy"/>
   <author id="github:rgoers"/>
-  <description format="markdown">Add `versionPattern` (i.e., the regular expression pattern for parsing versions) parameter to the Maven `release` goal</description>
+  <description format="asciidoc">Add `versionPattern` (i.e., the regular expression pattern for parsing versions) parameter to the Maven `release` goal</description>
 </entry>

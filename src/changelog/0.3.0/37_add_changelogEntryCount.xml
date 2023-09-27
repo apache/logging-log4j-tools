@@ -22,5 +22,5 @@
   <issue id="37" link="https://github.com/apache/logging-log4j-tools/issues/37"/>
   <author id="github:vy"/>
   <author id="github:rgoers"/>
-  <description format="markdown">The changelog release models passed to the index template file (`.index.adoc.ftl`) is enriched with `changelogEntryCount` fields</description>
+  <description format="asciidoc">The changelog release models passed to the index template file (`.index.adoc.ftl`) is enriched with `changelogEntryCount` fields</description>
 </entry>

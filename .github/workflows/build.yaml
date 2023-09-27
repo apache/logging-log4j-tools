@@ -19,10 +19,6 @@ name: build
 
 on:
   push:
-    # Avoid workflow run for _merged_ `dependabot` PRs.
-    # They were (hopefully!) already tested in PR-triggered workflow.
-    branches-ignore:
-      - "dependabot/**"
     paths-ignore:
       - "**.adoc"
       - "**.md"
@@ -38,26 +34,33 @@ permissions: read-all
 jobs:
 
   build:
+    if: github.actor != 'dependabot[bot]'
     uses: apache/logging-parent/.github/workflows/build-reusable.yaml@main
-    # Write permissions to allow merge of `dependabot` PRs
-    permissions:
-      contents: write
-      pull-requests: write
 
   deploy-snapshot:
     needs: build
-    if: github.repository == 'apache/logging-log4j-tools' && github.ref == 'refs/heads/main'
+    if: github.repository == 'apache/logging-log4j-tools' && github.ref_name == 'main'
     uses: apache/logging-parent/.github/workflows/deploy-snapshot-reusable.yaml@main
-    secrets: inherit
+    # Secrets for deployments
+    secrets:
+      NEXUS_USER: ${{ secrets.NEXUS_USER }}
+      NEXUS_PW: ${{ secrets.NEXUS_PW }}
 
   deploy-release:
     needs: build
-    if: github.repository == 'apache/logging-log4j-tools' && startsWith(github.ref, 'refs/heads/release/')
+    if: github.repository == 'apache/logging-log4j-tools' && startsWith(github.ref_name, 'release/')
     uses: apache/logging-parent/.github/workflows/deploy-release-reusable.yaml@main
-    secrets: inherit
+    # Secrets for deployments
+    secrets:
+      GPG_SECRET_KEY: ${{ secrets.GPG_SECRET_KEY }}
+      LOGGING_STAGE_DEPLOYER_USER: ${{ secrets.LOGGING_STAGE_DEPLOYER_USER }}
+      LOGGING_STAGE_DEPLOYER_PW: ${{ secrets.LOGGING_STAGE_DEPLOYER_PW }}
+      SVN_USERNAME: ${{ secrets.SVN_USERNAME }}
+      SVN_PASSWORD: ${{ secrets.SVN_PASSWORD }}
     # Write permissions to allow the Maven `revision` property update, changelog release, etc.
     permissions:
       contents: write
     with:
-      project-name: log4j-tools
+      project-id: log4j-tools
       distribution-attachment-count: 2
+      site-enabled: true

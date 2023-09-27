@@ -38,7 +38,6 @@
     <junit.version>5.9.3</junit.version>
     <maven-plugin.version>3.8.2</maven-plugin.version>
     <maven-plugin-api.version>3.6.3</maven-plugin-api.version>
-    <spotbugs.version>4.7.3</spotbugs.version>
 
   </properties>
 
@@ -87,12 +86,6 @@
         <artifactId>maven-plugin-api</artifactId>
         <version>${maven-plugin-api.version}</version>
         <scope>provided</scope>
-      </dependency>
-
-      <dependency>
-        <groupId>com.github.spotbugs</groupId>
-        <artifactId>spotbugs-annotations</artifactId>
-        <version>${spotbugs.version}</version>
       </dependency>
 
     </dependencies>
