@@ -187,9 +187,6 @@ public final class ChangelogEntry {
                     return new Author(authorId, authorName);
                 })
                 .collect(Collectors.toList());
-        if (authors.isEmpty()) {
-            throw XmlReader.failureAtXmlNode(entryElement, "no `author` elements found");
-        }
 
         // Read the `description` element
         final Element descriptionElement = XmlReader.requireChildElementMatchingName(entryElement, "description");
