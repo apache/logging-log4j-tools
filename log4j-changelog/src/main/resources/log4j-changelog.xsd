@@ -19,7 +19,7 @@
         targetNamespace="http://logging.apache.org/log4j/changelog"
         xmlns:cl="http://logging.apache.org/log4j/changelog"
         elementFormDefault="qualified"
-        version="0.1.1">
+        version="0.1.2">
 
   <element name="release">
     <complexType>
@@ -36,7 +36,7 @@
     <complexType>
       <sequence>
         <element name="issue" type="cl:issueType" minOccurs="0" maxOccurs="unbounded"/>
-        <element name="author" type="cl:authorType" maxOccurs="unbounded"/>
+        <element name="author" type="cl:authorType" minOccurs="0" maxOccurs="unbounded"/>
         <element name="description" type="cl:descriptionType"/>
       </sequence>
       <attribute name="type" type="cl:changeType" use="required"/>
