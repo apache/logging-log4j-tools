@@ -109,7 +109,7 @@
   <properties>
 
     <!-- project version -->
-    <revision>0.5.0-SNAPSHOT</revision>
+    <revision>0.5.0</revision>
 
     <!-- disable `maven-site-plugin`-->
     <maven.site.skip>true</maven.site.skip>
