@@ -30,7 +30,7 @@ import org.apache.maven.plugins.annotations.Parameter;
  *
  * @see ChangelogReleaser
  */
-@Mojo(name = "import")
+@Mojo(name = "import", threadSafe = true)
 public final class ImportMojo extends AbstractMojo {
 
     /**
@@ -59,7 +59,7 @@ public final class ImportMojo extends AbstractMojo {
             required = true)
     private int releaseVersionMajor;
 
-    public void execute() {
+    public synchronized void execute() {
         final MavenChangesImporterArgs args = new MavenChangesImporterArgs(
                 changelogDirectory.toPath(),
                 changesXmlFile.toPath(),

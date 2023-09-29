@@ -36,7 +36,7 @@ import org.apache.maven.plugins.annotations.Parameter;
  *
  * @see ChangelogExporter
  */
-@Mojo(name = "export", defaultPhase = LifecyclePhase.PRE_SITE)
+@Mojo(name = "export", defaultPhase = LifecyclePhase.PRE_SITE, threadSafe = true)
 public final class ExportMojo extends AbstractMojo {
 
     private static final String SOURCE_TARGET_TEMPLATE_PATTERN =
@@ -72,7 +72,7 @@ public final class ExportMojo extends AbstractMojo {
             required = true)
     private File outputDirectory;
 
-    public void execute() {
+    public synchronized void execute() {
         final Set<ChangelogExporterTemplate> translatedIndexTemplates = toExporterTemplates(indexTemplates);
         final Set<ChangelogExporterTemplate> translatedReleaseChangelogTemplates = toExporterTemplates(
                 changelogTemplates);
