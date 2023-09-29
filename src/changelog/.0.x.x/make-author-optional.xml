@@ -19,6 +19,7 @@
        xmlns="http://logging.apache.org/log4j/changelog"
        xsi:schemaLocation="http://logging.apache.org/log4j/changelog https://logging.apache.org/log4j/changelog-0.1.2.xsd"
        type="changed">
+  <issue id="81" link="https://github.com/apache/logging-log4j-tools/issues/81"/>
   <author id="github:vy"/>
   <description format="asciidoc">Made `author` element optional and bumped the XML schema version to `0.1.2`</description>
 </entry>
