@@ -47,4 +47,4 @@ This minor release contains various bug fixes and improvements.
 
 ==== Changed
 
-* Bump the default `log4j-changelog` XML schema version to `0.1.2`
+* Made `author` element optional and bumped the XML schema version to `0.1.2`

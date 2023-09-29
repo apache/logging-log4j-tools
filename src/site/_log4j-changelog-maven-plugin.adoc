@@ -20,8 +20,8 @@ limitations under the License.
 
 This project ships a Maven plugin providing access to the `ChangelogExporter` and `ChangelogReleaser` of xref:#log4j-changelog[`log4j-changelog`].
 
-[#log4j-changelog-dependencies]
-== Dependencies
+[#log4j-changelog-maven-plugin-dependencies]
+=== Dependencies
 
 You need to have the `org.apache.logging.log4j:log4j-changelog-maven-plugin` dependency in your classpath:
 

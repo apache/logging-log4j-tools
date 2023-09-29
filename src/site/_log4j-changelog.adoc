@@ -22,7 +22,7 @@ This project contains tools to maintain changelogs.
 It is designed for Apache Log4j, but can be used for any Java project.
 
 [#log4j-changelog-dependencies]
-== Dependencies
+=== Dependencies
 
 You need to have the `org.apache.logging.log4j:log4j-changelog` dependency in your classpath:
 
@@ -34,6 +34,8 @@ You need to have the `org.apache.logging.log4j:log4j-changelog` dependency in yo
   <version>{project-version}</version>
 </dependency>
 ----
+
+Java module name and OSGi `Bundle-SymbolicName` are set to `org.apache.logging.log4j.changelog`.
 
 [#log4j-changelog-what-is-a-changelog]
 === What is a changelog?
