@@ -76,7 +76,7 @@ everyone to test the release, but only the Logging Services PMC
 votes are officially counted. At least 3 +1 votes and more
 positive than negative votes are required.
 
-# Release Notes
+=== Release Notes
 EOF
     dump_release_notes
     ;;
