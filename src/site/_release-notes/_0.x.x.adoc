@@ -47,4 +47,5 @@ This minor release contains various bug fixes and improvements.
 
 ==== Changed
 
-* Made `author` element optional and bumped the XML schema version to `0.1.2`
+* Made `author` element optional and bumped the XML schema version to `0.1.2` (https://github.com/apache/logging-log4j-tools/issues/81[81])
+* Make `log4j-changelog-maven-plugin` thread-safe (https://github.com/apache/logging-log4j-tools/issues/80[80])

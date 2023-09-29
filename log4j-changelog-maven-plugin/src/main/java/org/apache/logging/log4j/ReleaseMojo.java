@@ -32,7 +32,7 @@ import org.apache.maven.plugins.annotations.Parameter;
  *
  * @see ChangelogReleaser
  */
-@Mojo(name = "release", defaultPhase = LifecyclePhase.VALIDATE)
+@Mojo(name = "release", defaultPhase = LifecyclePhase.VALIDATE, threadSafe = true)
 public final class ReleaseMojo extends AbstractMojo {
 
     /**
@@ -66,7 +66,7 @@ public final class ReleaseMojo extends AbstractMojo {
     @Parameter(property = "log4j.changelog.versionPattern")
     private String versionPattern;
 
-    public void execute() {
+    public synchronized void execute() {
         Pattern compiledVersionPattern = versionPattern != null ? Pattern.compile(versionPattern) : null;
         final ChangelogReleaserArgs args = new ChangelogReleaserArgs(
                 changelogDirectory.toPath(),
