@@ -35,7 +35,7 @@
     <assertj.version>3.24.2</assertj.version>
     <commons-io.version>2.13.0</commons-io.version>
     <freemarker.version>2.3.32</freemarker.version>
-    <junit.version>5.9.3</junit.version>
+    <junit.version>5.10.0</junit.version>
     <maven-plugin.version>3.8.2</maven-plugin.version>
     <maven-plugin-api.version>3.6.3</maven-plugin-api.version>
 
