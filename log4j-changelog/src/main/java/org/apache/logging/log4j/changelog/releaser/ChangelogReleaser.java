@@ -21,6 +21,7 @@ import java.io.UncheckedIOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -37,7 +38,7 @@ public final class ChangelogReleaser {
     public static void performRelease(final ChangelogReleaserArgs args) {
 
         // Read the release date and version
-        final String releaseDate = ISO_DATE.format(args.releaseDate != null ? args.releaseDate : LocalDate.now());
+        final String releaseDate = ISO_DATE.format(args.releaseDate != null ? args.releaseDate : LocalDate.now(ZoneId.systemDefault()));
         System.out.format("using `%s` for the release date%n", releaseDate);
 
         try {

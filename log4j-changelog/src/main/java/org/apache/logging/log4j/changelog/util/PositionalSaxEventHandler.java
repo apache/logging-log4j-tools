@@ -16,7 +16,8 @@
  */
 package org.apache.logging.log4j.changelog.util;
 
-import java.util.Stack;
+import java.util.ArrayDeque;
+import java.util.Deque;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -33,7 +34,7 @@ import org.xml.sax.helpers.DefaultHandler;
  */
 final class PositionalSaxEventHandler extends DefaultHandler {
 
-    private final Stack<Element> elementStack = new Stack<>();
+    private final Deque<Element> elementStack = new ArrayDeque<>();
 
     private final StringBuilder textBuffer = new StringBuilder();
 
@@ -64,7 +65,7 @@ final class PositionalSaxEventHandler extends DefaultHandler {
             element.setAttribute(attributeQName, attributeValue);
         }
         element.setUserData("lineNumber", String.valueOf(locator.getLineNumber()), null);
-        elementStack.push(element);
+        elementStack.addFirst(element);
     }
 
     @Override
@@ -73,12 +74,12 @@ final class PositionalSaxEventHandler extends DefaultHandler {
             final String localName,
             final String qName) {
         addTextIfNeeded();
-        final Element closedElement = elementStack.pop();
+        final Element closedElement = elementStack.removeFirst();
         final boolean rootElement = elementStack.isEmpty();
         if (rootElement) {
             document.appendChild(closedElement);
         } else {
-            final Element parentElement = elementStack.peek();
+            final Element parentElement = elementStack.peekFirst();
             parentElement.appendChild(closedElement);
         }
     }
@@ -93,7 +94,7 @@ final class PositionalSaxEventHandler extends DefaultHandler {
      */
     private void addTextIfNeeded() {
         if (textBuffer.length() > 0) {
-            final Element element = elementStack.peek();
+            final Element element = elementStack.peekFirst();
             final Node textNode = document.createTextNode(textBuffer.toString());
             element.appendChild(textNode);
             textBuffer.delete(0, textBuffer.length());

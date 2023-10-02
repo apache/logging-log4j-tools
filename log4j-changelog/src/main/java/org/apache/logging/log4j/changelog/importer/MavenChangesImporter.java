@@ -92,6 +92,7 @@ public final class MavenChangesImporter {
         return actionRelativeFileBuilder.toString();
     }
 
+    @SuppressWarnings("StringSplitter")
     private static ChangelogEntry changelogEntry(final MavenChanges.Action action) {
 
         // Create the `type`

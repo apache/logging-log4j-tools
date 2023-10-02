@@ -18,6 +18,7 @@ package org.apache.logging.log4j;
 
 import java.io.File;
 import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.regex.Pattern;
 
 import org.apache.logging.log4j.changelog.releaser.ChangelogReleaser;
@@ -66,13 +67,14 @@ public final class ReleaseMojo extends AbstractMojo {
     @Parameter(property = "log4j.changelog.versionPattern")
     private String versionPattern;
 
+    @Override
     public synchronized void execute() {
         Pattern compiledVersionPattern = versionPattern != null ? Pattern.compile(versionPattern) : null;
         final ChangelogReleaserArgs args = new ChangelogReleaserArgs(
                 changelogDirectory.toPath(),
                 releaseVersion,
                 compiledVersionPattern,
-                LocalDate.now());
+                LocalDate.now(ZoneId.systemDefault()));
         ChangelogReleaser.performRelease(args);
     }
 
