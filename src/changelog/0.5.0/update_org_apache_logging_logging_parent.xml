@@ -21,5 +21,5 @@
        type="changed">
   <issue id="82" link="https://github.com/apache/logging-log4j-tools/pull/82"/>
   <author id="github:vy"/>
-  <description format="asciidoc">Update `org.apache.logging:logging-parent` to version `10.1.0`</description>
+  <description format="asciidoc">Update `org.apache.logging:logging-parent` to version `10.1.1`</description>
 </entry>

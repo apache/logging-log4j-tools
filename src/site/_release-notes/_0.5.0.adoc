@@ -49,5 +49,5 @@ This minor release contains various bug fixes and improvements.
 
 * Made `author` element optional and bumped the XML schema version to `0.1.2` (https://github.com/apache/logging-log4j-tools/issues/81[81])
 * Make `log4j-changelog-maven-plugin` thread-safe (https://github.com/apache/logging-log4j-tools/issues/80[80])
-* Update `org.apache.logging:logging-parent` to version `10.1.0` (https://github.com/apache/logging-log4j-tools/pull/82[82])
+* Update `org.apache.logging:logging-parent` to version `10.1.1` (https://github.com/apache/logging-log4j-tools/pull/82[82])
 * Update `org.junit.jupiter:junit-jupiter-engine` to version `5.10.0`
