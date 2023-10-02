@@ -43,6 +43,7 @@ This minor release contains various bug fixes and improvements.
 
 ==== Added
 
+* Added OSGi and JPMS support
 * Started publishing https://logging.apache.org/log4j/tools[the project website]
 
 ==== Changed
