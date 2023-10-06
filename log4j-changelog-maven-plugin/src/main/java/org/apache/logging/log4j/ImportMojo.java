@@ -59,6 +59,7 @@ public final class ImportMojo extends AbstractMojo {
             required = true)
     private int releaseVersionMajor;
 
+    @Override
     public synchronized void execute() {
         final MavenChangesImporterArgs args = new MavenChangesImporterArgs(
                 changelogDirectory.toPath(),

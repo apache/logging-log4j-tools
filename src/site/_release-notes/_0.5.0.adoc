@@ -33,10 +33,22 @@
     3. Commit both `.release-notes.adoc.ftl` and the generated `7.8.0.adoc`
 ////
 
-[#release-notes-0-x-x]
-=== 0.x.x
+[#release-notes-0-5-0]
+=== 0.5.0
 
-
+Release date:: 2023-09-29
 
 This minor release contains various bug fixes and improvements.
 
+
+==== Added
+
+* Added OSGi and JPMS support
+* Started publishing https://logging.apache.org/log4j/tools[the project website]
+
+==== Changed
+
+* Made `author` element optional and bumped the XML schema version to `0.1.2` (https://github.com/apache/logging-log4j-tools/issues/81[81])
+* Make `log4j-changelog-maven-plugin` thread-safe (https://github.com/apache/logging-log4j-tools/issues/80[80])
+* Update `org.apache.logging:logging-parent` to version `10.1.1` (https://github.com/apache/logging-log4j-tools/pull/82[82])
+* Update `org.junit.jupiter:junit-jupiter-engine` to version `5.10.0`
