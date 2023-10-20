@@ -39,7 +39,7 @@
   <version>${revision}</version>
   <packaging>pom</packaging>
 
-  <url>https://github.com/apache/logging-log4j-tools</url>
+  <url>https://logging.apache.org/log4j/tools</url>
 
   <inceptionYear>2022</inceptionYear>
 
@@ -105,6 +105,10 @@
     <system>GitHub Actions</system>
     <url>https://github.com/apache/logging-log4j-tools/actions</url>
   </ciManagement>
+
+  <distributionManagement>
+    <downloadUrl>https://logging.apache.org/log4j/tools/latest/#distribution</downloadUrl>
+  </distributionManagement>
 
   <properties>
 
