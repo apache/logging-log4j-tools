@@ -14,9 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-@Export
 @Version("0.5.0")
-package org.apache.logging.log4j.changelog.importer;
+package org.apache.logging.log4j;
 
-import org.osgi.annotation.bundle.Export;
 import org.osgi.annotation.versioning.Version;
