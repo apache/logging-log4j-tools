@@ -20,7 +20,5 @@
        xsi:schemaLocation="http://logging.apache.org/log4j/changelog https://logging.apache.org/log4j/changelog-0.1.2.xsd"
        type="added">
   <issue id="13" link="https://github.com/apache/logging-log4j-tools/issues/13"/>
-  <author id="github:ppkarwasz"/>
-  <author id="github:vy"/>
   <description format="asciidoc">Add XSD for `log4j-changelog` XML files</description>
 </entry>

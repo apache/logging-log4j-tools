@@ -20,7 +20,6 @@
        xsi:schemaLocation="http://logging.apache.org/log4j/changelog https://logging.apache.org/log4j/changelog-0.1.2.xsd"
        type="changed">
   <issue id="80" link="https://github.com/apache/logging-log4j-tools/issues/80"/>
-  <author id="github:vy"/>
   <!-- The definition of what is "thread-safe" from a Maven point of view is really unclear.
        The only relevant resource is the issue wiki regarding the parallel builds introduced in Maven 3: https://cwiki.apache.org/confluence/display/MAVEN/Parallel+builds+in+Maven+3#ParallelbuildsinMaven3-Mojothreadsafetyassertionchecklist
        The guidance provided there is as follows:
