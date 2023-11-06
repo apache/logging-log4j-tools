@@ -48,6 +48,7 @@ This minor release contains various bug fixes and improvements.
 ==== Changed
 
 * Update `org.apache.logging:logging-parent` to version `10.2.0`
+* Update `org.junit.jupiter:junit-jupiter-engine` to version `5.10.1` (https://github.com/apache/logging-log4j-tools/pull/83[83])
 
 ==== Fixed
 
