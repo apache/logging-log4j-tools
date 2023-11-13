@@ -67,5 +67,4 @@ jobs:
       contents: write
     with:
       project-id: log4j-tools
-      distribution-attachment-count: 2
       site-enabled: true
