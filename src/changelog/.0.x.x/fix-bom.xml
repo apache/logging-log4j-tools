@@ -21,6 +21,6 @@
        type="fixed">
   <description format="asciidoc">
     `log4j-tools-bom` was broken due to removed `parent` during flattening.
-    This is automatically fixed by the recent `logging-parent` version `10.2.0` update.
+    This is automatically fixed by the recent `logging-parent` version `10.3.0` update.
   </description>
 </entry>

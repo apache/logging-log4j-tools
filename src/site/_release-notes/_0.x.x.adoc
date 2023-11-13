@@ -43,13 +43,12 @@ This minor release contains various bug fixes and improvements.
 
 ==== Added
 
-* Started generating CycloneDX SBOM with the recent update of `logging-parent` to version `10.2.0`
+* Started generating CycloneDX SBOM with the recent update of `logging-parent` to version `10.3.0`
 
 ==== Changed
 
-* Update `org.apache.logging:logging-parent` to version `10.2.0`
-* Update `org.junit.jupiter:junit-jupiter-engine` to version `5.10.1` (https://github.com/apache/logging-log4j-tools/pull/83[83])
+* Update `org.apache.logging:logging-parent` to version `10.3.0`
 
 ==== Fixed
 
-* `log4j-tools-bom` was broken due to removed `parent` during flattening. This is automatically fixed by the recent `logging-parent` version `10.2.0` update.
+* `log4j-tools-bom` was broken due to removed `parent` during flattening. This is automatically fixed by the recent `logging-parent` version `10.3.0` update.
