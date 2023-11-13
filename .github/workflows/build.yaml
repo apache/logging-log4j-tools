@@ -71,4 +71,4 @@ jobs:
       # TODO Remove `distribution-attachment-*` arguments after `logging-parent` version `10.4.0` release
       distribution-attachment-count: 2
       distribution-attachment-filepath-pattern: |-
-          '^.*/target/log4j-(.+)-'${PROJECT_VERSION}'.jar$'
+          '^.*/log4j-(.+)-'${PROJECT_VERSION}'.jar$'
