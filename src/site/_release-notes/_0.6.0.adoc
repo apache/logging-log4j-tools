@@ -22,20 +22,33 @@
     ██ ███ ██ ██   ██ ██   ██ ██  ██ ██ ██ ██  ██ ██ ██    ██
      ███ ███  ██   ██ ██   ██ ██   ████ ██ ██   ████  ██████  ██
 
-    IF THIS FILE DOESN'T HAVE A `.tmpl.adoc` SUFFIX, IT IS AUTO-GENERATED, DO NOT EDIT IT!
+    IF THIS FILE DOESN'T HAVE A `.ftl` SUFFIX, IT IS AUTO-GENERATED, DO NOT EDIT IT!
 
-    `_constants.adoc` is auto-generated from `_constants.tmpl.adoc`.
-    Auto-generation happens during `process-sources` phase of Maven.
+    Version-specific release notes (`7.8.0.adoc`, etc.) are generated from `src/changelog/*/.release-notes.adoc.ftl`.
+    Auto-generation happens during `generate-sources` phase of Maven.
     Hence, you must always
 
-    1. Edit `_constants.tmpl.adoc`
-    2. Run `./mvnw process-sources`
-    3. Commit both `_constants.tmpl.adoc` and the generated `_constants.adoc`
+    1. Find and edit the associated `.release-notes.adoc.ftl`
+    2. Run `./mvnw generate-sources`
+    3. Commit both `.release-notes.adoc.ftl` and the generated `7.8.0.adoc`
 ////
 
-:project-github-url: https://github.com/apache/logging-log4j-tools
-:project-version: 0.6.0
-:project-name: Log4j Tools
-:project-id: log4j-tools
-:java-target-version: 8
-:java-compiler-version: [17,18)
+[#release-notes-0-6-0]
+=== 0.6.0
+
+Release date:: 2023-11-15
+
+This minor release contains various bug fixes and improvements.
+
+
+==== Added
+
+* Started generating CycloneDX SBOM with the recent update of `logging-parent` to version `10.4.0`
+
+==== Changed
+
+* Update `org.apache.logging:logging-parent` to version `10.4.0`
+
+==== Fixed
+
+* `log4j-tools-bom` was broken due to removed `parent` during flattening. This is automatically fixed by the recent `logging-parent` version `10.4.0` update.
