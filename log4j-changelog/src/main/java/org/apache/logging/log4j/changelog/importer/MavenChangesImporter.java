@@ -16,15 +16,14 @@
  */
 package org.apache.logging.log4j.changelog.importer;
 
+import static org.apache.logging.log4j.changelog.util.StringUtils.isBlank;
+
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
-
 import org.apache.logging.log4j.changelog.ChangelogEntry;
 import org.apache.logging.log4j.changelog.ChangelogFiles;
 import org.apache.logging.log4j.changelog.ChangelogRelease;
-
-import static org.apache.logging.log4j.changelog.util.StringUtils.isBlank;
 
 public final class MavenChangesImporter {
 
@@ -42,9 +41,7 @@ public final class MavenChangesImporter {
     }
 
     private static void writeUnreleased(
-            final Path changelogDirectory,
-            final int releaseVersionMajor,
-            final MavenChanges.Release release) {
+            final Path changelogDirectory, final int releaseVersionMajor, final MavenChanges.Release release) {
         final Path releaseDirectory = ChangelogFiles.unreleasedDirectory(changelogDirectory, releaseVersionMajor);
         release.actions.forEach(action -> writeAction(releaseDirectory, action));
     }
@@ -61,7 +58,6 @@ public final class MavenChangesImporter {
 
         // Write release actions
         release.actions.forEach(action -> writeAction(releaseDirectory, action));
-
     }
 
     private static void writeAction(final Path releaseDirectory, final MavenChanges.Action action) {
@@ -74,19 +70,15 @@ public final class MavenChangesImporter {
     private static String changelogEntryFilename(final MavenChanges.Action action) {
         final StringBuilder actionRelativeFileBuilder = new StringBuilder();
         if (action.issue != null) {
-            actionRelativeFileBuilder
-                    .append(action.issue)
-                    .append('_');
+            actionRelativeFileBuilder.append(action.issue).append('_');
         }
-        final String sanitizedDescription = action
-                .description
+        final String sanitizedDescription = action.description
                 .replaceAll("[^A-Za-z0-9]", "_")
                 .replaceAll("_+", "_")
                 .replaceAll("^[^A-Za-z0-9]*", "")
                 .replaceAll("[^A-Za-z0-9]*$", "");
-        final String shortenedSanitizedDescription = sanitizedDescription.length() > 60
-                ? sanitizedDescription.substring(0, 60)
-                : sanitizedDescription;
+        final String shortenedSanitizedDescription =
+                sanitizedDescription.length() > 60 ? sanitizedDescription.substring(0, 60) : sanitizedDescription;
         actionRelativeFileBuilder.append(shortenedSanitizedDescription);
         actionRelativeFileBuilder.append(".xml");
         return actionRelativeFileBuilder.toString();
@@ -122,7 +114,6 @@ public final class MavenChangesImporter {
 
         // Create the instance
         return new ChangelogEntry(type, issues, authors, description);
-
     }
 
     /**
@@ -139,5 +130,4 @@ public final class MavenChangesImporter {
             return ChangelogEntry.Type.CHANGED;
         }
     }
-
 }

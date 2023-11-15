@@ -18,7 +18,6 @@ package org.apache.logging.log4j.changelog.util;
 
 import java.util.ArrayDeque;
 import java.util.Deque;
-
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -53,10 +52,7 @@ final class PositionalSaxEventHandler extends DefaultHandler {
 
     @Override
     public void startElement(
-            final String uri,
-            final String localName,
-            final String qName,
-            final Attributes attributes) {
+            final String uri, final String localName, final String qName, final Attributes attributes) {
         addTextIfNeeded();
         final Element element = document.createElement(qName);
         for (int attributeIndex = 0; attributeIndex < attributes.getLength(); attributeIndex++) {
@@ -69,10 +65,7 @@ final class PositionalSaxEventHandler extends DefaultHandler {
     }
 
     @Override
-    public void endElement(
-            final String uri,
-            final String localName,
-            final String qName) {
+    public void endElement(final String uri, final String localName, final String qName) {
         addTextIfNeeded();
         final Element closedElement = elementStack.removeFirst();
         final boolean rootElement = elementStack.isEmpty();
@@ -100,5 +93,4 @@ final class PositionalSaxEventHandler extends DefaultHandler {
             textBuffer.delete(0, textBuffer.length());
         }
     }
-
 }

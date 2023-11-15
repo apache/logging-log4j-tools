@@ -16,40 +16,32 @@
  */
 package org.apache.logging.log4j.changelog;
 
+import static org.apache.commons.io.FileUtils.copyDirectory;
+import static org.apache.logging.log4j.changelog.FileTestUtils.assertDirectoryContentMatches;
+
 import java.io.File;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.LocalDate;
-
 import org.apache.logging.log4j.changelog.releaser.ChangelogReleaser;
 import org.apache.logging.log4j.changelog.releaser.ChangelogReleaserArgs;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.CleanupMode;
 import org.junit.jupiter.api.io.TempDir;
 
-import static org.apache.commons.io.FileUtils.copyDirectory;
-import static org.apache.logging.log4j.changelog.FileTestUtils.assertDirectoryContentMatches;
-
 class ChangelogReleaserTest {
 
     @Test
     void first_time_release_output_should_match(
-            @TempDir(cleanup = CleanupMode.ON_SUCCESS) final Path changelogDirectory)
-            throws Exception {
-        verifyReleaseOutput(
-                changelogDirectory,
-                "src/test/resources/3-enriched",
-                "src/test/resources/5-released");
+            @TempDir(cleanup = CleanupMode.ON_SUCCESS) final Path changelogDirectory) throws Exception {
+        verifyReleaseOutput(changelogDirectory, "src/test/resources/3-enriched", "src/test/resources/5-released");
     }
 
     @Test
     void second_time_release_output_should_match(
-            @TempDir(cleanup = CleanupMode.ON_SUCCESS) final Path changelogDirectory)
-            throws Exception {
+            @TempDir(cleanup = CleanupMode.ON_SUCCESS) final Path changelogDirectory) throws Exception {
         verifyReleaseOutput(
-                changelogDirectory,
-                "src/test/resources/6-enriched-again",
-                "src/test/resources/7-released-again");
+                changelogDirectory, "src/test/resources/6-enriched-again", "src/test/resources/7-released-again");
     }
 
     private static void verifyReleaseOutput(
@@ -62,16 +54,11 @@ class ChangelogReleaserTest {
         copyDirectory(new File(referenceChangelogDirectory), changelogDirectory.toFile());
 
         // Invoke the releaser
-        final ChangelogReleaserArgs args = new ChangelogReleaserArgs(
-                changelogDirectory,
-                "2.19.0",
-                null,
-                LocalDate.parse("2023-01-25"));
+        final ChangelogReleaserArgs args =
+                new ChangelogReleaserArgs(changelogDirectory, "2.19.0", null, LocalDate.parse("2023-01-25"));
         ChangelogReleaser.performRelease(args);
 
         // Compare the output
         assertDirectoryContentMatches(changelogDirectory, Paths.get(expectedOutputDirectory));
-
     }
-
 }

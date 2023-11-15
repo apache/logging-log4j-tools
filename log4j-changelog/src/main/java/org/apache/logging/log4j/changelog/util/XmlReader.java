@@ -16,6 +16,7 @@
  */
 package org.apache.logging.log4j.changelog.util;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -23,13 +24,10 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
-
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
-
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -54,8 +52,8 @@ public final class XmlReader {
             }
             return rootElement;
         } catch (final Exception error) {
-            final String message = String.format(
-                    "XML read failure for file `%s` and root element `%s`", path, rootElementName);
+            final String message =
+                    String.format("XML read failure for file `%s` and root element `%s`", path, rootElementName);
             throw new RuntimeException(message, error);
         }
     }
@@ -72,18 +70,19 @@ public final class XmlReader {
         return document;
     }
 
-    public static Stream<Element> findChildElementsMatchingName(final Element parentElement, final String childElementName) {
+    public static Stream<Element> findChildElementsMatchingName(
+            final Element parentElement, final String childElementName) {
         final NodeList childNodes = parentElement.getChildNodes();
-        return IntStream
-                .range(0, childNodes.getLength())
+        return IntStream.range(0, childNodes.getLength())
                 .mapToObj(childNodes::item)
-                .filter(childNode -> childNode.getNodeType() == Node.ELEMENT_NODE && childElementName.equals(childNode.getNodeName()))
+                .filter(childNode -> childNode.getNodeType() == Node.ELEMENT_NODE
+                        && childElementName.equals(childNode.getNodeName()))
                 .map(childNode -> (Element) childNode);
     }
 
     public static Element requireChildElementMatchingName(final Element parentElement, final String childElementName) {
-        final List<Element> childElements = findChildElementsMatchingName(parentElement, childElementName)
-                .collect(Collectors.toList());
+        final List<Element> childElements =
+                findChildElementsMatchingName(parentElement, childElementName).collect(Collectors.toList());
         final int childElementCount = childElements.size();
         if (childElementCount != 1) {
             throw failureAtXmlNode(
@@ -103,21 +102,15 @@ public final class XmlReader {
     }
 
     public static RuntimeException failureAtXmlNode(
-            final Node node,
-            final String messageFormat,
-            final Object... messageArgs) {
+            final Node node, final String messageFormat, final Object... messageArgs) {
         return failureAtXmlNode(null, node, messageFormat, messageArgs);
     }
 
     public static RuntimeException failureAtXmlNode(
-            final Throwable cause,
-            final Node node,
-            final String messageFormat,
-            final Object... messageArgs) {
+            final Throwable cause, final Node node, final String messageFormat, final Object... messageArgs) {
         final Object lineNumber = node.getUserData("lineNumber");
         final String messagePrefix = String.format("[line %s] ", lineNumber);
         final String message = String.format(messagePrefix + messageFormat, messageArgs);
         return new IllegalArgumentException(message, cause);
     }
-
 }

@@ -45,5 +45,4 @@ public final class TemplateMojo {
      */
     @Parameter(defaultValue = "false")
     boolean failIfNotFound;
-
 }

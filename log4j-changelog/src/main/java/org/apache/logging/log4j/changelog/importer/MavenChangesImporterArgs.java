@@ -28,17 +28,14 @@ public final class MavenChangesImporterArgs {
     final int releaseVersionMajor;
 
     public MavenChangesImporterArgs(
-            final Path changelogDirectory,
-            final Path changesXmlFile,
-            final int releaseVersionMajor) {
+            final Path changelogDirectory, final Path changesXmlFile, final int releaseVersionMajor) {
 
         // Check arguments
         Objects.requireNonNull(changelogDirectory, "changelogDirectory");
         Objects.requireNonNull(changesXmlFile, "changesXmlFile");
         if (releaseVersionMajor < 0) {
-            final String message = String.format(
-                    "was expecting `releaseVersionMajor >= 0`, found: %d",
-                    releaseVersionMajor);
+            final String message =
+                    String.format("was expecting `releaseVersionMajor >= 0`, found: %d", releaseVersionMajor);
             throw new IllegalArgumentException(message);
         }
 
@@ -46,7 +43,5 @@ public final class MavenChangesImporterArgs {
         this.changelogDirectory = changelogDirectory;
         this.changesXmlFile = changesXmlFile;
         this.releaseVersionMajor = releaseVersionMajor;
-
     }
-
 }

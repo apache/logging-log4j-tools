@@ -16,6 +16,8 @@
  */
 package org.apache.logging.log4j.changelog;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 import java.io.IOException;
 import java.io.UncheckedIOException;
 import java.nio.file.Files;
@@ -26,8 +28,6 @@ import java.util.TreeMap;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
-
-import static org.assertj.core.api.Assertions.assertThat;
 
 final class FileTestUtils {
 
@@ -49,21 +49,18 @@ final class FileTestUtils {
                 assertThat(actualFilePath).hasSameTextualContentAs(expectedFilePath);
             }
         });
-
     }
 
     private static Map<String, Path> directoryContents(final Path root) {
         final int rootPathLength = root.toAbsolutePath().toString().length();
         try (final Stream<Path> paths = Files.walk(root)) {
-            return paths
-                    .filter(path -> !root.equals(path))
+            return paths.filter(path -> !root.equals(path))
                     .collect(Collectors.toMap(
                             path -> path.toAbsolutePath().toString().substring(rootPathLength + 1),
                             Function.identity(),
                             (oldPath, newPath) -> {
-                                final String message = String.format(
-                                        "paths `%s` and `%s` have conflicting keys",
-                                        oldPath, newPath);
+                                final String message =
+                                        String.format("paths `%s` and `%s` have conflicting keys", oldPath, newPath);
                                 throw new IllegalStateException(message);
                             },
                             TreeMap::new));
@@ -72,5 +69,4 @@ final class FileTestUtils {
             throw new UncheckedIOException(message, error);
         }
     }
-
 }

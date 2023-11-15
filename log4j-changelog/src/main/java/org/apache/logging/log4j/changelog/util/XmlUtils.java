@@ -17,7 +17,6 @@
 package org.apache.logging.log4j.changelog.util;
 
 import java.io.InputStream;
-
 import javax.xml.XMLConstants;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -60,14 +59,16 @@ final class XmlUtils {
             // Xerces 1 - http://xerces.apache.org/xerces-j/features.html#external-general-entities
             // Xerces 2 - http://xerces.apache.org/xerces2-j/features.html#external-general-entities
             // JDK7+ - http://xml.org/sax/features/external-general-entities
-            // This feature has to be used together with the following one, otherwise it will not protect you from XXE for sure.
+            // This feature has to be used together with the following one
+            // Otherwise it will not protect you from XXE for sure.
             feature = "http://xml.org/sax/features/external-general-entities";
             dbf.setFeature(feature, false);
 
             // Xerces 1 - http://xerces.apache.org/xerces-j/features.html#external-parameter-entities
             // Xerces 2 - http://xerces.apache.org/xerces2-j/features.html#external-parameter-entities
             // JDK7+ - http://xml.org/sax/features/external-parameter-entities
-            // This feature has to be used together with the previous one, otherwise it will not protect you from XXE for sure.
+            // This feature has to be used together with the previous one.
+            // Otherwise it will not protect you from XXE for sure.
             feature = "http://xml.org/sax/features/external-parameter-entities";
             dbf.setFeature(feature, false);
 
@@ -105,7 +106,5 @@ final class XmlUtils {
             final String message = String.format("failed to load schema from file resource: `%s`", schemaFileName);
             throw new RuntimeException(message, error);
         }
-
     }
-
 }

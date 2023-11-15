@@ -21,7 +21,6 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
-
 import org.apache.logging.log4j.changelog.ChangelogFiles;
 import org.apache.logging.log4j.changelog.exporter.ChangelogExporter;
 import org.apache.logging.log4j.changelog.exporter.ChangelogExporterArgs;
@@ -75,8 +74,8 @@ public final class ExportMojo extends AbstractMojo {
     @Override
     public synchronized void execute() {
         final Set<ChangelogExporterTemplate> translatedIndexTemplates = toExporterTemplates(indexTemplates);
-        final Set<ChangelogExporterTemplate> translatedReleaseChangelogTemplates = toExporterTemplates(
-                changelogTemplates);
+        final Set<ChangelogExporterTemplate> translatedReleaseChangelogTemplates =
+                toExporterTemplates(changelogTemplates);
         final ChangelogExporterArgs args = new ChangelogExporterArgs(
                 changelogDirectory.toPath(),
                 translatedIndexTemplates,
@@ -86,10 +85,7 @@ public final class ExportMojo extends AbstractMojo {
     }
 
     private static Set<ChangelogExporterTemplate> toExporterTemplates(Collection<TemplateMojo> templateMojos) {
-        return templateMojos
-                .stream()
-                .map(ExportMojo::toExporterTemplate)
-                .collect(Collectors.toSet());
+        return templateMojos.stream().map(ExportMojo::toExporterTemplate).collect(Collectors.toSet());
     }
 
     private static ChangelogExporterTemplate toExporterTemplate(TemplateMojo templateMojo) {
@@ -98,5 +94,4 @@ public final class ExportMojo extends AbstractMojo {
                 : templateMojo.target;
         return new ChangelogExporterTemplate(templateMojo.source, target, templateMojo.failIfNotFound);
     }
-
 }

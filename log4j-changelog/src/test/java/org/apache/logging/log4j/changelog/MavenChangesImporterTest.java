@@ -16,27 +16,23 @@
  */
 package org.apache.logging.log4j.changelog;
 
+import static org.apache.logging.log4j.changelog.FileTestUtils.assertDirectoryContentMatches;
+
 import java.nio.file.Path;
 import java.nio.file.Paths;
-
 import org.apache.logging.log4j.changelog.importer.MavenChangesImporter;
 import org.apache.logging.log4j.changelog.importer.MavenChangesImporterArgs;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.CleanupMode;
 import org.junit.jupiter.api.io.TempDir;
 
-import static org.apache.logging.log4j.changelog.FileTestUtils.assertDirectoryContentMatches;
-
 class MavenChangesImporterTest {
 
     @Test
     void output_should_match(@TempDir(cleanup = CleanupMode.ON_SUCCESS) final Path changelogDirectory) {
-        final MavenChangesImporterArgs args = new MavenChangesImporterArgs(
-                changelogDirectory,
-                Paths.get("src/test/resources/1-changes.xml"),
-                2);
+        final MavenChangesImporterArgs args =
+                new MavenChangesImporterArgs(changelogDirectory, Paths.get("src/test/resources/1-changes.xml"), 2);
         MavenChangesImporter.performImport(args);
         assertDirectoryContentMatches(changelogDirectory, Paths.get("src/test/resources/2-imported"));
     }
-
 }

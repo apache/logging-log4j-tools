@@ -16,21 +16,18 @@
  */
 package org.apache.logging.log4j.changelog.releaser;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.nio.file.Path;
 import java.time.LocalDate;
 import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
-
 @SuppressFBWarnings("REDOS")
 public final class ChangelogReleaserArgs {
 
-    static final Pattern DEFAULT_VERSION_PATTERN = Pattern.compile(
-            "^(?<major>0|[1-9]\\d*)\\." +
-                    "(?<minor>0|[1-9]\\d*)\\." +
-                    "(?<patch>0|[1-9]\\d*(-[a-zA-Z][0-9a-zA-Z-]*)?)$");
+    static final Pattern DEFAULT_VERSION_PATTERN = Pattern.compile("^(?<major>0|[1-9]\\d*)\\."
+            + "(?<minor>0|[1-9]\\d*)\\." + "(?<patch>0|[1-9]\\d*(-[a-zA-Z][0-9a-zA-Z-]*)?)$");
 
     final Path changelogDirectory;
 
@@ -58,8 +55,7 @@ public final class ChangelogReleaserArgs {
         final Matcher releaseVersionMatcher = versionPattern.matcher(releaseVersion);
         if (!releaseVersionMatcher.matches()) {
             final String message = String.format(
-                    "provided version `%s` does not match the expected pattern `%s`",
-                    releaseVersion, versionPattern);
+                    "provided version `%s` does not match the expected pattern `%s`", releaseVersion, versionPattern);
             throw new IllegalArgumentException(message);
         }
 
@@ -72,7 +68,5 @@ public final class ChangelogReleaserArgs {
             throw new IllegalArgumentException(message);
         }
         return Integer.parseInt(releaseVersionMajorString);
-
     }
-
 }

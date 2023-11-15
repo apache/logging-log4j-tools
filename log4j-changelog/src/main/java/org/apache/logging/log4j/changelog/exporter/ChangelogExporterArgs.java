@@ -40,5 +40,4 @@ public final class ChangelogExporterArgs {
         this.changelogTemplates = Objects.requireNonNull(changelogTemplates, "changelogTemplates");
         this.outputDirectory = Objects.requireNonNull(outputDirectory, "outputDirectory");
     }
-
 }

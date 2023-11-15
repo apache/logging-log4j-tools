@@ -35,9 +35,7 @@ public final class FileUtils {
      */
     @SuppressWarnings("RedundantIfStatement")
     public static <V> V findAdjacentFiles(
-            final Path directory,
-            final boolean dotFilesSkipped,
-            final Function<Stream<Path>, V> consumer) {
+            final Path directory, final boolean dotFilesSkipped, final Function<Stream<Path>, V> consumer) {
         try (final Stream<Path> paths = Files.walk(directory, 1)) {
             final Stream<Path> filteredPaths = paths.filter(path -> {
 
@@ -47,14 +45,14 @@ public final class FileUtils {
                 }
 
                 // Skip hidden files
-                boolean hiddenFile = dotFilesSkipped && path.getFileName().toString().startsWith(".");
+                boolean hiddenFile =
+                        dotFilesSkipped && path.getFileName().toString().startsWith(".");
                 if (hiddenFile) {
                     return false;
                 }
 
                 // Accept the rest
                 return true;
-
             });
             return consumer.apply(filteredPaths);
         } catch (final IOException error) {
@@ -62,5 +60,4 @@ public final class FileUtils {
             throw new UncheckedIOException(message, error);
         }
     }
-
 }

@@ -43,5 +43,4 @@ public final class StringUtils {
         }
         return stringBuilder.toString();
     }
-
 }

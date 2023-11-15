@@ -17,7 +17,6 @@
 package org.apache.logging.log4j.changelog.exporter;
 
 import java.util.Objects;
-
 import org.apache.logging.log4j.changelog.ChangelogFiles;
 
 public final class ChangelogExporterTemplate {
@@ -29,9 +28,7 @@ public final class ChangelogExporterTemplate {
     final boolean failIfNotFound;
 
     public ChangelogExporterTemplate(
-            final String sourceFileName,
-            final String targetFileName,
-            final boolean failIfNotFound) {
+            final String sourceFileName, final String targetFileName, final boolean failIfNotFound) {
         this.sourceFileName = requireTemplateFileName(sourceFileName, "sourceFileName");
         this.targetFileName = Objects.requireNonNull(targetFileName, "targetFileName");
         this.failIfNotFound = failIfNotFound;
@@ -43,10 +40,7 @@ public final class ChangelogExporterTemplate {
         final String templateFileNameSuffix = '.' + ChangelogFiles.templateFileNameExtension();
         if (!fileName.endsWith(templateFileNameSuffix)) {
             final String message = String.format(
-                    "`%s` contains file name without a `%s` suffix: `%s`",
-                    fieldName,
-                    templateFileNameSuffix,
-                    fileName);
+                    "`%s` contains file name without a `%s` suffix: `%s`", fieldName, templateFileNameSuffix, fileName);
             throw new IllegalArgumentException(message);
         }
         return fileName;
@@ -61,9 +55,9 @@ public final class ChangelogExporterTemplate {
             return false;
         }
         ChangelogExporterTemplate template = (ChangelogExporterTemplate) instance;
-        return failIfNotFound == template.failIfNotFound &&
-                sourceFileName.equals(template.sourceFileName) &&
-                targetFileName.equals(template.targetFileName);
+        return failIfNotFound == template.failIfNotFound
+                && sourceFileName.equals(template.sourceFileName)
+                && targetFileName.equals(template.targetFileName);
     }
 
     @Override
@@ -74,10 +68,6 @@ public final class ChangelogExporterTemplate {
     @Override
     public String toString() {
         return String.format(
-                "`%s` → `%s`%s",
-                sourceFileName,
-                targetFileName,
-                failIfNotFound ? " (failIfNotFound)" : "");
+                "`%s` → `%s`%s", sourceFileName, targetFileName, failIfNotFound ? " (failIfNotFound)" : "");
     }
-
 }

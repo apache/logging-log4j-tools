@@ -20,7 +20,6 @@ import java.io.File;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.regex.Pattern;
-
 import org.apache.logging.log4j.changelog.releaser.ChangelogReleaser;
 import org.apache.logging.log4j.changelog.releaser.ChangelogReleaserArgs;
 import org.apache.maven.plugin.AbstractMojo;
@@ -48,9 +47,7 @@ public final class ReleaseMojo extends AbstractMojo {
     /**
      * The version to be released, e.g., {@code 2.19.0}.
      */
-    @Parameter(
-            property = "log4j.changelog.releaseVersion",
-            required = true)
+    @Parameter(property = "log4j.changelog.releaseVersion", required = true)
     private String releaseVersion;
 
     /**
@@ -77,5 +74,4 @@ public final class ReleaseMojo extends AbstractMojo {
                 LocalDate.now(ZoneId.systemDefault()));
         ChangelogReleaser.performRelease(args);
     }
-
 }

@@ -26,5 +26,4 @@ public final class CharsetUtils {
     public static final Charset CHARSET = StandardCharsets.UTF_8;
 
     public static final String CHARSET_NAME = CHARSET.name();
-
 }

@@ -16,20 +16,19 @@
  */
 package org.apache.logging.log4j.changelog;
 
+import static org.apache.logging.log4j.changelog.FileTestUtils.assertDirectoryContentMatches;
+
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
-
 import org.apache.logging.log4j.changelog.exporter.ChangelogExporter;
 import org.apache.logging.log4j.changelog.exporter.ChangelogExporterArgs;
 import org.apache.logging.log4j.changelog.exporter.ChangelogExporterTemplate;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.CleanupMode;
 import org.junit.jupiter.api.io.TempDir;
-
-import static org.apache.logging.log4j.changelog.FileTestUtils.assertDirectoryContentMatches;
 
 class ChangelogExporterTest {
 
@@ -52,5 +51,4 @@ class ChangelogExporterTest {
     private static <V> Set<V> setOf(V... values) {
         return Stream.of(values).collect(Collectors.toSet());
     }
-
 }

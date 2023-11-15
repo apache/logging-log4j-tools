@@ -16,12 +16,11 @@
  */
 package org.apache.logging.log4j.changelog;
 
+import edu.umd.cs.findbugs.annotations.Nullable;
 import java.nio.file.Path;
 import java.util.List;
 import java.util.Locale;
 import java.util.stream.Collectors;
-
-import edu.umd.cs.findbugs.annotations.Nullable;
 import org.apache.logging.log4j.changelog.util.StringUtils;
 import org.apache.logging.log4j.changelog.util.XmlReader;
 import org.apache.logging.log4j.changelog.util.XmlWriter;
@@ -38,7 +37,6 @@ public final class ChangelogEntry {
     public final Description description;
 
     public enum Type {
-
         ADDED,
 
         CHANGED,
@@ -57,7 +55,6 @@ public final class ChangelogEntry {
             final String upperCaseAttribute = attribute != null ? attribute.toUpperCase(Locale.US) : null;
             return Type.valueOf(upperCaseAttribute);
         }
-
     }
 
     public static final class Issue {
@@ -70,7 +67,6 @@ public final class ChangelogEntry {
             this.id = id;
             this.link = link;
         }
-
     }
 
     public static final class Author {
@@ -83,7 +79,6 @@ public final class ChangelogEntry {
             this.id = id;
             this.name = name;
         }
-
     }
 
     public static final class Description {
@@ -96,14 +91,10 @@ public final class ChangelogEntry {
             this.format = format;
             this.text = text;
         }
-
     }
 
     public ChangelogEntry(
-            final Type type,
-            final List<Issue> issues,
-            final List<Author> authors,
-            final Description description) {
+            final Type type, final List<Issue> issues, final List<Author> authors, final Description description) {
         this.type = type;
         this.issues = issues;
         this.authors = authors;
@@ -142,7 +133,6 @@ public final class ChangelogEntry {
             }
             descriptionElement.setTextContent(description.text);
             entryElement.appendChild(descriptionElement);
-
         });
     }
 
@@ -159,8 +149,7 @@ public final class ChangelogEntry {
         }
 
         // Read the `issue` elements
-        final List<Issue> issues = XmlReader
-                .findChildElementsMatchingName(entryElement, "issue")
+        final List<Issue> issues = XmlReader.findChildElementsMatchingName(entryElement, "issue")
                 .map(issueElement -> {
                     final String issueId = XmlReader.requireAttribute(issueElement, "id");
                     final String issueLink = XmlReader.requireAttribute(issueElement, "link");
@@ -169,17 +158,13 @@ public final class ChangelogEntry {
                 .collect(Collectors.toList());
 
         // Read the `author` elements
-        final List<Author> authors = XmlReader
-                .findChildElementsMatchingName(entryElement, "author")
+        final List<Author> authors = XmlReader.findChildElementsMatchingName(entryElement, "author")
                 .map(authorElement -> {
                     @Nullable
-                    final String authorId = authorElement.hasAttribute("id")
-                            ? authorElement.getAttribute("id")
-                            : null;
+                    final String authorId = authorElement.hasAttribute("id") ? authorElement.getAttribute("id") : null;
                     @Nullable
-                    final String authorName = authorElement.hasAttribute("name")
-                            ? authorElement.getAttribute("name")
-                            : null;
+                    final String authorName =
+                            authorElement.hasAttribute("name") ? authorElement.getAttribute("name") : null;
                     if (authorId == null && authorName == null) {
                         throw XmlReader.failureAtXmlNode(
                                 authorElement, "`author` must have at least one of `id` or `name` attributes");
@@ -196,7 +181,5 @@ public final class ChangelogEntry {
 
         // Create the instance
         return new ChangelogEntry(type, issues, authors, description);
-
     }
-
 }

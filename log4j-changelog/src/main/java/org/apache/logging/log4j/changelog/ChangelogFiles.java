@@ -22,7 +22,6 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
-
 import org.apache.logging.log4j.changelog.util.FileUtils;
 
 public final class ChangelogFiles {
@@ -35,19 +34,18 @@ public final class ChangelogFiles {
     }
 
     public static Set<Integer> unreleasedDirectoryVersionMajors(final Path changelogDirectory) {
-        return FileUtils.findAdjacentFiles(changelogDirectory, false, paths -> paths
-                .flatMap(path -> {
+        return FileUtils.findAdjacentFiles(changelogDirectory, false, paths -> paths.flatMap(path -> {
 
                     // Only select directories matching with the `^\.(\d+)\.x\.x$` pattern
                     final Pattern versionPattern = Pattern.compile("^\\.(\\d+)\\.x\\.x$");
-                    final Matcher versionMatcher = versionPattern.matcher(path.getFileName().toString());
+                    final Matcher versionMatcher =
+                            versionPattern.matcher(path.getFileName().toString());
                     if (!versionMatcher.matches()) {
                         return Stream.empty();
                     }
                     final String versionMajorString = versionMatcher.group(1);
                     final int versionMajor = Integer.parseInt(versionMajorString);
                     return Stream.of(versionMajor);
-
                 })
                 .collect(Collectors.toSet()));
     }
@@ -63,5 +61,4 @@ public final class ChangelogFiles {
     public static String templateFileNameExtension() {
         return "ftl";
     }
-
 }

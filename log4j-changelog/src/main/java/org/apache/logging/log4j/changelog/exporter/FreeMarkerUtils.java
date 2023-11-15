@@ -16,16 +16,15 @@
  */
 package org.apache.logging.log4j.changelog.exporter;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+import freemarker.cache.FileTemplateLoader;
+import freemarker.template.*;
 import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.UncheckedIOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardOpenOption;
-
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
-import freemarker.cache.FileTemplateLoader;
-import freemarker.template.*;
 import org.apache.logging.log4j.changelog.util.CharsetUtils;
 
 final class FreeMarkerUtils {
@@ -43,8 +42,7 @@ final class FreeMarkerUtils {
         } catch (final IOException error) {
             throw new UncheckedIOException(error);
         }
-        final DefaultObjectWrapperBuilder objectWrapperBuilder =
-                new DefaultObjectWrapperBuilder(configurationVersion);
+        final DefaultObjectWrapperBuilder objectWrapperBuilder = new DefaultObjectWrapperBuilder(configurationVersion);
         objectWrapperBuilder.setExposeFields(true);
         final DefaultObjectWrapper objectWrapper = objectWrapperBuilder.build();
         configuration.setObjectWrapper(objectWrapper);
@@ -56,10 +54,7 @@ final class FreeMarkerUtils {
 
     @SuppressFBWarnings("TEMPLATE_INJECTION_FREEMARKER")
     static void render(
-            final Path templateDirectory,
-            final String templateName,
-            final Object templateData,
-            final Path outputFile) {
+            final Path templateDirectory, final String templateName, final Object templateData, final Path outputFile) {
         try {
             final Configuration configuration = createConfiguration(templateDirectory);
             final Template template = configuration.getTemplate(templateName);
@@ -77,11 +72,8 @@ final class FreeMarkerUtils {
         } catch (final Exception error) {
             final String message = String.format(
                     "failed rendering template `%s` in directory `%s` to file `%s`",
-                    templateName,
-                    templateDirectory,
-                    outputFile);
+                    templateName, templateDirectory, outputFile);
             throw new RuntimeException(message, error);
         }
     }
-
 }

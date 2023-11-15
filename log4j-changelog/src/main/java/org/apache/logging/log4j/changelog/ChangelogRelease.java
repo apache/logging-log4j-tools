@@ -17,7 +17,6 @@
 package org.apache.logging.log4j.changelog;
 
 import java.nio.file.Path;
-
 import org.apache.logging.log4j.changelog.util.XmlReader;
 import org.apache.logging.log4j.changelog.util.XmlWriter;
 import org.w3c.dom.Element;
@@ -46,5 +45,4 @@ public final class ChangelogRelease {
         final String date = XmlReader.requireAttribute(releaseElement, "date");
         return new ChangelogRelease(version, date);
     }
-
 }

@@ -17,7 +17,6 @@
 package org.apache.logging.log4j;
 
 import java.io.File;
-
 import org.apache.logging.log4j.changelog.importer.MavenChangesImporter;
 import org.apache.logging.log4j.changelog.importer.MavenChangesImporterArgs;
 import org.apache.logging.log4j.changelog.releaser.ChangelogReleaser;
@@ -54,18 +53,13 @@ public final class ImportMojo extends AbstractMojo {
     /**
      * The upcoming release version major number, e.g., {@code 2} for {@code 2.x.x} releases.
      */
-    @Parameter(
-            property = "log4j.changelog.releaseVersionMajor",
-            required = true)
+    @Parameter(property = "log4j.changelog.releaseVersionMajor", required = true)
     private int releaseVersionMajor;
 
     @Override
     public synchronized void execute() {
-        final MavenChangesImporterArgs args = new MavenChangesImporterArgs(
-                changelogDirectory.toPath(),
-                changesXmlFile.toPath(),
-                releaseVersionMajor);
+        final MavenChangesImporterArgs args =
+                new MavenChangesImporterArgs(changelogDirectory.toPath(), changesXmlFile.toPath(), releaseVersionMajor);
         MavenChangesImporter.performImport(args);
     }
-
 }

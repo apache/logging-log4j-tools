@@ -22,7 +22,6 @@ import java.nio.file.Path;
 import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
-
 import org.apache.logging.log4j.changelog.ChangelogEntry;
 import org.apache.logging.log4j.changelog.ChangelogFiles;
 import org.apache.logging.log4j.changelog.ChangelogRelease;
@@ -39,17 +38,14 @@ public final class ChangelogExporter {
         final int releaseDirectoryCount = releaseDirectories.size();
 
         // Read the release information files
-        final List<ChangelogRelease> changelogReleases = releaseDirectories
-                .stream()
+        final List<ChangelogRelease> changelogReleases = releaseDirectories.stream()
                 .map(releaseDirectory -> {
                     final Path releaseXmlFile = ChangelogFiles.releaseXmlFile(releaseDirectory);
                     return ChangelogRelease.readFromXmlFile(releaseXmlFile);
                 })
                 .collect(Collectors.toList());
-        final List<Integer> changelogEntryCounts = releaseDirectories
-                .stream()
-                .map(ignored -> 0)
-                .collect(Collectors.toList());
+        final List<Integer> changelogEntryCounts =
+                releaseDirectories.stream().map(ignored -> 0).collect(Collectors.toList());
 
         // Export releases
         if (releaseDirectoryCount > 0) {
@@ -80,16 +76,12 @@ public final class ChangelogExporter {
             } else {
                 System.out.format(
                         "exported %d release directories: ..., `%s`%n",
-                        releaseDirectories.size(),
-                        releaseDirectories.get(releaseDirectoryCount - 1));
+                        releaseDirectories.size(), releaseDirectories.get(releaseDirectoryCount - 1));
             }
-
         }
 
         // Export unreleased
-        ChangelogFiles
-                .unreleasedDirectoryVersionMajors(args.changelogDirectory)
-                .stream()
+        ChangelogFiles.unreleasedDirectoryVersionMajors(args.changelogDirectory).stream()
                 .sorted()
                 .forEach(upcomingReleaseVersionMajor -> {
                     final Path upcomingReleaseDirectory =
@@ -113,26 +105,23 @@ public final class ChangelogExporter {
                 args.indexTemplates,
                 changelogReleases,
                 changelogEntryCounts);
-
     }
 
     private static List<Path> findReleaseDirectories(ChangelogExporterArgs args) {
         return FileUtils.findAdjacentFiles(
-                args.changelogDirectory, true,
-                paths -> paths
-                        .filter(ChangelogExporter::isNonEmptyDirectory)
+                args.changelogDirectory, true, paths -> paths.filter(ChangelogExporter::isNonEmptyDirectory)
                         .sorted(Comparator.comparing(releaseDirectory -> {
                             final Path releaseXmlFile = ChangelogFiles.releaseXmlFile(releaseDirectory);
-                            final ChangelogRelease changelogRelease =
-                                    ChangelogRelease.readFromXmlFile(releaseXmlFile);
+                            final ChangelogRelease changelogRelease = ChangelogRelease.readFromXmlFile(releaseXmlFile);
                             return changelogRelease.date;
                         }))
                         .collect(Collectors.toList()));
     }
 
     private static boolean isNonEmptyDirectory(final Path path) {
-        return Files.isDirectory(path) &&
-                FileUtils.findAdjacentFiles(path, false, paths -> paths.findFirst().isPresent());
+        return Files.isDirectory(path)
+                && FileUtils.findAdjacentFiles(
+                        path, false, paths -> paths.findFirst().isPresent());
     }
 
     private static int exportRelease(
@@ -155,9 +144,7 @@ public final class ChangelogExporter {
             final String message = String.format("failed exporting release from directory `%s`", releaseDirectory);
             throw new RuntimeException(message, error);
         }
-        return changelogEntriesByType
-                .values()
-                .stream()
+        return changelogEntriesByType.values().stream()
                 .mapToInt(Collection::size)
                 .sum();
     }
@@ -193,10 +180,7 @@ public final class ChangelogExporter {
                         changelogTemplate.targetFileName.replaceAll("%v", release.version);
                 final Path changelogTemplateTargetFile = outputDirectory.resolve(changelogTemplateTargetFileName);
                 FreeMarkerUtils.render(
-                        changelogDirectory,
-                        changelogTemplateName,
-                        changelogTemplateData,
-                        changelogTemplateTargetFile);
+                        changelogDirectory, changelogTemplateName, changelogTemplateData, changelogTemplateTargetFile);
             } else if (changelogTemplate.failIfNotFound) {
                 final String message = String.format("could not find template file: `%s`", changelogTemplateSourceFile);
                 throw new IllegalStateException(message);
@@ -216,8 +200,8 @@ public final class ChangelogExporter {
             final List<ChangelogRelease> changelogReleases,
             final List<Integer> changelogEntryCounts) {
         final Object indexTemplateData = Collections.singletonMap(
-                "releases", IntStream
-                        .range(0, changelogReleases.size())
+                "releases",
+                IntStream.range(0, changelogReleases.size())
                         .boxed()
                         .sorted(Comparator.reverseOrder())
                         .map(releaseIndex -> {
@@ -236,10 +220,7 @@ public final class ChangelogExporter {
                 final String indexTemplateSourceName = templateName(changelogDirectory, indexTemplateSourceFile);
                 final Path indexTemplateTargetFile = outputDirectory.resolve(indexTemplate.targetFileName);
                 FreeMarkerUtils.render(
-                        changelogDirectory,
-                        indexTemplateSourceName,
-                        indexTemplateData,
-                        indexTemplateTargetFile);
+                        changelogDirectory, indexTemplateSourceName, indexTemplateData, indexTemplateTargetFile);
             } else if (indexTemplate.failIfNotFound) {
                 final String message = String.format("could not find template file: `%s`", indexTemplateSourceFile);
                 throw new IllegalStateException(message);
@@ -259,5 +240,4 @@ public final class ChangelogExporter {
                 ? relativePath.toString()
                 : relativePath.toString().replace('\\', '/');
     }
-
 }

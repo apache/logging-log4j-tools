@@ -16,6 +16,8 @@
  */
 package org.apache.logging.log4j.changelog.releaser;
 
+import static java.time.format.DateTimeFormatter.ISO_DATE;
+
 import java.io.IOException;
 import java.io.UncheckedIOException;
 import java.nio.file.Files;
@@ -24,12 +26,9 @@ import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.Set;
 import java.util.stream.Collectors;
-
 import org.apache.logging.log4j.changelog.ChangelogFiles;
 import org.apache.logging.log4j.changelog.ChangelogRelease;
 import org.apache.logging.log4j.changelog.util.FileUtils;
-
-import static java.time.format.DateTimeFormatter.ISO_DATE;
 
 public final class ChangelogReleaser {
 
@@ -38,7 +37,8 @@ public final class ChangelogReleaser {
     public static void performRelease(final ChangelogReleaserArgs args) {
 
         // Read the release date and version
-        final String releaseDate = ISO_DATE.format(args.releaseDate != null ? args.releaseDate : LocalDate.now(ZoneId.systemDefault()));
+        final String releaseDate =
+                ISO_DATE.format(args.releaseDate != null ? args.releaseDate : LocalDate.now(ZoneId.systemDefault()));
         System.out.format("using `%s` for the release date%n", releaseDate);
 
         try {
@@ -56,19 +56,17 @@ public final class ChangelogReleaser {
         } catch (final IOException error) {
             throw new UncheckedIOException(error);
         }
-
     }
 
-    private static void populateReleaseChangelogEntryFiles(
-            final Path unreleasedDirectory,
-            final Path releaseDirectory)
+    private static void populateReleaseChangelogEntryFiles(final Path unreleasedDirectory, final Path releaseDirectory)
             throws IOException {
         if (!Files.exists(releaseDirectory)) {
             Files.createDirectories(releaseDirectory);
         }
         FileUtils.findAdjacentFiles(unreleasedDirectory, true, paths -> {
             paths.forEach(unreleasedChangelogEntryFile -> {
-                final String fileName = unreleasedChangelogEntryFile.getFileName().toString();
+                final String fileName =
+                        unreleasedChangelogEntryFile.getFileName().toString();
                 final Path releasedChangelogEntryFile = releaseDirectory.resolve(fileName);
                 System.out.format(
                         "moving changelog entry file `%s` to `%s`%n",
@@ -84,10 +82,7 @@ public final class ChangelogReleaser {
     }
 
     private static void populateReleaseXmlFiles(
-            final String releaseDate,
-            final String releaseVersion,
-            final Path releaseDirectory)
-            throws IOException {
+            final String releaseDate, final String releaseVersion, final Path releaseDirectory) throws IOException {
         final Path releaseXmlFile = ChangelogFiles.releaseXmlFile(releaseDirectory);
         System.out.format("writing release information to `%s`%n", releaseXmlFile);
         final ChangelogRelease changelogRelease = new ChangelogRelease(releaseVersion, releaseDate);
@@ -96,9 +91,7 @@ public final class ChangelogReleaser {
     }
 
     private static void populateReleaseChangelogTemplateFiles(
-            final Path unreleasedDirectory,
-            final Path releaseDirectory)
-            throws IOException {
+            final Path unreleasedDirectory, final Path releaseDirectory) throws IOException {
         Set<String> releaseChangelogTemplateFileNames = releaseChangelogTemplateFileNames(unreleasedDirectory);
         for (final String releaseChangelogTemplateFileName : releaseChangelogTemplateFileNames) {
             final Path targetFile = releaseDirectory.resolve(releaseChangelogTemplateFileName);
@@ -114,13 +107,9 @@ public final class ChangelogReleaser {
 
     private static Set<String> releaseChangelogTemplateFileNames(final Path releaseDirectory) {
         final String templateFileNameSuffix = '.' + ChangelogFiles.templateFileNameExtension();
-        return FileUtils.findAdjacentFiles(
-                releaseDirectory,
-                false,
-                paths -> paths
-                        .map(path -> path.getFileName().toString())
-                        .filter(path -> path.endsWith(templateFileNameSuffix))
-                        .collect(Collectors.toSet()));
+        return FileUtils.findAdjacentFiles(releaseDirectory, false, paths -> paths.map(
+                        path -> path.getFileName().toString())
+                .filter(path -> path.endsWith(templateFileNameSuffix))
+                .collect(Collectors.toSet()));
     }
-
 }

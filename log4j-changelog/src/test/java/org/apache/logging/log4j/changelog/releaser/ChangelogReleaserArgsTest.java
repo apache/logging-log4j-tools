@@ -16,30 +16,26 @@
  */
 package org.apache.logging.log4j.changelog.releaser;
 
-import java.util.regex.Matcher;
+import static org.assertj.core.api.Assertions.assertThat;
 
+import java.util.regex.Matcher;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.jupiter.params.provider.ValueSource;
-
-import static org.assertj.core.api.Assertions.assertThat;
 
 class ChangelogReleaserArgsTest {
 
     @ParameterizedTest
     @CsvSource({
-            "0.0.1,0,0,1",
-            "0.1.0,0,1,0",
-            "1.2.3-alpha1,1,2,3-alpha1",
-            "1.2.3-beta1,1,2,3-beta1",
-            "1.2.3-rc1,1,2,3-rc1",
-            "1.2.3-SNAPSHOT,1,2,3-SNAPSHOT"
+        "0.0.1,0,0,1",
+        "0.1.0,0,1,0",
+        "1.2.3-alpha1,1,2,3-alpha1",
+        "1.2.3-beta1,1,2,3-beta1",
+        "1.2.3-rc1,1,2,3-rc1",
+        "1.2.3-SNAPSHOT,1,2,3-SNAPSHOT"
     })
     void valid_releaseVersion_should_match(
-            final String version,
-            final String major,
-            final String minor,
-            final String patch) {
+            final String version, final String major, final String minor, final String patch) {
         Matcher matcher = ChangelogReleaserArgs.DEFAULT_VERSION_PATTERN.matcher(version);
         assertThat(matcher).matches();
         assertThat(matcher.group("major")).isEqualTo(major);
@@ -48,16 +44,9 @@ class ChangelogReleaserArgsTest {
     }
 
     @ParameterizedTest
-    @ValueSource(strings = {
-            "0.1",
-            "0.1.2.3",
-            "0.1-SNAPSHOT",
-            "1.2-rc1",
-            "1.2.3-4"
-    })
+    @ValueSource(strings = {"0.1", "0.1.2.3", "0.1-SNAPSHOT", "1.2-rc1", "1.2.3-4"})
     void invalid_releaseVersion_should_not_match(final String releaseVersion) {
         Matcher matcher = ChangelogReleaserArgs.DEFAULT_VERSION_PATTERN.matcher(releaseVersion);
         assertThat(matcher.matches()).isFalse();
     }
-
 }
