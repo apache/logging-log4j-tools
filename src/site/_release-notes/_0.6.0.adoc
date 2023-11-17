@@ -36,7 +36,7 @@
 [#release-notes-0-6-0]
 === 0.6.0
 
-Release date:: 2023-11-15
+Release date:: 2023-11-17
 
 This minor release contains various bug fixes and improvements.
 
