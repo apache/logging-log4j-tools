@@ -42,15 +42,18 @@ This minor release contains small enhancements.
 Most importantly, this marks the first release where the project uses itself to generate release notes!
 
 
+[#release-notes-0-4-0-added]
 ==== Added
 
 * Add `versionPattern` (i.e., the regular expression pattern for parsing versions) parameter to the Maven `release` goal (https://github.com/apache/logging-log4j-tools/issues/63[63])
 
+[#release-notes-0-4-0-changed]
 ==== Changed
 
 * Change the default value of `outputDirectory` to `${project.build.directory}/generated-sources/site/changelog` for the Maven `export` goal
 * Migrate from `CHANGELOG.adoc` to using `log4j-changelog-maven-plugin`
 
+[#release-notes-0-4-0-fixed]
 ==== Fixed
 
 * Improve Maven `release` goal to accommodate repetitive invocations
