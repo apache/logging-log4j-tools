@@ -41,11 +41,13 @@ Release date:: 2023-03-14
 This minor release contains various bug fixes and improvements.
 
 
+[#release-notes-0-3-0-added]
 ==== Added
 
 * The changelog release models passed to the index template file (`.index.adoc.ftl`) is enriched with `changelogEntryCount` fields (https://github.com/apache/logging-log4j-tools/issues/37[37])
 * Support multiple and formatting-agnostic template files (https://github.com/apache/logging-log4j-tools/issues/44[44])
 
+[#release-notes-0-3-0-changed]
 ==== Changed
 
 * Upgrade the compiler version to Java 17, yet still target Java 8

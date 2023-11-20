@@ -68,7 +68,3 @@ jobs:
     with:
       project-id: log4j-tools
       site-enabled: true
-      # TODO Remove `distribution-attachment-*` arguments after `logging-parent` version `10.4.0` release
-      distribution-attachment-count: 2
-      distribution-attachment-filepath-pattern: |-
-          ^.*/log4j-(.+)-${PROJECT_VERSION}(\\.jar|-cyclonedx\\.xml)$

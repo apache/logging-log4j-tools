@@ -41,6 +41,7 @@ Release date:: 2023-01-10
 This is the first release, aimed to assist [the Apache Log4j 2](http://logging.apache.org/log4j/2.x/) on generating release notes.
 
 
+[#release-notes-0-1-0-added]
 ==== Added
 
 * Add `log4j-tools-bom` and `log4j-changelog` modules (https://issues.apache.org/jira/browse/LOG4J2-3628[LOG4J2-3628])

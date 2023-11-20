@@ -1,4 +1,5 @@
-<#--
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
   ~ Licensed to the Apache Software Foundation (ASF) under one or more
   ~ contributor license agreements.  See the NOTICE file distributed with
   ~ this work for additional information regarding copyright ownership.
@@ -14,14 +15,7 @@
   ~ See the License for the specific language governing permissions and
   ~ limitations under the License.
   -->
-<#if entriesByType?size gt 0>
-<#list entriesByType as entryType, entries>
-
-[#release-notes-${release.version?replace("[^a-zA-Z0-9]", "-", "r")}-${entryType?lower_case}]
-==== ${entryType?capitalize}
-
-<#list entries as entry>
-* ${entry.description.text?replace("\\s+", " ", "r")}<#if entry.issues?has_content> (<#list entry.issues as issue>${issue.link}[${issue.id}]<#if issue?has_next>, </#if></#list>)</#if>
-</#list>
-</#list>
-</#if>
+<release xmlns="http://logging.apache.org/log4j/changelog"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://logging.apache.org/log4j/changelog https://logging.apache.org/log4j/changelog-0.1.2.xsd"
+         date="2023-11-17" version="0.6.0"/>
