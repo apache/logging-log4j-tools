@@ -1,0 +1,93 @@
+////
+Licensed to the Apache Software Foundation (ASF) under one or more
+contributor license agreements. See the NOTICE file distributed with
+this work for additional information regarding copyright ownership.
+The ASF licenses this file to You under the Apache License, Version 2.0
+(the "License"); you may not use this file except in compliance with
+the License. You may obtain a copy of the License at
+
+    https://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+////
+= Configuration
+
+A Log4j 2.x configuration contains many components, two of them `Appenders` and `Loggers` are required.
+
+== Template
+[source, xml]
+----
+<Configuration status="ERROR"
+               dest=""
+               shutdownHook=""
+               shutdownTimeout=""
+               verbose=""
+               name=""
+               strict=""
+               schema=""
+               monitorInterval="0"
+               advertiser="">
+    <Properties/>
+    <Scripts/>
+    <Appenders/>
+    <Loggers/>
+    <CustomLevels/>
+</Configuration>
+----
+
+== Attributes
+
+Required attributes are in **bold face**.
+
+[cols="1,1,1,5m"]
+|===
+|Name
+|Type
+|Default
+|Description
+
+|status
+|xref:../TypeConverters/index.adoc#org.apache.logging.log4j.Level[Level]
+|`ERROR`
+|Sets the level of the status logger.
+
+|name
+|`String`
+|
+|The name of this configuration.
+
+|monitorInterval
+|`int`
+|0
+|Number of seconds between polls for configuration changes.
+|===
+
+== Nested Components
+
+Required components are in **bold face**.
+
+[cols="1,1,5m"]
+|===
+|Tag
+|Type
+|Description
+
+|`Properties`
+|PropertiesPlugin
+|Wrapper element for a list of properties.
+
+If present, this plugin must be the **first** child of the configuration.
+
+|`**Appenders**`
+|xref:org.apache.logging.log4j.core.config.AppendersPlugin.adoc[AppendersPlugin]
+|Wrapper element for a list of xref:org.apache.logging.log4j.core.Appender.adoc[appenders].
+
+|`**Loggers**`
+|LoggersPlugin
+|Wrapper element for a list of logger configurations.
+
+|===

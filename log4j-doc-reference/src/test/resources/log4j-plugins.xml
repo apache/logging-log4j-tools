@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ Licensed to the Apache Software Foundation (ASF) under one or more
+  ~ contributor license agreements.  See the NOTICE file distributed with
+  ~ this work for additional information regarding copyright ownership.
+  ~ The ASF licenses this file to you under the Apache License, Version 2.0
+  ~ (the "License"); you may not use this file except in compliance with
+  ~ the License.  You may obtain a copy of the License at
+  ~
+  ~      http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+  -->
+<model xmlns="http://codehaus-plexus.github.io/MODELLO/1.8.0"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://codehaus-plexus.github.io/MODELLO/1.8.0 https://codehaus-plexus.github.io/modello/xsd/modello-1.8.0.xsd"
+        xml.namespace="http://logging.apache.org/log4j/2.x/config">
+    <id>log4j-core</id>
+    <name>Log4j Core Plugins</name>
+
+    <classes>
+        <!-- Interfaces -->
+        <class>
+            <name>org.apache.logging.log4j.core.Filter</name>
+        </class>
+        <class>
+            <name>org.apache.logging.log4j.core.Appender</name>
+        </class>
+        <class>
+            <name>org.apache.logging.log4j.core.Layout</name>
+        </class>
+        <class xml.tagName="Appenders" rootElement="true" xsd.compositor="sequence">
+            <name>org.apache.logging.log4j.core.config.AppendersPlugin</name>
+            <fields>
+                <field>
+                    <name>appenders</name>
+                    <association xml.itemsStyle="flat">
+                        <type>org.apache.logging.log4j.core.appender.AbstractAppender</type>
+                        <multiplicity>*</multiplicity>
+                    </association>
+                </field>
+            </fields>
+        </class>
+        <class java.abstract="true">
+            <name>org.apache.logging.log4j.core.filter.AbstractFilterable</name>
+            <fields>
+                <field>
+                    <name>filter</name>
+                    <association>
+                        <type>org.apache.logging.log4j.core.Filter</type>
+                        <multiplicity>1</multiplicity>
+                    </association>
+                    <description>Filters the log events in this component.</description>
+                </field>
+                <field>
+                    <name>propertyArray</name>
+                    <association>
+                        <type>org.apache.logging.log4j.core.config.Property</type>
+                        <multiplicity>*</multiplicity>
+                    </association>
+                    <description>Additional properties to add to events for this component.</description>
+                </field>
+            </fields>
+        </class>
+        <class java.abstract="true">
+            <name>org.apache.logging.log4j.core.appender.AbstractAppender</name>
+            <superClass>org.apache.logging.log4j.core.filter.AbstractFilterable</superClass>
+            <interfaces>
+                <interface>org.apache.logging.log4j.core.Appender</interface>
+            </interfaces>
+            <fields>
+                <field>
+                    <name>ignoreExceptions</name>
+                    <type>boolean</type>
+                    <defaultValue>true</defaultValue>
+                    <description>If set to `false` logging exceptions will be forwarded to the caller.</description>
+                </field>
+                <field>
+                    <name>layout</name>
+                    <association>
+                        <type>org.apache.logging.log4j.core.Layout</type>
+                        <multiplicity>1</multiplicity>
+                    </association>
+                    <description>Specifies the layout used to format log events.</description>
+                </field>
+                <field>
+                    <name>name</name>
+                    <type>String</type>
+                    <required>true</required>
+                    <description>Name used to reference this appender. Must be unique</description>
+                </field>
+            </fields>
+        </class>
+        <class java.abstract="true">
+            <name>org.apache.logging.log4j.core.appender.AbstractOutputStreamAppender</name>
+            <superClass>org.apache.logging.log4j.core.appender.AbstractAppender</superClass>
+            <fields>
+                <field>
+                    <name>bufferedIo</name>
+                    <type>boolean</type>
+                    <defaultValue>true</defaultValue>
+                    <description>If set to `true`, I/O is buffered.</description>
+                </field>
+            </fields>
+        </class>
+        <class xml.tagName="Console">
+            <name>org.apache.logging.log4j.core.ConsoleAppender</name>
+            <superClass>org.apache.logging.log4j.core.appender.AbstractOutputStreamAppender</superClass>
+            <description>
+                Appends log events to `System.out` or `System.err` using a layout specified by the user.
+            </description>
+            <interfaces>
+                <interface>org.apache.logging.log4j.core.Appender</interface>
+                <interface>org.apache.logging.log4j.core.impl.LocationAware</interface>
+            </interfaces>
+            <fields>
+                <field>
+                    <name>immediate</name>
+                    <type>boolean</type>
+                    <description>If se to `true` buffers are flushed at each </description>
+                    <defaultValue>false</defaultValue>
+                </field>
+            </fields>
+        </class>
+
+        <!-- Sub-components -->
+        <class xml.tagName="Property">
+            <name>org.apache.logging.log4j.core.config.Property</name>
+            <description>
+                Represents a key/value pair in the configuration.
+            </description>
+            <fields>
+                <field>
+                    <name>key</name>
+                    <type>String</type>
+                    <description>Key</description>
+                </field>
+                <field>
+                    <name>value</name>
+                    <type>String</type>
+                    <description>Value</description>
+                </field>
+            </fields>
+        </class>
+    </classes>
+</model>

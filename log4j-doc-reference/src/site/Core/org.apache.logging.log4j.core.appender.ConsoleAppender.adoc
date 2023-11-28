@@ -1,0 +1,80 @@
+////
+Licensed to the Apache Software Foundation (ASF) under one or more
+contributor license agreements. See the NOTICE file distributed with
+this work for additional information regarding copyright ownership.
+The ASF licenses this file to You under the Apache License, Version 2.0
+(the "License"); you may not use this file except in compliance with
+the License. You may obtain a copy of the License at
+
+    https://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+////
+= Console Appender
+
+Appends log events to `System.out` or `System.err` using a layout specified by the user.
+
+== Template
+[source, xml]
+----
+<Console name=""
+         ignoreExceptions="true"
+         bufferedIo="true"
+         bufferSize="${log4j2.encoderByteBufferSize}"
+         immediateFlush="true"
+         target="SYSTEM_OUT"
+         follow="false"
+         direct="false">
+    filter
+    <Property/> (0:n)
+    layout
+</Console>
+----
+
+== Attributes
+
+Required attributes are in **bold face**.
+
+[cols="1,1,1,5m"]
+|===
+|Name
+|Type
+|Default
+|Description
+
+|**name**
+|`String`
+|
+|The name of the appender used in appender references.
+Must be unique.
+
+|ignoreExceptions
+|`boolean`
+|true
+|If set to `false` logging exceptions will be forwarded to the caller.
+
+|bufferedIo
+|`boolean`
+|true
+|If set to `true` (default) the appender will buffer messages before sending them.
+This attribute is ignored if `immediateFlush` is set to `true`.
+
+|bufferSize
+|`int`
+|xref:../Properties/index.adoc#log4j2.encoderByteBufferSize[log4j2.encoderByteBufferSize]
+|Size in bytes of the appender's buffer.
+
+|immediateFlush
+|`boolean`
+|true
+|If set to `true`, the appender flushes the output stream at each message and buffering is disabled regardless of the value of `bufferedIo`.
+
+|target
+|xref:../TypeConverters/index.adoc#org.apache.logging.log4j.core.appender.ConsoleAppender.Target[Target]
+|SYSTEM_OUT
+|Specifies the target of the appender.
+|===

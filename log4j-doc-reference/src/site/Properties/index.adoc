@@ -1,0 +1,83 @@
+////
+Licensed to the Apache Software Foundation (ASF) under one or more
+contributor license agreements. See the NOTICE file distributed with
+this work for additional information regarding copyright ownership.
+The ASF licenses this file to You under the Apache License, Version 2.0
+(the "License"); you may not use this file except in compliance with
+the License. You may obtain a copy of the License at
+
+    https://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+////
+= Log4j Properties
+
+== Custom Property Sources
+
+Properties are located using PropertySources.
+This system is extensible and is enabled through the `PropertySource` interface.
+Additional property source classes can be added through the standard `ServiceLoader` mechanism in Java SE.
+
+
+Properties can be overridden by sources with a lower number priority
+(e.g. -100 comes before 100). The following sources are all available
+by default:
+
+.PropertySource priorities and descriptions
+[cols="2,1,5",frame="all"]
+|===
+|Source |Priority |Description
+
+|Spring Boot Properties
+|-100
+|This property source is enabled only if the Java application uses Spring Boot and the
+`log4j-spring` module is present. It resolves properties using a Spring
+link:https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/core/env/Environment.html[Environment].
+
+|System Properties
+|0
+|All properties can be set using normal system
+property patterns. These have the lowest numerical priority among commonly available property sources
+and can override included `log4j2.component.properties` files or environment variables. If a `log4j2.system.properties` file is available on the classpath its contents are
+sourced into Java system properties at Log4j startup.
+
+|Environment Variables
+|100
+|Environment variables are all prefixed
+with `LOG4J_`, are in all caps, and words are all separated by
+underscores. Only this naming scheme is support for environment
+variables as there were no old naming schemes to maintain compatibility
+with.
+
+|`log4j2.context.json` or `log4j2.{contextName}.json`
+|110
+|Properties in these files only apply to the specific LoggerContext to which they are bound, either by name or ClassLoader.
+
+|`log4j2.context.properties' or `log4j2.{contextName}.properties`
+|120
+|Properties in these files only apply to the specific LoggerContext to which they are bound, either by name or ClassLoader.
+
+|`log4j2.component.properties` file
+|200
+|Including this file on the classpath can be used as an alternative to providing properties as system
+properties. This is the property source with highest numerical priority and can be used to provide
+default values that can be overridden by the system administrator.
+|===
+
+== Common properties
+
+[cols="1,1,5m"]
+|===
+|Name
+|Default value
+|Description
+
+|[[log4j2.encoderByteBufferSize]]
+`log4j2.encoderByteBufferSize`
+|8192
+|Default size of an appender buffer in bytes.
+|===
