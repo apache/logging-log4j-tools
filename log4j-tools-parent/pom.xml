@@ -31,18 +31,30 @@
 
   <properties>
 
-    <!-- dependency versions -->
+    <!-- Dependency versions -->
     <assertj.version>3.24.2</assertj.version>
     <commons-io.version>2.15.1</commons-io.version>
     <freemarker.version>2.3.32</freemarker.version>
     <junit.version>5.10.1</junit.version>
+    <modello.version>2.1.2</modello.version>
+
+    <!-- Maven plugin versions -->
     <maven-plugin.version>3.10.2</maven-plugin.version>
     <maven-plugin-api.version>3.6.3</maven-plugin-api.version>
+    <modello-maven-plugin.version>${modello.version}</modello-maven-plugin.version>
 
   </properties>
 
   <dependencyManagement>
     <dependencies>
+
+      <dependency>
+        <groupId>org.junit</groupId>
+        <artifactId>junit-bom</artifactId>
+        <version>${junit.version}</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
 
       <dependency>
         <groupId>org.assertj</groupId>
@@ -63,18 +75,6 @@
       </dependency>
 
       <dependency>
-        <groupId>org.junit.jupiter</groupId>
-        <artifactId>junit-jupiter-engine</artifactId>
-        <version>${junit.version}</version>
-      </dependency>
-
-      <dependency>
-        <groupId>org.junit.jupiter</groupId>
-        <artifactId>junit-jupiter-params</artifactId>
-        <version>${junit.version}</version>
-      </dependency>
-
-      <dependency>
         <groupId>org.apache.maven.plugin-tools</groupId>
         <artifactId>maven-plugin-annotations</artifactId>
         <version>${maven-plugin.version}</version>
@@ -90,5 +90,19 @@
 
     </dependencies>
   </dependencyManagement>
+
+  <build>
+    <pluginManagement>
+      <plugins>
+
+        <plugin>
+          <groupId>org.codehaus.modello</groupId>
+          <artifactId>modello-maven-plugin</artifactId>
+          <version>${modello-maven-plugin.version}</version>
+        </plugin>
+
+      </plugins>
+    </pluginManagement>
+  </build>
 
 </project>

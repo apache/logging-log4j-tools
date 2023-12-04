@@ -86,7 +86,7 @@
     <!-- Modules here must have a corresponding entry in `dependencyManagement > dependencies` block below! -->
     <module>log4j-changelog</module>
     <module>log4j-changelog-maven-plugin</module>
-    <module>log4j-doc-reference</module>
+    <module>log4j-docgen</module>
 
   </modules>
 

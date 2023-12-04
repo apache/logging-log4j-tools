@@ -24,7 +24,7 @@
     <relativePath>../log4j-tools-parent</relativePath>
   </parent>
 
-  <artifactId>log4j-doc-reference</artifactId>
+  <artifactId>log4j-docgen</artifactId>
 
   <properties>
     <bnd.baseline.fail.on.missing>false</bnd.baseline.fail.on.missing>
@@ -45,14 +45,72 @@
 
   <dependencies>
     <dependency>
-      <groupId>org.apache.logging.log4j</groupId>
-      <artifactId>log4j-core</artifactId>
-      <version>2.22.0</version>
+      <groupId>org.apache.commons</groupId>
+      <artifactId>commons-lang3</artifactId>
+      <version>3.13.0</version>
     </dependency>
     <dependency>
-      <groupId>org.codehaus.modello</groupId>
-      <artifactId>modello-plugin-xsd</artifactId>
-      <version>2.1.2</version>
+      <groupId>org.glassfish.jaxb</groupId>
+      <artifactId>txw2</artifactId>
+      <version>3.0.2</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.logging.log4j</groupId>
+      <artifactId>log4j-core</artifactId>
+      <version>3.0.0-SNAPSHOT</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.logging.log4j</groupId>
+      <artifactId>log4j-plugin-processor</artifactId>
+      <version>3.0.0-SNAPSHOT</version>
+    </dependency>
+    <dependency>
+      <groupId>org.junit.jupiter</groupId>
+      <artifactId>junit-jupiter-api</artifactId>
+      <scope>test</scope>
     </dependency>
   </dependencies>
+
+  <repositories>
+    <repository>
+      <releases>
+        <enabled>false</enabled>
+      </releases>
+      <snapshots>
+        <enabled>true</enabled>
+      </snapshots>
+      <id>apache.https.snapshots</id>
+      <url>https://repository.apache.org/snapshots</url>
+    </repository>
+  </repositories>
+  <build>
+    <plugins>
+
+      <plugin>
+        <groupId>org.codehaus.modello</groupId>
+        <artifactId>modello-maven-plugin</artifactId>
+        <executions>
+          <execution>
+            <id>generate-model</id>
+            <goals>
+              <goal>java</goal>
+              <goal>stax-reader</goal>
+              <goal>stax-writer</goal>
+              <goal>xdoc</goal>
+              <goal>xsd</goal>
+            </goals>
+            <configuration>
+              <domAsXpp3>false</domAsXpp3>
+              <models>
+                <model>src/main/mdo/plugins.xml</model>
+              </models>
+              <version>0.1.0</version>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+
+    </plugins>
+  </build>
+
 </project>
