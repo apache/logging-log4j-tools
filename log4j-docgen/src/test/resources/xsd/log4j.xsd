@@ -1,7 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ Licensed to the Apache Software Foundation (ASF) under one or more
+  ~ contributor license agreements.  See the NOTICE file distributed with
+  ~ this work for additional information regarding copyright ownership.
+  ~ The ASF licenses this file to you under the Apache License, Version 2.0
+  ~ (the "License"); you may not use this file except in compliance with
+  ~ the License.  You may obtain a copy of the License at
+  ~
+  ~      http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+  -->
+<!--
+  ~ This is a test schema used in SchemaGeneratorTest.
+  ~ Unlike this file the DefaultSchemaGenerator strips whitespace.
+  -->
 <schema xmlns="http://www.w3.org/2001/XMLSchema" xmlns:log4j="http://logging.apache.org/log4j/2.0/config" elementFormDefault="qualified" targetNamespace="http://logging.apache.org/log4j/2.0/config">
   <element type="log4j:org.apache.logging.log4j.core.config.Configuration" name="Configuration"/>
   <simpleType name="org.apache.logging.log4j.Level">
+    <annotation>
+      <documentation>Represents a logging level.
+**Note**: the Log4j API supports custom levels, the following list contains only the standard ones.</documentation>
+    </annotation>
     <restriction base="string">
       <enumeration value="OFF">
         <annotation>
@@ -46,6 +70,9 @@
     </restriction>
   </simpleType>
   <simpleType name="org.apache.logging.log4j.core.Filter.Result">
+    <annotation>
+      <documentation>The result that can returned from a filter method call.</documentation>
+    </annotation>
     <restriction base="string">
       <enumeration value="ACCEPT">
         <annotation>
@@ -65,6 +92,9 @@
     </restriction>
   </simpleType>
   <simpleType name="org.apache.logging.log4j.core.appender.ConsoleAppender.Target">
+    <annotation>
+      <documentation>Specifies the target of a console appender.</documentation>
+    </annotation>
     <restriction base="string">
       <enumeration value="SYSTEM_OUT">
         <annotation>
@@ -79,6 +109,9 @@
     </restriction>
   </simpleType>
   <complexType name="org.apache.logging.log4j.core.appender.ConsoleAppender">
+    <annotation>
+      <documentation>Write log events to the console.</documentation>
+    </annotation>
     <sequence>
       <group ref="log4j:org.apache.logging.log4j.core.Filter.group" minOccurs="0">
         <annotation>
@@ -125,8 +158,32 @@ buffering is disabled regardless of the value of `bufferedIo`.</documentation>
       </annotation>
     </attribute>
   </complexType>
-  <complexType name="org.apache.logging.log4j.core.config.AppenderRef"></complexType>
+  <complexType name="org.apache.logging.log4j.core.config.AppenderRef">
+    <annotation>
+      <documentation>Reference to an appender defined in the `Appenders` section.</documentation>
+    </annotation>
+    <sequence>
+      <group ref="log4j:org.apache.logging.log4j.core.Filter.group" minOccurs="0">
+        <annotation>
+          <documentation>The filter to use.</documentation>
+        </annotation>
+      </group>
+    </sequence>
+    <attribute name="ref" type="string">
+      <annotation>
+        <documentation>The name of an appender.</documentation>
+      </annotation>
+    </attribute>
+    <attribute name="level" type="log4j:org.apache.logging.log4j.Level">
+      <annotation>
+        <documentation>The level to filter against.</documentation>
+      </annotation>
+    </attribute>
+  </complexType>
   <complexType name="org.apache.logging.log4j.core.config.AppendersPlugin">
+    <annotation>
+      <documentation>A wrapper for a list of appenders.</documentation>
+    </annotation>
     <sequence>
       <group ref="log4j:org.apache.logging.log4j.core.Appender.group" minOccurs="0" maxOccurs="unbounded">
         <annotation>
@@ -136,7 +193,33 @@ buffering is disabled regardless of the value of `bufferedIo`.</documentation>
     </sequence>
   </complexType>
   <complexType name="org.apache.logging.log4j.core.config.Configuration">
-    <sequence></sequence>
+    <annotation>
+      <documentation>A Log4j 2.x configuration contains many components, two of them `Appenders` and `Loggers` are required.</documentation>
+    </annotation>
+    <sequence>
+      <element name="Properties" type="log4j:org.apache.logging.log4j.core.config.PropertiesPlugin" minOccurs="0">
+        <annotation>
+          <documentation>Wrapper element for a list of properties.
+
+If present, this element must be the **first** child of the configuration.</documentation>
+        </annotation>
+      </element>
+      <element name="Appenders" type="log4j:org.apache.logging.log4j.core.config.AppendersPlugin">
+        <annotation>
+          <documentation>Wrapper element for a list of appenders.</documentation>
+        </annotation>
+      </element>
+      <element name="CustomLevels" type="log4j:org.apache.logging.log4j.core.config.CustomLevels" minOccurs="0">
+        <annotation>
+          <documentation>Wrapper element for a list of custom levels.</documentation>
+        </annotation>
+      </element>
+      <element name="Loggers" type="log4j:org.apache.logging.log4j.core.config.LoggersPlugin" minOccurs="0">
+        <annotation>
+          <documentation>Wrapper element for a list of logger configurations.</documentation>
+        </annotation>
+      </element>
+    </sequence>
     <attribute name="advertiser" type="string">
       <annotation>
         <documentation>If set it should contain the name of an `Advertiser` plugin (cf.
@@ -205,6 +288,9 @@ This only applies to classes configured by `StatusConfiguration#setVerboseClasse
     </attribute>
   </complexType>
   <complexType name="org.apache.logging.log4j.core.config.CustomLevelConfig">
+    <annotation>
+      <documentation>Configures a custom level.</documentation>
+    </annotation>
     <attribute name="name" type="string">
       <annotation>
         <documentation>The name of the level.</documentation>
@@ -217,10 +303,27 @@ This only applies to classes configured by `StatusConfiguration#setVerboseClasse
     </attribute>
   </complexType>
   <complexType name="org.apache.logging.log4j.core.config.CustomLevels">
-    <sequence></sequence>
+    <annotation>
+      <documentation>A wrapper for a list of custom level configurations.</documentation>
+    </annotation>
+    <sequence>
+      <element name="CustomLevel" type="log4j:org.apache.logging.log4j.core.config.CustomLevelConfig" minOccurs="0" maxOccurs="unbounded">
+        <annotation>
+          <documentation>A list of custom level configurations.</documentation>
+        </annotation>
+      </element>
+    </sequence>
   </complexType>
   <complexType name="org.apache.logging.log4j.core.config.LoggerConfig">
+    <annotation>
+      <documentation>Configures a particular logger</documentation>
+    </annotation>
     <sequence>
+      <group ref="log4j:org.apache.logging.log4j.core.config.AppenderRef.group" minOccurs="0" maxOccurs="unbounded">
+        <annotation>
+          <documentation>A list of appenders to use with this logger.</documentation>
+        </annotation>
+      </group>
       <group ref="log4j:org.apache.logging.log4j.core.Filter.group" minOccurs="0">
         <annotation>
           <documentation>A filter to filter events, before calling the appenders.</documentation>
@@ -239,7 +342,15 @@ This only applies to classes configured by `StatusConfiguration#setVerboseClasse
     </attribute>
   </complexType>
   <complexType name="org.apache.logging.log4j.core.config.LoggerConfig.RootLogger">
+    <annotation>
+      <documentation>Configures the root logger</documentation>
+    </annotation>
     <sequence>
+      <group ref="log4j:org.apache.logging.log4j.core.config.AppenderRef.group" minOccurs="0" maxOccurs="unbounded">
+        <annotation>
+          <documentation>A list of appenders to use with this logger.</documentation>
+        </annotation>
+      </group>
       <group ref="log4j:org.apache.logging.log4j.core.Filter.group" minOccurs="0">
         <annotation>
           <documentation>A filter to filter events, before calling the appenders.</documentation>
@@ -253,6 +364,9 @@ This only applies to classes configured by `StatusConfiguration#setVerboseClasse
     </attribute>
   </complexType>
   <complexType name="org.apache.logging.log4j.core.config.LoggersPlugin">
+    <annotation>
+      <documentation>A wrapper for a list of logger configurations.</documentation>
+    </annotation>
     <sequence>
       <group ref="log4j:org.apache.logging.log4j.core.config.LoggerConfig.group" minOccurs="0" maxOccurs="unbounded">
         <annotation>
@@ -262,9 +376,21 @@ This only applies to classes configured by `StatusConfiguration#setVerboseClasse
     </sequence>
   </complexType>
   <complexType name="org.apache.logging.log4j.core.config.PropertiesPlugin">
-    <sequence></sequence>
+    <annotation>
+      <documentation>A wrapper for a list of properties.</documentation>
+    </annotation>
+    <sequence>
+      <element name="Property" type="log4j:org.apache.logging.log4j.core.config.Property" minOccurs="0" maxOccurs="unbounded">
+        <annotation>
+          <documentation>A list of properties.</documentation>
+        </annotation>
+      </element>
+    </sequence>
   </complexType>
   <complexType name="org.apache.logging.log4j.core.config.Property">
+    <annotation>
+      <documentation>Represents a key/value pair in the configuration.</documentation>
+    </annotation>
     <attribute name="name" type="string">
       <annotation>
         <documentation>Name of the property.</documentation>
@@ -277,6 +403,11 @@ This only applies to classes configured by `StatusConfiguration#setVerboseClasse
     </attribute>
   </complexType>
   <complexType name="org.apache.logging.log4j.core.filter.BurstFilter">
+    <annotation>
+      <documentation>The BurstFilter is a logging filter that regulates logging traffic.
+Use this filter when you want to control the mean rate and maximum burst of log statements that can be
+sent to an appender.</documentation>
+    </annotation>
     <attribute name="onMatch" type="log4j:org.apache.logging.log4j.core.Filter.Result">
       <annotation>
         <documentation>Action to perform if the filter matches.</documentation>
@@ -305,6 +436,24 @@ average rate.</documentation>
       </annotation>
     </attribute>
   </complexType>
+  <complexType name="org.apache.logging.log4j.core.layout.PatternLayout">
+    <annotation>
+      <documentation>A flexible layout configurable with pattern string.
+
+The goal of this class is to {@link org.apache.logging.log4j.core.Layout#toByteArray format} a
+{@link LogEvent} and return the results.
+The format of the result depends on the _conversion pattern_.
+
+The conversion pattern is closely related to the conversion pattern of the printf function in C.
+A conversion pattern is composed of literal text and format control expressions called _conversion
+specifiers_.</documentation>
+    </annotation>
+    <attribute name="pattern" type="string">
+      <annotation>
+        <documentation>The pattern to use to format log events.</documentation>
+      </annotation>
+    </attribute>
+  </complexType>
   <group name="org.apache.logging.log4j.core.Appender.group">
     <choice>
       <element name="Console" type="log4j:org.apache.logging.log4j.core.appender.ConsoleAppender"/>
@@ -316,12 +465,20 @@ average rate.</documentation>
     </choice>
   </group>
   <group name="org.apache.logging.log4j.core.Layout.group">
-    <choice></choice>
+    <choice>
+      <element name="PatternLayout" type="log4j:org.apache.logging.log4j.core.layout.PatternLayout"/>
+    </choice>
+  </group>
+  <group name="org.apache.logging.log4j.core.config.AppenderRef.group">
+    <choice>
+      <element name="AppenderRef" type="log4j:org.apache.logging.log4j.core.config.AppenderRef"/>
+      <element name="appender-ref" type="log4j:org.apache.logging.log4j.core.config.AppenderRef"/>
+    </choice>
   </group>
   <group name="org.apache.logging.log4j.core.config.LoggerConfig.group">
     <choice>
-      <element name="Root" type="log4j:org.apache.logging.log4j.core.config.LoggerConfig.RootLogger"/>
       <element name="Logger" type="log4j:org.apache.logging.log4j.core.config.LoggerConfig"/>
+      <element name="Root" type="log4j:org.apache.logging.log4j.core.config.LoggerConfig.RootLogger"/>
     </choice>
   </group>
 </schema>

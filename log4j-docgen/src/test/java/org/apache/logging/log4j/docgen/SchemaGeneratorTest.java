@@ -16,30 +16,51 @@
  */
 package org.apache.logging.log4j.docgen;
 
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+
 import java.io.IOException;
+import java.io.StringWriter;
+import java.net.URL;
 import java.nio.file.Files;
-import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Collections;
 import javax.xml.stream.XMLOutputFactory;
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamWriter;
+import javax.xml.transform.Source;
 import org.apache.logging.log4j.docgen.internal.DefaultSchemaGenerator;
 import org.apache.logging.log4j.docgen.model.PluginBundle;
 import org.apache.logging.log4j.docgen.model.io.stax.PluginBundleStaxReader;
 import org.junit.jupiter.api.Test;
+import org.xmlunit.assertj3.XmlAssert;
+import org.xmlunit.builder.Input;
 
 public class SchemaGeneratorTest {
 
     @Test
-    void schemaGeneration() throws XMLStreamException, IOException {
+    void schemaGeneration() throws Exception {
+        final URL xmlSchemaLocation = SchemaGenerator.class.getResource("/xsd/XMLSchema.xsd");
+        final Source xmlSchema = Input.fromURL(xmlSchemaLocation).build();
+        final URL expectedSchema = SchemaGenerator.class.getResource("/xsd/log4j.xsd");
+        final String actualSchema = assertDoesNotThrow(() -> generateSchema());
+        XmlAssert.assertThat(actualSchema)
+                .isValidAgainst(xmlSchema)
+                .and(expectedSchema)
+                .ignoreComments()
+                .ignoreWhitespace()
+                .areIdentical();
+    }
+
+    private static String generateSchema() throws XMLStreamException, IOException {
         final PluginBundleStaxReader reader = new PluginBundleStaxReader();
-        final PluginBundle bundle = reader.read(SchemaGeneratorTest.class.getResourceAsStream("/test-plugins.xml"));
+        final PluginBundle bundle =
+                reader.read(SchemaGeneratorTest.class.getResourceAsStream("/META-INF/log4j/plugins.xml"));
         final SchemaGenerator generator = new DefaultSchemaGenerator();
         final XMLOutputFactory factory = XMLOutputFactory.newInstance();
-        final Path actualSchema = Paths.get("target/test-classes/actual-log4j.xsd");
-        final XMLStreamWriter writer = factory.createXMLStreamWriter(Files.newOutputStream(actualSchema));
-        generator.generateSchema(Collections.singleton(bundle), writer);
-        writer.close();
+        final StringWriter writer = new StringWriter();
+        final XMLStreamWriter xmlWriter = factory.createXMLStreamWriter(writer);
+        generator.generateSchema(Collections.singleton(bundle), xmlWriter);
+        xmlWriter.close();
+        return writer.toString();
     }
 }

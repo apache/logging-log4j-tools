@@ -205,6 +205,22 @@
         <!-- Additional plugins -->
         <plugin name="AppenderRef" namespace="Core" className="org.apache.logging.log4j.core.config.AppenderRef">
             <description>Reference to an appender defined in the `Appenders` section.</description>
+            <keys>
+                <key>appender-ref</key>
+            </keys>
+            <attributes>
+                <attribute name="ref" required="true">
+                    <description>The name of an appender.</description>
+                </attribute>
+                <attribute name="level" type="org.apache.logging.log4j.Level">
+                    <description>The level to filter against.</description>
+                </attribute>
+            </attributes>
+            <elements>
+                <element type="org.apache.logging.log4j.core.Filter">
+                    <description>The filter to use.</description>
+                </element>
+            </elements>
         </plugin>
 
         <plugin name="BurstFilter" namespace="Core" className="org.apache.logging.log4j.core.filter.BurstFilter">
@@ -243,6 +259,28 @@
                         Sets the maximum number of events that can occur before events are filtered for exceeding the
                         average rate.
                     </description>
+                </attribute>
+            </attributes>
+        </plugin>
+
+        <plugin name="PatternLayout" namespace="Core" className="org.apache.logging.log4j.core.layout.PatternLayout">
+            <description>
+                A flexible layout configurable with pattern string.
+
+                The goal of this class is to {@link org.apache.logging.log4j.core.Layout#toByteArray format} a
+                {@link LogEvent} and return the results.
+                The format of the result depends on the _conversion pattern_.
+
+                The conversion pattern is closely related to the conversion pattern of the printf function in C.
+                A conversion pattern is composed of literal text and format control expressions called _conversion
+                specifiers_.
+            </description>
+            <supertypes>
+                <supertype>org.apache.logging.log4j.core.Layout</supertype>
+            </supertypes>
+            <attributes>
+                <attribute name="pattern" defaultValue="%m%n">
+                    <description>The pattern to use to format log events.</description>
                 </attribute>
             </attributes>
         </plugin>

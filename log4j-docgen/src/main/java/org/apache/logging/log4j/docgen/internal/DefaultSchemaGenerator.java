@@ -16,7 +16,6 @@
  */
 package org.apache.logging.log4j.docgen.internal;
 
-import com.sun.xml.txw2.output.IndentingXMLStreamWriter;
 import java.io.IOException;
 import java.util.Collection;
 import java.util.Collections;
@@ -28,6 +27,7 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.TreeMap;
 import java.util.TreeSet;
+import javax.xml.XMLConstants;
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamWriter;
 import org.apache.logging.log4j.docgen.SchemaGenerator;
@@ -45,7 +45,7 @@ public class DefaultSchemaGenerator implements SchemaGenerator {
     private static final String PLUGIN_NAMESPACE = "Core";
     private static final String LOG4J_PREFIX = "log4j";
     private static final String LOG4J_NAMESPACE = "http://logging.apache.org/log4j/2.0/config";
-    private static final String XSD_NAMESPACE = "http://www.w3.org/2001/XMLSchema";
+    private static final String XSD_NAMESPACE = XMLConstants.W3C_XML_SCHEMA_NS_URI;
     private static final String MULTIPLICITY_UNBOUNDED = "*";
 
     @Override
@@ -56,7 +56,7 @@ public class DefaultSchemaGenerator implements SchemaGenerator {
             final Set<PluginBundle> extendedBundles = new HashSet<>(bundles);
             extendedBundles.add(configurationBundle);
             final TypeLookup lookup = new TypeLookup(extendedBundles);
-            writeSchema(lookup, new IndentingXMLStreamWriter(writer));
+            writeSchema(lookup, writer);
         } catch (IOException e) {
             throw new XMLStreamException(e);
         }
@@ -100,6 +100,8 @@ public class DefaultSchemaGenerator implements SchemaGenerator {
         writer.writeStartElement(XSD_NAMESPACE, "complexType");
         writer.writeAttribute("name", entry.getClassName());
 
+        writeDocumentation(entry.getDescription(), writer);
+
         final boolean hasSimpleContent = entry.getElements().isEmpty();
 
         if (!hasSimpleContent) {
@@ -132,8 +134,10 @@ public class DefaultSchemaGenerator implements SchemaGenerator {
             writeMultiplicity(element.isRequired(), element.getMultiplicity(), writer);
             writeDocumentation(element.getDescription(), writer);
             writer.writeEndElement();
-        } else
-            for (final String key : entry.getKeys()) {
+        } else {
+            final Set<String> actualKeys = new TreeSet<>(entry.getKeys());
+            actualKeys.add(entry.getName());
+            for (final String key : actualKeys) {
                 writer.writeStartElement(XSD_NAMESPACE, "element");
                 writer.writeAttribute("name", key);
                 writer.writeAttribute("type", xmlType);
@@ -141,6 +145,7 @@ public class DefaultSchemaGenerator implements SchemaGenerator {
                 writeDocumentation(element.getDescription(), writer);
                 writer.writeEndElement();
             }
+        }
     }
 
     private void writeMultiplicity(final boolean required, final String multiplicity, final XMLStreamWriter writer)
@@ -216,7 +221,7 @@ public class DefaultSchemaGenerator implements SchemaGenerator {
         writer.writeStartElement(XSD_NAMESPACE, "choice");
 
         for (final PluginEntry entry : entries) {
-            final Set<String> actualKeys = new HashSet<>(entry.getKeys());
+            final Set<String> actualKeys = new TreeSet<>(entry.getKeys());
             actualKeys.add(entry.getName());
             for (final String key : actualKeys) {
                 writer.writeEmptyElement(XSD_NAMESPACE, "element");
@@ -232,6 +237,8 @@ public class DefaultSchemaGenerator implements SchemaGenerator {
     private void writeEnumType(final EnumType type, final XMLStreamWriter writer) throws XMLStreamException {
         writer.writeStartElement(XSD_NAMESPACE, "simpleType");
         writer.writeAttribute("name", type.getClassName());
+
+        writeDocumentation(type.getDescription(), writer);
 
         writer.writeStartElement(XSD_NAMESPACE, "restriction");
         writer.writeAttribute("base", "string");
@@ -267,7 +274,8 @@ public class DefaultSchemaGenerator implements SchemaGenerator {
                     if (PLUGIN_NAMESPACE.equals(entry.getNamespace())) {
                         pluginsByName.put(entry.getClassName(), entry);
                         entry.getSupertypes().forEach(type -> pluginsByGroup
-                                .computeIfAbsent(type, ignored -> new HashSet<>())
+                                .computeIfAbsent(
+                                        type, ignored -> new TreeSet<>(Comparator.comparing(PluginEntry::getName)))
                                 .add(entry));
                     }
                 });
@@ -322,15 +330,18 @@ public class DefaultSchemaGenerator implements SchemaGenerator {
                 return LOG4J_PREFIX + ":" + javaType;
             }
             if (!simple) {
-                final Set<PluginEntry> group = pluginsByGroup.get(javaType);
                 final PluginEntry entry = pluginsByName.get(javaType);
-                if (group == null && entry != null && entry.getKeys().isEmpty()) {
+                if (pluginsByGroup.get(javaType) == null
+                        && entry != null
+                        && entry.getKeys().isEmpty()) {
                     return LOG4J_PREFIX + ":" + javaType;
                 }
                 requiredGroups.add(javaType);
                 // Add also the base class to the group
                 if (entry != null) {
-                    group.add(entry);
+                    pluginsByGroup
+                            .computeIfAbsent(javaType, ignored -> new HashSet<>())
+                            .add(entry);
                 }
                 return LOG4J_PREFIX + ":" + javaType + ".group";
             }
