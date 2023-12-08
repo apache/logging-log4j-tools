@@ -37,6 +37,7 @@
     <freemarker.version>2.3.32</freemarker.version>
     <junit.version>5.10.1</junit.version>
     <modello.version>2.1.2</modello.version>
+    <xmlunit.version>2.9.1</xmlunit.version>
 
     <!-- Maven plugin versions -->
     <maven-plugin.version>3.10.2</maven-plugin.version>
@@ -86,6 +87,12 @@
         <artifactId>maven-plugin-api</artifactId>
         <version>${maven-plugin-api.version}</version>
         <scope>provided</scope>
+      </dependency>
+
+      <dependency>
+        <groupId>org.xmlunit</groupId>
+        <artifactId>xmlunit-assertj3</artifactId>
+        <version>${xmlunit.version}</version>
       </dependency>
 
     </dependencies>
