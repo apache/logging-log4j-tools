@@ -21,8 +21,6 @@ import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import java.io.IOException;
 import java.io.StringWriter;
 import java.net.URL;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.Collections;
 import javax.xml.stream.XMLOutputFactory;
 import javax.xml.stream.XMLStreamException;
@@ -39,8 +37,8 @@ public class SchemaGeneratorTest {
 
     @Test
     void schemaGeneration() throws Exception {
-        final URL xmlSchemaLocation = SchemaGenerator.class.getResource("/xsd/XMLSchema.xsd");
-        final Source xmlSchema = Input.fromURL(xmlSchemaLocation).build();
+        final Source xmlSchema =
+                Input.fromURI("https://www.w3.org/2001/XMLSchema.xsd").build();
         final URL expectedSchema = SchemaGenerator.class.getResource("/xsd/log4j.xsd");
         final String actualSchema = assertDoesNotThrow(() -> generateSchema());
         XmlAssert.assertThat(actualSchema)
