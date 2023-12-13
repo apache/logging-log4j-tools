@@ -48,6 +48,11 @@ public final class ChangelogReleaser {
                     ChangelogFiles.unreleasedDirectory(args.changelogDirectory, args.releaseVersionMajor);
             final Path releaseDirectory = ChangelogFiles.releaseDirectory(args.changelogDirectory, args.releaseVersion);
 
+            // Short-circuit if there is nothing to be released
+            if (!Files.exists(unreleasedDirectory)) {
+                return;
+            }
+
             // Populate the release changelog files
             populateReleaseChangelogEntryFiles(unreleasedDirectory, releaseDirectory);
             populateReleaseXmlFiles(releaseDate, args.releaseVersion, releaseDirectory);

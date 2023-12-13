@@ -46,3 +46,9 @@ This minor release contains various bug fixes and improvements.
 
 * Update `commons-io:commons-io` to version `2.15.1` (https://github.com/apache/logging-log4j-tools/pull/86[86])
 * Update `org.apache.maven.plugin-tools:maven-plugin-annotations` to version `3.10.2` (https://github.com/apache/logging-log4j-tools/pull/87[87])
+
+[#release-notes-0-x-x-fixed]
+==== Fixed
+
+* Fix `log4j-changelog:release` failure on empty unreleased changelog directory (https://github.com/apache/logging-log4j-tools/issues/90[90])
+* Fix parsing of patch versions in `log4j-changelog:release` goal (https://github.com/apache/logging-log4j-tools/issues/89[89])
