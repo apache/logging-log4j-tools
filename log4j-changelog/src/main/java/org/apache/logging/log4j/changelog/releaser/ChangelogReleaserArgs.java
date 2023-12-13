@@ -26,8 +26,7 @@ import java.util.regex.Pattern;
 @SuppressFBWarnings("REDOS")
 public final class ChangelogReleaserArgs {
 
-    static final Pattern DEFAULT_VERSION_PATTERN = Pattern.compile("^(?<major>0|[1-9]\\d*)\\."
-            + "(?<minor>0|[1-9]\\d*)\\." + "(?<patch>0|[1-9]\\d*(-[a-zA-Z][0-9a-zA-Z-]*)?)$");
+    static final Pattern DEFAULT_VERSION_PATTERN = createDefaultVersionPattern();
 
     final Path changelogDirectory;
 
@@ -36,6 +35,14 @@ public final class ChangelogReleaserArgs {
     final int releaseVersionMajor;
 
     final LocalDate releaseDate;
+
+    private static Pattern createDefaultVersionPattern() {
+        final String majorPattern = "(?<minor>0|[1-9]\\d*)";
+        final String minorPattern = "(?<major>0|[1-9]\\d*)";
+        final String patchPattern = "(?<patch>(0|[1-9]\\d*)(-[a-zA-Z][0-9a-zA-Z-]*)?)";
+        final String pattern = String.format("^%s\\.%s\\.%s$", minorPattern, majorPattern, patchPattern);
+        return Pattern.compile(pattern);
+    }
 
     public ChangelogReleaserArgs(
             final Path changelogDirectory,

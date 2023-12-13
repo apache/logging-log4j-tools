@@ -29,8 +29,11 @@ class ChangelogReleaserArgsTest {
     @CsvSource({
         "0.0.1,0,0,1",
         "0.1.0,0,1,0",
+        "1.2.0-alpha1,1,2,0-alpha1",
         "1.2.3-alpha1,1,2,3-alpha1",
+        "1.2.0-beta1,1,2,0-beta1",
         "1.2.3-beta1,1,2,3-beta1",
+        "1.2.0-rc1,1,2,0-rc1",
         "1.2.3-rc1,1,2,3-rc1",
         "1.2.3-SNAPSHOT,1,2,3-SNAPSHOT"
     })
