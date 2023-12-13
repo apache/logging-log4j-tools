@@ -28,7 +28,7 @@ final class XmlUtils {
 
     static final String XML_NAMESPACE = "http://logging.apache.org/log4j/changelog";
 
-    static final String XML_SCHEMA_LOCATION = "https://logging.apache.org/log4j/changelog-0.1.2.xsd";
+    static final String XML_SCHEMA_LOCATION = "https://logging.apache.org/log4j/changelog-0.1.3.xsd";
 
     private XmlUtils() {}
 

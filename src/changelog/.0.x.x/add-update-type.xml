@@ -18,7 +18,6 @@
 <entry xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns="http://logging.apache.org/log4j/changelog"
        xsi:schemaLocation="http://logging.apache.org/log4j/changelog https://logging.apache.org/log4j/changelog-0.1.3.xsd"
-       type="fixed">
-  <issue id="90" link="https://github.com/apache/logging-log4j-tools/issues/90"/>
-  <description format="asciidoc">Fix `log4j-changelog:release` failure on empty unreleased changelog directory</description>
+       type="added">
+  <description format="asciidoc">Add the new `updated` changelog entry type and bump the XSD version to `0.1.3`</description>
 </entry>

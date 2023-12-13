@@ -43,9 +43,11 @@ public final class ChangelogEntry {
 
         DEPRECATED,
 
+        FIXED,
+
         REMOVED,
 
-        FIXED;
+        UPDATED;
 
         private String toXmlAttribute() {
             return toString().toLowerCase(Locale.US);

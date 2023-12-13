@@ -19,6 +19,5 @@
        xmlns="http://logging.apache.org/log4j/changelog"
        xsi:schemaLocation="http://logging.apache.org/log4j/changelog https://logging.apache.org/log4j/changelog-0.1.3.xsd"
        type="fixed">
-  <issue id="90" link="https://github.com/apache/logging-log4j-tools/issues/90"/>
-  <description format="asciidoc">Fix `log4j-changelog:release` failure on empty unreleased changelog directory</description>
+  <description format="asciidoc">Sort changelog entry types alphanumerically</description>
 </entry>

@@ -41,6 +41,11 @@
 This minor release contains various bug fixes and improvements.
 
 
+[#release-notes-0-x-x-added]
+==== Added
+
+* Add the new `updated` changelog entry type and bump the XSD version to `0.1.3`
+
 [#release-notes-0-x-x-changed]
 ==== Changed
 
@@ -50,5 +55,6 @@ This minor release contains various bug fixes and improvements.
 [#release-notes-0-x-x-fixed]
 ==== Fixed
 
+* Sort changelog entry types alphanumerically
 * Fix `log4j-changelog:release` failure on empty unreleased changelog directory (https://github.com/apache/logging-log4j-tools/issues/90[90])
 * Fix parsing of patch versions in `log4j-changelog:release` goal (https://github.com/apache/logging-log4j-tools/issues/89[89])
