@@ -17,11 +17,11 @@
 package org.apache.logging.log4j.docgen.internal;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.HashMap;
-import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
@@ -57,7 +57,7 @@ public class DefaultSchemaGenerator implements SchemaGenerator {
         try {
             final PluginSet configurationBundle =
                     new PluginBundleStaxReader().read(getClass().getResourceAsStream("configuration.xml"));
-            final Set<PluginSet> extendedBundles = new HashSet<>(bundles);
+            final List<PluginSet> extendedBundles = new ArrayList<>(bundles);
             extendedBundles.add(configurationBundle);
             final TypeLookup lookup = new TypeLookup(extendedBundles);
             writeSchema(lookup, writer);
@@ -259,9 +259,9 @@ public class DefaultSchemaGenerator implements SchemaGenerator {
 
     private static final class TypeLookup {
 
-        private final Map<String, EnumType> enumByName = new HashMap<>();
+        private final Map<String, EnumType> enumByName = new TreeMap<>();
         private final Map<String, PluginEntry> pluginsByName = new TreeMap<>();
-        private final Map<String, Set<PluginEntry>> pluginsByGroup = new HashMap<>();
+        private final Map<String, Set<PluginEntry>> pluginsByGroup = new TreeMap<>();
         private final Set<EnumType> requiredEnums = new TreeSet<>(Comparator.comparing(EnumType::getClassName));
         private final Set<String> requiredGroups = new TreeSet<>();
 
@@ -271,8 +271,7 @@ public class DefaultSchemaGenerator implements SchemaGenerator {
                     if (PLUGIN_NAMESPACE.equals(entry.getNamespace())) {
                         pluginsByName.put(entry.getClassName(), entry);
                         entry.getSupertypes().forEach(type -> pluginsByGroup
-                                .computeIfAbsent(
-                                        type, ignored -> new TreeSet<>(Comparator.comparing(PluginEntry::getName)))
+                                .computeIfAbsent(type, TypeLookup::createPluginEntrySet)
                                 .add(entry));
                     }
                 });
@@ -280,6 +279,10 @@ public class DefaultSchemaGenerator implements SchemaGenerator {
             });
             // Validates the required types.
             validateTypes();
+        }
+
+        private static Set<PluginEntry> createPluginEntrySet(final String ignored) {
+            return new TreeSet<>(Comparator.comparing(PluginEntry::getName));
         }
 
         private void validateTypes() {
@@ -337,7 +340,7 @@ public class DefaultSchemaGenerator implements SchemaGenerator {
                 // Add also the base class to the group
                 if (entry != null) {
                     pluginsByGroup
-                            .computeIfAbsent(javaType, ignored -> new HashSet<>())
+                            .computeIfAbsent(javaType, TypeLookup::createPluginEntrySet)
                             .add(entry);
                 }
                 return LOG4J_PREFIX + ":" + javaType + ".group";
