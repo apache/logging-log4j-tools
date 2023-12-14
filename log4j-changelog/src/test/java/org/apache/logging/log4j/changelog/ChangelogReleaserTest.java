@@ -25,6 +25,7 @@ import java.nio.file.Paths;
 import java.time.LocalDate;
 import org.apache.logging.log4j.changelog.releaser.ChangelogReleaser;
 import org.apache.logging.log4j.changelog.releaser.ChangelogReleaserArgs;
+import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.CleanupMode;
 import org.junit.jupiter.api.io.TempDir;
@@ -32,16 +33,30 @@ import org.junit.jupiter.api.io.TempDir;
 class ChangelogReleaserTest {
 
     @Test
-    void first_time_release_output_should_match(
-            @TempDir(cleanup = CleanupMode.ON_SUCCESS) final Path changelogDirectory) throws Exception {
+    @Order(1)
+    void _1st_time_release_output_should_match(@TempDir(cleanup = CleanupMode.ON_SUCCESS) final Path changelogDirectory)
+            throws Exception {
         verifyReleaseOutput(changelogDirectory, "src/test/resources/3-enriched", "src/test/resources/5-released");
     }
 
     @Test
-    void second_time_release_output_should_match(
-            @TempDir(cleanup = CleanupMode.ON_SUCCESS) final Path changelogDirectory) throws Exception {
+    @Order(2)
+    void _2nd_time_release_output_should_match(@TempDir(cleanup = CleanupMode.ON_SUCCESS) final Path changelogDirectory)
+            throws Exception {
         verifyReleaseOutput(
                 changelogDirectory, "src/test/resources/6-enriched-again", "src/test/resources/7-released-again");
+    }
+
+    @Test
+    @Order(3)
+    void _3rd_time_release_without_unreleased_directories_should_match(
+            @TempDir(cleanup = CleanupMode.ON_SUCCESS) final Path changelogDirectory) throws Exception {
+        // We verify the `8-no-unreleased-directories` directory against itself.
+        // This is valid, since we indeed expect no changes due to missing `.2.x.x`, etc. (i.e., unreleased) folders.
+        verifyReleaseOutput(
+                changelogDirectory,
+                "src/test/resources/8-no-unreleased-directories",
+                "src/test/resources/8-no-unreleased-directories");
     }
 
     private static void verifyReleaseOutput(

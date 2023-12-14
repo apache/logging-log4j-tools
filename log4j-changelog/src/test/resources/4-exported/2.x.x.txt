@@ -13,3 +13,7 @@ Changes staged for the next 2.x.x version that is yet to be released.
 
 * Make `StatusConsoleListener` use `SimpleLogger` internally (https://issues.apache.org/jira/browse/LOG4J2-3584[LOG4J2-3584])
 * Harden `InstantFormatter` against delegate failures (https://issues.apache.org/jira/browse/LOG4J2-3614[LOG4J2-3614])
+
+--- Updated
+
+* Testing `updated` type
