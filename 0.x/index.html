@@ -562,6 +562,7 @@ table.CodeRay td.code{padding:0 0 0 .75em}
 <li><a href="#security">Security</a></li>
 <li><a href="#release-notes">Release Notes</a>
 <ul class="sectlevel2">
+<li><a href="#release-notes-0-7-0">0.7.0</a></li>
 <li><a href="#release-notes-0-6-0">0.6.0</a></li>
 <li><a href="#release-notes-0-5-0">0.5.0</a></li>
 <li><a href="#release-notes-0-4-0">0.4.0</a></li>
@@ -600,7 +601,7 @@ It is designed for Apache Log4j, but can be used for any Java project.</p>
 <pre class="CodeRay highlight"><code data-lang="xml"><span class="tag">&lt;dependency&gt;</span>
   <span class="tag">&lt;groupId&gt;</span>org.apache.logging.log4j<span class="tag">&lt;/groupId&gt;</span>
   <span class="tag">&lt;artifactId&gt;</span>log4j-changelog<span class="tag">&lt;/artifactId&gt;</span>
-  <span class="tag">&lt;version&gt;</span>0.6.0<span class="tag">&lt;/version&gt;</span>
+  <span class="tag">&lt;version&gt;</span>0.7.0<span class="tag">&lt;/version&gt;</span>
 <span class="tag">&lt;/dependency&gt;</span></code></pre>
 </div>
 </div>
@@ -696,7 +697,7 @@ A sample <em>release entry</em> file is shared below.</p>
          <span class="attribute-name">xmlns:xsi</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">http://www.w3.org/2001/XMLSchema-instance</span><span class="delimiter">&quot;</span></span>
          <span class="attribute-name">xsi:schemaLocation</span>=<span class="string"><span class="delimiter">&quot;</span>
              <span class="content">http://logging.apache.org/log4j/changelog</span>
-             <span class="content">https://logging.apache.org/log4j/changelog-0.1.2.xsd</span><span class="delimiter">&quot;</span></span>
+             <span class="content">https://logging.apache.org/log4j/changelog-0.1.3.xsd</span><span class="delimiter">&quot;</span></span>
          <span class="attribute-name">date</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">2022-09-09</span><span class="delimiter">&quot;</span></span>
          <span class="attribute-name">version</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">2.19.0</span><span class="delimiter">&quot;</span></span><span class="tag">/&gt;</span></code></pre>
 </div>
@@ -735,7 +736,7 @@ Consider the following examples:</p>
        <span class="attribute-name">xmlns:xsi</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">http://www.w3.org/2001/XMLSchema-instance</span><span class="delimiter">&quot;</span></span>
        <span class="attribute-name">xsi:schemaLocation</span>=<span class="string"><span class="delimiter">&quot;</span>
            <span class="content">http://logging.apache.org/log4j/changelog</span>
-           <span class="content">https://logging.apache.org/log4j/changelog-0.1.2.xsd</span><span class="delimiter">&quot;</span></span>
+           <span class="content">https://logging.apache.org/log4j/changelog-0.1.3.xsd</span><span class="delimiter">&quot;</span></span>
        <span class="attribute-name">type</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">fixed</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span>
   <span class="tag">&lt;issue</span> <span class="attribute-name">id</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">LOG4J2-3556</span><span class="delimiter">&quot;</span></span> <span class="attribute-name">link</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">https://issues.apache.org/jira/browse/LOG4J2-3556</span><span class="delimiter">&quot;</span></span><span class="tag">/&gt;</span>
   <span class="tag">&lt;author</span> <span class="attribute-name">id</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">github:vy</span><span class="delimiter">&quot;</span></span><span class="tag">/&gt;</span>
@@ -768,10 +769,13 @@ Consider the following examples:</p>
 <p><code>deprecated</code> – for soon-to-be removed features</p>
 </li>
 <li>
+<p><code>fixed</code> – for any bug fixes</p>
+</li>
+<li>
 <p><code>removed</code> – for now removed features</p>
 </li>
 <li>
-<p><code>fixed</code> – for any bug fixes</p>
+<p><code>updated</code> – for dependency updates</p>
 </li>
 </ul>
 </div>
@@ -1027,7 +1031,7 @@ This allows one to run <code>ChangelogReleaser</code> multiple times, e.g., to i
 <pre class="CodeRay highlight"><code data-lang="xml"><span class="tag">&lt;plugin&gt;</span>
   <span class="tag">&lt;groupId&gt;</span>org.apache.logging.log4j<span class="tag">&lt;/groupId&gt;</span>
   <span class="tag">&lt;artifactId&gt;</span>log4j-changelog-maven-plugin<span class="tag">&lt;/artifactId&gt;</span>
-  <span class="tag">&lt;version&gt;</span>0.6.0<span class="tag">&lt;/version&gt;</span>
+  <span class="tag">&lt;version&gt;</span>0.7.0<span class="tag">&lt;/version&gt;</span>
 <span class="tag">&lt;/plugin&gt;</span></code></pre>
 </div>
 </div>
@@ -1065,7 +1069,7 @@ These are generally used to generate the index page referencing to release notes
 <span class="tag">&lt;plugin&gt;</span>
   <span class="tag">&lt;groupId&gt;</span>org.apache.logging.log4j<span class="tag">&lt;/groupId&gt;</span>
   <span class="tag">&lt;artifactId&gt;</span>log4j-changelog-maven-plugin<span class="tag">&lt;/artifactId&gt;</span>
-  <span class="tag">&lt;version&gt;</span>0.6.0<span class="tag">&lt;/version&gt;</span>
+  <span class="tag">&lt;version&gt;</span>0.7.0<span class="tag">&lt;/version&gt;</span>
   <span class="tag">&lt;inherited&gt;</span>false<span class="tag">&lt;/inherited&gt;</span>
   <span class="tag">&lt;configuration&gt;</span>
     <span class="tag">&lt;indexTemplates&gt;</span>
@@ -1254,7 +1258,7 @@ As a result, you don&#8217;t have to specify versions of the imported modules (<
     &lt;dependency&gt;
       &lt;groupId&gt;org.apache.logging.log4j&lt;/groupId&gt;
       &lt;artifactId&gt;log4j-tools-bom&lt;/artifactId&gt;
-      &lt;version&gt;0.6.0&lt;/version&gt;
+      &lt;version&gt;0.7.0&lt;/version&gt;
       &lt;scope&gt;import&lt;/scope&gt;
       &lt;type&gt;pom&lt;/type&gt;
     &lt;/dependency&gt;
@@ -1294,6 +1298,59 @@ See <a href="https://logging.apache.org/log4j/2.x/security.html">the Log4j Secur
 <div class="sect1">
 <h2 id="release-notes">Release Notes</h2>
 <div class="sectionbody">
+<div class="sect2">
+<h3 id="release-notes-0-7-0">0.7.0</h3>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">Release date</dt>
+<dd>
+<p>2023-12-14</p>
+</dd>
+</dl>
+</div>
+<div class="paragraph">
+<p>This minor release contains various bug fixes and improvements.</p>
+</div>
+<div class="sect3">
+<h4 id="release-notes-0-7-0-added">Added</h4>
+<div class="ulist">
+<ul>
+<li>
+<p>Add the new <code>updated</code> changelog entry type and bump the XSD version to <code>0.1.3</code></p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="release-notes-0-7-0-changed">Changed</h4>
+<div class="ulist">
+<ul>
+<li>
+<p>Update <code>commons-io:commons-io</code> to version <code>2.15.1</code> (<a href="https://github.com/apache/logging-log4j-tools/pull/86">86</a>)</p>
+</li>
+<li>
+<p>Update <code>org.apache.maven.plugin-tools:maven-plugin-annotations</code> to version <code>3.10.2</code> (<a href="https://github.com/apache/logging-log4j-tools/pull/87">87</a>)</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="release-notes-0-7-0-fixed">Fixed</h4>
+<div class="ulist">
+<ul>
+<li>
+<p>Sort changelog entry types alphanumerically</p>
+</li>
+<li>
+<p>Fix <code>log4j-changelog:release</code> failure on empty unreleased changelog directory (<a href="https://github.com/apache/logging-log4j-tools/issues/90">90</a>)</p>
+</li>
+<li>
+<p>Fix parsing of patch versions in <code>log4j-changelog:release</code> goal (<a href="https://github.com/apache/logging-log4j-tools/issues/89">89</a>)</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
 <div class="sect2">
 <h3 id="release-notes-0-6-0">0.6.0</h3>
 <div class="dlist">
@@ -1582,7 +1639,7 @@ See the License for the specific language governing permissions and limitations 
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2023-11-17 08:58:48 UTC
+Last updated 2023-12-14 11:03:04 UTC
 </div>
 </div>
 </body>
