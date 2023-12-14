@@ -27,6 +27,7 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.TreeMap;
 import java.util.TreeSet;
+import java.util.regex.Pattern;
 import javax.inject.Named;
 import javax.inject.Singleton;
 import javax.xml.XMLConstants;
@@ -51,6 +52,7 @@ public class DefaultSchemaGenerator implements SchemaGenerator {
     private static final String LOG4J_NAMESPACE = "http://logging.apache.org/log4j/2.0/config";
     private static final String XSD_NAMESPACE = XMLConstants.W3C_XML_SCHEMA_NS_URI;
     private static final String MULTIPLICITY_UNBOUNDED = "*";
+    private static final Pattern EOL_PATTERN = Pattern.compile("\r?\n");
 
     @Override
     public void generateSchema(Collection<PluginSet> bundles, XMLStreamWriter writer) throws XMLStreamException {
@@ -66,7 +68,7 @@ public class DefaultSchemaGenerator implements SchemaGenerator {
         }
     }
 
-    private void writeSchema(final TypeLookup lookup, final XMLStreamWriter writer) throws XMLStreamException {
+    private static void writeSchema(final TypeLookup lookup, final XMLStreamWriter writer) throws XMLStreamException {
         writer.writeStartDocument("UTF-8", "1.0");
         writer.setDefaultNamespace(XSD_NAMESPACE);
         writer.writeStartElement(XSD_NAMESPACE, "schema");
@@ -93,22 +95,23 @@ public class DefaultSchemaGenerator implements SchemaGenerator {
         writer.writeEndDocument();
     }
 
-    private void writePluginEntries(final TypeLookup lookup, final XMLStreamWriter writer) throws XMLStreamException {
+    private static void writePluginEntries(final TypeLookup lookup, final XMLStreamWriter writer)
+            throws XMLStreamException {
         for (final PluginEntry entry : lookup.getPlugins()) {
             writePluginEntry(lookup, entry, writer);
         }
     }
 
-    private void writePluginEntry(final TypeLookup lookup, final PluginEntry entry, final XMLStreamWriter writer)
+    private static void writePluginEntry(final TypeLookup lookup, final PluginEntry entry, final XMLStreamWriter writer)
             throws XMLStreamException {
         writer.writeStartElement(XSD_NAMESPACE, "complexType");
         writer.writeAttribute("name", entry.getClassName());
 
         writeDocumentation(entry.getDescription(), writer);
 
-        final boolean hasSimpleContent = entry.getElements().isEmpty();
+        final boolean hasComplexContent = !entry.getElements().isEmpty();
 
-        if (!hasSimpleContent) {
+        if (hasComplexContent) {
             writer.writeStartElement(XSD_NAMESPACE, "sequence");
             for (final PluginElement element : entry.getElements()) {
                 writePluginElement(lookup, element, writer);
@@ -123,7 +126,8 @@ public class DefaultSchemaGenerator implements SchemaGenerator {
         writer.writeEndElement();
     }
 
-    private void writePluginElement(final TypeLookup lookup, final PluginElement element, final XMLStreamWriter writer)
+    private static void writePluginElement(
+            final TypeLookup lookup, final PluginElement element, final XMLStreamWriter writer)
             throws XMLStreamException {
         final String type = element.getType();
         final String xmlType = lookup.getXmlType(type, false);
@@ -139,7 +143,7 @@ public class DefaultSchemaGenerator implements SchemaGenerator {
             writeDocumentation(element.getDescription(), writer);
             writer.writeEndElement();
         } else {
-            final Set<String> keys = new TreeSet<>(entry.getAliases());
+            final Collection<String> keys = new TreeSet<>(entry.getAliases());
             keys.add(entry.getName());
             for (final String key : keys) {
                 writer.writeStartElement(XSD_NAMESPACE, "element");
@@ -152,8 +156,8 @@ public class DefaultSchemaGenerator implements SchemaGenerator {
         }
     }
 
-    private void writeMultiplicity(final boolean required, final String multiplicity, final XMLStreamWriter writer)
-            throws XMLStreamException {
+    private static void writeMultiplicity(
+            final boolean required, final String multiplicity, final XMLStreamWriter writer) throws XMLStreamException {
         if (!required) {
             writer.writeAttribute("minOccurs", "0");
         }
@@ -162,7 +166,7 @@ public class DefaultSchemaGenerator implements SchemaGenerator {
         }
     }
 
-    private void writePluginAttribute(
+    private static void writePluginAttribute(
             final TypeLookup lookup, final PluginAttribute attribute, final XMLStreamWriter writer)
             throws XMLStreamException {
         writer.writeStartElement(XSD_NAMESPACE, "attribute");
@@ -175,7 +179,7 @@ public class DefaultSchemaGenerator implements SchemaGenerator {
         writer.writeEndElement();
     }
 
-    private void writeDocumentation(final Description description, final XMLStreamWriter writer)
+    private static void writeDocumentation(final Description description, final XMLStreamWriter writer)
             throws XMLStreamException {
         writer.writeStartElement(XSD_NAMESPACE, "annotation");
         writer.writeStartElement(XSD_NAMESPACE, "documentation");
@@ -184,9 +188,9 @@ public class DefaultSchemaGenerator implements SchemaGenerator {
         writer.writeEndElement();
     }
 
-    private String normalizeAsciidoc(final String text) {
+    private static String normalizeAsciidoc(final CharSequence text) {
         final StringBuilder sb = new StringBuilder();
-        for (final String line : text.split("\r?\n", -1)) {
+        for (final String line : EOL_PATTERN.split(text, -1)) {
             sb.append(line.trim()).append('\n');
         }
         final int length = sb.length();
@@ -196,14 +200,15 @@ public class DefaultSchemaGenerator implements SchemaGenerator {
         return sb.toString();
     }
 
-    private void writeEnumTypes(final Collection<EnumType> types, final XMLStreamWriter writer)
+    private static void writeEnumTypes(final Iterable<EnumType> types, final XMLStreamWriter writer)
             throws XMLStreamException {
         for (final EnumType type : types) {
             writeEnumType(type, writer);
         }
     }
 
-    private void writeGroups(final TypeLookup lookup, final Collection<String> groups, final XMLStreamWriter writer)
+    private static void writeGroups(
+            final TypeLookup lookup, final Iterable<String> groups, final XMLStreamWriter writer)
             throws XMLStreamException {
         for (final String group : groups) {
             writeGroup(
@@ -211,14 +216,15 @@ public class DefaultSchemaGenerator implements SchemaGenerator {
         }
     }
 
-    private void writeGroup(final String groups, final Collection<PluginEntry> entries, final XMLStreamWriter writer)
+    private static void writeGroup(
+            final String groups, final Iterable<PluginEntry> entries, final XMLStreamWriter writer)
             throws XMLStreamException {
         writer.writeStartElement(XSD_NAMESPACE, "group");
         writer.writeAttribute("name", groups + ".group");
         writer.writeStartElement(XSD_NAMESPACE, "choice");
 
         for (final PluginEntry entry : entries) {
-            final Set<String> keys = new TreeSet<>(entry.getAliases());
+            final Collection<String> keys = new TreeSet<>(entry.getAliases());
             keys.add(entry.getName());
             for (final String key : keys) {
                 writer.writeEmptyElement(XSD_NAMESPACE, "element");
@@ -231,7 +237,7 @@ public class DefaultSchemaGenerator implements SchemaGenerator {
         writer.writeEndElement();
     }
 
-    private void writeEnumType(final EnumType type, final XMLStreamWriter writer) throws XMLStreamException {
+    private static void writeEnumType(final EnumType type, final XMLStreamWriter writer) throws XMLStreamException {
         writer.writeStartElement(XSD_NAMESPACE, "simpleType");
         writer.writeAttribute("name", type.getClassName());
 
@@ -248,7 +254,7 @@ public class DefaultSchemaGenerator implements SchemaGenerator {
         writer.writeEndElement();
     }
 
-    private void writeEnumValue(final EnumValue value, final XMLStreamWriter writer) throws XMLStreamException {
+    private static void writeEnumValue(final EnumValue value, final XMLStreamWriter writer) throws XMLStreamException {
         writer.writeStartElement(XSD_NAMESPACE, "enumeration");
         writer.writeAttribute("value", value.getName());
 
@@ -262,10 +268,10 @@ public class DefaultSchemaGenerator implements SchemaGenerator {
         private final Map<String, EnumType> enumByName = new TreeMap<>();
         private final Map<String, PluginEntry> pluginsByName = new TreeMap<>();
         private final Map<String, Set<PluginEntry>> pluginsByGroup = new TreeMap<>();
-        private final Set<EnumType> requiredEnums = new TreeSet<>(Comparator.comparing(EnumType::getClassName));
-        private final Set<String> requiredGroups = new TreeSet<>();
+        private final Collection<EnumType> requiredEnums = new TreeSet<>(Comparator.comparing(EnumType::getClassName));
+        private final Collection<String> requiredGroups = new TreeSet<>();
 
-        public TypeLookup(final Collection<PluginSet> bundles) {
+        TypeLookup(final Iterable<PluginSet> bundles) {
             bundles.forEach(bundle -> {
                 bundle.getPlugins().forEach(entry -> {
                     if (PLUGIN_NAMESPACE.equals(entry.getNamespace())) {
