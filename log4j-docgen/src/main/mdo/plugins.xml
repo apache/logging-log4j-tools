@@ -242,7 +242,7 @@
                     <name>format</name>
                     <type>String</type>
                     <defaultValue>asciidoc</defaultValue>
-                    <description>Format used by the documentation text. Currently it **must** be "asciidoc".
+                    <description>Format used by the documentation text. Currently it **must** be `asciidoc`.
                     </description>
                 </field>
                 <field xml.content="true">
