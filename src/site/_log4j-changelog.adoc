@@ -147,8 +147,9 @@ Some remarks about the structure of changelog entry files:
 ** `added` – for new features
 ** `changed` – for changes in existing functionality
 ** `deprecated` – for soon-to-be removed features
-** `removed` – for now removed features
 ** `fixed` – for any bug fixes
+** `removed` – for now removed features
+** `updated` – for dependency updates
 * `issue` element is optional, can occur multiple times, and, if present, must contain `id` and `link` attributes
 * `author` element is optional, can occur multiple times, and, if present, must have at least one of `id` or `name` attributes
 +
