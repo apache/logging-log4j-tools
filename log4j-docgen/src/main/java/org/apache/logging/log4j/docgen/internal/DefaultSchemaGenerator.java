@@ -139,9 +139,9 @@ public class DefaultSchemaGenerator implements SchemaGenerator {
             writeDocumentation(element.getDescription(), writer);
             writer.writeEndElement();
         } else {
-            final Set<String> actualKeys = new TreeSet<>(entry.getKeys());
-            actualKeys.add(entry.getName());
-            for (final String key : actualKeys) {
+            final Set<String> keys = new TreeSet<>(entry.getAliases());
+            keys.add(entry.getName());
+            for (final String key : keys) {
                 writer.writeStartElement(XSD_NAMESPACE, "element");
                 writer.writeAttribute("name", key);
                 writer.writeAttribute("type", xmlType);
@@ -207,27 +207,20 @@ public class DefaultSchemaGenerator implements SchemaGenerator {
             throws XMLStreamException {
         for (final String group : groups) {
             writeGroup(
-                    lookup,
-                    group,
-                    Optional.ofNullable(lookup.getPluginsByGroup(group)).orElse(Collections.emptySet()),
-                    writer);
+                    group, Optional.ofNullable(lookup.getPluginsByGroup(group)).orElse(Collections.emptySet()), writer);
         }
     }
 
-    private void writeGroup(
-            final TypeLookup lookup,
-            final String groups,
-            final Collection<PluginEntry> entries,
-            final XMLStreamWriter writer)
+    private void writeGroup(final String groups, final Collection<PluginEntry> entries, final XMLStreamWriter writer)
             throws XMLStreamException {
         writer.writeStartElement(XSD_NAMESPACE, "group");
         writer.writeAttribute("name", groups + ".group");
         writer.writeStartElement(XSD_NAMESPACE, "choice");
 
         for (final PluginEntry entry : entries) {
-            final Set<String> actualKeys = new TreeSet<>(entry.getKeys());
-            actualKeys.add(entry.getName());
-            for (final String key : actualKeys) {
+            final Set<String> keys = new TreeSet<>(entry.getAliases());
+            keys.add(entry.getName());
+            for (final String key : keys) {
                 writer.writeEmptyElement(XSD_NAMESPACE, "element");
                 writer.writeAttribute("name", key);
                 writer.writeAttribute("type", LOG4J_PREFIX + ":" + entry.getClassName());
@@ -259,7 +252,7 @@ public class DefaultSchemaGenerator implements SchemaGenerator {
         writer.writeStartElement(XSD_NAMESPACE, "enumeration");
         writer.writeAttribute("value", value.getName());
 
-        writeDocumentation(value, writer);
+        writeDocumentation(value.getDescription(), writer);
 
         writer.writeEndElement();
     }
@@ -337,7 +330,7 @@ public class DefaultSchemaGenerator implements SchemaGenerator {
                 final PluginEntry entry = pluginsByName.get(javaType);
                 if (pluginsByGroup.get(javaType) == null
                         && entry != null
-                        && entry.getKeys().isEmpty()) {
+                        && entry.getAliases().isEmpty()) {
                     return LOG4J_PREFIX + ":" + javaType;
                 }
                 requiredGroups.add(javaType);

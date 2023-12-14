@@ -15,8 +15,7 @@
   ~ See the License for the specific language governing permissions and
   ~ limitations under the License.
   -->
-<pluginBundle xmlns="https://logging.apache.org/log4j/plugins"
-              version="0.1.0">
+<pluginBundle xmlns="https://logging.apache.org/log4j/plugins" version="0.1.0">
     <groupId>org.apache.logging.log4j</groupId>
     <artifactId>log4j-core</artifactId>
     <version>2.22.0</version>
@@ -26,29 +25,39 @@
         <enum className="org.apache.logging.log4j.core.appender.ConsoleAppender.Target">
             <description>Specifies the target of a console appender.</description>
             <value name="SYSTEM_OUT">
-                Logs to the standard output.
+                <description>
+                    Logs to the standard output.
+                </description>
             </value>
             <value name="SYSTEM_ERR">
-                Logs to the standard error.
+                <description>
+                    Logs to the standard error.
+                </description>
             </value>
         </enum>
         <enum className="org.apache.logging.log4j.core.Filter.Result">
             <description>The result that can returned from a filter method call.</description>
             <value name="ACCEPT">
-                The event will be processed without further filtering based on the log Level.
+                <description>
+                    The event will be processed without further filtering based on the log Level.
+                </description>
             </value>
             <value name="NEUTRAL">
-                No decision could be made, further filtering should occur.
+                <description>
+                    No decision could be made, further filtering should occur.
+                </description>
             </value>
             <value name="DENY">
-                The event should not be processed.
+                <description>
+                    The event should not be processed.
+                </description>
             </value>
         </enum>
     </enums>
 
     <plugins>
         <!-- Direct children of Configuration -->
-        <plugin name="Appenders" namespace="Core" className="org.apache.logging.log4j.core.config.AppendersPlugin">
+        <plugin name="Appenders" className="org.apache.logging.log4j.core.config.AppendersPlugin">
             <description>A wrapper for a list of appenders.</description>
             <elements>
                 <element type="org.apache.logging.log4j.core.Appender" multiplicity="*">
@@ -57,7 +66,7 @@
             </elements>
         </plugin>
 
-        <plugin name="CustomLevels" namespace="Core" className="org.apache.logging.log4j.core.config.CustomLevels">
+        <plugin name="CustomLevels" className="org.apache.logging.log4j.core.config.CustomLevels">
             <description>A wrapper for a list of custom level configurations.</description>
             <elements>
                 <element type="org.apache.logging.log4j.core.config.CustomLevelConfig" multiplicity="*">
@@ -66,7 +75,7 @@
             </elements>
         </plugin>
 
-        <plugin name="Loggers" namespace="Core" className="org.apache.logging.log4j.core.config.LoggersPlugin">
+        <plugin name="Loggers" className="org.apache.logging.log4j.core.config.LoggersPlugin">
             <description>A wrapper for a list of logger configurations.</description>
             <elements>
                 <element type="org.apache.logging.log4j.core.config.LoggerConfig" multiplicity="*">
@@ -75,7 +84,7 @@
             </elements>
         </plugin>
 
-        <plugin name="Properties" namespace="Core" className="org.apache.logging.log4j.core.config.PropertiesPlugin">
+        <plugin name="Properties" className="org.apache.logging.log4j.core.config.PropertiesPlugin">
             <description>A wrapper for a list of properties.</description>
             <elements>
                 <element type="org.apache.logging.log4j.core.config.Property" multiplicity="*">
@@ -85,7 +94,7 @@
         </plugin>
 
         <!-- Second nesting level elements -->
-        <plugin name="Console" namespace="Core" className="org.apache.logging.log4j.core.appender.ConsoleAppender">
+        <plugin name="Console" className="org.apache.logging.log4j.core.appender.ConsoleAppender">
             <supertypes>
                 <supertype>org.apache.logging.log4j.core.Appender</supertype>
             </supertypes>
@@ -136,7 +145,7 @@
             </elements>
         </plugin>
 
-        <plugin name="CustomLevel" namespace="Core" className="org.apache.logging.log4j.core.config.CustomLevelConfig">
+        <plugin name="CustomLevel" className="org.apache.logging.log4j.core.config.CustomLevelConfig">
             <description>Configures a custom level.</description>
             <attributes>
                 <attribute name="name" required="true">
@@ -150,7 +159,7 @@
             </attributes>
         </plugin>
 
-        <plugin name="Logger" namespace="Core" className="org.apache.logging.log4j.core.config.LoggerConfig">
+        <plugin name="Logger" className="org.apache.logging.log4j.core.config.LoggerConfig">
             <description>Configures a particular logger</description>
             <attributes>
                 <attribute name="name" required="true">
@@ -170,7 +179,7 @@
             </elements>
         </plugin>
 
-        <plugin name="Root" namespace="Core" className="org.apache.logging.log4j.core.config.LoggerConfig.RootLogger">
+        <plugin name="Root" className="org.apache.logging.log4j.core.config.LoggerConfig.RootLogger">
             <description>Configures the root logger</description>
             <supertypes>
                 <supertype>org.apache.logging.log4j.core.config.LoggerConfig</supertype>
@@ -190,7 +199,7 @@
             </elements>
         </plugin>
 
-        <plugin name="Property" namespace="Core" className="org.apache.logging.log4j.core.config.Property">
+        <plugin name="Property" className="org.apache.logging.log4j.core.config.Property">
             <description>Represents a key/value pair in the configuration.</description>
             <attributes>
                 <attribute name="name" required="true">
@@ -203,11 +212,11 @@
         </plugin>
 
         <!-- Additional plugins -->
-        <plugin name="AppenderRef" namespace="Core" className="org.apache.logging.log4j.core.config.AppenderRef">
+        <plugin name="AppenderRef" className="org.apache.logging.log4j.core.config.AppenderRef">
             <description>Reference to an appender defined in the `Appenders` section.</description>
-            <keys>
-                <key>appender-ref</key>
-            </keys>
+            <aliases>
+                <alias>appender-ref</alias>
+            </aliases>
             <attributes>
                 <attribute name="ref" required="true">
                     <description>The name of an appender.</description>
@@ -223,7 +232,7 @@
             </elements>
         </plugin>
 
-        <plugin name="BurstFilter" namespace="Core" className="org.apache.logging.log4j.core.filter.BurstFilter">
+        <plugin name="BurstFilter" className="org.apache.logging.log4j.core.filter.BurstFilter">
             <description>
                 The BurstFilter is a logging filter that regulates logging traffic.
                 Use this filter when you want to control the mean rate and maximum burst of log statements that can be
@@ -263,7 +272,7 @@
             </attributes>
         </plugin>
 
-        <plugin name="PatternLayout" namespace="Core" className="org.apache.logging.log4j.core.layout.PatternLayout">
+        <plugin name="PatternLayout" className="org.apache.logging.log4j.core.layout.PatternLayout">
             <description>
                 A flexible layout configurable with pattern string.
 

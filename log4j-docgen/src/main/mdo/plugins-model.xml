@@ -97,7 +97,7 @@
                 <field xml.attribute="true">
                     <name>namespace</name>
                     <type>String</type>
-                    <required>true</required>
+                    <defaultValue>Core</defaultValue>
                     <description>The namespace of the plugin.</description>
                 </field>
                 <field xml.attribute="true">
@@ -110,6 +110,7 @@
                     <name>deferChildren</name>
                     <type>boolean</type>
                     <defaultValue>false</defaultValue>
+                    <description>If `true`, the evaluation of the children of this element is deferred.</description>
                 </field>
                 <field>
                     <name>description</name>
@@ -119,14 +120,14 @@
                     <description>Description of the plugin.</description>
                 </field>
                 <field>
-                    <name>keys</name>
+                    <name>aliases</name>
                     <required>true</required>
-                    <association>
+                    <association xml.tagName="alias">
                         <type>String</type>
                         <multiplicity>*</multiplicity>
                     </association>
                     <description>
-                        The different keys (e.g. XML tag names) under which the plugin can be used.
+                        The different aliases keys (e.g. XML tag names) under which the plugin can be used.
                     </description>
                 </field>
                 <!-- These are necessary to find all possible nested components -->
@@ -256,14 +257,20 @@
 
         <class xml.tagName="value">
             <name>EnumValue</name>
-            <superClass>Description</superClass>
             <description>One of the possible values of an enum.</description>
             <fields>
                 <field xml.attribute="true">
                     <name>name</name>
                     <type>String</type>
                     <required>true</required>
-                    <description>The name of the property.</description>
+                    <description>The name of the value.</description>
+                </field>
+                <field>
+                    <name>description</name>
+                    <association>
+                        <type>Description</type>
+                    </association>
+                    <description>The description of the value.</description>
                 </field>
             </fields>
         </class>

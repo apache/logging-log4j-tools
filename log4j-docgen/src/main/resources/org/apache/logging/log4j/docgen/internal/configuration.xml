@@ -32,28 +32,44 @@
                 **Note**: the Log4j API supports custom levels, the following list contains only the standard ones.
             </description>
             <value name="OFF">
-                Special level that disables logging. No events should be logged at this level.
+                <description>
+                    Special level that disables logging. No events should be logged at this level.
+                </description>
             </value>
             <value name="FATAL">
-                A fatal event that will prevent the application from continuing.
+                <description>
+                    A fatal event that will prevent the application from continuing.
+                </description>
             </value>
             <value name="ERROR">
-                An error in the application, possibly recoverable.
+                <description>
+                    An error in the application, possibly recoverable.
+                </description>
             </value>
             <value name="WARN">
-                An event that might possible lead to an error.
+                <description>
+                    An event that might possible lead to an error.
+                </description>
             </value>
             <value name="INFO">
-                An event for informational purposes.
+                <description>
+                    An event for informational purposes.
+                </description>
             </value>
             <value name="DEBUG">
-                A general debugging event.
+                <description>
+                    A general debugging event.
+                </description>
             </value>
             <value name="TRACE">
-                A fine-grained debug message, typically capturing the flow through the application.
+                <description>
+                    A fine-grained debug message, typically capturing the flow through the application.
+                </description>
             </value>
             <value name="ALL">
-                All events should be logged.
+                <description>
+                    All events should be logged.
+                </description>
             </value>
         </enum>
     </enums>
