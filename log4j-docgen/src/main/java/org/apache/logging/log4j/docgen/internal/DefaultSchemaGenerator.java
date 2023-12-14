@@ -260,7 +260,7 @@ public class DefaultSchemaGenerator implements SchemaGenerator {
         writer.writeEndElement();
     }
 
-    private static class TypeLookup {
+    private static final class TypeLookup {
 
         private final Map<String, EnumType> enumByName = new HashMap<>();
         private final Map<String, PluginEntry> pluginsByName = new TreeMap<>();
