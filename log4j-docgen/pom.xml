@@ -71,7 +71,7 @@
             <configuration>
               <domAsXpp3>false</domAsXpp3>
               <models>
-                <model>src/main/mdo/plugins.xml</model>
+                <model>src/main/mdo/plugins-model.xml</model>
               </models>
               <version>0.1.0</version>
             </configuration>

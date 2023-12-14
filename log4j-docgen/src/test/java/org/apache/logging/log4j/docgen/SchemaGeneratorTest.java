@@ -39,7 +39,7 @@ public class SchemaGeneratorTest {
     void schemaGeneration() throws Exception {
         final Source xmlSchema =
                 Input.fromURI("https://www.w3.org/2001/XMLSchema.xsd").build();
-        final URL expectedSchema = SchemaGenerator.class.getResource("/xsd/log4j.xsd");
+        final URL expectedSchema = SchemaGenerator.class.getResource("/xsd/log4j-expected.xsd");
         final String actualSchema = assertDoesNotThrow(() -> generateSchema());
         XmlAssert.assertThat(actualSchema)
                 .isValidAgainst(xmlSchema)
@@ -52,7 +52,7 @@ public class SchemaGeneratorTest {
     private static String generateSchema() throws XMLStreamException, IOException {
         final PluginBundleStaxReader reader = new PluginBundleStaxReader();
         final PluginBundle bundle =
-                reader.read(SchemaGeneratorTest.class.getResourceAsStream("/META-INF/log4j/plugins.xml"));
+                reader.read(SchemaGeneratorTest.class.getResourceAsStream("/META-INF/log4j/plugins-sample.xml"));
         final SchemaGenerator generator = new DefaultSchemaGenerator();
         final XMLOutputFactory factory = XMLOutputFactory.newInstance();
         final StringWriter writer = new StringWriter();
