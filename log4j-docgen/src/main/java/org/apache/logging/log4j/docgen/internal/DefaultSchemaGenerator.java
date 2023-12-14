@@ -37,9 +37,9 @@ import org.apache.logging.log4j.docgen.model.Description;
 import org.apache.logging.log4j.docgen.model.EnumType;
 import org.apache.logging.log4j.docgen.model.EnumValue;
 import org.apache.logging.log4j.docgen.model.PluginAttribute;
-import org.apache.logging.log4j.docgen.model.PluginBundle;
 import org.apache.logging.log4j.docgen.model.PluginElement;
 import org.apache.logging.log4j.docgen.model.PluginEntry;
+import org.apache.logging.log4j.docgen.model.PluginSet;
 import org.apache.logging.log4j.docgen.model.io.stax.PluginBundleStaxReader;
 
 @Singleton
@@ -53,11 +53,11 @@ public class DefaultSchemaGenerator implements SchemaGenerator {
     private static final String MULTIPLICITY_UNBOUNDED = "*";
 
     @Override
-    public void generateSchema(Collection<PluginBundle> bundles, XMLStreamWriter writer) throws XMLStreamException {
+    public void generateSchema(Collection<PluginSet> bundles, XMLStreamWriter writer) throws XMLStreamException {
         try {
-            final PluginBundle configurationBundle =
+            final PluginSet configurationBundle =
                     new PluginBundleStaxReader().read(getClass().getResourceAsStream("configuration.xml"));
-            final Set<PluginBundle> extendedBundles = new HashSet<>(bundles);
+            final Set<PluginSet> extendedBundles = new HashSet<>(bundles);
             extendedBundles.add(configurationBundle);
             final TypeLookup lookup = new TypeLookup(extendedBundles);
             writeSchema(lookup, writer);
@@ -265,7 +265,7 @@ public class DefaultSchemaGenerator implements SchemaGenerator {
         private final Set<EnumType> requiredEnums = new TreeSet<>(Comparator.comparing(EnumType::getClassName));
         private final Set<String> requiredGroups = new TreeSet<>();
 
-        public TypeLookup(final Collection<PluginBundle> bundles) {
+        public TypeLookup(final Collection<PluginSet> bundles) {
             bundles.forEach(bundle -> {
                 bundle.getPlugins().forEach(entry -> {
                     if (PLUGIN_NAMESPACE.equals(entry.getNamespace())) {

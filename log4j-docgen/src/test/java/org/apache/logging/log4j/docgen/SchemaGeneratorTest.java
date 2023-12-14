@@ -27,7 +27,7 @@ import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamWriter;
 import javax.xml.transform.Source;
 import org.apache.logging.log4j.docgen.internal.DefaultSchemaGenerator;
-import org.apache.logging.log4j.docgen.model.PluginBundle;
+import org.apache.logging.log4j.docgen.model.PluginSet;
 import org.apache.logging.log4j.docgen.model.io.stax.PluginBundleStaxReader;
 import org.junit.jupiter.api.Test;
 import org.xmlunit.assertj3.XmlAssert;
@@ -51,7 +51,7 @@ public class SchemaGeneratorTest {
 
     private static String generateSchema() throws XMLStreamException, IOException {
         final PluginBundleStaxReader reader = new PluginBundleStaxReader();
-        final PluginBundle bundle =
+        final PluginSet bundle =
                 reader.read(SchemaGeneratorTest.class.getResourceAsStream("/META-INF/log4j/plugins-sample.xml"));
         final SchemaGenerator generator = new DefaultSchemaGenerator();
         final XMLOutputFactory factory = XMLOutputFactory.newInstance();

@@ -20,7 +20,7 @@
        xml.namespace="https://logging.apache.org/log4j/plugins">
     <id>plugins</id>
     <name>PluginBundle</name>
-    <description>Documents a bundle of Log4j plugins.</description>
+    <description>Documents a set of Log4j plugins.</description>
     <versionDefinition>
         <type>field</type>
         <value>schemaVersion</value>
@@ -34,8 +34,8 @@
 
     <classes>
         <class rootElement="true">
-            <name>PluginBundle</name>
-            <description>Documents a bundle of Log4j plugins.</description>
+            <name>PluginSet</name>
+            <description>Documents a set of Log4j plugins.</description>
             <fields>
                 <field xml.attribute="true" xml.tagName="version">
                     <name>schemaVersion</name>
@@ -46,24 +46,24 @@
                 <field>
                     <name>groupId</name>
                     <type>String</type>
-                    <description>The group id of the bundle.</description>
+                    <description>The group id of the set.</description>
                 </field>
                 <field>
                     <name>artifactId</name>
                     <type>String</type>
-                    <description>The artifact id of the bundle.</description>
+                    <description>The artifact id of the set.</description>
                 </field>
                 <field>
                     <name>version</name>
                     <type>String</type>
-                    <description>The version of the bundle.</description>
+                    <description>The version of the set.</description>
                 </field>
                 <field>
                     <name>description</name>
                     <association>
                         <type>Description</type>
                     </association>
-                    <description>Description of the bundle.</description>
+                    <description>Description of the set.</description>
                 </field>
                 <field>
                     <name>enums</name>
@@ -79,7 +79,7 @@
                         <type>PluginEntry</type>
                         <multiplicity>*</multiplicity>
                     </association>
-                    <description>A list of all plugins in the bundle.</description>
+                    <description>A list of all plugins in the set.</description>
                 </field>
             </fields>
         </class>

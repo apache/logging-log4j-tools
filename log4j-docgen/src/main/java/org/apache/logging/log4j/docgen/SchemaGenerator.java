@@ -19,9 +19,15 @@ package org.apache.logging.log4j.docgen;
 import java.util.Collection;
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamWriter;
-import org.apache.logging.log4j.docgen.model.PluginBundle;
+import org.apache.logging.log4j.docgen.model.PluginSet;
 
 public interface SchemaGenerator {
 
-    void generateSchema(Collection<PluginBundle> bundles, XMLStreamWriter writer) throws XMLStreamException;
+    /**
+     * Given a collection of plugin sets generates an XML Schema.
+     *
+     * @param sets a collection of plugin sets.
+     * @param writer an XML writer to output the XML Schema.
+     */
+    void generateSchema(Collection<PluginSet> sets, XMLStreamWriter writer) throws XMLStreamException;
 }
