@@ -276,7 +276,7 @@
                     <name>multiplicity</name>
                     <type>String</type>
                     <defaultValue>1</defaultValue>
-                    <description>Either '*' if the field accepts a collection of elements or '1'.</description>
+                    <description>Either `*`, if the field accepts a collection of elements, or `1`.</description>
                 </field>
                 <field xml.attribute="true">
                     <name>required</name>
