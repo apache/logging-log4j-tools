@@ -27,6 +27,8 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.TreeMap;
 import java.util.TreeSet;
+import javax.inject.Named;
+import javax.inject.Singleton;
 import javax.xml.XMLConstants;
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamWriter;
@@ -40,6 +42,8 @@ import org.apache.logging.log4j.docgen.model.PluginElement;
 import org.apache.logging.log4j.docgen.model.PluginEntry;
 import org.apache.logging.log4j.docgen.model.io.stax.PluginBundleStaxReader;
 
+@Singleton
+@Named("default")
 public class DefaultSchemaGenerator implements SchemaGenerator {
 
     private static final String PLUGIN_NAMESPACE = "Core";
