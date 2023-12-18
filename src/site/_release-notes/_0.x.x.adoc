@@ -49,6 +49,7 @@ This minor release contains various bug fixes and improvements.
 [#release-notes-0-x-x-changed]
 ==== Changed
 
+* Update `apache/logging-parent` to version `` (https://github.com/apache/logging-log4j-tools/pull/91[91])
 * Update `commons-io:commons-io` to version `2.15.1` (https://github.com/apache/logging-log4j-tools/pull/86[86])
 * Update `org.apache.maven.plugin-tools:maven-plugin-annotations` to version `3.10.2` (https://github.com/apache/logging-log4j-tools/pull/87[87])
 
