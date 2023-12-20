@@ -1,0 +1,293 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ Licensed to the Apache Software Foundation (ASF) under one or more
+  ~ contributor license agreements.  See the NOTICE file distributed with
+  ~ this work for additional information regarding copyright ownership.
+  ~ The ASF licenses this file to you under the Apache License, Version 2.0
+  ~ (the "License"); you may not use this file except in compliance with
+  ~ the License.  You may obtain a copy of the License at
+  ~
+  ~      http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+  -->
+<pluginSet xmlns="https://logging.apache.org/log4j/plugins" version="0.1.0">
+    <groupId>org.apache.logging.log4j</groupId>
+    <artifactId>log4j-core</artifactId>
+    <version>2.22.0</version>
+    <description>Reference implementation of the Log4j API.</description>
+
+    <scalars>
+        <scalar className="org.apache.logging.log4j.core.appender.ConsoleAppender.Target">
+            <description>Specifies the target of a console appender.</description>
+            <values>
+                <value name="SYSTEM_OUT">
+                    <description>Logs to the standard output.</description>
+                </value>
+                <value name="SYSTEM_ERR">
+                    <description>Logs to the standard error.</description>
+                </value>
+            </values>
+        </scalar>
+        <scalar className="org.apache.logging.log4j.core.Filter.Result">
+            <description>The result that can returned from a filter method call.</description>
+            <values>
+                <value name="ACCEPT">
+                    <description>The event will be processed without further filtering based on the log Level.</description>
+                </value>
+                <value name="NEUTRAL">
+                    <description>No decision could be made, further filtering should occur.</description>
+                </value>
+                <value name="DENY">
+                    <description>The event should not be processed.</description>
+                </value>
+            </values>
+        </scalar>
+    </scalars>
+
+    <plugins>
+        <!-- Direct children of Configuration -->
+        <plugin name="Appenders" className="org.apache.logging.log4j.core.config.AppendersPlugin">
+            <description>A wrapper for a list of appenders.</description>
+            <elements>
+                <element type="org.apache.logging.log4j.core.Appender" multiplicity="*">
+                    <description>A list of appender.</description>
+                </element>
+            </elements>
+        </plugin>
+
+        <plugin name="CustomLevels" className="org.apache.logging.log4j.core.config.CustomLevels">
+            <description>A wrapper for a list of custom level configurations.</description>
+            <elements>
+                <element type="org.apache.logging.log4j.core.config.CustomLevelConfig" multiplicity="*">
+                    <description>A list of custom level configurations.</description>
+                </element>
+            </elements>
+        </plugin>
+
+        <plugin name="Loggers" className="org.apache.logging.log4j.core.config.LoggersPlugin">
+            <description>A wrapper for a list of logger configurations.</description>
+            <elements>
+                <element type="org.apache.logging.log4j.core.config.LoggerConfig" multiplicity="*">
+                    <description>A list of logger configurations.</description>
+                </element>
+            </elements>
+        </plugin>
+
+        <plugin name="Properties" className="org.apache.logging.log4j.core.config.PropertiesPlugin">
+            <description>A wrapper for a list of properties.</description>
+            <elements>
+                <element type="org.apache.logging.log4j.core.config.Property" multiplicity="*">
+                    <description>A list of properties.</description>
+                </element>
+            </elements>
+        </plugin>
+
+        <!-- Second nesting level elements -->
+        <plugin name="Console" className="org.apache.logging.log4j.core.appender.ConsoleAppender">
+            <supertypes>
+                <supertype>org.apache.logging.log4j.core.Appender</supertype>
+            </supertypes>
+            <description>Write log events to the console.</description>
+            <attributes>
+                <attribute name="name" required="true">
+                    <description>The name of the appender used in appender references.
+Must be unique.</description>
+                </attribute>
+                <attribute name="ignoreExceptions" type="boolean" defaultValue="true">
+                    <description>If set to `false` logging exceptions will be forwarded to the caller.</description>
+                </attribute>
+                <attribute name="bufferedIo" type="boolean" defaultValue="true">
+                    <description>If set to `true` (default) the appender will buffer messages before sending them.
+This attribute is ignored if `immediateFlush` is set to `true`.</description>
+                </attribute>
+                <attribute name="bufferSize" type="int" defaultProperty="log4j2.encoderByteBufferSize">
+                    <description>Size in bytes of the appender's buffer.</description>
+                </attribute>
+                <attribute name="immediateFlush" type="boolean" defaultValue="true">
+                    <description>If set to `true`, the appender flushes the output stream at each message and
+buffering is disabled regardless of the value of `bufferedIo`.</description>
+                </attribute>
+                <attribute name="target" type="org.apache.logging.log4j.core.appender.ConsoleAppender.Target"
+                           defaultValue="SYSTEM_OUT">
+                    <description>Specifies the target of the appender.</description>
+                </attribute>
+            </attributes>
+            <elements>
+                <element type="org.apache.logging.log4j.core.Filter">
+                    <description>A filter to apply to events before sending them to destination.</description>
+                </element>
+                <element type="org.apache.logging.log4j.core.Layout" required="true">
+                    <description>The layout to be used with the appender.</description>
+                </element>
+            </elements>
+        </plugin>
+
+        <plugin name="CustomLevel" className="org.apache.logging.log4j.core.config.CustomLevelConfig">
+            <description>Configures a custom level.</description>
+            <attributes>
+                <attribute name="name" required="true">
+                    <description>The name of the level.</description>
+                </attribute>
+                <attribute name="intLevel" type="int" required="true">
+                    <description>An integer determines the strength of the custom level relative to the built-in levels.</description>
+                </attribute>
+            </attributes>
+        </plugin>
+
+        <plugin name="Logger" className="org.apache.logging.log4j.core.config.LoggerConfig">
+            <description>Configures a particular logger</description>
+            <attributes>
+                <attribute name="name" required="true">
+                    <description>The name of the logger.</description>
+                </attribute>
+                <attribute name="level" type="org.apache.logging.log4j.Level">
+                    <description>The level of the logger.</description>
+                </attribute>
+                <attribute name="includeLocation" type="boolean">
+                    <description>When set to `false` location information will **not** be computed.
+
+The default value depends on the logger context implementation: it is `false` for `AsyncLoggerContext` and `true` for `LoggerContext`.</description>
+                </attribute>
+            </attributes>
+            <elements>
+                <element type="org.apache.logging.log4j.core.config.AppenderRef" multiplicity="*">
+                    <description>A list of appenders to use with this logger.</description>
+                </element>
+                <element type="org.apache.logging.log4j.core.Filter">
+                    <description>A filter to filter events, before calling the appenders.</description>
+                </element>
+            </elements>
+        </plugin>
+
+        <plugin name="Root" className="org.apache.logging.log4j.core.config.LoggerConfig.RootLogger">
+            <description>Configures the root logger</description>
+            <supertypes>
+                <supertype>org.apache.logging.log4j.core.config.LoggerConfig</supertype>
+            </supertypes>
+            <attributes>
+                <attribute name="level" type="org.apache.logging.log4j.Level" defaultValue="ERROR">
+                    <description>The level of the logger.</description>
+                </attribute>
+                <attribute name="includeLocation" type="boolean">
+                    <description>When set to `false` location information will **not** be computed.
+
+The default value depends on the logger context implementation: it is `false` for `AsyncLoggerContext` and `true` for `LoggerContext`.</description>
+                </attribute>
+            </attributes>
+            <elements>
+                <element type="org.apache.logging.log4j.core.config.AppenderRef" multiplicity="*">
+                    <description>A list of appenders to use with this logger.</description>
+                </element>
+                <element type="org.apache.logging.log4j.core.Filter">
+                    <description>A filter to filter events, before calling the appenders.</description>
+                </element>
+            </elements>
+        </plugin>
+
+        <plugin name="Property" className="org.apache.logging.log4j.core.config.Property">
+            <description>Represents a key/value pair in the configuration.</description>
+            <attributes>
+                <attribute name="name" required="true">
+                    <description>Name of the property.</description>
+                </attribute>
+                <attribute name="value">
+                    <description>Value of the property.</description>
+                </attribute>
+            </attributes>
+        </plugin>
+
+        <!-- Additional plugins -->
+        <plugin name="AppenderRef" className="org.apache.logging.log4j.core.config.AppenderRef">
+            <description>Reference to an appender defined in the `Appenders` section.</description>
+            <aliases>
+                <alias>appender-ref</alias>
+            </aliases>
+            <attributes>
+                <attribute name="ref" required="true">
+                    <description>The name of an appender.</description>
+                </attribute>
+                <attribute name="level" type="org.apache.logging.log4j.Level">
+                    <description>The level to filter against.</description>
+                </attribute>
+            </attributes>
+            <elements>
+                <element type="org.apache.logging.log4j.core.Filter">
+                    <description>The filter to use.</description>
+                </element>
+            </elements>
+        </plugin>
+
+        <plugin name="BurstFilter" className="org.apache.logging.log4j.core.filter.BurstFilter">
+            <description>The BurstFilter is a logging filter that regulates logging traffic.
+Use this filter when you want to control the mean rate and maximum burst of log statements that can be sent to an appender.</description>
+            <supertypes>
+                <supertype>org.apache.logging.log4j.core.Filter</supertype>
+            </supertypes>
+            <attributes>
+                <attribute name="onMatch" type="org.apache.logging.log4j.core.Filter.Result" defaultValue="NEUTRAL">
+                    <description>Action to perform if the filter matches.</description>
+                </attribute>
+                <attribute name="onMismatch" type="org.apache.logging.log4j.core.Filter.Result" defaultValue="DENY">
+                    <description>Action to perform if the filter does not match.</description>
+                </attribute>
+                <attribute name="level" type="org.apache.logging.log4j.Level" defaultValue="WARN">
+                    <description>Log events less specific than this level are filtered, while events with level equal or more specific always match.</description>
+                </attribute>
+                <attribute name="rate" type="float" defaultValue="10">
+                    <description>Sets the average number of events per second to allow.</description>
+                </attribute>
+                <attribute name="maxBurst" type="long">
+                    <description>Sets the maximum number of events that can occur before events are filtered for exceeding the average rate.</description>
+                </attribute>
+            </attributes>
+        </plugin>
+
+        <plugin name="PatternLayout" className="org.apache.logging.log4j.core.layout.PatternLayout">
+            <description>A flexible layout configurable with pattern string.
+
+The goal of this class is to {@link org.apache.logging.log4j.core.Layout#toByteArray format} a {@link LogEvent} and return the results.
+The format of the result depends on the _conversion pattern_.
+
+The conversion pattern is closely related to the conversion pattern of the printf function in C.
+A conversion pattern is composed of literal text and format control expressions called _conversion specifiers_.</description>
+            <supertypes>
+                <supertype>org.apache.logging.log4j.core.Layout</supertype>
+            </supertypes>
+            <attributes>
+                <attribute name="pattern" defaultValue="%m%n">
+                    <description>The pattern to use to format log events.</description>
+                </attribute>
+            </attributes>
+        </plugin>
+    </plugins>
+
+    <abstractTypes>
+        <abstractType className="org.apache.logging.log4j.core.Appender">
+            <description>Appends log events.
+An Appender can contain a `Layout` if applicable as well as an `ErrorHandler`.
+Typical Appender implementations coordinate with an implementation of `AbstractManager` to handle external resources such as streams, connections, and other shared state.
+As Appenders are plugins, concrete implementations need to be annotated with `@Plugin` and need to provide a static factory method annotated with `@PluginFactory`.
+
+Most core plugins are written using a related Manager class that handle the actual task of serializing a `LogEvent` to some output location.
+For instance, many Appenders can take advantage of the `@OutputStreamManager` class.
+
+It is recommended that Appenders don't do any heavy lifting since there can be many instances of the class being used at any given time.
+When resources require locking (e.g., through `@FileLock`), it is important to isolate synchronized code to prevent concurrency issues.</description>
+        </abstractType>
+        <abstractType className="org.apache.logging.log4j.core.Filter">
+            <description>Interface that must be implemented to allow custom event filtering.
+It is highly recommended that applications make use of the filters provided with this Log4j Core before creating their own.
+
+This interface supports "global" filters (i.e. - all events must pass through them first), attached to specific loggers and associated with Appenders.
+It is recommended that, where possible, `Filter` implementations create a generic filtering method that can be called from any of the filter methods.</description>
+        </abstractType>
+        <abstractType className="org.apache.logging.log4j.core.Layout">
+            <description>A layout is responsible for formatting a `LogEvent` as a string.</description>
+        </abstractType>
+    </abstractTypes>
+</pluginSet>

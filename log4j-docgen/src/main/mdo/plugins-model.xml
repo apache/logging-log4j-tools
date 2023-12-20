@@ -1,0 +1,369 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ Licensed to the Apache Software Foundation (ASF) under one or more
+  ~ contributor license agreements.  See the NOTICE file distributed with
+  ~ this work for additional information regarding copyright ownership.
+  ~ The ASF licenses this file to you under the Apache License, Version 2.0
+  ~ (the "License"); you may not use this file except in compliance with
+  ~ the License.  You may obtain a copy of the License at
+  ~
+  ~      http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+  -->
+<model xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://codehaus-plexus.github.io/MODELLO/2.0.0"
+       xsi:schemaLocation="http://codehaus-plexus.github.io/MODELLO/2.0.0 https://codehaus-plexus.github.io/modello/xsd/modello-2.0.0.xsd"
+       xml.namespace="https://logging.apache.org/log4j/plugins">
+    <id>plugins</id>
+    <name>PluginSet</name>
+    <description>Documents a set of Log4j plugins.</description>
+    <versionDefinition>
+        <type>field</type>
+        <value>schemaVersion</value>
+    </versionDefinition>
+    <defaults>
+        <default>
+            <key>package</key>
+            <value>org.apache.logging.log4j.docgen</value>
+        </default>
+    </defaults>
+
+    <classes>
+        <class rootElement="true">
+            <name>PluginSet</name>
+            <description>Documents a set of Log4j plugins.</description>
+            <fields>
+                <field xml.attribute="true" xml.tagName="version">
+                    <name>schemaVersion</name>
+                    <type>String</type>
+                    <required>true</required>
+                    <description>The version of the schema used by the XML document.</description>
+                </field>
+                <field>
+                    <name>groupId</name>
+                    <type>String</type>
+                    <description>The group id of the set.</description>
+                </field>
+                <field>
+                    <name>artifactId</name>
+                    <type>String</type>
+                    <description>The artifact id of the set.</description>
+                </field>
+                <field>
+                    <name>version</name>
+                    <type>String</type>
+                    <description>The version of the set.</description>
+                </field>
+                <field>
+                    <name>description</name>
+                    <association>
+                        <type>Description</type>
+                    </association>
+                    <description>Description of the set.</description>
+                </field>
+                <field>
+                    <name>scalars</name>
+                    <association>
+                        <type>ScalarType</type>
+                        <multiplicity>*</multiplicity>
+                    </association>
+                    <description>A list of all scalar types used in properties.</description>
+                </field>
+                <field>
+                    <name>plugins</name>
+                    <association>
+                        <type>PluginType</type>
+                        <multiplicity>*</multiplicity>
+                    </association>
+                    <description>A list of all plugins in the set.</description>
+                </field>
+                <field>
+                    <name>abstractTypes</name>
+                    <association>
+                        <type>AbstractType</type>
+                        <multiplicity>*</multiplicity>
+                    </association>
+                    <description>A description of all the interfaces and extensible classes used in plugin elements.</description>
+                </field>
+            </fields>
+        </class>
+
+        <class>
+            <name>Documented</name>
+            <description>Any documented element.</description>
+            <fields>
+                <field>
+                    <name>description</name>
+                    <association>
+                        <type>Description</type>
+                    </association>
+                    <required>true</required>
+                    <description>Description of the plugin.</description>
+                </field>
+            </fields>
+        </class>
+
+        <class>
+            <name>Type</name>
+            <description>Any Java type used in a Log4j configuration.</description>
+            <superClass>Documented</superClass>
+            <fields>
+                <field xml.attribute="true">
+                    <name>className</name>
+                    <type>String</type>
+                    <required>true</required>
+                    <description>Fully qualified name of the class implementing the plugin.</description>
+                </field>
+            </fields>
+        </class>
+
+        <class>
+            <name>AbstractType</name>
+            <description>A documented interface or abstract class used in plugins.</description>
+            <superClass>Type</superClass>
+            <fields>
+                <field xml.transient="true">
+                    <name>implementations</name>
+                    <association>
+                        <type>String</type>
+                        <multiplicity>*</multiplicity>
+                    </association>
+                    <description>Contains all the plugins that implement a given type.
+&lt;p&gt;
+This element is filled in automatically.
+&lt;/p&gt;</description>
+                </field>
+            </fields>
+        </class>
+
+        <class xml.tagName="plugin">
+            <name>PluginType</name>
+            <description>Describes the properties available to plugins.</description>
+            <superClass>AbstractType</superClass>
+            <fields>
+                <field xml.attribute="true">
+                    <name>name</name>
+                    <type>String</type>
+                    <required>true</required>
+                    <description>The unique name of this plugin.</description>
+                </field>
+                <field xml.attribute="true">
+                    <name>namespace</name>
+                    <type>String</type>
+                    <defaultValue>Core</defaultValue>
+                    <description>The namespace of the plugin.</description>
+                </field>
+                <field xml.attribute="true">
+                    <name>deferChildren</name>
+                    <type>boolean</type>
+                    <defaultValue>false</defaultValue>
+                    <description>If `true`, the evaluation of the children of this element is deferred.</description>
+                </field>
+                <field>
+                    <name>aliases</name>
+                    <required>true</required>
+                    <association xml.tagName="alias">
+                        <type>String</type>
+                        <multiplicity>*</multiplicity>
+                    </association>
+                    <description>
+                        The different aliases keys (e.g. XML tag names) under which the plugin can be used.
+                    </description>
+                </field>
+                <!-- These are necessary to find all possible nested components -->
+                <field>
+                    <name>supertypes</name>
+                    <association>
+                        <type>String</type>
+                        <multiplicity>*</multiplicity>
+                    </association>
+                    <description>
+                        List of all the supertypes of a plugin.
+                    </description>
+                </field>
+                <field>
+                    <name>attributes</name>
+                    <required>true</required>
+                    <association>
+                        <type>PluginAttribute</type>
+                        <multiplicity>*</multiplicity>
+                    </association>
+                    <description>List of **all** the configuration attributes supported</description>
+                </field>
+                <field>
+                    <name>elements</name>
+                    <required>true</required>
+                    <association>
+                        <type>PluginElement</type>
+                        <multiplicity>*</multiplicity>
+                    </association>
+                    <description>List of **all** possible nested components.</description>
+                </field>
+            </fields>
+        </class>
+
+        <class xml.tagName="attribute">
+            <name>PluginAttribute</name>
+            <description>A scalar configuration value for the plugin.</description>
+            <fields>
+                <field xml.attribute="true">
+                    <name>name</name>
+                    <type>String</type>
+                    <required>true</required>
+                    <description>The name of the property.</description>
+                </field>
+                <field xml.attribute="true">
+                    <name>type</name>
+                    <type>String</type>
+                    <defaultValue>java.lang.String</defaultValue>
+                    <description>The Java name of this attribute's type, e.g. `boolean`, `java.lang.String`, fully qualified name of an enum.
+The type must be an enum or must have a type converter.</description>
+                </field>
+                <field xml.attribute="true">
+                    <name>required</name>
+                    <type>boolean</type>
+                    <defaultValue>false</defaultValue>
+                    <description>If set to `true` the attribute is required.</description>
+                </field>
+                <field xml.attribute="true">
+                    <name>defaultValue</name>
+                    <type>String</type>
+                    <description>The default value of this attribute as string.</description>
+                </field>
+                <field xml.attribute="true">
+                    <name>defaultProperty</name>
+                    <type>String</type>
+                    <description>The Log4j property that contains the default value of this attribute.</description>
+                </field>
+                <field>
+                    <name>description</name>
+                    <association>
+                        <type>Description</type>
+                    </association>
+                    <description>A description of the property.</description>
+                </field>
+            </fields>
+        </class>
+
+        <class xml.tagName="scalar">
+            <name>ScalarType</name>
+            <description>Describes a Java type that can be converted to a string.</description>
+            <superClass>Type</superClass>
+            <fields>
+                <field>
+                    <name>values</name>
+                    <required>true</required>
+                    <association>
+                        <type>ScalarValue</type>
+                        <multiplicity>*</multiplicity>
+                    </association>
+                    <description>The possible string values of this type.</description>
+                </field>
+            </fields>
+        </class>
+
+        <class xml.tagName="description">
+            <name>Description</name>
+            <description>General documentation tag.</description>
+            <fields>
+                <field xml.attribute="true">
+                    <name>format</name>
+                    <type>String</type>
+                    <defaultValue>asciidoc</defaultValue>
+                    <description>Format used by the documentation text. Currently it **must** be `asciidoc`.
+                    </description>
+                </field>
+                <field xml.content="true" xml.trim="false">
+                    <name>text</name>
+                    <type>String</type>
+                    <required>true</required>
+                    <description>Description of the element.</description>
+                </field>
+            </fields>
+        </class>
+
+        <class xml.tagName="value">
+            <name>ScalarValue</name>
+            <description>One of the possible values of a scalar Java type.</description>
+            <fields>
+                <field xml.attribute="true">
+                    <name>name</name>
+                    <type>String</type>
+                    <required>true</required>
+                    <description>The name of the value.</description>
+                </field>
+                <field>
+                    <name>description</name>
+                    <association>
+                        <type>Description</type>
+                    </association>
+                    <description>The description of the value.</description>
+                </field>
+            </fields>
+        </class>
+
+        <class xml.tagName="element">
+            <name>PluginElement</name>
+            <description>Describes a nested configuration component.</description>
+            <fields>
+                <field xml.attribute="true">
+                    <name>multiplicity</name>
+                    <type>String</type>
+                    <defaultValue>1</defaultValue>
+                    <description>Either `*`, if the field accepts a collection of elements, or `1`.</description>
+                </field>
+                <field xml.attribute="true">
+                    <name>required</name>
+                    <type>boolean</type>
+                    <defaultValue>false</defaultValue>
+                    <description>If set to `true` the field must be not null or a not empty collection.</description>
+                </field>
+                <field xml.attribute="true">
+                    <name>type</name>
+                    <type>String</type>
+                    <required>true</required>
+                    <description>The fully qualified name of the Java type (class or interface) of this component.
+If the type is an array or collection, this returns the type of the element.</description>
+                </field>
+                <field>
+                    <name>description</name>
+                    <association>
+                        <type>Description</type>
+                    </association>
+                    <description>An HTML description of this element.</description>
+                </field>
+            </fields>
+        </class>
+        <!-- Models for various generators -->
+        <class>
+            <name>DocumentationRequest</name>
+            <fields>
+                <field xml.transient="true">
+                    <name>pluginSets</name>
+                    <association>
+                        <type>PluginSet</type>
+                        <multiplicity>*</multiplicity>
+                    </association>
+                    <required>true</required>
+                    <description>The set of plugins to document.</description>
+                </field>
+                <field xml.transient="true">
+                    <name>outputDirectory</name>
+                    <association>
+                        <type>java.nio.file.Path</type>
+                    </association>
+                    <required>true</required>
+                    <description>The directory to use for output.</description>
+                </field>
+            </fields>
+        </class>
+        <!-- External classes -->
+        <class java.enabled="false">
+            <name>java.nio.file.Path</name>
+        </class>
+    </classes>
+</model>

@@ -31,18 +31,33 @@
 
   <properties>
 
-    <!-- dependency versions -->
+    <!-- Dependency versions -->
     <assertj.version>3.24.2</assertj.version>
     <commons-io.version>2.15.1</commons-io.version>
     <freemarker.version>2.3.32</freemarker.version>
+    <jakarta.inject.version>1.0.5</jakarta.inject.version>
     <junit.version>5.10.1</junit.version>
+    <modello.version>2.1.2</modello.version>
+    <xmlunit.version>2.9.1</xmlunit.version>
+
+    <!-- Maven plugin versions -->
     <maven-plugin.version>3.10.2</maven-plugin.version>
     <maven-plugin-api.version>3.6.3</maven-plugin-api.version>
+    <modello-maven-plugin.version>${modello.version}</modello-maven-plugin.version>
+    <sisu-maven-plugin.version>0.9.0.M2</sisu-maven-plugin.version>
 
   </properties>
 
   <dependencyManagement>
     <dependencies>
+
+      <dependency>
+        <groupId>org.junit</groupId>
+        <artifactId>junit-bom</artifactId>
+        <version>${junit.version}</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
 
       <dependency>
         <groupId>org.assertj</groupId>
@@ -63,15 +78,9 @@
       </dependency>
 
       <dependency>
-        <groupId>org.junit.jupiter</groupId>
-        <artifactId>junit-jupiter-engine</artifactId>
-        <version>${junit.version}</version>
-      </dependency>
-
-      <dependency>
-        <groupId>org.junit.jupiter</groupId>
-        <artifactId>junit-jupiter-params</artifactId>
-        <version>${junit.version}</version>
+        <groupId>jakarta.inject</groupId>
+        <artifactId>jakarta.inject-api</artifactId>
+        <version>${jakarta.inject.version}</version>
       </dependency>
 
       <dependency>
@@ -88,7 +97,54 @@
         <scope>provided</scope>
       </dependency>
 
+      <dependency>
+        <groupId>org.xmlunit</groupId>
+        <artifactId>xmlunit-assertj3</artifactId>
+        <version>${xmlunit.version}</version>
+      </dependency>
+
     </dependencies>
   </dependencyManagement>
+
+  <dependencies>
+
+    <dependency>
+      <groupId>org.osgi</groupId>
+      <artifactId>org.osgi.annotation.bundle</artifactId>
+      <scope>provided</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>org.osgi</groupId>
+      <artifactId>org.osgi.annotation.versioning</artifactId>
+      <scope>provided</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>com.github.spotbugs</groupId>
+      <artifactId>spotbugs-annotations</artifactId>
+      <scope>provided</scope>
+    </dependency>
+  </dependencies>
+
+  <build>
+    <pluginManagement>
+      <plugins>
+
+        <plugin>
+          <groupId>org.codehaus.modello</groupId>
+          <artifactId>modello-maven-plugin</artifactId>
+          <version>${modello-maven-plugin.version}</version>
+        </plugin>
+
+        <plugin>
+          <groupId>org.eclipse.sisu</groupId>
+          <artifactId>sisu-maven-plugin</artifactId>
+          <version>${sisu-maven-plugin.version}</version>
+        </plugin>
+
+      </plugins>
+    </pluginManagement>
+  </build>
 
 </project>
