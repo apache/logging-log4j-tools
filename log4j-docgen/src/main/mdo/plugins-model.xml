@@ -362,6 +362,19 @@ If the type is an array or collection, this returns the type of the element.</de
             </fields>
         </class>
         <class>
+            <packageName>org.apache.logging.log4j.docgen.xsd</packageName>
+            <name>SchemaGeneratorRequest</name>
+            <superClass>DocumentationRequest</superClass>
+            <fields>
+                <field xml.transient="true">
+                    <name>fileName</name>
+                    <type>String</type>
+                    <defaultValue>log4j-config.xml</defaultValue>
+                    <description>The path to the generated schema file. If it is relative, it will be resolved against `outputDirectory`.</description>
+                </field>
+            </fields>
+        </class>
+        <class>
             <name>FreeMarkerGeneratorRequest</name>
             <packageName>org.apache.logging.log4j.docgen.freemarker</packageName>
             <superClass>DocumentationRequest</superClass>
@@ -422,6 +435,18 @@ Template parameters:
         </class>
     </classes>
     <interfaces>
+        <interface>
+            <packageName>org.apache.logging.log4j.docgen.xsd</packageName>
+            <name>SchemaGenerator</name>
+            <codeSegments>
+                <codeSegment>
+                    <comment>Generates an XML schema.
+
+@param request configuration data for the generated schema.</comment>
+                    <code>void generateSchema(SchemaGeneratorRequest request) throws javax.xml.stream.XMLStreamException;</code>
+                </codeSegment>
+            </codeSegments>
+        </interface>
         <interface>
             <packageName>org.apache.logging.log4j.docgen.freemarker</packageName>
             <name>FreeMarkerGenerator</name>
