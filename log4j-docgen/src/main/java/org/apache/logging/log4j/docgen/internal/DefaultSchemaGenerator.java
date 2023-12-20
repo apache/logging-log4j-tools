@@ -52,6 +52,7 @@ public class DefaultSchemaGenerator implements SchemaGenerator {
     private static final String LOG4J_NAMESPACE = "http://logging.apache.org/log4j/2.0/config";
     private static final String XSD_NAMESPACE = XMLConstants.W3C_XML_SCHEMA_NS_URI;
     private static final String MULTIPLICITY_UNBOUNDED = "*";
+    private static final String UTF_8 = "UTF-8";
 
     @Override
     public void generateSchema(final SchemaGeneratorRequest request) throws XMLStreamException {
@@ -63,7 +64,7 @@ public class DefaultSchemaGenerator implements SchemaGenerator {
             final TypeLookup lookup = TypeLookup.of(extendedSets);
             final XMLOutputFactory factory = XMLOutputFactory.newFactory();
             final Path schemaPath = request.getOutputDirectory().resolve(request.getFileName());
-            final XMLStreamWriter writer = factory.createXMLStreamWriter(Files.newOutputStream(schemaPath));
+            final XMLStreamWriter writer = factory.createXMLStreamWriter(Files.newOutputStream(schemaPath), UTF_8);
             try {
                 writeSchema(lookup, writer);
             } finally {
@@ -75,7 +76,7 @@ public class DefaultSchemaGenerator implements SchemaGenerator {
     }
 
     private static void writeSchema(final TypeLookup lookup, final XMLStreamWriter writer) throws XMLStreamException {
-        writer.writeStartDocument("UTF-8", "1.0");
+        writer.writeStartDocument(UTF_8, "1.0");
         writer.setDefaultNamespace(XSD_NAMESPACE);
         writer.writeStartElement(XSD_NAMESPACE, "schema");
         writer.writeDefaultNamespace(XSD_NAMESPACE);
