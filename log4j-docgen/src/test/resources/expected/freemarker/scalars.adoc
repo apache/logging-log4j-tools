@@ -1,0 +1,84 @@
+////
+Licensed to the Apache Software Foundation (ASF) under one or more
+contributor license agreements. See the NOTICE file distributed with
+this work for additional information regarding copyright ownership.
+The ASF licenses this file to You under the Apache License, Version 2.0
+(the "License"); you may not use this file except in compliance with
+the License. You may obtain a copy of the License at
+
+    https://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+////
+= Type converters
+
+Type converter plugins are used to convert simple `String` values into other types.
+
+== Available converters
+
+[cols="1,2m"]
+|===
+|Type
+|Description
+
+|[[boolean]]
+boolean
+a|A boolean value.
+
+Possible values:
+* `false`: false
+* `true`: true
+|[[byte]]
+byte
+a|An 8-bit signed integer from -128 to 127.
+|[[double]]
+double
+a|A double precision floating number from 4.94065645841246544e-324 to 1.79769313486231570e+308.
+|[[float]]
+float
+a|A single precision floating number from 1.40239846e-45 to 3.40282347e+38.
+|[[int]]
+int
+a|A 32-bit signed integer from -2147483648 to 2147483647.
+|[[java.lang.String]]
+java.lang.String
+a|A string of characters.
+|[[long]]
+long
+a|A 64-bit signed integer from -9223372036854775808 to 9223372036854775807.
+|[[org.apache.logging.log4j.Level]]
+o.a.l.l.Level
+a|Represents a logging level.
+**Note**: the Log4j API supports custom levels, the following list contains only the standard ones.
+
+Possible values:
+* `OFF`: Special level that disables logging. No events should be logged at this level.
+* `FATAL`: A fatal event that will prevent the application from continuing.
+* `ERROR`: An error in the application, possibly recoverable.
+* `WARN`: An event that might possible lead to an error.
+* `INFO`: An event for informational purposes.
+* `DEBUG`: A general debugging event.
+* `TRACE`: A fine-grained debug message, typically capturing the flow through the application.
+* `ALL`: All events should be logged.
+|[[org.apache.logging.log4j.core.Filter.Result]]
+o.a.l.l.core.Filter.Result
+a|The result that can returned from a filter method call.
+
+Possible values:
+* `ACCEPT`: The event will be processed without further filtering based on the log Level.
+* `NEUTRAL`: No decision could be made, further filtering should occur.
+* `DENY`: The event should not be processed.
+|[[org.apache.logging.log4j.core.appender.ConsoleAppender.Target]]
+o.a.l.l.core.appender.ConsoleAppender.Target
+a|Specifies the target of a console appender.
+
+Possible values:
+* `SYSTEM_OUT`: Logs to the standard output.
+* `SYSTEM_ERR`: Logs to the standard error.
+|[[short]]
+short
+a|A 16-bit signed integer from -32768 to 32767.

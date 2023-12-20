@@ -1,0 +1,99 @@
+////
+Licensed to the Apache Software Foundation (ASF) under one or more
+contributor license agreements. See the NOTICE file distributed with
+this work for additional information regarding copyright ownership.
+The ASF licenses this file to You under the Apache License, Version 2.0
+(the "License"); you may not use this file except in compliance with
+the License. You may obtain a copy of the License at
+
+    https://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+////
+= Console
+
+Write log events to the console.
+
+== XML snippet
+[source, xml]
+----
+<Console bufferedIo="true"
+         bufferSize=""
+         ignoreExceptions="true"
+         immediateFlush="true"
+         name=""
+         target="SYSTEM_OUT">
+    ... one Filter element ...
+    ... one Layout element ...
+</Console>
+----
+
+== Attributes
+
+Required attributes are in **bold face**.
+
+[cols="1,1,1,5m"]
+|===
+|Name
+|Type
+|Default
+|Description
+
+|bufferedIo
+|xref:../scalars.adoc#boolean[boolean]
+|true
+a|If set to `true` (default) the appender will buffer messages before sending them.
+This attribute is ignored if `immediateFlush` is set to `true`.
+
+|bufferSize
+|xref:../scalars.adoc#int[int]
+|
+a|Size in bytes of the appender's buffer.
+
+|ignoreExceptions
+|xref:../scalars.adoc#boolean[boolean]
+|true
+a|If set to `false` logging exceptions will be forwarded to the caller.
+
+|immediateFlush
+|xref:../scalars.adoc#boolean[boolean]
+|true
+a|If set to `true`, the appender flushes the output stream at each message and
+buffering is disabled regardless of the value of `bufferedIo`.
+
+|**name**
+|xref:../scalars.adoc#java.lang.String[String]
+|
+a|The name of the appender used in appender references.
+Must be unique.
+
+|target
+|xref:../scalars.adoc#org.apache.logging.log4j.core.appender.ConsoleAppender.Target[Target]
+|SYSTEM_OUT
+a|Specifies the target of the appender.
+
+|===
+
+== Nested Components
+
+Required components are in **bold face**.
+
+[cols="1,1,5m"]
+|===
+|Tag
+|Type
+|Description
+
+|N/A
+|xref:org.apache.logging.log4j.core.Filter.adoc[Filter]
+a|A filter to apply to events before sending them to destination.
+
+|**N/A**
+|xref:org.apache.logging.log4j.core.Layout.adoc[Layout]
+a|The layout to be used with the appender.
+
+|===

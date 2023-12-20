@@ -19,7 +19,7 @@
        xsi:schemaLocation="http://codehaus-plexus.github.io/MODELLO/2.0.0 https://codehaus-plexus.github.io/modello/xsd/modello-2.0.0.xsd"
        xml.namespace="https://logging.apache.org/log4j/plugins">
     <id>plugins</id>
-    <name>PluginSet</name>
+    <name>PluginBundle</name>
     <description>Documents a set of Log4j plugins.</description>
     <versionDefinition>
         <type>field</type>
@@ -361,9 +361,78 @@ If the type is an array or collection, this returns the type of the element.</de
                 </field>
             </fields>
         </class>
+        <class>
+            <name>FreeMarkerGeneratorRequest</name>
+            <packageName>org.apache.logging.log4j.docgen.freemarker</packageName>
+            <superClass>DocumentationRequest</superClass>
+            <fields>
+                <field xml.transient="true">
+                    <name>templateDirectory</name>
+                    <association>
+                        <type>java.nio.file.Path</type>
+                    </association>
+                    <required>true</required>
+                    <description>
+                        The directory containing the FreeMarker templates.
+                    </description>
+                </field>
+                <field xml.transient="true">
+                    <name>pluginTemplate</name>
+                    <type>String</type>
+                    <defaultValue>plugin.ftl</defaultValue>
+                    <description>A FreeMarker template to apply for to each {@link PluginType}.
+&lt;p&gt;
+Template parameters:
+&lt;/p&gt;
+&lt;ul&gt;
+    &lt;li&gt;`type`: the {@link PluginType} to format,&lt;/li&gt;
+    &lt;li&gt;`lookup`: a {@link org.apache.logging.log4j.docgen.util.TypeLookup} containing type information for other plugins.&lt;/li&gt;
+&lt;/ul&gt;</description>
+                </field>
+                <field xml.transient="true">
+                    <name>interfaceTemplate</name>
+                    <type>String</type>
+                    <defaultValue>interface.ftl</defaultValue>
+                    <description>A FreeMarker template to apply for to each {@link AbstractType}.
+&lt;p&gt;
+Template parameters:
+&lt;/p&gt;
+&lt;ul&gt;
+    &lt;li&gt;`type`: the {@link AbstractType} to format,&lt;/li&gt;
+    &lt;li&gt;`lookup`: a {@link org.apache.logging.log4j.docgen.util.TypeLookup} containing type information for other plugins.&lt;/li&gt;
+&lt;/ul&gt;</description>
+                </field>
+                <field xml.transient="true">
+                    <name>scalarsTemplate</name>
+                    <type>String</type>
+                    <defaultValue>scalars.ftl</defaultValue>
+                    <description>A FreeMarker template to describe all {@link ScalarType} types.
+&lt;p&gt;
+Template parameters:
+&lt;/p&gt;
+&lt;ul&gt;
+    &lt;li&gt;`scalars`: a list of all {@link ScalarType} elements to format.&lt;/li&gt;
+&lt;/ul&gt;</description>
+                </field>
+            </fields>
+        </class>
         <!-- External classes -->
         <class java.enabled="false">
             <name>java.nio.file.Path</name>
         </class>
     </classes>
+    <interfaces>
+        <interface>
+            <packageName>org.apache.logging.log4j.docgen.freemarker</packageName>
+            <name>FreeMarkerGenerator</name>
+            <codeSegments>
+                <codeSegment>
+                    <comment>Generates documentation using FreeMarker.
+
+@param request configuration data for the generated documentation.</comment>
+                    <code>void generateDocumentation(FreeMarkerGeneratorRequest request) throws java.io.IOException;</code>
+                </codeSegment>
+            </codeSegments>
+        </interface>
+    </interfaces>
 </model>
