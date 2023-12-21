@@ -22,7 +22,9 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.stream.Stream;
 import org.apache.logging.log4j.docgen.PluginSet;
+import org.apache.logging.log4j.docgen.freemarker.FreeMarkerGenerator;
 import org.apache.logging.log4j.docgen.freemarker.FreeMarkerGeneratorRequest;
 import org.apache.logging.log4j.docgen.io.stax.PluginBundleStaxReader;
 import org.junit.jupiter.api.Test;
@@ -41,7 +43,7 @@ public class FreeMarkerGeneratorTest {
                 .toURI());
         final Path outputDirectory = Paths.get("target/test-site/freemarker");
 
-        final DefaultFreeMarkerGenerator generator = new DefaultFreeMarkerGenerator();
+        final FreeMarkerGenerator generator = new DefaultFreeMarkerGenerator();
         final FreeMarkerGeneratorRequest request = new FreeMarkerGeneratorRequest();
         request.addPluginSet(set);
         request.setTemplateDirectory(templateDir);
@@ -49,15 +51,17 @@ public class FreeMarkerGeneratorTest {
 
         generator.generateDocumentation(request);
 
-        Files.walk(expectedDirectory).forEach(expectedPath -> {
-            if (Files.isRegularFile(expectedPath)) {
-                final Path path = expectedDirectory.relativize(expectedPath);
-                final Path actualPath = outputDirectory.resolve(path);
-                assertThat(actualPath)
-                        .exists()
-                        .usingCharset(StandardCharsets.UTF_8)
-                        .hasSameTextualContentAs(expectedPath);
-            }
-        });
+        try (final Stream<Path> stream = Files.walk(expectedDirectory)) {
+            stream.forEach(expectedPath -> {
+                if (Files.isRegularFile(expectedPath)) {
+                    final Path path = expectedDirectory.relativize(expectedPath);
+                    final Path actualPath = outputDirectory.resolve(path);
+                    assertThat(actualPath)
+                            .exists()
+                            .usingCharset(StandardCharsets.UTF_8)
+                            .hasSameTextualContentAs(expectedPath);
+                }
+            });
+        }
     }
 }
