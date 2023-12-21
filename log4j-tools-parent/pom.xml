@@ -35,7 +35,7 @@
     <assertj.version>3.24.2</assertj.version>
     <commons-io.version>2.15.1</commons-io.version>
     <freemarker.version>2.3.32</freemarker.version>
-    <jakarta.inject.version>2.0.1</jakarta.inject.version>
+    <jakarta.inject.version>1.0.5</jakarta.inject.version>
     <junit.version>5.10.1</junit.version>
     <modello.version>2.1.2</modello.version>
     <xmlunit.version>2.9.1</xmlunit.version>
