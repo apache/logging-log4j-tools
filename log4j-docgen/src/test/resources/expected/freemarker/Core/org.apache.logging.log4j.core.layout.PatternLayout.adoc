@@ -34,12 +34,9 @@ A conversion pattern is composed of literal text and format control expressions 
 
 Required attributes are in **bold face**.
 
-[cols="1,1,1,5m"]
+[cols="1m,1m,1m,5"]
 |===
-|Name
-|Type
-|Default
-|Description
+|Name|Type|Default|Description
 
 |pattern
 |xref:../scalars.adoc#java.lang.String[String]

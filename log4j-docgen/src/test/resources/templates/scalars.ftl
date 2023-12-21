@@ -23,10 +23,9 @@ Type converter plugins are used to convert simple `String` values into other typ
 
 == Available converters
 
-[cols="1,2m"]
+[cols="1m,2"]
 |===
-|Type
-|Description
+|Type|Description
 
 <#list scalars as scalar>
 |[[${scalar.className}]]

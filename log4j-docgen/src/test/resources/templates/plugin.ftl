@@ -59,12 +59,9 @@ ${indent}${attr.name}="${attr.defaultValue!}"${attr?is_last?then(has_elements?th
 
 Required attributes are in **bold face**.
 
-[cols="1,1,1,5m"]
+[cols="1m,1m,1m,5"]
 |===
-|Name
-|Type
-|Default
-|Description
+|Name|Type|Default|Description
 
     <#list type.attributes?sort_by('name') as attr>
 |${attr.required?then('**', '')}${attr.name}${attr.required?then('**', '')}
@@ -81,11 +78,9 @@ a|${attr.description.text}
 
 Required components are in **bold face**.
 
-[cols="1,1,5m"]
+[cols="1m,1m,5"]
 |===
-|Tag
-|Type
-|Description
+|Tag|Type|Description
 
     <#list type.elements?sort_by('type') as element>
 |${element.required?then('**', '') + (lookup[element.type].name!'N/A') + element.required?then('**', '')}

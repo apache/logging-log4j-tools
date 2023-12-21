@@ -42,12 +42,9 @@ A Log4j 2.x configuration contains many components, two of them `Appenders` and 
 
 Required attributes are in **bold face**.
 
-[cols="1,1,1,5m"]
+[cols="1m,1m,1m,5"]
 |===
-|Name
-|Type
-|Default
-|Description
+|Name|Type|Default|Description
 
 |advertiser
 |xref:../scalars.adoc#java.lang.String[String]
@@ -119,11 +116,9 @@ This only applies to classes configured by `StatusConfiguration#setVerboseClasse
 
 Required components are in **bold face**.
 
-[cols="1,1,5m"]
+[cols="1m,1m,5"]
 |===
-|Tag
-|Type
-|Description
+|Tag|Type|Description
 
 |**Appenders**
 |xref:org.apache.logging.log4j.core.config.AppendersPlugin.adoc[AppendersPlugin]

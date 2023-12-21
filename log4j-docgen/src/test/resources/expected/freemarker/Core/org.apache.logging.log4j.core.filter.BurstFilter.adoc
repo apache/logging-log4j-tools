@@ -33,12 +33,9 @@ Use this filter when you want to control the mean rate and maximum burst of log 
 
 Required attributes are in **bold face**.
 
-[cols="1,1,1,5m"]
+[cols="1m,1m,1m,5"]
 |===
-|Name
-|Type
-|Default
-|Description
+|Name|Type|Default|Description
 
 |level
 |xref:../scalars.adoc#org.apache.logging.log4j.Level[Level]

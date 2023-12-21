@@ -32,12 +32,9 @@ Configures the root logger
 
 Required attributes are in **bold face**.
 
-[cols="1,1,1,5m"]
+[cols="1m,1m,1m,5"]
 |===
-|Name
-|Type
-|Default
-|Description
+|Name|Type|Default|Description
 
 |includeLocation
 |xref:../scalars.adoc#boolean[boolean]
@@ -57,11 +54,9 @@ a|The level of the logger.
 
 Required components are in **bold face**.
 
-[cols="1,1,5m"]
+[cols="1m,1m,5"]
 |===
-|Tag
-|Type
-|Description
+|Tag|Type|Description
 
 |AppenderRef
 |xref:org.apache.logging.log4j.core.config.AppenderRef.adoc[AppenderRef]

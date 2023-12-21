@@ -29,12 +29,9 @@ Configures a custom level.
 
 Required attributes are in **bold face**.
 
-[cols="1,1,1,5m"]
+[cols="1m,1m,1m,5"]
 |===
-|Name
-|Type
-|Default
-|Description
+|Name|Type|Default|Description
 
 |**intLevel**
 |xref:../scalars.adoc#int[int]

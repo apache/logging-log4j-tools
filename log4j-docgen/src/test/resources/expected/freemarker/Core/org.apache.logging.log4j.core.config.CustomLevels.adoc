@@ -28,11 +28,9 @@ A wrapper for a list of custom level configurations.
 
 Required components are in **bold face**.
 
-[cols="1,1,5m"]
+[cols="1m,1m,5"]
 |===
-|Tag
-|Type
-|Description
+|Tag|Type|Description
 
 |CustomLevel
 |xref:org.apache.logging.log4j.core.config.CustomLevelConfig.adoc[CustomLevelConfig]

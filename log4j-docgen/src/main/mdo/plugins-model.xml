@@ -380,39 +380,39 @@ If the type is an array or collection, this returns the type of the element.</de
                     <name>pluginTemplate</name>
                     <type>String</type>
                     <defaultValue>plugin.ftl</defaultValue>
-                    <description>A FreeMarker template to apply for to each {@link PluginType}.
-&lt;p&gt;
+                    <description><![CDATA[FreeMarker template to apply for to each {@link PluginType}.
+<p>
 Template parameters:
-&lt;/p&gt;
-&lt;ul&gt;
-    &lt;li&gt;`type`: the {@link PluginType} to format,&lt;/li&gt;
-    &lt;li&gt;`lookup`: a {@link org.apache.logging.log4j.docgen.util.TypeLookup} containing type information for other plugins.&lt;/li&gt;
-&lt;/ul&gt;</description>
+</p>
+<ul>
+    <li>`type`: the {@link PluginType} to format,</li>
+    <li>`lookup`: a {@link org.apache.logging.log4j.docgen.util.TypeLookup} containing type information for other plugins.</li>
+</ul>]]></description>
                 </field>
                 <field xml.transient="true">
                     <name>interfaceTemplate</name>
                     <type>String</type>
                     <defaultValue>interface.ftl</defaultValue>
-                    <description>A FreeMarker template to apply for to each {@link AbstractType}.
-&lt;p&gt;
+                    <description><![CDATA[A FreeMarker template to apply for to each {@link AbstractType}.
+<p>
 Template parameters:
-&lt;/p&gt;
-&lt;ul&gt;
-    &lt;li&gt;`type`: the {@link AbstractType} to format,&lt;/li&gt;
-    &lt;li&gt;`lookup`: a {@link org.apache.logging.log4j.docgen.util.TypeLookup} containing type information for other plugins.&lt;/li&gt;
-&lt;/ul&gt;</description>
+</p>
+<ul>
+    <li>`type`: the {@link AbstractType} to format,</li>
+    <li>`lookup`: a {@link org.apache.logging.log4j.docgen.util.TypeLookup} containing type information for other plugins.</li>
+</ul>]]></description>
                 </field>
                 <field xml.transient="true">
                     <name>scalarsTemplate</name>
                     <type>String</type>
                     <defaultValue>scalars.ftl</defaultValue>
-                    <description>A FreeMarker template to describe all {@link ScalarType} types.
-&lt;p&gt;
+                    <description><![CDATA[A FreeMarker template to describe all {@link ScalarType} types.
+<p>
 Template parameters:
-&lt;/p&gt;
-&lt;ul&gt;
-    &lt;li&gt;`scalars`: a list of all {@link ScalarType} elements to format.&lt;/li&gt;
-&lt;/ul&gt;</description>
+</p>
+<ul>
+    <li>`scalars`: a list of all {@link ScalarType} elements to format.</li>
+</ul>]]></description>
                 </field>
             </fields>
         </class>

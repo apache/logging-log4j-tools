@@ -28,11 +28,9 @@ A wrapper for a list of logger configurations.
 
 Required components are in **bold face**.
 
-[cols="1,1,5m"]
+[cols="1m,1m,5"]
 |===
-|Tag
-|Type
-|Description
+|Tag|Type|Description
 
 |Logger
 |xref:org.apache.logging.log4j.core.config.LoggerConfig.adoc[LoggerConfig]
