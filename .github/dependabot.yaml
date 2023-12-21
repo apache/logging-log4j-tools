@@ -37,6 +37,9 @@ updates:
       # Keep at version 3.6.x
       - dependency-name: "org.apache.maven:maven-plugin-api"
         update-types: ["version-update:semver-major", "version-update:semver-minor"]
+      # Jakarta Dependency Injection 2.0 uses `jakarta.*` namespace
+      - dependency-name: "jakarta.inject:jakarta.inject-api"
+        versions: ["[2,)"]
 
   - package-ecosystem: github-actions
     directory: "/"
