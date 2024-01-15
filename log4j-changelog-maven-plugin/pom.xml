@@ -29,6 +29,10 @@
   <artifactId>log4j-changelog-maven-plugin</artifactId>
   <packaging>maven-plugin</packaging>
 
+  <properties>
+    <bnd.packagingTypes>maven-plugin</bnd.packagingTypes>
+  </properties>
+
   <dependencies>
 
     <dependency>
