@@ -41,7 +41,7 @@
     <xmlunit.version>2.9.1</xmlunit.version>
 
     <!-- Maven plugin versions -->
-    <maven-plugin.version>3.10.2</maven-plugin.version>
+    <maven-plugin.version>3.11.0</maven-plugin.version>
     <maven-plugin-api.version>3.6.3</maven-plugin-api.version>
     <modello-maven-plugin.version>${modello.version}</modello-maven-plugin.version>
     <sisu-maven-plugin.version>0.9.0.M2</sisu-maven-plugin.version>
