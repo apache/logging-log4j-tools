@@ -18,7 +18,12 @@ package org.apache.logging.log4j.changelog.exporter;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import freemarker.cache.FileTemplateLoader;
-import freemarker.template.*;
+import freemarker.template.Configuration;
+import freemarker.template.DefaultObjectWrapper;
+import freemarker.template.DefaultObjectWrapperBuilder;
+import freemarker.template.Template;
+import freemarker.template.TemplateExceptionHandler;
+import freemarker.template.Version;
 import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.UncheckedIOException;
