@@ -46,8 +46,8 @@ This minor release contains various bug fixes and improvements.
 
 * Add a `log4j-docgen` module with a common XML model to document sets of Log4j plugins.
 
-[#release-notes-0-x-x-changed]
-==== Changed
+[#release-notes-0-x-x-updated]
+==== Updated
 
-* Update `apache/logging-parent` to version `` (https://github.com/apache/logging-log4j-tools/pull/91[91])
+* Update `apache/logging-parent` to version `10.6.0`
 * Update `jakarta.inject:jakarta.inject-api` to version `2.0.1` (https://github.com/apache/logging-log4j-tools/pull/94[94])

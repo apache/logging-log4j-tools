@@ -2,6 +2,6 @@
 <entry xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns="http://logging.apache.org/log4j/changelog"
        xsi:schemaLocation="http://logging.apache.org/log4j/changelog https://logging.apache.org/log4j/changelog-0.1.3.xsd"
-       type="changed">
+       type="updated">
   <description format="asciidoc">Update `org.junit.jupiter:junit-jupiter-engine` to version `5.10.0`</description>
 </entry>

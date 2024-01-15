@@ -52,13 +52,13 @@ This minor release contains various bug fixes and improvements.
 
 * Rename `log4j.changelog.exporter.outputDirectory` property to `log4j.changelog.outputDirectory` (https://github.com/apache/logging-log4j-tools/issues/20[20])
 
-[#release-notes-0-2-0-removed]
-==== Removed
-
-* Remove `security` as a change type from `log4j-changelog` (https://github.com/apache/logging-log4j-tools/issues/14[14])
-
 [#release-notes-0-2-0-fixed]
 ==== Fixed
 
 * Fix unreleased directory order in `ChangelogExporter` (https://github.com/apache/logging-log4j-tools/issues/17[17])
 * Fix Windows compatibility (https://github.com/apache/logging-log4j-tools/issues/19[19])
+
+[#release-notes-0-2-0-removed]
+==== Removed
+
+* Remove `security` as a change type from `log4j-changelog` (https://github.com/apache/logging-log4j-tools/issues/14[14])
