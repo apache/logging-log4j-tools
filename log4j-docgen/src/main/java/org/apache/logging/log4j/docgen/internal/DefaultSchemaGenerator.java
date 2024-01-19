@@ -49,7 +49,7 @@ import org.apache.logging.log4j.docgen.xsd.SchemaGeneratorRequest;
 public class DefaultSchemaGenerator implements SchemaGenerator {
 
     private static final String LOG4J_PREFIX = "log4j";
-    private static final String LOG4J_NAMESPACE = "http://logging.apache.org/log4j/2.0/config";
+    private static final String LOG4J_NAMESPACE = "http://logging.apache.org/xml/ns/config";
     private static final String XSD_NAMESPACE = XMLConstants.W3C_XML_SCHEMA_NS_URI;
     private static final String MULTIPLICITY_UNBOUNDED = "*";
     private static final String UTF_8 = "UTF-8";

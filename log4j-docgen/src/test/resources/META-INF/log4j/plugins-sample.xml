@@ -15,7 +15,7 @@
   ~ See the License for the specific language governing permissions and
   ~ limitations under the License.
   -->
-<pluginSet xmlns="https://logging.apache.org/log4j/plugins" version="0.1.0">
+<pluginSet xmlns="https://logging.apache.org/xml/ns/plugins" version="0.1.0">
     <groupId>org.apache.logging.log4j</groupId>
     <artifactId>log4j-core</artifactId>
     <version>2.22.0</version>
