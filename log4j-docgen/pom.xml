@@ -27,7 +27,11 @@
   <artifactId>log4j-docgen</artifactId>
 
   <properties>
+    <maven.compiler.release>17</maven.compiler.release>
     <bnd.baseline.fail.on.missing>false</bnd.baseline.fail.on.missing>
+
+    <!-- Dependency versions -->
+    <asciidoctorj-api.version>3.0.0-alpha.2</asciidoctorj-api.version>
   </properties>
 
   <dependencies>
@@ -39,8 +43,35 @@
     </dependency>
 
     <dependency>
+      <groupId>org.asciidoctor</groupId>
+      <artifactId>asciidoctorj-api</artifactId>
+      <version>${asciidoctorj-api.version}</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.apache.commons</groupId>
+      <artifactId>commons-lang3</artifactId>
+    </dependency>
+
+    <dependency>
       <groupId>org.freemarker</groupId>
       <artifactId>freemarker</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>org.apache.logging.log4j</groupId>
+      <artifactId>log4j-api</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>org.apache.logging.log4j</groupId>
+      <artifactId>log4j-plugins</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>org.apache.logging.log4j</groupId>
+      <artifactId>log4j-core</artifactId>
+      <scope>test</scope>
     </dependency>
 
     <dependency>
