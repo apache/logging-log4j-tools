@@ -236,10 +236,7 @@ abstract class AbstractAsciidocTreeVisitor extends SimpleDocTreeVisitor<Void, As
     public Void visitLink(final LinkTree node, final AsciidocData data) {
         final String className = substringBefore(node.getReference().getSignature(), '#');
         final String simpleName = StringUtils.substringAfterLast(className, '.');
-        if (!data.getCurrentLine().isEmpty()) {
-            data.append(" ");
-        }
-        data.append("xref:")
+        data.appendAdjustingSpace(" xref:")
                 .append(className)
                 .append(".adoc[")
                 .append(simpleName)

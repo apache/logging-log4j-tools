@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ Licensed to the Apache Software Foundation (ASF) under one or more
+  ~ contributor license agreements.  See the NOTICE file distributed with
+  ~ this work for additional information regarding copyright ownership.
+  ~ The ASF licenses this file to you under the Apache License, Version 2.0
+  ~ (the "License"); you may not use this file except in compliance with
+  ~ the License.  You may obtain a copy of the License at
+  ~
+  ~      http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+  -->
+<pluginSet xmlns="https://logging.apache.org/xml/ns/plugins" version="0.1.0">
+    <scalars>
+        <scalar className="example.MyEnum">
+            <values>
+                <value name="A">
+                    <description>Makes things go boom!</description>
+                </value>
+                <value name="B">
+                    <description>A second choice.</description>
+                </value>
+                <value name="C">
+                    <description>Value C.</description>
+                </value>
+                <value name="D">
+                    <description>Value D.</description>
+                </value>
+            </values>
+            <description>A very important enum.</description>
+        </scalar>
+    </scalars>
+    <plugins>
+        <plugin name="MyAppender" namespace="namespace" className="example.MyAppender">
+            <supertypes>
+                <supertype>example.AbstractAppender</supertype>
+                <supertype>example.Appender</supertype>
+                <supertype>example.BaseAppender</supertype>
+                <supertype>java.lang.Object</supertype>
+            </supertypes>
+            <attributes>
+                <attribute name="aDouble" type="double">
+                    <description>An attribute of type `double`.</description>
+                </attribute>
+                <attribute name="anotherName">
+                    <description>An attribute whose name differs from the field name.</description>
+                </attribute>
+                <attribute name="booleanAtt" type="boolean">
+                    <description>A `boolean` attribute with annotated type.</description>
+                </attribute>
+                <attribute name="byteAtt" type="byte">
+                    <description>A `byte` attribute with annotated parameter.</description>
+                </attribute>
+                <attribute name="charAtt" type="char">
+                    <description>A `char` attribute.</description>
+                </attribute>
+                <attribute name="enumAtt" type="example.MyEnum">
+                    <description>An attribute that is an enumeration annotated on type.</description>
+                </attribute>
+                <attribute name="floatAtt" type="float">
+                    <description>An attribute of type `float`.</description>
+                </attribute>
+                <attribute name="intAtt" type="int">
+                    <description>An `int` attribute.</description>
+                </attribute>
+                <attribute name="longAtt" type="long">
+                    <description>A `long` attribute annotated on type.</description>
+                </attribute>
+                <attribute name="shortAtt" type="short">
+                    <description>A `short` attribute annotated on type.</description>
+                </attribute>
+                <attribute name="stringAtt">
+                    <description>A `String` attribute.</description>
+                </attribute>
+            </attributes>
+            <elements>
+                <element type="example.AbstractAppender">
+                    <description>An element that is not an interface with annotated parameter.</description>
+                </element>
+                <element type="example.Appender">
+                    <description>An element with an annotated type.</description>
+                </element>
+                <element multiplicity="*" type="example.Filter">
+                    <description>An element with multiplicity n with annotated setter.</description>
+                </element>
+                <element type="example.Layout">
+                    <description>An element with multiplicity 1.</description>
+                </element>
+                <element multiplicity="*" type="example.MyAppender.Appender2">
+                    <description>A collection element.</description>
+                </element>
+                <element multiplicity="*" type="example.MyAppender.Layout2">
+                    <description>A set of layouts</description>
+                </element>
+                <element multiplicity="*" type="example.MyAppender.Layout3">
+                    <description>A setter with a varargs type.</description>
+                </element>
+            </elements>
+            <description>Example plugin
+
+This is an example plugin.
+It has the following characteristics:
+
+. Plugin name: `MyPlugin`,
+. Namespace: default (i.e. `Core`).
+
+It also implements:
+
+* xref:Appender.adoc[],
+* xref:BaseAppender.adoc[]</description>
+        </plugin>
+        <plugin name="MyOldLayout" className="example.MyOldLayout">
+            <supertypes>
+                <supertype>example.Layout</supertype>
+                <supertype>java.lang.Object</supertype>
+            </supertypes>
+            <attributes>
+                <attribute name="boolAttr" type="boolean">
+                    <description>A `boolean` attribute.</description>
+                </attribute>
+                <attribute name="byteAttr" type="byte">
+                    <description>A `byte` attribute.</description>
+                </attribute>
+                <attribute name="charAttr" type="char">
+                    <description>A `char` attribute.</description>
+                </attribute>
+                <attribute name="doubleAttr" type="double">
+                    <description>A `double` attribute.</description>
+                </attribute>
+                <attribute name="enumAttr" type="example.MyEnum">
+                    <description>An `enum` attribute.</description>
+                </attribute>
+                <attribute name="floatAttr" type="float">
+                    <description>A `float` attribute.</description>
+                </attribute>
+                <attribute name="intAttr" type="int">
+                    <description>An `int` attribute.</description>
+                </attribute>
+                <attribute name="longAttr" type="long">
+                    <description>A `long` attribute.</description>
+                </attribute>
+                <attribute name="otherName">
+                    <description>An attribute with overwritten name.</description>
+                </attribute>
+                <attribute name="shortAttr" type="short">
+                    <description>A `short` attribute.</description>
+                </attribute>
+                <attribute name="stringAttr">
+                    <description>A xref:String.adoc[] attribute.</description>
+                </attribute>
+            </attributes>
+            <elements>
+                <element multiplicity="*" type="example.Filter">
+                    <description>An element with multiplicity `n`.</description>
+                </element>
+                <element type="example.Layout">
+                    <description>An element with multiplicity `1`.</description>
+                </element>
+            </elements>
+            <description>Example plugin without a builder.</description>
+        </plugin>
+    </plugins>
+    <abstractTypes>
+        <abstractType className="example.AbstractAppender">
+            <description>An example of base abstract class.</description>
+        </abstractType>
+        <abstractType className="example.Appender">
+            <description>Extended interface that also allows to do `baz`.</description>
+        </abstractType>
+        <abstractType className="example.BaseAppender">
+            <description>Base interface for appenders.</description>
+        </abstractType>
+        <abstractType className="example.Layout">
+            <description>Formats messages.</description>
+        </abstractType>
+    </abstractTypes>
+</pluginSet>
