@@ -21,7 +21,7 @@ import java.util.List;
 import org.asciidoctor.ast.Cell;
 import org.asciidoctor.ast.Row;
 
-public class RowImpl implements Row {
+public final class RowImpl implements Row {
 
     private final List<Cell> cells = new ArrayList<>();
 

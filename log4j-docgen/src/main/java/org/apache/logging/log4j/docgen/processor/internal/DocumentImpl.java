@@ -27,7 +27,7 @@ import org.asciidoctor.ast.RevisionInfo;
 import org.asciidoctor.ast.StructuralNode;
 import org.asciidoctor.ast.Title;
 
-public class DocumentImpl extends StructuralNodeImpl implements Document {
+public final class DocumentImpl extends StructuralNodeImpl implements Document {
 
     public DocumentImpl() {
         super(null);

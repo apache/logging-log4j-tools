@@ -21,7 +21,7 @@ import java.util.Map;
 import org.asciidoctor.ast.ContentNode;
 import org.asciidoctor.ast.Document;
 
-public abstract class ContentNodeImpl implements ContentNode {
+abstract class ContentNodeImpl implements ContentNode {
 
     private final ContentNode parent;
     private String context;

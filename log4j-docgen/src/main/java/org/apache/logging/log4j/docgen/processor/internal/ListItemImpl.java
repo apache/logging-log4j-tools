@@ -21,7 +21,7 @@ import org.asciidoctor.ast.ContentNode;
 import org.asciidoctor.ast.ListItem;
 import org.asciidoctor.ast.StructuralNode;
 
-public class ListItemImpl extends StructuralNodeImpl implements ListItem {
+public final class ListItemImpl extends StructuralNodeImpl implements ListItem {
 
     public ListItemImpl(final ContentNode parent) {
         super(parent);

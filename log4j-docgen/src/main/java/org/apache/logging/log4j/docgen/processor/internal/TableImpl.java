@@ -24,7 +24,7 @@ import org.asciidoctor.ast.ContentNode;
 import org.asciidoctor.ast.Row;
 import org.asciidoctor.ast.Table;
 
-public class TableImpl extends StructuralNodeImpl implements Table {
+public final class TableImpl extends StructuralNodeImpl implements Table {
 
     private final List<Row> header = new ArrayList<>();
     private final List<Row> body = new ArrayList<>();

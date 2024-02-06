@@ -26,7 +26,7 @@ import javax.lang.model.element.Element;
 /**
  * Converts a {@link DocCommentTree} into AsciiDoc text.
  */
-class AsciidocConverter {
+final class AsciidocConverter {
 
     private static final DocTreeVisitor<Void, AsciidocData> DOC_COMMENT_TREE_VISITOR = new DocCommentTreeVisitor();
     private static final DocTreeVisitor<Void, AsciidocData> PARAM_TREE_VISITOR = new ParamTreeVisitor();
@@ -54,7 +54,7 @@ class AsciidocConverter {
         return data.getDocument().convert();
     }
 
-    private static class DocCommentTreeVisitor extends AbstractAsciidocTreeVisitor {
+    private static final class DocCommentTreeVisitor extends AbstractAsciidocTreeVisitor {
         @Override
         public Void visitDocComment(final DocCommentTree node, final AsciidocData data) {
             // Summary block wrapped in a new paragraph.
@@ -72,7 +72,7 @@ class AsciidocConverter {
         }
     }
 
-    private static class ParamTreeVisitor extends AbstractAsciidocTreeVisitor {
+    private static final class ParamTreeVisitor extends AbstractAsciidocTreeVisitor {
         @Override
         public Void visitParam(final ParamTree node, final AsciidocData data) {
             for (final DocTree docTree : node.getDescription()) {

@@ -25,7 +25,7 @@ import org.asciidoctor.ast.Block;
 import org.asciidoctor.ast.Document;
 import org.asciidoctor.ast.StructuralNode;
 
-class AsciidocData {
+final class AsciidocData {
     private final Document document;
     private int currentSectionLevel;
     private StructuralNode currentNode;

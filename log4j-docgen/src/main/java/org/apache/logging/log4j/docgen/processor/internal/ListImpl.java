@@ -23,7 +23,7 @@ import org.asciidoctor.ast.List;
 import org.asciidoctor.ast.ListItem;
 import org.asciidoctor.ast.StructuralNode;
 
-public class ListImpl extends StructuralNodeImpl implements List {
+public final class ListImpl extends StructuralNodeImpl implements List {
 
     public static final String ORDERED_LIST_CONTEXT = "olist";
     private static final char ORDERED_LIST_MARKER = '.';

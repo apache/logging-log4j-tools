@@ -24,7 +24,7 @@ import org.asciidoctor.ast.Document;
 import org.asciidoctor.ast.Section;
 import org.asciidoctor.ast.StructuralNode;
 
-public class SectionImpl extends StructuralNodeImpl implements Section {
+public final class SectionImpl extends StructuralNodeImpl implements Section {
 
     private final List<StructuralNode> content = new ArrayList<>();
 
