@@ -16,17 +16,12 @@
  */
 package org.apache.logging.log4j.docgen.processor.internal;
 
-import java.util.ArrayList;
-import java.util.List;
-import org.apache.logging.log4j.util.StringBuilderFormattable;
 import org.asciidoctor.ast.ContentNode;
 import org.asciidoctor.ast.Document;
 import org.asciidoctor.ast.Section;
 import org.asciidoctor.ast.StructuralNode;
 
 public final class SectionImpl extends StructuralNodeImpl implements Section {
-
-    private final List<StructuralNode> content = new ArrayList<>();
 
     public SectionImpl(final ContentNode parent) {
         super(parent);
@@ -41,19 +36,7 @@ public final class SectionImpl extends StructuralNodeImpl implements Section {
                     .append(title)
                     .append("\n\n");
         }
-        boolean first = true;
-        for (final StructuralNode node : getBlocks()) {
-            if (!first) {
-                buffer.append('\n');
-            } else {
-                first = false;
-            }
-            if (node instanceof final StringBuilderFormattable formattable) {
-                formattable.formatTo(buffer);
-            } else {
-                buffer.append(node.convert());
-            }
-        }
+        formatNodeCollection(getBlocks(), "\n", buffer);
     }
 
     private static int computeSectionLevel(final StructuralNode section) {

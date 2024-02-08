@@ -17,7 +17,6 @@
 package org.apache.logging.log4j.docgen.processor.internal;
 
 import java.util.Objects;
-import org.apache.logging.log4j.util.StringBuilderFormattable;
 import org.asciidoctor.ast.ContentNode;
 import org.asciidoctor.ast.List;
 import org.asciidoctor.ast.ListItem;
@@ -38,14 +37,11 @@ public final class ListImpl extends StructuralNodeImpl implements List {
     @Override
     public void formatTo(final StringBuilder buffer) {
         final String prefix = computeItemPrefix();
-        getBlocks().forEach(node -> {
+        final java.util.List<StructuralNode> blocks = getBlocks();
+        if (!blocks.isEmpty()) {
             buffer.append(prefix);
-            if (node instanceof final StringBuilderFormattable formattable) {
-                formattable.formatTo(buffer);
-            } else {
-                buffer.append(node.convert());
-            }
-        });
+        }
+        formatNodeCollection(blocks, prefix, buffer);
     }
 
     /**

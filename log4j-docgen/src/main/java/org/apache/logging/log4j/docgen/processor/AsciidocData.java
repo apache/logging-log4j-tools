@@ -33,7 +33,6 @@ final class AsciidocData {
     private static final String SPACE = " ";
     private static final char SPACE_CHAR = ' ';
     private static final char CODE_CHAR = '`';
-    private static final String NEW_LINE = "\n";
 
     private final Document document;
     private int currentSectionLevel;
@@ -91,7 +90,7 @@ final class AsciidocData {
         return this;
     }
 
-    public void newTextSpan(final String style) {
+    public void newTextSpan() {
         paragraphs.push(new BlockImpl(paragraphs.peek()));
         lines.push(new StringBuilder());
     }

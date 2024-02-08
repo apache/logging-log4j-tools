@@ -34,7 +34,7 @@ public class BlockImpl extends StructuralNodeImpl implements Block {
     }
 
     @Override
-    public void formatTo(final StringBuilder buffer) {
+    protected void formatTo(final StringBuilder buffer) {
         if (getStyle() != null) {
             buffer.append('[').append(getStyle()).append("]\n");
         }

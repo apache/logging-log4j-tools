@@ -19,12 +19,10 @@ package org.apache.logging.log4j.docgen.processor.internal;
 import java.util.List;
 import java.util.Map;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.logging.log4j.util.StringBuilderFormattable;
 import org.asciidoctor.ast.Author;
 import org.asciidoctor.ast.Catalog;
 import org.asciidoctor.ast.Document;
 import org.asciidoctor.ast.RevisionInfo;
-import org.asciidoctor.ast.StructuralNode;
 import org.asciidoctor.ast.Title;
 
 public final class DocumentImpl extends StructuralNodeImpl implements Document {
@@ -34,23 +32,11 @@ public final class DocumentImpl extends StructuralNodeImpl implements Document {
     }
 
     @Override
-    public void formatTo(final StringBuilder buffer) {
+    protected void formatTo(final StringBuilder buffer) {
         if (!StringUtils.isBlank(getTitle())) {
             buffer.append("= ").append(getTitle()).append("\n\n");
         }
-        boolean first = true;
-        for (final StructuralNode node : getBlocks()) {
-            if (!first) {
-                buffer.append('\n');
-            } else {
-                first = false;
-            }
-            if (node instanceof final StringBuilderFormattable formattable) {
-                formattable.formatTo(buffer);
-            } else {
-                buffer.append(node.convert());
-            }
-        }
+        formatNodeCollection(getBlocks(), "\n", buffer);
     }
 
     @Override

@@ -24,7 +24,7 @@ import org.asciidoctor.ast.ContentNode;
 import org.asciidoctor.ast.Cursor;
 import org.asciidoctor.ast.StructuralNode;
 
-public abstract class StructuralNodeImpl extends ContentNodeImpl implements StructuralNode, StringBuilderFormattable {
+public abstract class StructuralNodeImpl extends ContentNodeImpl implements StructuralNode {
 
     private int level;
     private String title;
@@ -67,10 +67,37 @@ public abstract class StructuralNodeImpl extends ContentNodeImpl implements Stru
     }
 
     @Override
-    public String convert() {
+    public final String convert() {
         final StringBuilder sb = new StringBuilder();
         formatTo(sb);
         return sb.toString();
+    }
+
+    protected abstract void formatTo(final StringBuilder buffer);
+
+    protected static void formatNode(final StructuralNode node, final StringBuilder buffer) {
+        if (node instanceof final StructuralNodeImpl impl) {
+            impl.formatTo(buffer);
+        } else {
+            buffer.append(node.convert());
+        }
+    }
+
+    protected static void formatNodeCollection(
+            final Iterable<? extends StructuralNode> nodes, final String separator, final StringBuilder buffer) {
+        boolean first = true;
+        for (final StructuralNode node : nodes) {
+            if (!first) {
+                buffer.append(separator);
+            } else {
+                first = false;
+            }
+            if (node instanceof final StringBuilderFormattable formattable) {
+                formattable.formatTo(buffer);
+            } else {
+                buffer.append(node.convert());
+            }
+        }
     }
 
     @Override

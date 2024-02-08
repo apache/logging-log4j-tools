@@ -52,7 +52,7 @@ public final class TableImpl extends StructuralNodeImpl implements Table {
         }
     }
 
-    private void formatRow(final Row row, final StringBuilder buffer) {
+    private static void formatRow(final Row row, final StringBuilder buffer) {
         buffer.append('\n');
         row.getCells().forEach(cell -> {
             if (cell instanceof final StringBuilderFormattable formattable) {

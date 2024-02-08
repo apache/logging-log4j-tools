@@ -50,12 +50,9 @@ abstract class AbstractAsciidocTreeVisitor extends SimpleDocTreeVisitor<Void, As
 
     private static final String JAVA_SOURCE_STYLE = "source,java";
     private static final String XML_SOURCE_STYLE = "source,xml";
-    // These are not supported by AsciiDoctor and are only used internally
-    private static final String CODE_STYLE = "code";
+
     private static final String CODE_DELIM = "`";
-    private static final String EMPHASIS_STYLE = "em";
     private static final String EMPHASIS_DELIM = "_";
-    private static final String STRONG_EMPHASIS_STYLE = "strong";
     private static final String STRONG_EMPHASIS_DELIM = "*";
 
     private static final String SPACE = " ";
@@ -129,15 +126,15 @@ abstract class AbstractAsciidocTreeVisitor extends SimpleDocTreeVisitor<Void, As
                 data.getCurrentParagraph().setContext(BlockImpl.LISTING_CONTEXT);
                 break;
             case "code":
-                data.newTextSpan(CODE_STYLE);
+                data.newTextSpan();
                 break;
             case "em":
             case "i":
-                data.newTextSpan(EMPHASIS_STYLE);
+                data.newTextSpan();
                 break;
             case "strong":
             case "b":
-                data.newTextSpan(STRONG_EMPHASIS_STYLE);
+                data.newTextSpan();
                 break;
             default:
         }
@@ -253,7 +250,7 @@ abstract class AbstractAsciidocTreeVisitor extends SimpleDocTreeVisitor<Void, As
     @Override
     public Void visitLiteral(final LiteralTree node, final AsciidocData data) {
         if (node.getKind() == DocTree.Kind.CODE) {
-            data.newTextSpan(CODE_STYLE);
+            data.newTextSpan();
             node.getBody().accept(this, data);
             appendSpan(data, "`");
         } else {

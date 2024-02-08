@@ -16,7 +16,6 @@
  */
 package org.apache.logging.log4j.docgen.processor.internal;
 
-import org.apache.logging.log4j.util.StringBuilderFormattable;
 import org.asciidoctor.ast.Cell;
 import org.asciidoctor.ast.Column;
 import org.asciidoctor.ast.ContentNode;
@@ -34,20 +33,14 @@ public class CellImpl extends StructuralNodeImpl implements Cell {
     }
 
     @Override
-    public void formatTo(final StringBuilder buffer) {
+    protected void formatTo(final StringBuilder buffer) {
         if (getBlocks().size() > 1) {
             buffer.append('a');
         } else if (HEADER_CONTEXT.equals(getContext())) {
             buffer.append('h');
         }
         buffer.append("| ");
-        getBlocks().forEach(node -> {
-            if (node instanceof final StringBuilderFormattable formattable) {
-                formattable.formatTo(buffer);
-            } else {
-                buffer.append(node.convert());
-            }
-        });
+        formatNodeCollection(getBlocks(), " ", buffer);
     }
 
     //
