@@ -16,6 +16,7 @@
  */
 package org.apache.logging.log4j.docgen.util;
 
+import java.io.Serial;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.TreeMap;
@@ -25,31 +26,31 @@ import org.apache.logging.log4j.docgen.PluginSet;
 import org.apache.logging.log4j.docgen.PluginType;
 import org.apache.logging.log4j.docgen.Type;
 
-public class TypeLookup extends TreeMap<String, Type> {
+public final class TypeLookup extends TreeMap<String, Type> {
 
-    private static final Predicate<PluginType> HAS_CORE_NAMESPACE = p -> "Core".equals(p.getNamespace());
+    @Serial
+    private static final long serialVersionUID = 1L;
 
-    public static TypeLookup of(final Iterable<PluginSet> sets) {
+    public static TypeLookup of(final Iterable<? extends PluginSet> sets) {
         return new TypeLookup(sets);
     }
 
-    private TypeLookup(final Iterable<PluginSet> sets) {
+    private TypeLookup(final Iterable<? extends PluginSet> sets) {
+        final Predicate<PluginType> hasCoreNamespace = p -> "Core".equals(p.getNamespace());
         // Round 1: Merge all the information from the sets
         sets.forEach(set -> {
             set.getScalars().forEach(scalar -> put(scalar.getClassName(), scalar));
             set.getAbstractTypes().forEach(abstractType -> put(abstractType.getClassName(), abstractType));
-            set.getPlugins().stream().filter(HAS_CORE_NAMESPACE).forEach(plugin -> put(plugin.getClassName(), plugin));
+            set.getPlugins().stream().filter(hasCoreNamespace).forEach(plugin -> put(plugin.getClassName(), plugin));
         });
         // Round 2: fill in the set of abstract types used in elements and the list of their possible implementations
         final Set<String> requiredAbstractTypes = new HashSet<>();
-        sets.forEach(set -> {
-            set.getPlugins().stream().filter(HAS_CORE_NAMESPACE).forEach(plugin -> {
-                plugin.getSupertypes().forEach(supertype -> ((AbstractType)
-                                computeIfAbsent(supertype, TypeLookup::createAbstractType))
-                        .addImplementation(plugin.getClassName()));
-                plugin.getElements().forEach(element -> requiredAbstractTypes.add(element.getType()));
-            });
-        });
+        sets.forEach(set -> set.getPlugins().stream().filter(hasCoreNamespace).forEach(plugin -> {
+            plugin.getSupertypes()
+                    .forEach(supertype -> ((AbstractType) computeIfAbsent(supertype, TypeLookup::createAbstractType))
+                            .addImplementation(plugin.getClassName()));
+            plugin.getElements().forEach(element -> requiredAbstractTypes.add(element.getType()));
+        }));
         // Round 3: remove the types that are not required and do not have a description
         values().removeIf(
                         type -> !requiredAbstractTypes.contains(type.getClassName()) && type.getDescription() == null);

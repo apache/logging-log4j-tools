@@ -34,6 +34,7 @@ a|${scalar.description.text}
     <#if scalar.values?size != 0>
 
 Possible values:
+
         <#list scalar.values as value>
 * `${value.name}`: ${value.description.text}
         </#list>

@@ -80,6 +80,52 @@
   <build>
     <plugins>
 
+      <!--
+        ~ We split compilation in two executions, so we can fail on warnings for our sources,
+        ~ but be more tolerant for generated sources.
+        -->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <executions>
+          <execution>
+            <id>default-compile</id>
+            <phase>none</phase>
+          </execution>
+          <execution>
+            <id>compile-modello-sources</id>
+            <goals>
+              <goal>compile</goal>
+            </goals>
+            <configuration>
+              <!-- Modello-generated classes -->
+              <includes>
+                <include>org/apache/logging/log4j/docgen/*.java</include>
+                <include>org/apache/logging/log4j/docgen/freemarker/*.java</include>
+                <include>org/apache/logging/log4j/docgen/io/stax/*.java</include>
+                <include>org/apache/logging/log4j/docgen/xsd/*.java</include>
+              </includes>
+            </configuration>
+          </execution>
+          <execution>
+            <id>compile-main</id>
+            <goals>
+              <goal>compile</goal>
+            </goals>
+            <configuration>
+              <!-- Modello-generated classes -->
+              <excludes>
+                <exclude>org/apache/logging/log4j/docgen/*.java</exclude>
+                <exclude>org/apache/logging/log4j/docgen/freemarker/*.java</exclude>
+                <exclude>org/apache/logging/log4j/docgen/io/stax/*.java</exclude>
+                <exclude>org/apache/logging/log4j/docgen/xsd/*.java</exclude>
+              </excludes>
+              <failOnWarning>true</failOnWarning>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+
       <plugin>
         <groupId>org.codehaus.modello</groupId>
         <artifactId>modello-maven-plugin</artifactId>

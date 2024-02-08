@@ -29,6 +29,7 @@ boolean
 a|A boolean value.
 
 Possible values:
+
 * `false`: false
 * `true`: true
 |[[byte]]
@@ -55,6 +56,7 @@ a|Represents a logging level.
 **Note**: the Log4j API supports custom levels, the following list contains only the standard ones.
 
 Possible values:
+
 * `OFF`: Special level that disables logging. No events should be logged at this level.
 * `FATAL`: A fatal event that will prevent the application from continuing.
 * `ERROR`: An error in the application, possibly recoverable.
@@ -68,6 +70,7 @@ o.a.l.l.core.Filter.Result
 a|The result that can returned from a filter method call.
 
 Possible values:
+
 * `ACCEPT`: The event will be processed without further filtering based on the log Level.
 * `NEUTRAL`: No decision could be made, further filtering should occur.
 * `DENY`: The event should not be processed.
@@ -76,6 +79,7 @@ o.a.l.l.core.appender.ConsoleAppender.Target
 a|Specifies the target of a console appender.
 
 Possible values:
+
 * `SYSTEM_OUT`: Logs to the standard output.
 * `SYSTEM_ERR`: Logs to the standard error.
 |[[short]]

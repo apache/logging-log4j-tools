@@ -52,11 +52,12 @@ public class DefaultFreeMarkerGenerator implements FreeMarkerGenerator {
 
     private static final String CHARSET = "UTF-8";
 
+    @Override
     public void generateDocumentation(final FreeMarkerGeneratorRequest request) throws IOException {
         final PluginSet configurationSet;
         try {
             configurationSet = new PluginBundleStaxReader().read(getClass().getResourceAsStream("configuration.xml"));
-        } catch (XMLStreamException e) {
+        } catch (final XMLStreamException e) {
             throw new RuntimeException("Internal error: unable to parse resource `configuration.xml`.", e);
         }
         final Collection<PluginSet> extendedSets = new ArrayList<>(request.getPluginSets());
