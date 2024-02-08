@@ -43,18 +43,25 @@ import org.asciidoctor.ast.Section;
 import org.asciidoctor.ast.StructuralNode;
 import org.asciidoctor.ast.Table;
 
-class AbstractAsciidocTreeVisitor extends SimpleDocTreeVisitor<Void, AsciidocData> {
+abstract class AbstractAsciidocTreeVisitor extends SimpleDocTreeVisitor<Void, AsciidocData> {
+
+    private static final String SOURCE_STYLE = "source";
+    // These are not supported by AsciiDoctor and are only used internally
+    private static final String CODE_STYLE = "code";
+    private static final String CODE_DELIM = "`";
+    private static final String EMPHASIS_STYLE = "em";
+    private static final String EMPHASIS_DELIM = "_";
+    private static final String STRONG_EMPHASIS_STYLE = "strong";
+    private static final String STRONG_EMPHASIS_DELIM = "*";
 
     private static void appendSentences(final String text, final AsciidocData data) {
-        final String body = StringUtils.normalizeSpace(text);
-        final String[] sentences = body.split("(?<=\\w{2}[.!?])", -1);
+        final String[] sentences = text.split("(?<=\\w{2}[.!?])", -1);
         // Full sentences
         for (int i = 0; i < sentences.length - 1; i++) {
-            data.appendWords(sentences[i].strip());
-            data.newLine();
+            data.appendAdjustingSpace(sentences[i]).newLine();
         }
         // Partial sentence
-        data.appendWords(sentences[sentences.length - 1].strip());
+        data.appendAdjustingSpace(sentences[sentences.length - 1]);
     }
 
     @Override
@@ -112,9 +119,19 @@ class AbstractAsciidocTreeVisitor extends SimpleDocTreeVisitor<Void, AsciidocDat
                 break;
             case "pre":
                 data.newParagraph();
-                final Block currentParagraph = data.getCurrentParagraph();
-                currentParagraph.setContext(BlockImpl.LISTING_CONTEXT);
-                currentParagraph.setStyle(BlockImpl.SOURCE_STYLE);
+                data.getCurrentParagraph().setContext(BlockImpl.LISTING_CONTEXT);
+                data.getCurrentParagraph().setStyle(SOURCE_STYLE);
+                break;
+            case "code":
+                data.newTextSpan(CODE_STYLE);
+                break;
+            case "em":
+            case "i":
+                data.newTextSpan(EMPHASIS_STYLE);
+                break;
+            case "strong":
+            case "b":
+                data.newTextSpan(STRONG_EMPHASIS_STYLE);
                 break;
             default:
         }
@@ -187,6 +204,17 @@ class AbstractAsciidocTreeVisitor extends SimpleDocTreeVisitor<Void, AsciidocDat
                     table.getBody().add(row);
                 }
                 break;
+            case "code":
+                appendSpan(data, CODE_DELIM);
+                break;
+            case "em":
+            case "i":
+                appendSpan(data, EMPHASIS_DELIM);
+                break;
+            case "strong":
+            case "b":
+                appendSpan(data, STRONG_EMPHASIS_DELIM);
+                break;
             default:
         }
         return super.visitEndElement(node, data);
@@ -210,14 +238,25 @@ class AbstractAsciidocTreeVisitor extends SimpleDocTreeVisitor<Void, AsciidocDat
     @Override
     public Void visitLiteral(final LiteralTree node, final AsciidocData data) {
         if (node.getKind() == DocTree.Kind.CODE) {
-            if (!data.getCurrentLine().isEmpty()) {
-                data.append(" ");
-            }
-            data.append("`").append(node.getBody().getBody()).append("`");
+            data.newTextSpan(CODE_STYLE);
+            node.getBody().accept(this, data);
+            appendSpan(data, "`");
         } else {
             node.getBody().accept(this, data);
         }
         return super.visitLiteral(node, data);
+    }
+
+    private void appendSpan(final AsciidocData data, final String delimiter) {
+        final String body = data.popTextSpan();
+        data.append(delimiter);
+        final boolean needsEscaping = body.contains(delimiter);
+        if (needsEscaping) {
+            data.append("++").append(body).append("++");
+        } else {
+            data.append(body);
+        }
+        data.append(delimiter);
     }
 
     @Override

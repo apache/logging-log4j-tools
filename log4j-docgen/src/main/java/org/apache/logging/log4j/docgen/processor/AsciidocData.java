@@ -16,8 +16,11 @@
  */
 package org.apache.logging.log4j.docgen.processor;
 
+import java.util.ArrayDeque;
+import java.util.Deque;
 import java.util.EmptyStackException;
 import java.util.function.Function;
+import java.util.regex.Pattern;
 import org.apache.logging.log4j.docgen.processor.internal.BlockImpl;
 import org.apache.logging.log4j.docgen.processor.internal.DocumentImpl;
 import org.apache.logging.log4j.docgen.processor.internal.SectionImpl;
@@ -26,35 +29,41 @@ import org.asciidoctor.ast.Document;
 import org.asciidoctor.ast.StructuralNode;
 
 final class AsciidocData {
+    private static final Pattern WHITESPACE_SEQUENCE = Pattern.compile("\\s+");
+    private static final String SPACE = " ";
+    private static final char SPACE_CHAR = ' ';
+    private static final char CODE_CHAR = '`';
+    private static final String NEW_LINE = "\n";
+
     private final Document document;
     private int currentSectionLevel;
     private StructuralNode currentNode;
-    // not attached to the current node
-    private Block currentParagraph;
-    private final StringBuilder currentLine;
+    // A stack of nested text blocks. Each can have a different style.
+    private final Deque<Block> paragraphs = new ArrayDeque<>();
+    private final Deque<StringBuilder> lines = new ArrayDeque<>();
 
     public AsciidocData() {
         document = new DocumentImpl();
         currentSectionLevel = 1;
         currentNode = document;
-        currentParagraph = new BlockImpl(currentNode);
-        currentLine = new StringBuilder();
+        paragraphs.push(new BlockImpl(currentNode));
+        lines.push(new StringBuilder());
     }
 
     public void newLine() {
         // Remove trailing space
-        final String line = currentLine.toString().stripTrailing();
+        final String line = getCurrentLine().toString().stripTrailing();
         // Ignore leading empty lines
-        if (!currentParagraph.getLines().isEmpty() || !line.isEmpty()) {
-            currentParagraph.getLines().add(line);
+        if (!getCurrentParagraph().getLines().isEmpty() || !line.isEmpty()) {
+            getCurrentParagraph().getLines().add(line);
         }
-        currentLine.setLength(0);
+        getCurrentLine().setLength(0);
     }
 
     public AsciidocData append(final String text) {
         final String[] lines = text.split("\r?\n", -1);
         for (int i = 0; i < lines.length; i++) {
-            currentLine.append(lines[i]);
+            getCurrentLine().append(lines[i]);
             if (i != lines.length - 1) {
                 newLine();
             }
@@ -62,19 +71,48 @@ final class AsciidocData {
         return this;
     }
 
-    public void appendWords(final String words) {
-        if (words.isBlank()) {
-            return;
+    public AsciidocData appendAdjustingSpace(final CharSequence text) {
+        final String normalized = WHITESPACE_SEQUENCE.matcher(text).replaceAll(SPACE);
+        if (!normalized.isEmpty()) {
+            final StringBuilder currentLine = getCurrentLine();
+            // Last char of current line or space
+            final char lineLastChar = currentLine.isEmpty() ? SPACE_CHAR : currentLine.charAt(currentLine.length() - 1);
+            // First char of test
+            final char textFirstChar = normalized.charAt(0);
+            if (lineLastChar == SPACE_CHAR && textFirstChar == SPACE_CHAR) {
+                // Merge spaces
+                currentLine.append(normalized, 1, normalized.length());
+            } else if (lineLastChar == CODE_CHAR && Character.isAlphabetic(textFirstChar)) {
+                currentLine.append(SPACE_CHAR).append(normalized);
+            } else {
+                currentLine.append(normalized);
+            }
         }
-        // Separate text from previous words
-        if (!currentLine.isEmpty() && Character.isAlphabetic(words.codePointAt(0))) {
-            currentLine.append(" ");
+        return this;
+    }
+
+    public void newTextSpan(final String style) {
+        paragraphs.push(new BlockImpl(paragraphs.peek()));
+        lines.push(new StringBuilder());
+    }
+
+    public String popTextSpan() {
+        // Flush the paragraph
+        final StringBuilder line = lines.peek();
+        if (line != null && !line.isEmpty()) {
+            newLine();
         }
-        currentLine.append(words);
+        lines.pop();
+        return String.join(SPACE, paragraphs.pop().getLines());
     }
 
     public void newParagraph() {
+        newParagraph(currentNode);
+    }
+
+    private void newParagraph(final StructuralNode parent) {
         newLine();
+        final Block currentParagraph = paragraphs.pop();
         final java.util.List<String> lines = currentParagraph.getLines();
         // Remove trailing empty lines
         for (int i = lines.size() - 1; i >= 0; i--) {
@@ -84,8 +122,8 @@ final class AsciidocData {
         }
         if (!currentParagraph.getLines().isEmpty()) {
             currentNode.append(currentParagraph);
-            currentParagraph = new BlockImpl(currentNode);
         }
+        paragraphs.push(new BlockImpl(parent));
     }
 
     public StructuralNode getCurrentNode() {
@@ -93,11 +131,11 @@ final class AsciidocData {
     }
 
     public Block getCurrentParagraph() {
-        return currentParagraph;
+        return paragraphs.peek();
     }
 
     public StringBuilder getCurrentLine() {
-        return currentLine;
+        return lines.peek();
     }
 
     public Document getDocument() {
@@ -121,12 +159,10 @@ final class AsciidocData {
      * @param supplier a function to create a new node that takes its parent node a parameter.
      */
     public StructuralNode pushChildNode(final Function<? super StructuralNode, ? extends StructuralNode> supplier) {
-        // Flushes the current paragraph
-        newParagraph();
-
         final StructuralNode child = supplier.apply(currentNode);
-        // Creates a new current paragraph
-        currentParagraph = new BlockImpl(child);
+
+        // Flushes and reparents the current paragraph
+        newParagraph(child);
 
         currentNode.append(child);
         return currentNode = child;
@@ -134,15 +170,13 @@ final class AsciidocData {
 
     public void popNode() {
         final StructuralNode currentNode = this.currentNode;
-        // Flushes the current paragraph
-        newParagraph();
 
         final StructuralNode parent = (StructuralNode) currentNode.getParent();
         if (parent == null) {
             throw new EmptyStackException();
         }
-        // Creates a new current paragraph
-        currentParagraph = new BlockImpl(parent);
+        // Flushes and creates a new current paragraph
+        newParagraph(parent);
 
         this.currentNode = parent;
     }

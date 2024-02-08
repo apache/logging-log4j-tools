@@ -19,6 +19,11 @@ Example of JavaDoc to AsciiDoc conversion
 We run the `javadoc` tool on this class to test conversion of JavaDoc comments to AsciiDoc.
 This paragraph has two sentences.
 
+A sentence with `foo`, `++foo`++`, `foo` bar.
+Another sentence with `foo`, `++foo`++`, `foo` bar.
+
+We can use *strong* _emphasis_ too, or we can use *bold* and _italic_.
+
 Lorem ipsum dolor sit amet, consectetur adipiscing elit.
 Vestibulum blandit dictum sem, ornare posuere lorem convallis sit amet.
 Sed dui augue, faucibus ut nisi id, mollis euismod nibh.

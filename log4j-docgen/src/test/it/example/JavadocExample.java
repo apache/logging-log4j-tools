@@ -23,6 +23,13 @@ package example;
  *     paragraph has two sentences.
  * </p>
  * <p>
+ *     A sentence with <code>foo</code>, <code>foo`</code>, <code>foo</code>bar. Another sentence with {@code foo},
+ *     {@code foo`}, {@code foo}bar.
+ * </p>
+ * <p>
+ *     We can use <strong>strong</strong> <em>emphasis</em> too, or we can use <b>bold</b> and <i>italic</i>.
+ * </p>
+ * <p>
  *     Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum blandit dictum sem, ornare posuere lorem
  *     convallis sit amet. Sed dui augue, faucibus ut nisi id, mollis euismod nibh. Donec lobortis luctus viverra. In
  *     orci ante, pretium et fringilla at, sagittis nec justo. Cras finibus lorem vel volutpat interdum. Sed laoreet

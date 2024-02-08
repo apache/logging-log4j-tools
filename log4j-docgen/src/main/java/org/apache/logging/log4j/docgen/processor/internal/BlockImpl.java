@@ -25,7 +25,6 @@ public class BlockImpl extends StructuralNodeImpl implements Block {
 
     public static final String PARAGRAPH_CONTEXT = "paragraph";
     public static final String LISTING_CONTEXT = "listing";
-    public static final String SOURCE_STYLE = "source";
 
     private List<String> lines = new ArrayList<>();
 
