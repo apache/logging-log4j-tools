@@ -135,7 +135,7 @@ public class DocGenProcessor extends AbstractProcessor {
     // Type corresponding to java.lang.Enum
     private DeclaredType enumType;
 
-    @SuppressWarnings({"DataFlowIssue", "unused"})
+    @SuppressWarnings("DataFlowIssue")
     public DocGenProcessor() {
         converter = null;
         docTrees = null;
@@ -144,20 +144,6 @@ public class DocGenProcessor extends AbstractProcessor {
         messager = null;
         collectionType = null;
         enumType = null;
-    }
-
-    // For testing and silencing nullability warnings
-    @SuppressWarnings("unused")
-    DocGenProcessor(final ProcessingEnvironment processingEnv) {
-        docTrees = DocTrees.instance(processingEnv);
-        converter = new AsciidocConverter(docTrees);
-        elements = processingEnv.getElementUtils();
-        types = processingEnv.getTypeUtils();
-        messager = processingEnv.getMessager();
-        collectionType = (DeclaredType)
-                types.erasure(elements.getTypeElement("java.util.Collection").asType());
-        enumType = (DeclaredType)
-                types.erasure(elements.getTypeElement("java.lang.Enum").asType());
     }
 
     @Override
