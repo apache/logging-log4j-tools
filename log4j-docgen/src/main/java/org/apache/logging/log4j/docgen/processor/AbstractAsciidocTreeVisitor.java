@@ -20,12 +20,15 @@ import static org.apache.commons.lang3.StringUtils.substringBefore;
 
 import com.sun.source.doctree.DocTree;
 import com.sun.source.doctree.EndElementTree;
+import com.sun.source.doctree.EntityTree;
 import com.sun.source.doctree.LinkTree;
 import com.sun.source.doctree.LiteralTree;
 import com.sun.source.doctree.StartElementTree;
 import com.sun.source.doctree.TextTree;
+import com.sun.source.util.DocTrees;
 import com.sun.source.util.SimpleDocTreeVisitor;
 import java.util.ArrayList;
+import java.util.regex.Pattern;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.docgen.processor.internal.BlockImpl;
 import org.apache.logging.log4j.docgen.processor.internal.CellImpl;
@@ -45,7 +48,8 @@ import org.asciidoctor.ast.Table;
 
 abstract class AbstractAsciidocTreeVisitor extends SimpleDocTreeVisitor<Void, AsciidocData> {
 
-    private static final String SOURCE_STYLE = "source";
+    private static final String JAVA_SOURCE_STYLE = "source,java";
+    private static final String XML_SOURCE_STYLE = "source,xml";
     // These are not supported by AsciiDoctor and are only used internally
     private static final String CODE_STYLE = "code";
     private static final String CODE_DELIM = "`";
@@ -54,14 +58,17 @@ abstract class AbstractAsciidocTreeVisitor extends SimpleDocTreeVisitor<Void, As
     private static final String STRONG_EMPHASIS_STYLE = "strong";
     private static final String STRONG_EMPHASIS_DELIM = "*";
 
-    private static void appendSentences(final String text, final AsciidocData data) {
-        final String[] sentences = text.split("(?<=\\w{2}[.!?])", -1);
-        // Full sentences
-        for (int i = 0; i < sentences.length - 1; i++) {
-            data.appendAdjustingSpace(sentences[i]).newLine();
-        }
-        // Partial sentence
-        data.appendAdjustingSpace(sentences[sentences.length - 1]);
+    private static final String SPACE = " ";
+    // Simple pattern to match (most) XML opening tags
+    private static final Pattern XML_TAG = Pattern.compile("<\\w+\\s*(\\w+=[\"'][^\"']*[\"']\\s*)*/?>");
+
+    /**
+     * Used to convert entities into strings.
+     */
+    private final DocTrees docTrees;
+
+    AbstractAsciidocTreeVisitor(final DocTrees docTrees) {
+        this.docTrees = docTrees;
     }
 
     @Override
@@ -120,7 +127,6 @@ abstract class AbstractAsciidocTreeVisitor extends SimpleDocTreeVisitor<Void, As
             case "pre":
                 data.newParagraph();
                 data.getCurrentParagraph().setContext(BlockImpl.LISTING_CONTEXT);
-                data.getCurrentParagraph().setStyle(SOURCE_STYLE);
                 break;
             case "code":
                 data.newTextSpan(CODE_STYLE);
@@ -175,7 +181,23 @@ abstract class AbstractAsciidocTreeVisitor extends SimpleDocTreeVisitor<Void, As
                 data.getCurrentNode().setTitle(title);
                 break;
             case "pre":
-                data.newParagraph();
+                final Block codeBlock = data.newParagraph();
+                final java.util.List<String> lines = codeBlock.getLines();
+                // Trim common indentation and detect language
+                int commonIndentSize = Integer.MAX_VALUE;
+                for (final String line : lines) {
+                    final int firstNotSpace = StringUtils.indexOfAnyBut(line, SPACE);
+                    if (0 <= firstNotSpace && firstNotSpace < commonIndentSize) {
+                        commonIndentSize = firstNotSpace;
+                    }
+                }
+                final boolean isXml = XML_TAG.matcher(String.join(SPACE, lines)).find();
+                final java.util.List<String> newLines = new ArrayList<>(lines.size());
+                for (final String line : lines) {
+                    newLines.add(StringUtils.substring(line, commonIndentSize));
+                }
+                codeBlock.setLines(newLines);
+                codeBlock.setStyle(isXml ? XML_SOURCE_STYLE : JAVA_SOURCE_STYLE);
                 break;
             case "tr":
                 // We group the new cells into a row
@@ -247,16 +269,13 @@ abstract class AbstractAsciidocTreeVisitor extends SimpleDocTreeVisitor<Void, As
         return super.visitLiteral(node, data);
     }
 
-    private void appendSpan(final AsciidocData data, final String delimiter) {
-        final String body = data.popTextSpan();
-        data.append(delimiter);
-        final boolean needsEscaping = body.contains(delimiter);
-        if (needsEscaping) {
-            data.append("++").append(body).append("++");
-        } else {
-            data.append(body);
+    @Override
+    public Void visitEntity(final EntityTree node, final AsciidocData asciidocData) {
+        final String text = docTrees.getCharacters(node);
+        if (text != null) {
+            asciidocData.append(text);
         }
-        data.append(delimiter);
+        return super.visitEntity(node, asciidocData);
     }
 
     @Override
@@ -268,5 +287,27 @@ abstract class AbstractAsciidocTreeVisitor extends SimpleDocTreeVisitor<Void, As
             data.append(node.getBody());
         }
         return super.visitText(node, data);
+    }
+
+    private static void appendSentences(final String text, final AsciidocData data) {
+        final String[] sentences = text.split("(?<=\\w{2}[.!?])", -1);
+        // Full sentences
+        for (int i = 0; i < sentences.length - 1; i++) {
+            data.appendAdjustingSpace(sentences[i]).newLine();
+        }
+        // Partial sentence
+        data.appendAdjustingSpace(sentences[sentences.length - 1]);
+    }
+
+    private void appendSpan(final AsciidocData data, final String delimiter) {
+        final String body = data.popTextSpan();
+        data.append(delimiter);
+        final boolean needsEscaping = body.contains(delimiter);
+        if (needsEscaping) {
+            data.append("++").append(body).append("++");
+        } else {
+            data.append(body);
+        }
+        data.append(delimiter);
     }
 }

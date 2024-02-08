@@ -28,13 +28,14 @@ import javax.lang.model.element.Element;
  */
 final class AsciidocConverter {
 
-    private static final DocTreeVisitor<Void, AsciidocData> DOC_COMMENT_TREE_VISITOR = new DocCommentTreeVisitor();
-    private static final DocTreeVisitor<Void, AsciidocData> PARAM_TREE_VISITOR = new ParamTreeVisitor();
-
     private final DocTrees docTrees;
+    private final DocTreeVisitor<Void, AsciidocData> docCommentTreeVisitor;
+    private final DocTreeVisitor<Void, AsciidocData> paramTreeVisitor;
 
     AsciidocConverter(final DocTrees docTrees) {
         this.docTrees = docTrees;
+        this.docCommentTreeVisitor = new DocCommentTreeVisitor(docTrees);
+        this.paramTreeVisitor = new ParamTreeVisitor(docTrees);
     }
 
     public String toAsciiDoc(final Element element) {
@@ -44,17 +45,21 @@ final class AsciidocConverter {
 
     public String toAsciiDoc(final DocCommentTree tree) {
         final AsciidocData data = new AsciidocData();
-        tree.accept(DOC_COMMENT_TREE_VISITOR, data);
+        tree.accept(docCommentTreeVisitor, data);
         return data.getDocument().convert();
     }
 
     public String toAsciiDoc(final ParamTree tree) {
         final AsciidocData data = new AsciidocData();
-        tree.accept(PARAM_TREE_VISITOR, data);
+        tree.accept(paramTreeVisitor, data);
         return data.getDocument().convert();
     }
 
     private static final class DocCommentTreeVisitor extends AbstractAsciidocTreeVisitor {
+        public DocCommentTreeVisitor(final DocTrees docTrees) {
+            super(docTrees);
+        }
+
         @Override
         public Void visitDocComment(final DocCommentTree node, final AsciidocData data) {
             // Summary block wrapped in a new paragraph.
@@ -73,6 +78,10 @@ final class AsciidocConverter {
     }
 
     private static final class ParamTreeVisitor extends AbstractAsciidocTreeVisitor {
+        public ParamTreeVisitor(final DocTrees docTrees) {
+            super(docTrees);
+        }
+
         @Override
         public Void visitParam(final ParamTree node, final AsciidocData data) {
             for (final DocTree docTree : node.getDescription()) {

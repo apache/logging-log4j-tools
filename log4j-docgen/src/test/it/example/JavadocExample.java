@@ -101,7 +101,28 @@ package example;
  * </table>
  * <h3>Subsection</h3>
  * <pre>
- *     private static final Logger logger = LogManager.getLogger();
+ *     public final class Main {
+ *         private static final Logger logger = LogManager.getLogger();
+ *
+ *         public static void sayHello() {
+ *             logger.info("Hello world!");
+ *         }
+ *     }
+ * </pre>
+ * <h2>Minimal configuration example</h2>
+ * <pre>
+ *     &lt;Configuration&gt;
+ *       &lt;Appenders&gt;
+ *         &lt;Console name="CONSOLE"&gt;
+ *           &lt;PatternLayout/&gt;
+ *         &lt;/Console&gt;
+ *       &lt;/Appenders&gt;
+ *       &lt;Loggers&gt;
+ *         &lt;Root level="INFO"&gt;
+ *           &lt;AppenderRef ref="CONSOLE"/&gt;
+ *         &lt;/Root&gt;
+ *       &lt;/Loggers&gt;
+ *     &lt;/Configuration&gt;
  * </pre>
  */
 public class JavadocExample {}

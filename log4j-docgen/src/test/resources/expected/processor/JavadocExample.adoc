@@ -91,8 +91,8 @@ Sed varius justo eget congue lacinia.
 [cols="1,1",options="headers"]
 |===
 
-| Key
-| Value
+h| Key
+h| Value
 
 | A
 | 1
@@ -104,7 +104,31 @@ Sed varius justo eget congue lacinia.
 
 === Subsection
 
-[source]
+[source,java]
 ----
-     private static final Logger logger = LogManager.getLogger();
+public final class Main {
+    private static final Logger logger = LogManager.getLogger();
+
+    public static void sayHello() {
+        logger.info("Hello world!");
+    }
+}
+----
+
+== Minimal configuration example
+
+[source,xml]
+----
+<Configuration>
+  <Appenders>
+    <Console name="CONSOLE">
+      <PatternLayout/>
+    </Console>
+  </Appenders>
+  <Loggers>
+    <Root level="INFO">
+      <AppenderRef ref="CONSOLE"/>
+    </Root>
+  </Loggers>
+</Configuration>
 ----

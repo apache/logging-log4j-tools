@@ -106,11 +106,11 @@ final class AsciidocData {
         return String.join(SPACE, paragraphs.pop().getLines());
     }
 
-    public void newParagraph() {
-        newParagraph(currentNode);
+    public Block newParagraph() {
+        return newParagraph(currentNode);
     }
 
-    private void newParagraph(final StructuralNode parent) {
+    private Block newParagraph(final StructuralNode parent) {
         newLine();
         final Block currentParagraph = paragraphs.pop();
         final java.util.List<String> lines = currentParagraph.getLines();
@@ -118,12 +118,15 @@ final class AsciidocData {
         for (int i = lines.size() - 1; i >= 0; i--) {
             if (lines.get(i).isEmpty()) {
                 lines.remove(i);
+            } else {
+                break;
             }
         }
         if (!currentParagraph.getLines().isEmpty()) {
             currentNode.append(currentParagraph);
         }
         paragraphs.push(new BlockImpl(parent));
+        return currentParagraph;
     }
 
     public StructuralNode getCurrentNode() {
@@ -143,13 +146,21 @@ final class AsciidocData {
     }
 
     public void setCurrentSectionLevel(final int sectionLevel) {
-        while (sectionLevel < currentSectionLevel) {
+        if (sectionLevel < currentSectionLevel) {
+            // Close all subsections
+            while (sectionLevel < currentSectionLevel) {
+                popNode();
+                currentSectionLevel--;
+            }
+            // Create sibling section
             popNode();
-            currentSectionLevel--;
-        }
-        while (sectionLevel > currentSectionLevel) {
             pushChildNode(SectionImpl::new);
-            currentSectionLevel++;
+        } else {
+            // Create missing section levels
+            while (sectionLevel > currentSectionLevel) {
+                pushChildNode(SectionImpl::new);
+                currentSectionLevel++;
+            }
         }
     }
 
