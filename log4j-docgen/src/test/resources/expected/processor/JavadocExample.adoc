@@ -88,7 +88,7 @@ Sed varius justo eget congue lacinia.
 
 == First section
 
-[cols="1,1",options="headers"]
+[cols="1,1"]
 |===
 
 h| Key

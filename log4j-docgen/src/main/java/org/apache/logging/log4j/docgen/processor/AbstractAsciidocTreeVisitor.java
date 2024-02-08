@@ -155,9 +155,11 @@ abstract class AbstractAsciidocTreeVisitor extends SimpleDocTreeVisitor<Void, As
             case "ul":
             case "li":
             case "table":
-            case "th":
             case "td":
                 data.popNode();
+                break;
+            case "th":
+                data.popNode().setContext(CellImpl.HEADER_CONTEXT);
                 break;
             case "h1":
             case "h2":
@@ -205,26 +207,17 @@ abstract class AbstractAsciidocTreeVisitor extends SimpleDocTreeVisitor<Void, As
                 final java.util.List<StructuralNode> cells = table.getBlocks();
                 // First index of the row
                 int idx = 0;
-                for (final Row row : table.getHeader()) {
-                    idx += row.getCells().size();
-                }
                 for (final Row row : table.getBody()) {
                     idx += row.getCells().size();
                 }
                 final Row row = new RowImpl();
-                String context = CellImpl.BODY_CONTEXT;
                 for (int i = idx; i < table.getBlocks().size(); i++) {
                     final StructuralNode cell = cells.get(i);
-                    context = cell.getContext();
                     if (cell instanceof Cell) {
                         row.getCells().add((Cell) cell);
                     }
                 }
-                if (CellImpl.HEADER_CONTEXT.equals(context)) {
-                    table.getHeader().add(row);
-                } else {
-                    table.getBody().add(row);
-                }
+                table.getBody().add(row);
                 break;
             case "code":
                 appendSpan(data, CODE_DELIM);

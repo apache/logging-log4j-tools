@@ -26,7 +26,6 @@ import org.asciidoctor.ast.Table;
 
 public final class TableImpl extends StructuralNodeImpl implements Table {
 
-    private final List<Row> header = new ArrayList<>();
     private final List<Row> body = new ArrayList<>();
 
     public TableImpl(final ContentNode parent) {
@@ -35,17 +34,11 @@ public final class TableImpl extends StructuralNodeImpl implements Table {
 
     @Override
     public void formatTo(final StringBuilder buffer) {
-        final int colCount = header.isEmpty()
-                ? body.isEmpty() ? 1 : body.get(0).getCells().size()
-                : header.get(0).getCells().size();
+        final int colCount = body.isEmpty() ? 1 : body.get(0).getCells().size();
 
         buffer.append("[cols=\"");
         formatColSpecifier(colCount, buffer);
-        if (!header.isEmpty()) {
-            buffer.append("\",options=\"headers");
-        }
         buffer.append("\"]\n").append("|===\n");
-        getHeader().forEach(row -> formatRow(row, buffer));
         getBody().forEach(row -> formatRow(row, buffer));
         buffer.append("\n|===\n");
     }
@@ -71,11 +64,6 @@ public final class TableImpl extends StructuralNodeImpl implements Table {
     }
 
     @Override
-    public List<Row> getHeader() {
-        return header;
-    }
-
-    @Override
     public List<Row> getBody() {
         return body;
     }
@@ -83,6 +71,11 @@ public final class TableImpl extends StructuralNodeImpl implements Table {
     //
     // All methods below this line are not implemented.
     //
+    @Override
+    public List<Row> getHeader() {
+        throw new UnsupportedOperationException();
+    }
+
     @Override
     public List<Row> getFooter() {
         throw new UnsupportedOperationException();

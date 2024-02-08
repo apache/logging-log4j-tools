@@ -179,7 +179,7 @@ final class AsciidocData {
         return currentNode = child;
     }
 
-    public void popNode() {
+    public StructuralNode popNode() {
         final StructuralNode currentNode = this.currentNode;
 
         final StructuralNode parent = (StructuralNode) currentNode.getParent();
@@ -190,5 +190,6 @@ final class AsciidocData {
         newParagraph(parent);
 
         this.currentNode = parent;
+        return currentNode;
     }
 }

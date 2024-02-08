@@ -37,6 +37,8 @@ public class CellImpl extends StructuralNodeImpl implements Cell {
     public void formatTo(final StringBuilder buffer) {
         if (getBlocks().size() > 1) {
             buffer.append('a');
+        } else if (HEADER_CONTEXT.equals(getContext())) {
+            buffer.append('h');
         }
         buffer.append("| ");
         getBlocks().forEach(node -> {
