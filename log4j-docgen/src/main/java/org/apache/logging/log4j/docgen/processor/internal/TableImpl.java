@@ -18,7 +18,6 @@ package org.apache.logging.log4j.docgen.processor.internal;
 
 import java.util.ArrayList;
 import java.util.List;
-import org.apache.logging.log4j.util.StringBuilderFormattable;
 import org.asciidoctor.ast.Column;
 import org.asciidoctor.ast.ContentNode;
 import org.asciidoctor.ast.Row;
@@ -54,13 +53,7 @@ public final class TableImpl extends StructuralNodeImpl implements Table {
 
     private static void formatRow(final Row row, final StringBuilder buffer) {
         buffer.append('\n');
-        row.getCells().forEach(cell -> {
-            if (cell instanceof final StringBuilderFormattable formattable) {
-                formattable.formatTo(buffer);
-            } else {
-                buffer.append(cell.convert());
-            }
-        });
+        formatNodeCollection(row.getCells(), "", buffer);
     }
 
     @Override

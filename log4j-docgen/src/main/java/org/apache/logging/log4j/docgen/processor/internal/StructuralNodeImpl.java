@@ -19,7 +19,6 @@ package org.apache.logging.log4j.docgen.processor.internal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import org.apache.logging.log4j.util.StringBuilderFormattable;
 import org.asciidoctor.ast.ContentNode;
 import org.asciidoctor.ast.Cursor;
 import org.asciidoctor.ast.StructuralNode;
@@ -92,11 +91,7 @@ public abstract class StructuralNodeImpl extends ContentNodeImpl implements Stru
             } else {
                 first = false;
             }
-            if (node instanceof final StringBuilderFormattable formattable) {
-                formattable.formatTo(buffer);
-            } else {
-                buffer.append(node.convert());
-            }
+            formatNode(node, buffer);
         }
     }
 
