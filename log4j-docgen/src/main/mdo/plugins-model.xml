@@ -30,6 +30,10 @@
             <key>package</key>
             <value>org.apache.logging.log4j.docgen</value>
         </default>
+        <default>
+            <key>java.util.Set</key>
+            <value>new java.util.TreeSet&lt;?&gt;()</value>
+        </default>
     </defaults>
 
     <classes>
@@ -67,6 +71,7 @@
                 </field>
                 <field>
                     <name>scalars</name>
+                    <type>Set</type>
                     <association>
                         <type>ScalarType</type>
                         <multiplicity>*</multiplicity>
@@ -75,6 +80,7 @@
                 </field>
                 <field>
                     <name>plugins</name>
+                    <type>Set</type>
                     <association>
                         <type>PluginType</type>
                         <multiplicity>*</multiplicity>
@@ -83,6 +89,7 @@
                 </field>
                 <field>
                     <name>abstractTypes</name>
+                    <type>Set</type>
                     <association>
                         <type>AbstractType</type>
                         <multiplicity>*</multiplicity>
@@ -111,6 +118,9 @@
             <name>Type</name>
             <description>Any Java type used in a Log4j configuration.</description>
             <superClass>Documented</superClass>
+            <interfaces>
+                <interface>java.lang.Comparable&lt;Type&gt;</interface>
+            </interfaces>
             <fields>
                 <field xml.attribute="true">
                     <name>className</name>
@@ -119,6 +129,16 @@
                     <description>Fully qualified name of the class implementing the plugin.</description>
                 </field>
             </fields>
+            <codeSegments>
+                <codeSegment>
+                    <code><![CDATA[
+    @Override
+    public int compareTo( Type other )
+    {
+        return className == null ? -1 : other.className == null ? 1 : className.compareTo(other.className);
+    }]]></code>
+                </codeSegment>
+            </codeSegments>
         </class>
 
         <class>
@@ -128,6 +148,7 @@
             <fields>
                 <field xml.transient="true">
                     <name>implementations</name>
+                    <type>Set</type>
                     <association>
                         <type>String</type>
                         <multiplicity>*</multiplicity>
@@ -166,6 +187,7 @@ This element is filled in automatically.
                 <field>
                     <name>aliases</name>
                     <required>true</required>
+                    <type>Set</type>
                     <association xml.tagName="alias">
                         <type>String</type>
                         <multiplicity>*</multiplicity>
@@ -177,6 +199,7 @@ This element is filled in automatically.
                 <!-- These are necessary to find all possible nested components -->
                 <field>
                     <name>supertypes</name>
+                    <type>Set</type>
                     <association>
                         <type>String</type>
                         <multiplicity>*</multiplicity>
@@ -209,6 +232,9 @@ This element is filled in automatically.
         <class xml.tagName="attribute">
             <name>PluginAttribute</name>
             <description>A scalar configuration value for the plugin.</description>
+            <interfaces>
+                <interface>java.lang.Comparable&lt;PluginAttribute&gt;</interface>
+            </interfaces>
             <fields>
                 <field xml.attribute="true">
                     <name>name</name>
@@ -247,6 +273,16 @@ The type must be an enum or must have a type converter.</description>
                     <description>A description of the property.</description>
                 </field>
             </fields>
+            <codeSegments>
+                <codeSegment>
+                    <code><![CDATA[
+    @Override
+    public int compareTo( PluginAttribute other )
+    {
+        return name == null ? -1 : other.name == null ? 1 : name.compareTo(other.name);
+    }]]></code>
+                </codeSegment>
+            </codeSegments>
         </class>
 
         <class xml.tagName="scalar">
@@ -309,6 +345,9 @@ The type must be an enum or must have a type converter.</description>
         <class xml.tagName="element">
             <name>PluginElement</name>
             <description>Describes a nested configuration component.</description>
+            <interfaces>
+                <interface>java.lang.Comparable&lt;PluginElement&gt;</interface>
+            </interfaces>
             <fields>
                 <field xml.attribute="true">
                     <name>multiplicity</name>
@@ -337,6 +376,16 @@ If the type is an array or collection, this returns the type of the element.</de
                     <description>An HTML description of this element.</description>
                 </field>
             </fields>
+            <codeSegments>
+                <codeSegment>
+                    <code><![CDATA[
+    @Override
+    public int compareTo( PluginElement other )
+    {
+        return type == null ? -1 : other.type == null ? 1 : type.compareTo(other.type);
+    }]]></code>
+                </codeSegment>
+            </codeSegments>
         </class>
         <!-- Models for various generators -->
         <class>

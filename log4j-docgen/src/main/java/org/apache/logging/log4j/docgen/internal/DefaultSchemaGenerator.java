@@ -23,7 +23,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Set;
-import java.util.TreeSet;
 import javax.inject.Named;
 import javax.inject.Singleton;
 import javax.xml.XMLConstants;
@@ -190,15 +189,13 @@ public class DefaultSchemaGenerator implements SchemaGenerator {
         }
         writer.writeStartElement(XSD_NAMESPACE, "choice");
 
-        final Set<String> implementations = new TreeSet<>(abstractType.getImplementations());
+        final Set<String> implementations = abstractType.getImplementations();
         if (abstractType instanceof PluginType) {
             implementations.add(abstractType.getClassName());
         }
         for (final String implementation : implementations) {
             final PluginType pluginType = (PluginType) lookup.get(implementation);
-            final Collection<String> keys = new TreeSet<>(pluginType.getAliases());
-            keys.add(pluginType.getName());
-            for (final String key : keys) {
+            for (final String key : getKeyAndAliases(pluginType)) {
                 writer.writeEmptyElement(XSD_NAMESPACE, "element");
                 writer.writeAttribute("name", key);
                 writer.writeAttribute("type", LOG4J_PREFIX + ":" + pluginType.getClassName());
@@ -248,9 +245,7 @@ public class DefaultSchemaGenerator implements SchemaGenerator {
             writeDocumentation(element.getDescription(), writer);
             writer.writeEndElement();
         } else {
-            final Collection<String> keys = new TreeSet<>(pluginType.getAliases());
-            keys.add(pluginType.getName());
-            for (final String key : keys) {
+            for (final String key : getKeyAndAliases(pluginType)) {
                 writer.writeStartElement(XSD_NAMESPACE, "element");
                 writer.writeAttribute("name", key);
                 writer.writeAttribute("type", xmlType);
@@ -302,5 +297,12 @@ public class DefaultSchemaGenerator implements SchemaGenerator {
         if (MULTIPLICITY_UNBOUNDED.equals(multiplicity)) {
             writer.writeAttribute("maxOccurs", "unbounded");
         }
+    }
+
+    private static Collection<String> getKeyAndAliases(final PluginType pluginType) {
+        final Collection<String> keys = new ArrayList<>();
+        keys.add(pluginType.getName());
+        keys.addAll(pluginType.getAliases());
+        return keys;
     }
 }

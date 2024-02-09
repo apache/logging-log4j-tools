@@ -24,6 +24,7 @@ import org.apache.logging.log4j.plugins.Plugin;
 import org.apache.logging.log4j.plugins.PluginBuilderAttribute;
 import org.apache.logging.log4j.plugins.PluginElement;
 import org.apache.logging.log4j.plugins.PluginFactory;
+import org.apache.logging.log4j.plugins.validation.constraints.Required;
 
 /**
  * Example plugin
@@ -88,6 +89,7 @@ public final class MyAppender extends AbstractAppender implements Appender {
          * A {@code String} attribute.
          */
         @PluginBuilderAttribute
+        @Required
         private String stringAtt;
 
         /**

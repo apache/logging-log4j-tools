@@ -20,6 +20,7 @@ import org.apache.logging.log4j.plugins.Factory;
 import org.apache.logging.log4j.plugins.Plugin;
 import org.apache.logging.log4j.plugins.PluginAttribute;
 import org.apache.logging.log4j.plugins.PluginElement;
+import org.apache.logging.log4j.plugins.validation.constraints.Required;
 
 /**
  * Example plugin without a builder.
@@ -52,7 +53,7 @@ public final class MyOldLayout implements Layout {
             final @PluginAttribute(defaultInt = 424242) int intAttr,
             final @PluginAttribute(defaultLong = 42424242L) long longAttr,
             final @PluginAttribute(defaultShort = 4242) short shortAttr,
-            final @PluginAttribute String stringAttr,
+            final @PluginAttribute @Required String stringAttr,
             final @PluginAttribute("otherName") String origName,
             final @PluginAttribute MyEnum enumAttr,
             final @PluginElement Layout nestedLayout,

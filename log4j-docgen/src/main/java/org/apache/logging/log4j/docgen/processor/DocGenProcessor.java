@@ -28,7 +28,6 @@ import com.sun.source.util.DocTrees;
 import com.sun.source.util.SimpleDocTreeVisitor;
 import java.io.IOException;
 import java.io.Writer;
-import java.lang.annotation.Annotation;
 import java.util.Collection;
 import java.util.Comparator;
 import java.util.HashMap;
@@ -36,7 +35,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.TreeMap;
 import java.util.TreeSet;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -48,6 +46,7 @@ import javax.annotation.processing.RoundEnvironment;
 import javax.annotation.processing.SupportedAnnotationTypes;
 import javax.annotation.processing.SupportedSourceVersion;
 import javax.lang.model.SourceVersion;
+import javax.lang.model.element.AnnotationMirror;
 import javax.lang.model.element.Element;
 import javax.lang.model.element.ExecutableElement;
 import javax.lang.model.element.Modifier;
@@ -80,12 +79,6 @@ import org.apache.logging.log4j.docgen.ScalarType;
 import org.apache.logging.log4j.docgen.ScalarValue;
 import org.apache.logging.log4j.docgen.Type;
 import org.apache.logging.log4j.docgen.io.stax.PluginBundleStaxWriter;
-import org.apache.logging.log4j.plugins.Factory;
-import org.apache.logging.log4j.plugins.Namespace;
-import org.apache.logging.log4j.plugins.Plugin;
-import org.apache.logging.log4j.plugins.PluginBuilderAttribute;
-import org.apache.logging.log4j.plugins.PluginFactory;
-import org.apache.logging.log4j.plugins.validation.constraints.Required;
 import org.jspecify.annotations.NullMarked;
 import org.jspecify.annotations.Nullable;
 
@@ -97,12 +90,6 @@ public class DocGenProcessor extends AbstractProcessor {
 
     private static final String MULTIPLICITY_UNBOUNDED = "*";
     private static final CharSequence[] GETTER_SETTER_PREFIXES = {"get", "is", "set"};
-    private static final List<Class<? extends Annotation>> PROPERTY_ANNOTATION_TYPES = List.of(
-            PluginBuilderAttribute.class,
-            org.apache.logging.log4j.plugins.PluginAttribute.class,
-            org.apache.logging.log4j.plugins.PluginElement.class);
-    private static final List<Class<? extends Annotation>> FACTORY_ANNOTATION_TYPES =
-            List.of(Factory.class, PluginFactory.class);
     /**
      * Reference types from the {@code java.*} namespace that are described
      * in {@code org/apache/logging/log4j/docgen/internal/configuration.xml}
@@ -118,42 +105,54 @@ public class DocGenProcessor extends AbstractProcessor {
             "java.lang.Double",
             "java.lang.String");
 
-    // Plugins
-    private final Map<String, PluginType> pluginTypes = new TreeMap<>();
-    // Other interfaces
-    private final Map<String, TypeElement> abstractTypes = new TreeMap<>();
-    // Scalar types
-    private final Map<String, TypeElement> scalarTypes = new TreeMap<>();
+    private final PluginSet pluginSet;
+    // Abstract types to process
+    private final Collection<TypeElement> abstractTypesToDocument = new HashSet<>();
+    // Scalar types to process
+    private final Collection<TypeElement> scalarTypesToDocument = new HashSet<>();
 
     private AsciidocConverter converter;
     private DocTrees docTrees;
     private Elements elements;
     private Types types;
     private Messager messager;
+    private Annotations annotations;
     // Type corresponding to java.util.Collection
     private DeclaredType collectionType;
     // Type corresponding to java.lang.Enum
     private DeclaredType enumType;
 
-    @SuppressWarnings("DataFlowIssue")
+    // Used by reflection
+    @SuppressWarnings("unused")
     public DocGenProcessor() {
+        this(new PluginSet());
+    }
+
+    @SuppressWarnings("DataFlowIssue")
+    public DocGenProcessor(final PluginSet pluginSet) {
+        this.pluginSet = pluginSet;
+        // Will be initialized later
+        annotations = null;
+        collectionType = null;
         converter = null;
         docTrees = null;
         elements = null;
-        types = null;
-        messager = null;
-        collectionType = null;
         enumType = null;
+        messager = null;
+        types = null;
     }
 
     @Override
     public synchronized void init(final ProcessingEnvironment processingEnv) {
         super.init(processingEnv);
         docTrees = DocTrees.instance(processingEnv);
-        converter = new AsciidocConverter(docTrees);
         elements = processingEnv.getElementUtils();
-        types = processingEnv.getTypeUtils();
         messager = processingEnv.getMessager();
+        types = processingEnv.getTypeUtils();
+
+        converter = new AsciidocConverter(docTrees);
+
+        annotations = new Annotations(elements, types);
         collectionType = (DeclaredType)
                 types.erasure(elements.getTypeElement("java.util.Collection").asType());
         enumType = (DeclaredType)
@@ -161,64 +160,77 @@ public class DocGenProcessor extends AbstractProcessor {
     }
 
     @Override
-    public boolean process(final Set<? extends TypeElement> annotations, final RoundEnvironment roundEnv) {
-        final PluginSet set = new PluginSet();
+    public boolean process(final Set<? extends TypeElement> unused, final RoundEnvironment roundEnv) {
         // First step: document plugins
-        roundEnv.getElementsAnnotatedWith(Plugin.class).forEach(element -> {
-            if (element instanceof final TypeElement typeElement) {
-                final PluginType pluginType = new PluginType();
-                final Plugin pluginAnnotation = element.getAnnotation(Plugin.class);
-                processPlugin(typeElement, pluginAnnotation, pluginType);
-                pluginTypes.put(pluginType.getClassName(), pluginType);
-            }
-        });
-        pluginTypes.values().forEach(set::addPlugin);
+        roundEnv.getElementsAnnotatedWithAny(annotations.getPluginAnnotations()).forEach(this::addPluginDocumentation);
         // Second step: document abstract types
-        abstractTypes.values().forEach(type -> {
-            final AbstractType abstractType = new AbstractType();
-            processAbstractType(type, abstractType);
-            if (!abstractType.getDescription().getText().isEmpty()) {
-                set.addAbstractType(abstractType);
-            }
-        });
+        abstractTypesToDocument.forEach(this::addAbstractTypeDocumentation);
         // Second step: document scalars
-        scalarTypes.values().forEach(type -> {
-            final ScalarType scalarType = new ScalarType();
-            processScalarType(type, scalarType);
-            set.addScalar(scalarType);
-        });
+        scalarTypesToDocument.forEach(this::addScalarTypeDocumentation);
         // Write the result file
         if (roundEnv.processingOver()) {
-            try {
-                final FileObject output = processingEnv
-                        .getFiler()
-                        .createResource(StandardLocation.CLASS_OUTPUT, "", "META-INF/log4j/plugins.xml");
-
-                try (final Writer writer = output.openWriter()) {
-                    new PluginBundleStaxWriter().write(writer, set);
-                }
-            } catch (final IOException | XMLStreamException e) {
-                messager.printMessage(
-                        Diagnostic.Kind.ERROR,
-                        "An error occurred while writing to `META-INF/log4j/plugins.xml`: " + e.getMessage());
-            }
+            writePluginDescriptor();
         }
         return false;
     }
 
-    private void processType(final QualifiedNameable element, final Type docgenType) {
+    private void addPluginDocumentation(final Element element) {
+        if (element instanceof final TypeElement typeElement) {
+            final PluginType pluginType = new PluginType();
+            pluginType.setName(annotations.getPluginSpecifiedName(element).orElseGet(() -> element.getSimpleName()
+                    .toString()));
+            pluginType.setNamespace(
+                    annotations.getPluginSpecifiedNamespace(element).orElse("Core"));
+            populatePlugin(typeElement, pluginType);
+            pluginSet.addPlugin(pluginType);
+        } else {
+            messager.printMessage(Diagnostic.Kind.WARNING, "Found @Plugin annotation on unexpected element.", element);
+        }
+    }
+
+    private void addAbstractTypeDocumentation(final QualifiedNameable element) {
+        final AbstractType abstractType = new AbstractType();
+        populateAbstractType(element, abstractType);
+        if (!abstractType.getDescription().getText().isEmpty()) {
+            pluginSet.addAbstractType(abstractType);
+        }
+    }
+
+    private void addScalarTypeDocumentation(final TypeElement element) {
+        final ScalarType scalarType = new ScalarType();
+        populateScalarType(element, scalarType);
+        pluginSet.addScalar(scalarType);
+    }
+
+    private void writePluginDescriptor() {
+        try {
+            final FileObject output = processingEnv
+                    .getFiler()
+                    .createResource(StandardLocation.CLASS_OUTPUT, "", "META-INF/log4j/plugins.xml");
+
+            try (final Writer writer = output.openWriter()) {
+                new PluginBundleStaxWriter().write(writer, pluginSet);
+            }
+        } catch (final IOException | XMLStreamException e) {
+            messager.printMessage(
+                    Diagnostic.Kind.ERROR,
+                    "An error occurred while writing to `META-INF/log4j/plugins.xml`: " + e.getMessage());
+        }
+    }
+
+    private void populateType(final QualifiedNameable element, final Type docgenType) {
         // Class name
         docgenType.setClassName(element.getQualifiedName().toString());
         // Description
         docgenType.setDescription(createDescription(element, null));
     }
 
-    private void processAbstractType(final QualifiedNameable element, final AbstractType abstractType) {
-        processType(element, abstractType);
+    private void populateAbstractType(final QualifiedNameable element, final AbstractType abstractType) {
+        populateType(element, abstractType);
     }
 
-    private void processScalarType(final TypeElement element, final ScalarType scalarType) {
-        processType(element, scalarType);
+    private void populateScalarType(final TypeElement element, final ScalarType scalarType) {
+        populateType(element, scalarType);
         if (types.isSubtype(element.asType(), enumType)) {
             for (final Element member : element.getEnclosedElements()) {
                 if (member instanceof final VariableElement field
@@ -233,7 +245,7 @@ public class DocGenProcessor extends AbstractProcessor {
         }
     }
 
-    private Map<String, String> processParameterDescriptions(final Element element) {
+    private Map<String, String> getParameterDescriptions(final Element element) {
         final Map<String, String> descriptions = new HashMap<>();
         final DocCommentTree docCommentTree = docTrees.getDocCommentTree(element);
         if (docCommentTree != null) {
@@ -259,28 +271,20 @@ public class DocGenProcessor extends AbstractProcessor {
         return descriptions;
     }
 
-    private void processPlugin(final TypeElement element, final Plugin pluginAnnotation, final PluginType pluginType) {
-        processAbstractType(element, pluginType);
-        // Name
-        pluginType.setName(getPluginName(element, pluginAnnotation));
-        // Namespace
-        final Namespace namespace = getAnnotation(element, Namespace.class);
-        pluginType.setNamespace(namespace != null ? namespace.value() : "Core");
+    private void populatePlugin(final TypeElement element, final PluginType pluginType) {
+        populateAbstractType(element, pluginType);
         // Supertypes
         registerSupertypes(element).forEach(pluginType::addSupertype);
         // Plugin factory
         for (final Element member : element.getEnclosedElements()) {
-            if (!(member instanceof final ExecutableElement executable)) {
-                continue;
-            }
-            if (!findAllAnnotationsOnMember(member, FACTORY_ANNOTATION_TYPES).isEmpty()) {
-                final Map<String, String> descriptions = processParameterDescriptions(executable);
+            if (annotations.hasFactoryAnnotation(member) && member instanceof final ExecutableElement executable) {
+                final Map<String, String> descriptions = getParameterDescriptions(executable);
                 final List<? extends VariableElement> parameters = executable.getParameters();
                 if (parameters.isEmpty()) {
                     // We have a builder
                     final TypeElement returnType = getReturnType(executable);
                     if (returnType != null) {
-                        processProperties(getAllMembers(returnType), descriptions, pluginType);
+                        populateConfigurationProperties(getAllMembers(returnType), descriptions, pluginType);
                     } else {
                         messager.printMessage(
                                 Diagnostic.Kind.WARNING,
@@ -289,13 +293,13 @@ public class DocGenProcessor extends AbstractProcessor {
                     }
                 } else {
                     // Old style factory method
-                    processProperties(parameters, descriptions, pluginType);
+                    populateConfigurationProperties(parameters, descriptions, pluginType);
                 }
             }
         }
     }
 
-    private void processProperties(
+    private void populateConfigurationProperties(
             final Iterable<? extends Element> members,
             final Map<? super String, String> descriptions,
             final PluginType pluginType) {
@@ -305,7 +309,7 @@ public class DocGenProcessor extends AbstractProcessor {
                 new TreeSet<>(Comparator.comparing(e -> defaultString(e.getType())));
         // Gather documentation, which can be on any member.
         for (final Element member : members) {
-            final String name = getPropertyName(member);
+            final String name = getAttributeOrPropertyName(member);
             final String asciidoc = converter.toAsciiDoc(member);
             descriptions.compute(name, (key, value) -> Stream.of(value, asciidoc)
                     .filter(StringUtils::isNotEmpty)
@@ -313,15 +317,16 @@ public class DocGenProcessor extends AbstractProcessor {
         }
         // Creates attributes and elements
         for (final Element member : members) {
-            final String description = descriptions.get(getPropertyName(member));
-            for (final Annotation annotation : findAllAnnotationsOnMember(member, PROPERTY_ANNOTATION_TYPES)) {
-                if (annotation instanceof final PluginBuilderAttribute attribute) {
-                    pluginAttributes.add(createPluginAttribute(member, description, attribute.value()));
-                }
-                if (annotation instanceof final org.apache.logging.log4j.plugins.PluginAttribute attribute) {
-                    pluginAttributes.add(createPluginAttribute(member, description, attribute.value()));
-                }
-                if (annotation instanceof org.apache.logging.log4j.plugins.PluginElement) {
+            final String description = descriptions.get(getAttributeOrPropertyName(member));
+            for (final AnnotationMirror annotation : annotations.findAttributeAndPropertyAnnotations(member)) {
+                if (annotations.isAttributeAnnotation(annotation)) {
+                    pluginAttributes.add(createPluginAttribute(
+                            member,
+                            description,
+                            annotations
+                                    .getAttributeSpecifiedName(annotation)
+                                    .orElseGet(() -> getAttributeOrPropertyName(member))));
+                } else {
                     pluginElements.add(createPluginElement(member, description));
                 }
             }
@@ -344,23 +349,21 @@ public class DocGenProcessor extends AbstractProcessor {
             final Element element, final String description, final String specifiedName) {
         final PluginAttribute attribute = new PluginAttribute();
         // Name
-        attribute.setName(specifiedName.isEmpty() ? getPropertyName(element) : specifiedName);
+        attribute.setName(specifiedName.isEmpty() ? getAttributeOrPropertyName(element) : specifiedName);
         // Type
         final TypeMirror type = getMemberType(element);
         final String className = getClassName(type);
-        // If type is not a well-known declared type, process it for documentation.
+        // If type is not a well-known declared type, add it to the scanning queue.
         if (className != null
                 && !KNOWN_SCALAR_TYPES.contains(className)
                 && type instanceof final DeclaredType declaredType) {
-            scalarTypes.putIfAbsent(className, asTypeElement(declaredType));
+            scalarTypesToDocument.add(asTypeElement(declaredType));
         }
         attribute.setType(className);
         // Description
         attribute.setDescription(createDescription(element, description));
         // Required
-        if (getAnnotation(element, Required.class) != null) {
-            attribute.setRequired(true);
-        }
+        attribute.setRequired(annotations.hasRequiredConstraint(element));
         // Default value
         final Object defaultValue = element instanceof final VariableElement field ? field.getConstantValue() : null;
         if (defaultValue != null) {
@@ -381,9 +384,7 @@ public class DocGenProcessor extends AbstractProcessor {
             pluginElement.setMultiplicity(getMultiplicity(elementType));
         }
         // Required
-        if (getAnnotation(element, Required.class) != null) {
-            pluginElement.setRequired(true);
-        }
+        pluginElement.setRequired(annotations.hasRequiredConstraint(element));
         // Description
         pluginElement.setDescription(createDescription(element, description));
         return pluginElement;
@@ -409,7 +410,7 @@ public class DocGenProcessor extends AbstractProcessor {
                         if (type instanceof final DeclaredType declaredType) {
                             final TypeElement element = asTypeElement(declaredType);
                             final String className = element.getQualifiedName().toString();
-                            abstractTypes.putIfAbsent(className, element);
+                            abstractTypesToDocument.add(element);
                             if (supertypes.add(className)) {
                                 element.accept(this, supertypes);
                             }
@@ -418,40 +419,6 @@ public class DocGenProcessor extends AbstractProcessor {
                 },
                 supertypes);
         return supertypes;
-    }
-
-    private String getPluginName(final Element element, final Plugin annotation) {
-        final String value = annotation.value();
-        return value.isEmpty() ? element.getSimpleName().toString() : value;
-    }
-
-    private Collection<? extends Annotation> findAllAnnotationsOnMember(
-            final Element element, final Iterable<Class<? extends Annotation>> annotationTypes) {
-        final Collection<Annotation> annotations = new HashSet<>();
-        element.accept(
-                new SimpleElementVisitor8<Void, Collection<? super Annotation>>() {
-                    @Override
-                    protected Void defaultAction(final Element e, final Collection<? super Annotation> annotations) {
-                        annotationTypes.forEach(annotationType -> {
-                            final Annotation annotation = getAnnotation(e, annotationType);
-                            if (annotation != null) {
-                                annotations.add(annotation);
-                            }
-                        });
-                        return null;
-                    }
-
-                    @Override
-                    public Void visitExecutable(
-                            final ExecutableElement e, final Collection<? super Annotation> annotations) {
-                        for (final VariableElement param : e.getParameters()) {
-                            param.accept(this, annotations);
-                        }
-                        return super.visitExecutable(e, annotations);
-                    }
-                },
-                annotations);
-        return annotations;
     }
 
     private @Nullable TypeMirror getMemberType(final Element element) {
@@ -489,16 +456,16 @@ public class DocGenProcessor extends AbstractProcessor {
                 null);
     }
 
-    private @Nullable String getPropertyName(final Element element) {
+    private String getAttributeOrPropertyName(final Element element) {
         return element.accept(
-                new SimpleElementVisitor8<@Nullable String, @Nullable Void>() {
+                new SimpleElementVisitor8<String, @Nullable Void>() {
                     @Override
-                    public String visitVariable(final VariableElement e, final Void unused) {
+                    protected String defaultAction(final Element e, @Nullable final Void unused) {
                         return e.getSimpleName().toString();
                     }
 
                     @Override
-                    public @Nullable String visitExecutable(final ExecutableElement e, final Void unused) {
+                    public String visitExecutable(final ExecutableElement e, final Void unused) {
                         final Name name = e.getSimpleName();
                         if (StringUtils.startsWithAny(name, GETTER_SETTER_PREFIXES)) {
                             final int prefixLen = StringUtils.startsWith(name, "is") ? 2 : 3;
@@ -507,7 +474,7 @@ public class DocGenProcessor extends AbstractProcessor {
                                         + name.toString().substring(prefixLen + 1);
                             }
                         }
-                        return null;
+                        return super.visitExecutable(e, unused);
                     }
                 },
                 null);
@@ -670,9 +637,5 @@ public class DocGenProcessor extends AbstractProcessor {
                     }
                 },
                 null);
-    }
-
-    <A extends Annotation> @Nullable A getAnnotation(final Element element, final Class<A> annotationType) {
-        return element.getAnnotation(annotationType);
     }
 }

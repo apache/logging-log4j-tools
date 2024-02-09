@@ -74,7 +74,7 @@
                 <attribute name="shortAtt" type="short">
                     <description>A `short` attribute annotated on type.</description>
                 </attribute>
-                <attribute name="stringAtt">
+                <attribute name="stringAtt" required="true">
                     <description>A `String` attribute.</description>
                 </attribute>
             </attributes>
@@ -150,7 +150,7 @@ It also implements:
                 <attribute name="shortAttr" type="short">
                     <description>A `short` attribute.</description>
                 </attribute>
-                <attribute name="stringAttr">
+                <attribute name="stringAttr" required="true">
                     <description>A xref:String.adoc[] attribute.</description>
                 </attribute>
             </attributes>
