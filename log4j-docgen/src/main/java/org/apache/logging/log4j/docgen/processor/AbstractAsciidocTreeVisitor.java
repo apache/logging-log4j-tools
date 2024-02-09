@@ -16,6 +16,7 @@
  */
 package org.apache.logging.log4j.docgen.processor;
 
+import static org.apache.commons.lang3.StringUtils.isEmpty;
 import static org.apache.commons.lang3.StringUtils.substringBefore;
 
 import com.sun.source.doctree.DocTree;
@@ -25,7 +26,6 @@ import com.sun.source.doctree.LinkTree;
 import com.sun.source.doctree.LiteralTree;
 import com.sun.source.doctree.StartElementTree;
 import com.sun.source.doctree.TextTree;
-import com.sun.source.util.DocTrees;
 import com.sun.source.util.SimpleDocTreeVisitor;
 import java.util.ArrayList;
 import java.util.regex.Pattern;
@@ -58,15 +58,6 @@ abstract class AbstractAsciidocTreeVisitor extends SimpleDocTreeVisitor<Void, As
     private static final String SPACE = " ";
     // Simple pattern to match (most) XML opening tags
     private static final Pattern XML_TAG = Pattern.compile("<\\w+\\s*(\\w+=[\"'][^\"']*[\"']\\s*)*/?>");
-
-    /**
-     * Used to convert entities into strings.
-     */
-    private final DocTrees docTrees;
-
-    AbstractAsciidocTreeVisitor(final DocTrees docTrees) {
-        this.docTrees = docTrees;
-    }
 
     @Override
     public Void visitStartElement(final StartElementTree node, final AsciidocData data) {
@@ -165,7 +156,7 @@ abstract class AbstractAsciidocTreeVisitor extends SimpleDocTreeVisitor<Void, As
             case "h5":
             case "h6":
                 // Only flush the current line
-                if (!data.getCurrentLine().isEmpty()) {
+                if (!isEmpty(data.getCurrentLine())) {
                     data.newLine();
                 }
                 // The current paragraph contains the title
@@ -258,7 +249,26 @@ abstract class AbstractAsciidocTreeVisitor extends SimpleDocTreeVisitor<Void, As
 
     @Override
     public Void visitEntity(final EntityTree node, final AsciidocData asciidocData) {
-        final String text = docTrees.getCharacters(node);
+        final String text;
+        switch (node.getName().toString()) {
+            case "amp":
+                text = "&";
+                break;
+            case "apos":
+                text = "'";
+                break;
+            case "gt":
+                text = ">";
+                break;
+            case "lt":
+                text = "<";
+                break;
+            case "quot":
+                text = "\"";
+                break;
+            default:
+                text = null;
+        }
         if (text != null) {
             asciidocData.append(text);
         }

@@ -29,6 +29,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
 import java.util.Set;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import javax.tools.Diagnostic;
 import javax.tools.DiagnosticCollector;
@@ -68,8 +69,8 @@ public class DocGenProcessorTest {
         final Path sourcePath = basePath.resolve("src/test/it");
         final Iterable<? extends JavaFileObject> sources;
         try (final Stream<Path> files = Files.walk(sourcePath)) {
-            sources = fileManager.getJavaFileObjectsFromPaths(
-                    files.filter(Files::isRegularFile).toList());
+            sources = fileManager.getJavaFileObjects(
+                    files.filter(Files::isRegularFile).toArray(Path[]::new));
         }
 
         final Path destPath = basePath.resolve("target/test-site/processor");
@@ -88,7 +89,7 @@ public class DocGenProcessorTest {
         final List<String> warnings = ds.getDiagnostics().stream()
                 .filter(d -> d.getKind() != Diagnostic.Kind.NOTE)
                 .map(d -> d.getMessage(Locale.ROOT))
-                .toList();
+                .collect(Collectors.toList());
         assertThat(warnings).isEmpty();
 
         final Path descriptor = destPath.resolve("META-INF/log4j/plugins.xml");

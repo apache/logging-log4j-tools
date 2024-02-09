@@ -27,7 +27,7 @@
   <artifactId>log4j-docgen</artifactId>
 
   <properties>
-    <maven.compiler.release>17</maven.compiler.release>
+    <maven.compiler.release>11</maven.compiler.release>
     <bnd.baseline.fail.on.missing>false</bnd.baseline.fail.on.missing>
 
     <!-- Dependency versions -->

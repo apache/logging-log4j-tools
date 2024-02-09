@@ -28,6 +28,7 @@ import java.nio.file.Paths;
 import java.util.List;
 import java.util.Locale;
 import java.util.Set;
+import java.util.stream.Collectors;
 import javax.lang.model.SourceVersion;
 import javax.lang.model.element.Element;
 import javax.tools.Diagnostic;
@@ -67,7 +68,7 @@ public class AsciidocConverterTest {
 
         final Path basePath = Paths.get(System.getProperty("basedir", "."));
         final Path sourcePath = basePath.resolve("src/test/it/example/JavadocExample.java");
-        final Iterable<? extends JavaFileObject> sources = fileManager.getJavaFileObjectsFromPaths(List.of(sourcePath));
+        final Iterable<? extends JavaFileObject> sources = fileManager.getJavaFileObjects(sourcePath);
 
         final Path destPath = basePath.resolve("target/test-site");
         Files.createDirectories(destPath);
@@ -79,7 +80,7 @@ public class AsciidocConverterTest {
         final List<String> warnings = ds.getDiagnostics().stream()
                 .filter(d -> d.getKind() != Diagnostic.Kind.NOTE)
                 .map(d -> d.getMessage(Locale.ROOT))
-                .toList();
+                .collect(Collectors.toList());
         assertThat(warnings).isEmpty();
         final Path expectedPath = Paths.get(AsciidocConverterTest.class
                 .getResource("/expected/processor/JavadocExample.adoc")
@@ -104,7 +105,7 @@ public class AsciidocConverterTest {
 
         @Override
         public SourceVersion getSupportedSourceVersion() {
-            return SourceVersion.RELEASE_17;
+            return SourceVersion.latestSupported();
         }
 
         @Override

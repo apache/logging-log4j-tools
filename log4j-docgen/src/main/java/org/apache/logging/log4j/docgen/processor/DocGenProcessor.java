@@ -44,7 +44,6 @@ import javax.annotation.processing.ProcessingEnvironment;
 import javax.annotation.processing.Processor;
 import javax.annotation.processing.RoundEnvironment;
 import javax.annotation.processing.SupportedAnnotationTypes;
-import javax.annotation.processing.SupportedSourceVersion;
 import javax.lang.model.SourceVersion;
 import javax.lang.model.element.AnnotationMirror;
 import javax.lang.model.element.Element;
@@ -84,7 +83,6 @@ import org.jspecify.annotations.Nullable;
 
 @ServiceProvider(value = Processor.class, resolution = Resolution.OPTIONAL)
 @SupportedAnnotationTypes("org.apache.logging.log4j.plugins.*")
-@SupportedSourceVersion(SourceVersion.RELEASE_17)
 @NullMarked
 public class DocGenProcessor extends AbstractProcessor {
 
@@ -160,6 +158,11 @@ public class DocGenProcessor extends AbstractProcessor {
     }
 
     @Override
+    public SourceVersion getSupportedSourceVersion() {
+        return SourceVersion.latestSupported();
+    }
+
+    @Override
     public boolean process(final Set<? extends TypeElement> unused, final RoundEnvironment roundEnv) {
         // First step: document plugins
         roundEnv.getElementsAnnotatedWithAny(annotations.getPluginAnnotations()).forEach(this::addPluginDocumentation);
@@ -175,13 +178,13 @@ public class DocGenProcessor extends AbstractProcessor {
     }
 
     private void addPluginDocumentation(final Element element) {
-        if (element instanceof final TypeElement typeElement) {
+        if (element instanceof TypeElement) {
             final PluginType pluginType = new PluginType();
             pluginType.setName(annotations.getPluginSpecifiedName(element).orElseGet(() -> element.getSimpleName()
                     .toString()));
             pluginType.setNamespace(
                     annotations.getPluginSpecifiedNamespace(element).orElse("Core"));
-            populatePlugin(typeElement, pluginType);
+            populatePlugin((TypeElement) element, pluginType);
             pluginSet.addPlugin(pluginType);
         } else {
             messager.printMessage(Diagnostic.Kind.WARNING, "Found @Plugin annotation on unexpected element.", element);
@@ -233,9 +236,10 @@ public class DocGenProcessor extends AbstractProcessor {
         populateType(element, scalarType);
         if (types.isSubtype(element.asType(), enumType)) {
             for (final Element member : element.getEnclosedElements()) {
-                if (member instanceof final VariableElement field
-                        && field.getModifiers().contains(Modifier.STATIC)
-                        && types.isSameType(field.asType(), element.asType())) {
+                if (member instanceof VariableElement
+                        && member.getModifiers().contains(Modifier.STATIC)
+                        && types.isSameType(member.asType(), element.asType())) {
+                    final VariableElement field = (VariableElement) member;
                     final ScalarValue value = new ScalarValue();
                     value.setDescription(createDescription(field, null));
                     value.setName(field.getSimpleName().toString());
@@ -277,7 +281,8 @@ public class DocGenProcessor extends AbstractProcessor {
         registerSupertypes(element).forEach(pluginType::addSupertype);
         // Plugin factory
         for (final Element member : element.getEnclosedElements()) {
-            if (annotations.hasFactoryAnnotation(member) && member instanceof final ExecutableElement executable) {
+            if (annotations.hasFactoryAnnotation(member) && member instanceof ExecutableElement) {
+                final ExecutableElement executable = (ExecutableElement) member;
                 final Map<String, String> descriptions = getParameterDescriptions(executable);
                 final List<? extends VariableElement> parameters = executable.getParameters();
                 if (parameters.isEmpty()) {
@@ -354,10 +359,8 @@ public class DocGenProcessor extends AbstractProcessor {
         final TypeMirror type = getMemberType(element);
         final String className = getClassName(type);
         // If type is not a well-known declared type, add it to the scanning queue.
-        if (className != null
-                && !KNOWN_SCALAR_TYPES.contains(className)
-                && type instanceof final DeclaredType declaredType) {
-            scalarTypesToDocument.add(asTypeElement(declaredType));
+        if (className != null && !KNOWN_SCALAR_TYPES.contains(className) && type instanceof DeclaredType) {
+            scalarTypesToDocument.add(asTypeElement((DeclaredType) type));
         }
         attribute.setType(className);
         // Description
@@ -365,7 +368,8 @@ public class DocGenProcessor extends AbstractProcessor {
         // Required
         attribute.setRequired(annotations.hasRequiredConstraint(element));
         // Default value
-        final Object defaultValue = element instanceof final VariableElement field ? field.getConstantValue() : null;
+        final Object defaultValue =
+                element instanceof VariableElement ? ((VariableElement) element).getConstantValue() : null;
         if (defaultValue != null) {
             attribute.setDefaultValue(elements.getConstantExpression(defaultValue));
         }
@@ -407,8 +411,8 @@ public class DocGenProcessor extends AbstractProcessor {
                     }
 
                     private void registerAndVisit(final TypeMirror type, final Set<String> supertypes) {
-                        if (type instanceof final DeclaredType declaredType) {
-                            final TypeElement element = asTypeElement(declaredType);
+                        if (type instanceof DeclaredType) {
+                            final TypeElement element = asTypeElement((DeclaredType) type);
                             final String className = element.getQualifiedName().toString();
                             abstractTypesToDocument.add(element);
                             if (supertypes.add(className)) {
@@ -443,14 +447,17 @@ public class DocGenProcessor extends AbstractProcessor {
                     public @Nullable TypeMirror visitExecutable(final ExecutableElement element, final Void unused) {
                         final TypeMirror returnType = element.getReturnType();
                         final List<? extends VariableElement> parameters = element.getParameters();
-                        return switch (parameters.size()) {
+                        switch (parameters.size()) {
                                 // A getter
-                            case 0 -> returnType;
+                            case 0:
+                                return returnType;
                                 // A setter
-                            case 1 -> parameters.get(0).asType();
+                            case 1:
+                                return parameters.get(0).asType();
                                 // Invalid property
-                            default -> super.visitExecutable(element, unused);
-                        };
+                            default:
+                                return super.visitExecutable(element, unused);
+                        }
                     }
                 },
                 null);
@@ -522,7 +529,7 @@ public class DocGenProcessor extends AbstractProcessor {
 
     private @Nullable TypeElement getSuperclass(final TypeElement element) {
         final TypeMirror superclass = element.getSuperclass();
-        return superclass instanceof final DeclaredType declaredType ? asTypeElement(declaredType) : null;
+        return superclass instanceof DeclaredType ? asTypeElement((DeclaredType) superclass) : null;
     }
 
     // TODO: Can the element associated to a declared type be anything else than a type element?
@@ -551,17 +558,26 @@ public class DocGenProcessor extends AbstractProcessor {
 
                                     @Override
                                     public String visitPrimitive(final PrimitiveType t, final Void unused) {
-                                        return switch (t.getKind()) {
-                                            case BOOLEAN -> "boolean";
-                                            case BYTE -> "byte";
-                                            case SHORT -> "short";
-                                            case INT -> "int";
-                                            case LONG -> "long";
-                                            case CHAR -> "char";
-                                            case FLOAT -> "float";
-                                            case DOUBLE -> "double";
-                                            default -> throw new IllegalArgumentException();
-                                        };
+                                        switch (t.getKind()) {
+                                            case BOOLEAN:
+                                                return "boolean";
+                                            case BYTE:
+                                                return "byte";
+                                            case SHORT:
+                                                return "short";
+                                            case INT:
+                                                return "int";
+                                            case LONG:
+                                                return "long";
+                                            case CHAR:
+                                                return "char";
+                                            case FLOAT:
+                                                return "float";
+                                            case DOUBLE:
+                                                return "double";
+                                            default:
+                                                throw new IllegalArgumentException();
+                                        }
                                     }
 
                                     @Override

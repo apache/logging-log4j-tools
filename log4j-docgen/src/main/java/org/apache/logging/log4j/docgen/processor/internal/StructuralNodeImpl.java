@@ -75,8 +75,8 @@ public abstract class StructuralNodeImpl extends ContentNodeImpl implements Stru
     protected abstract void formatTo(final StringBuilder buffer);
 
     protected static void formatNode(final StructuralNode node, final StringBuilder buffer) {
-        if (node instanceof final StructuralNodeImpl impl) {
-            impl.formatTo(buffer);
+        if (node instanceof StructuralNodeImpl) {
+            ((StructuralNodeImpl) node).formatTo(buffer);
         } else {
             buffer.append(node.convert());
         }

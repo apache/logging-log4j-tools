@@ -16,7 +16,6 @@
  */
 package org.apache.logging.log4j.docgen.util;
 
-import java.io.Serial;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.TreeMap;
@@ -28,7 +27,6 @@ import org.apache.logging.log4j.docgen.Type;
 
 public final class TypeLookup extends TreeMap<String, Type> {
 
-    @Serial
     private static final long serialVersionUID = 1L;
 
     public static TypeLookup of(final Iterable<? extends PluginSet> sets) {

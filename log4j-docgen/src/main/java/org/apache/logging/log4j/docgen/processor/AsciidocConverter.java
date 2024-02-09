@@ -34,8 +34,8 @@ final class AsciidocConverter {
 
     AsciidocConverter(final DocTrees docTrees) {
         this.docTrees = docTrees;
-        this.docCommentTreeVisitor = new DocCommentTreeVisitor(docTrees);
-        this.paramTreeVisitor = new ParamTreeVisitor(docTrees);
+        this.docCommentTreeVisitor = new DocCommentTreeVisitor();
+        this.paramTreeVisitor = new ParamTreeVisitor();
     }
 
     public String toAsciiDoc(final Element element) {
@@ -56,10 +56,6 @@ final class AsciidocConverter {
     }
 
     private static final class DocCommentTreeVisitor extends AbstractAsciidocTreeVisitor {
-        public DocCommentTreeVisitor(final DocTrees docTrees) {
-            super(docTrees);
-        }
-
         @Override
         public Void visitDocComment(final DocCommentTree node, final AsciidocData data) {
             // Summary block wrapped in a new paragraph.
@@ -78,10 +74,6 @@ final class AsciidocConverter {
     }
 
     private static final class ParamTreeVisitor extends AbstractAsciidocTreeVisitor {
-        public ParamTreeVisitor(final DocTrees docTrees) {
-            super(docTrees);
-        }
-
         @Override
         public Void visitParam(final ParamTree node, final AsciidocData data) {
             for (final DocTree docTree : node.getDescription()) {

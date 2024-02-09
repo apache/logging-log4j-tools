@@ -16,6 +16,9 @@
  */
 package org.apache.logging.log4j.docgen.processor;
 
+import static org.apache.commons.lang3.StringUtils.isEmpty;
+import static org.apache.commons.lang3.StringUtils.isNotEmpty;
+
 import java.util.ArrayDeque;
 import java.util.Deque;
 import java.util.EmptyStackException;
@@ -75,7 +78,7 @@ final class AsciidocData {
         if (!normalized.isEmpty()) {
             final StringBuilder currentLine = getCurrentLine();
             // Last char of current line or space
-            final char lineLastChar = currentLine.isEmpty() ? SPACE_CHAR : currentLine.charAt(currentLine.length() - 1);
+            final char lineLastChar = isEmpty(currentLine) ? SPACE_CHAR : currentLine.charAt(currentLine.length() - 1);
             // First char of test
             final char textFirstChar = normalized.charAt(0);
             if (lineLastChar == SPACE_CHAR && textFirstChar == SPACE_CHAR) {
@@ -98,7 +101,7 @@ final class AsciidocData {
     public String popTextSpan() {
         // Flush the paragraph
         final StringBuilder line = lines.peek();
-        if (line != null && !line.isEmpty()) {
+        if (isNotEmpty(line)) {
             newLine();
         }
         lines.pop();

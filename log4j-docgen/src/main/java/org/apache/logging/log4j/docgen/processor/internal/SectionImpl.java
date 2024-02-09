@@ -31,10 +31,10 @@ public final class SectionImpl extends StructuralNodeImpl implements Section {
     public void formatTo(final StringBuilder buffer) {
         final String title = getTitle();
         if (title != null) {
-            buffer.append("=".repeat(computeSectionLevel(this)))
-                    .append(' ')
-                    .append(title)
-                    .append("\n\n");
+            for (int i = 0; i < computeSectionLevel(this); i++) {
+                buffer.append('=');
+            }
+            buffer.append(' ').append(title).append("\n\n");
         }
         formatNodeCollection(getBlocks(), "\n", buffer);
     }
