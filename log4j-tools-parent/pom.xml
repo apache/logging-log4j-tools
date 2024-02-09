@@ -38,7 +38,6 @@
     <freemarker.version>2.3.32</freemarker.version>
     <jakarta.inject.version>1.0.5</jakarta.inject.version>
     <junit.version>5.10.2</junit.version>
-    <log4j-bom.version>3.0.0-beta1</log4j-bom.version>
     <modello.version>2.1.2</modello.version>
     <xmlunit.version>2.9.1</xmlunit.version>
 
@@ -52,14 +51,6 @@
 
   <dependencyManagement>
     <dependencies>
-
-      <dependency>
-        <groupId>org.apache.logging.log4j</groupId>
-        <artifactId>log4j-bom</artifactId>
-        <version>${log4j-bom.version}</version>
-        <type>pom</type>
-        <scope>import</scope>
-      </dependency>
 
       <dependency>
         <groupId>org.junit</groupId>

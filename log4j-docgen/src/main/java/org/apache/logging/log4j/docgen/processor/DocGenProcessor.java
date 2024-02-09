@@ -82,7 +82,7 @@ import org.jspecify.annotations.NullMarked;
 import org.jspecify.annotations.Nullable;
 
 @ServiceProvider(value = Processor.class, resolution = Resolution.OPTIONAL)
-@SupportedAnnotationTypes("org.apache.logging.log4j.plugins.*")
+@SupportedAnnotationTypes({"org.apache.logging.log4j.core.config.plugins.*", "org.apache.logging.log4j.plugins.*"})
 @NullMarked
 public class DocGenProcessor extends AbstractProcessor {
 

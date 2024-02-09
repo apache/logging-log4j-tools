@@ -19,7 +19,6 @@ package org.apache.logging.log4j.docgen.processor;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 
-import java.io.IOException;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
@@ -40,17 +39,23 @@ import javax.tools.StandardJavaFileManager;
 import javax.tools.StandardLocation;
 import javax.tools.ToolProvider;
 import org.apache.logging.log4j.docgen.xsd.SchemaGenerator;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.MethodSource;
 import org.xmlunit.assertj3.XmlAssert;
 
 public class DocGenProcessorTest {
 
-    @Test
-    void descriptorGenerationSucceeds() {
+    static Stream<String> descriptorGenerationSucceeds() {
+        return Stream.of("v2", "v3");
+    }
+
+    @ParameterizedTest
+    @MethodSource
+    void descriptorGenerationSucceeds(final String version) {
         final Path basePath = Paths.get(System.getProperty("basedir", "."));
         final Path schema = basePath.resolve("target/generated-site/resources/xsd/plugins-0.1.0.xsd");
         final URL expected = SchemaGenerator.class.getResource("/expected/processor/META-INF/log4j/plugins.xml");
-        final Path actual = assertDoesNotThrow(DocGenProcessorTest::generateDescriptor);
+        final Path actual = assertDoesNotThrow(() -> generateDescriptor(version));
         XmlAssert.assertThat(actual)
                 .isValidAgainst(schema)
                 .and(expected)
@@ -59,21 +64,22 @@ public class DocGenProcessorTest {
                 .areIdentical();
     }
 
-    private static Path generateDescriptor() throws IOException {
+    private static Path generateDescriptor(final String version) throws Exception {
         final JavaCompiler compiler = ToolProvider.getSystemJavaCompiler();
         final DiagnosticCollector<JavaFileObject> ds = new DiagnosticCollector<>();
         final StandardJavaFileManager fileManager =
                 compiler.getStandardFileManager(null, Locale.ROOT, StandardCharsets.UTF_8);
 
         final Path basePath = Paths.get(System.getProperty("basedir", "."));
-        final Path sourcePath = basePath.resolve("src/test/it");
+        final Path sourcePath = Paths.get(
+                DocGenProcessorTest.class.getResource("/processor/" + version).toURI());
         final Iterable<? extends JavaFileObject> sources;
         try (final Stream<Path> files = Files.walk(sourcePath)) {
             sources = fileManager.getJavaFileObjects(
                     files.filter(Files::isRegularFile).toArray(Path[]::new));
         }
 
-        final Path destPath = basePath.resolve("target/test-site/processor");
+        final Path destPath = basePath.resolve("target/test-site/processor/" + version);
         Files.createDirectories(destPath);
         fileManager.setLocationFromPaths(StandardLocation.CLASS_OUTPUT, Set.of(destPath));
 

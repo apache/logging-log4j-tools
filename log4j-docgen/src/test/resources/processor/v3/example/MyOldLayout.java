@@ -25,7 +25,7 @@ import org.apache.logging.log4j.plugins.validation.constraints.Required;
 /**
  * Example plugin without a builder.
  */
-@Plugin
+@Plugin("MyLayout")
 public final class MyOldLayout implements Layout {
 
     /**

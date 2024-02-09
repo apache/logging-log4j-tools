@@ -114,7 +114,7 @@ It also implements:
 * xref:Appender.adoc[],
 * xref:BaseAppender.adoc[]</description>
         </plugin>
-        <plugin name="MyOldLayout" className="example.MyOldLayout">
+        <plugin name="MyLayout" className="example.MyOldLayout">
             <supertypes>
                 <supertype>example.Layout</supertype>
                 <supertype>java.lang.Object</supertype>

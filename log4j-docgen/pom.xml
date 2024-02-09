@@ -32,6 +32,9 @@
 
     <!-- Dependency versions -->
     <asciidoctorj-api.version>3.0.0-alpha.2</asciidoctorj-api.version>
+    <!-- We explicitly test against `log4j-core` 2.x -->
+    <log4j-core.version>2.22.1</log4j-core.version>
+    <log4j-plugins.version>3.0.0-beta1</log4j-plugins.version>
   </properties>
 
   <dependencies>
@@ -77,8 +80,22 @@
     </dependency>
 
     <dependency>
+      <groupId>org.junit.jupiter</groupId>
+      <artifactId>junit-jupiter-params</artifactId>
+      <scope>test</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>org.apache.logging.log4j</groupId>
+      <artifactId>log4j-core</artifactId>
+      <version>${log4j-core.version}</version>
+      <scope>test</scope>
+    </dependency>
+
+    <dependency>
       <groupId>org.apache.logging.log4j</groupId>
       <artifactId>log4j-plugins</artifactId>
+      <version>${log4j-plugins.version}</version>
       <scope>test</scope>
     </dependency>
 
@@ -93,14 +110,14 @@
   <build>
     <plugins>
 
-      <!--
-        ~ We split compilation in two executions, so we can fail on warnings for our sources,
-        ~ but be more tolerant for generated sources.
-        -->
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-compiler-plugin</artifactId>
         <executions>
+          <!--
+                      ~ We split compilation in two executions, so we can fail on warnings for our sources,
+                      ~ but be more tolerant for generated sources.
+                      -->
           <execution>
             <id>default-compile</id>
             <phase>none</phase>

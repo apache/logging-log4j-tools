@@ -67,7 +67,9 @@ public class AsciidocConverterTest {
         final StandardJavaFileManager fileManager = tool.getStandardFileManager(null, Locale.ROOT, UTF_8);
 
         final Path basePath = Paths.get(System.getProperty("basedir", "."));
-        final Path sourcePath = basePath.resolve("src/test/it/example/JavadocExample.java");
+        final Path sourcePath = Paths.get(AsciidocConverterTest.class
+                .getResource("/processor/asciidoc/example/JavadocExample.java")
+                .toURI());
         final Iterable<? extends JavaFileObject> sources = fileManager.getJavaFileObjects(sourcePath);
 
         final Path destPath = basePath.resolve("target/test-site");
