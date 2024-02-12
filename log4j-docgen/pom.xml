@@ -16,7 +16,9 @@
   ~ limitations under the License.
   -->
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
   <modelVersion>4.0.0</modelVersion>
+
   <parent>
     <groupId>org.apache.logging.log4j</groupId>
     <artifactId>log4j-tools-parent</artifactId>
@@ -28,13 +30,16 @@
 
   <properties>
     <maven.compiler.release>11</maven.compiler.release>
+
+    <!-- Disabling `bnd-baseline-maven-plugin`, since we don't have a release yet to compare against. -->
     <bnd.baseline.fail.on.missing>false</bnd.baseline.fail.on.missing>
 
     <!-- Dependency versions -->
     <asciidoctorj-api.version>3.0.0-alpha.2</asciidoctorj-api.version>
-    <!-- We explicitly test against `log4j-core` 2.x -->
+    <!-- We explicitly test against Log4j 2 -->
     <log4j-core.version>2.22.1</log4j-core.version>
     <log4j-plugins.version>3.0.0-beta1</log4j-plugins.version>
+
   </properties>
 
   <dependencies>
@@ -110,18 +115,21 @@
   <build>
     <plugins>
 
+      <!-- We split the compilation into two executions:
+           1. One that is tolerant to warnings while compiling Modello-generated sources
+           2. One that is strict and fails on warnings while compiling the rest -->
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-compiler-plugin</artifactId>
         <executions>
-          <!--
-                      ~ We split compilation in two executions, so we can fail on warnings for our sources,
-                      ~ but be more tolerant for generated sources.
-                      -->
+
+          <!-- Disable the default execution -->
           <execution>
             <id>default-compile</id>
             <phase>none</phase>
           </execution>
+
+          <!-- Tolerant (i.e., `failOnWarning=false`) execution for Modello-generated sources -->
           <execution>
             <id>compile-modello-sources</id>
             <goals>
@@ -137,6 +145,8 @@
               </includes>
             </configuration>
           </execution>
+
+          <!-- Strict (i.e., `failOnWarning=true`) execution for the rest -->
           <execution>
             <id>compile-main</id>
             <goals>
@@ -153,6 +163,7 @@
               <failOnWarning>true</failOnWarning>
             </configuration>
           </execution>
+
         </executions>
       </plugin>
 
@@ -192,6 +203,7 @@
           </execution>
         </executions>
       </plugin>
+
     </plugins>
   </build>
 
