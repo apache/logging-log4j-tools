@@ -34,37 +34,38 @@ Possible values:
 * `true`: true
 |[[byte]]
 byte
-a|An 8-bit signed integer from -128 to 127.
+a|An 8-bit signed integer from `-128` to `127`
 |[[double]]
 double
-a|A double precision floating number from 4.94065645841246544e-324 to 1.79769313486231570e+308.
+a|A double precision floating number from `4.94065645841246544e-324` to `1.79769313486231570e+308`
 |[[float]]
 float
-a|A single precision floating number from 1.40239846e-45 to 3.40282347e+38.
+a|A single precision floating number from `1.40239846e-45` to `3.40282347e+38`
 |[[int]]
 int
-a|A 32-bit signed integer from -2147483648 to 2147483647.
+a|A 32-bit signed integer from `-2147483648` to `2147483647`
 |[[java.lang.String]]
 java.lang.String
-a|A string of characters.
+a|A string of characters
 |[[long]]
 long
-a|A 64-bit signed integer from -9223372036854775808 to 9223372036854775807.
+a|A 64-bit signed integer from `-9223372036854775808` to `9223372036854775807`
 |[[org.apache.logging.log4j.Level]]
 o.a.l.l.Level
 a|Represents a logging level.
-**Note**: the Log4j API supports custom levels, the following list contains only the standard ones.
+NOTE: The Log4j API supports custom levels, the following list contains only the standard ones.
 
 Possible values:
 
-* `OFF`: Special level that disables logging. No events should be logged at this level.
-* `FATAL`: A fatal event that will prevent the application from continuing.
-* `ERROR`: An error in the application, possibly recoverable.
-* `WARN`: An event that might possible lead to an error.
-* `INFO`: An event for informational purposes.
-* `DEBUG`: A general debugging event.
-* `TRACE`: A fine-grained debug message, typically capturing the flow through the application.
-* `ALL`: All events should be logged.
+* `OFF`: Special level that disables logging.
+No events should be logged at this level.
+* `FATAL`: A fatal event that will prevent the application from continuing
+* `ERROR`: An error in the application, possibly recoverable
+* `WARN`: An event that might possible lead to an error
+* `INFO`: An event for informational purposes
+* `DEBUG`: A general debugging event
+* `TRACE`: A fine-grained debug message, typically capturing the flow through the application
+* `ALL`: Special level indicating all events should be logged
 |[[org.apache.logging.log4j.core.Filter.Result]]
 o.a.l.l.core.Filter.Result
 a|The result that can returned from a filter method call.
@@ -84,4 +85,4 @@ Possible values:
 * `SYSTEM_ERR`: Logs to the standard error.
 |[[short]]
 short
-a|A 16-bit signed integer from -32768 to 32767.
+a|A 16-bit signed integer from `-32768` to `32767`

@@ -24,47 +24,48 @@
   <simpleType name="org.apache.logging.log4j.Level">
     <annotation>
       <documentation>Represents a logging level.
-**Note**: the Log4j API supports custom levels, the following list contains only the standard ones.</documentation>
+NOTE: The Log4j API supports custom levels, the following list contains only the standard ones.</documentation>
     </annotation>
     <restriction base="string">
       <enumeration value="OFF">
         <annotation>
-          <documentation>Special level that disables logging. No events should be logged at this level.</documentation>
+          <documentation>Special level that disables logging.
+No events should be logged at this level.</documentation>
         </annotation>
       </enumeration>
       <enumeration value="FATAL">
         <annotation>
-          <documentation>A fatal event that will prevent the application from continuing.</documentation>
+          <documentation>A fatal event that will prevent the application from continuing</documentation>
         </annotation>
       </enumeration>
       <enumeration value="ERROR">
         <annotation>
-          <documentation>An error in the application, possibly recoverable.</documentation>
+          <documentation>An error in the application, possibly recoverable</documentation>
         </annotation>
       </enumeration>
       <enumeration value="WARN">
         <annotation>
-          <documentation>An event that might possible lead to an error.</documentation>
+          <documentation>An event that might possible lead to an error</documentation>
         </annotation>
       </enumeration>
       <enumeration value="INFO">
         <annotation>
-          <documentation>An event for informational purposes.</documentation>
+          <documentation>An event for informational purposes</documentation>
         </annotation>
       </enumeration>
       <enumeration value="DEBUG">
         <annotation>
-          <documentation>A general debugging event.</documentation>
+          <documentation>A general debugging event</documentation>
         </annotation>
       </enumeration>
       <enumeration value="TRACE">
         <annotation>
-          <documentation>A fine-grained debug message, typically capturing the flow through the application.</documentation>
+          <documentation>A fine-grained debug message, typically capturing the flow through the application</documentation>
         </annotation>
       </enumeration>
       <enumeration value="ALL">
         <annotation>
-          <documentation>All events should be logged.</documentation>
+          <documentation>Special level indicating all events should be logged</documentation>
         </annotation>
       </enumeration>
     </restriction>
@@ -240,94 +241,77 @@ buffering is disabled regardless of the value of `bufferedIo`.</documentation>
   </complexType>
   <complexType name="org.apache.logging.log4j.core.config.Configuration">
     <annotation>
-      <documentation>A Log4j 2.x configuration contains many components, two of them `Appenders` and `Loggers` are required.</documentation>
+      <documentation>A Log4j configuration contains many components of which two are required: `Appenders` and `Loggers`.</documentation>
     </annotation>
     <sequence>
       <element name="Properties" type="log4j:org.apache.logging.log4j.core.config.PropertiesPlugin" minOccurs="0">
         <annotation>
-          <documentation>Wrapper element for a list of properties.
-
-If present, this element must be the **first** child of the configuration.</documentation>
+          <documentation>Wrapper element for a list of properties</documentation>
         </annotation>
       </element>
       <element name="Appenders" type="log4j:org.apache.logging.log4j.core.config.AppendersPlugin">
         <annotation>
-          <documentation>Wrapper element for a list of appenders.</documentation>
+          <documentation>Wrapper element for a list of appenders</documentation>
         </annotation>
       </element>
       <element name="CustomLevels" type="log4j:org.apache.logging.log4j.core.config.CustomLevels" minOccurs="0">
         <annotation>
-          <documentation>Wrapper element for a list of custom levels.</documentation>
+          <documentation>Wrapper element for a list of custom levels</documentation>
         </annotation>
       </element>
       <element name="Loggers" type="log4j:org.apache.logging.log4j.core.config.LoggersPlugin" minOccurs="0">
         <annotation>
-          <documentation>Wrapper element for a list of logger configurations.</documentation>
+          <documentation>Wrapper element for a list of logger configurations</documentation>
         </annotation>
       </element>
     </sequence>
-    <attribute name="advertiser" type="string">
-      <annotation>
-        <documentation>If set it should contain the name of an `Advertiser` plugin
-(cf. https://logging.apache.org/log4j/2.x/manual/configuration.html#chainsaw-can-automatically-process-your-log-files-advertising-ap[documentation] ).
-Log4j Core provides a single implementation based on JmDNS called `MulticastDns`.</documentation>
-      </annotation>
-    </attribute>
     <attribute name="dest" type="string">
       <annotation>
-        <documentation>Specifies the destination for StatusLogger events.
+        <documentation>Specifies the destination for status logger events.
 The possible values are:
-* `out` for using standard out (default),
-* `err` for using standard error,
-* a string that is interpreted in order as URI, URL or the path to a local file.
+
+* `out` for using standard out (default)
+* `err` for using standard error
+* a string that is interpreted in order as URI, URL or the path to a local file
 
 If the provided value is invalid, then the default destination of standard out will be used.</documentation>
       </annotation>
     </attribute>
     <attribute name="name" type="string">
       <annotation>
-        <documentation>Name of the configuration.</documentation>
+        <documentation>Name of the configuration</documentation>
       </annotation>
     </attribute>
     <attribute name="monitorInterval" type="int">
       <annotation>
-        <documentation>Number of seconds between polls for configuration changes.</documentation>
+        <documentation>Number of seconds between polls for configuration changes</documentation>
       </annotation>
     </attribute>
     <attribute name="schema" type="string">
       <annotation>
-        <documentation>The name of a classpath resource to use to validate the configuration.</documentation>
+        <documentation>The name of a classpath resource to use to validate the configuration</documentation>
       </annotation>
     </attribute>
     <attribute name="shutdownHook" type="string">
       <annotation>
-        <documentation>Specifies whether Log4j should automatically shut down when the JVM shuts down.
-Possible values:
-* `enable`: to enable unconditionally the hook,
-* `disable`: to disable unconditionally the hook.
-
-The shutdown hook is enabled by default, unless Log4j Core detects the presence of the Servlet API.</documentation>
+        <documentation>Indicates if Log4j should automatically shut down when the JVM shuts down.
+Possible values are `enable` and `disable`.
+The shutdown hook is enabled by default, unless Log4j detects the presence of the Servlet API.</documentation>
       </annotation>
     </attribute>
     <attribute name="shutdownTimeout" type="int">
       <annotation>
-        <documentation>Timeout in milliseconds of the logger context shut down.</documentation>
+        <documentation>Timeout in milliseconds of the logger context shut down</documentation>
       </annotation>
     </attribute>
     <attribute name="status" type="log4j:org.apache.logging.log4j.Level">
       <annotation>
-        <documentation>Sets the level of the status logger.</documentation>
+        <documentation>Sets the level of the status logger</documentation>
       </annotation>
     </attribute>
     <attribute name="strict" type="boolean">
       <annotation>
         <documentation>If set to `true` the configuration file will be validated using an XML schema.</documentation>
-      </annotation>
-    </attribute>
-    <attribute name="verbose" type="string">
-      <annotation>
-        <documentation>Specifies the verbosity level for the status logger.
-This only applies to classes configured by `StatusConfiguration#setVerboseClasses`.</documentation>
       </annotation>
     </attribute>
   </complexType>

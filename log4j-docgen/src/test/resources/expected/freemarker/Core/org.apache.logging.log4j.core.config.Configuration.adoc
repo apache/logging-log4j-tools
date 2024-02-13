@@ -16,21 +16,19 @@ limitations under the License.
 ////
 = Configuration
 
-A Log4j 2.x configuration contains many components, two of them `Appenders` and `Loggers` are required.
+A Log4j configuration contains many components of which two are required: `Appenders` and `Loggers`.
 
 == XML snippet
 [source, xml]
 ----
-<Configuration advertiser=""
-               dest="err"
+<Configuration dest="err"
                monitorInterval="0"
                name=""
                schema=""
                shutdownHook=""
                shutdownTimeout=""
                status="ERROR"
-               strict="false"
-               verbose="">
+               strict="false">
     <Properties/>
     <Appenders/>
     <CustomLevels/>
@@ -46,69 +44,54 @@ Required attributes are in **bold face**.
 |===
 |Name|Type|Default|Description
 
-|advertiser
-|xref:../scalars.adoc#java.lang.String[String]
-|
-a|If set it should contain the name of an `Advertiser` plugin
-(cf. https://logging.apache.org/log4j/2.x/manual/configuration.html#chainsaw-can-automatically-process-your-log-files-advertising-ap[documentation] ).
-Log4j Core provides a single implementation based on JmDNS called `MulticastDns`.
-
 |dest
 |xref:../scalars.adoc#java.lang.String[String]
 |err
-a|Specifies the destination for StatusLogger events.
+a|Specifies the destination for status logger events.
 The possible values are:
-* `out` for using standard out (default),
-* `err` for using standard error,
-* a string that is interpreted in order as URI, URL or the path to a local file.
+
+* `out` for using standard out (default)
+* `err` for using standard error
+* a string that is interpreted in order as URI, URL or the path to a local file
 
 If the provided value is invalid, then the default destination of standard out will be used.
 
 |monitorInterval
 |xref:../scalars.adoc#int[int]
 |0
-a|Number of seconds between polls for configuration changes.
+a|Number of seconds between polls for configuration changes
 
 |**name**
 |xref:../scalars.adoc#java.lang.String[String]
 |
-a|Name of the configuration.
+a|Name of the configuration
 
 |schema
 |xref:../scalars.adoc#java.lang.String[String]
 |
-a|The name of a classpath resource to use to validate the configuration.
+a|The name of a classpath resource to use to validate the configuration
 
 |shutdownHook
 |xref:../scalars.adoc#java.lang.String[String]
 |
-a|Specifies whether Log4j should automatically shut down when the JVM shuts down.
-Possible values:
-* `enable`: to enable unconditionally the hook,
-* `disable`: to disable unconditionally the hook.
-
-The shutdown hook is enabled by default, unless Log4j Core detects the presence of the Servlet API.
+a|Indicates if Log4j should automatically shut down when the JVM shuts down.
+Possible values are `enable` and `disable`.
+The shutdown hook is enabled by default, unless Log4j detects the presence of the Servlet API.
 
 |shutdownTimeout
 |xref:../scalars.adoc#int[int]
 |
-a|Timeout in milliseconds of the logger context shut down.
+a|Timeout in milliseconds of the logger context shut down
 
 |status
 |xref:../scalars.adoc#org.apache.logging.log4j.Level[Level]
 |ERROR
-a|Sets the level of the status logger.
+a|Sets the level of the status logger
 
 |strict
 |xref:../scalars.adoc#boolean[boolean]
 |false
 a|If set to `true` the configuration file will be validated using an XML schema.
-
-|verbose
-|xref:../scalars.adoc#java.lang.String[String]
-|
-a|Specifies the verbosity level for the status logger.
-This only applies to classes configured by `StatusConfiguration#setVerboseClasses`.
 
 |===
 
@@ -122,20 +105,18 @@ Required components are in **bold face**.
 
 |**Appenders**
 |xref:org.apache.logging.log4j.core.config.AppendersPlugin.adoc[AppendersPlugin]
-a|Wrapper element for a list of appenders.
+a|Wrapper element for a list of appenders
 
 |CustomLevels
 |xref:org.apache.logging.log4j.core.config.CustomLevels.adoc[CustomLevels]
-a|Wrapper element for a list of custom levels.
+a|Wrapper element for a list of custom levels
 
 |Loggers
 |xref:org.apache.logging.log4j.core.config.LoggersPlugin.adoc[LoggersPlugin]
-a|Wrapper element for a list of logger configurations.
+a|Wrapper element for a list of logger configurations
 
 |Properties
 |xref:org.apache.logging.log4j.core.config.PropertiesPlugin.adoc[PropertiesPlugin]
-a|Wrapper element for a list of properties.
-
-If present, this element must be the **first** child of the configuration.
+a|Wrapper element for a list of properties
 
 |===

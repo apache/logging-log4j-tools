@@ -15,151 +15,167 @@
   ~ See the License for the specific language governing permissions and
   ~ limitations under the License.
   -->
-<pluginSet xmlns="https://logging.apache.org/xml/ns/plugins"
-              version="0.1.0">
-    <groupId>org.apache.logging.log4j</groupId>
-    <artifactId>log4j-core</artifactId>
-    <version>2.22.0</version>
-    <description>Reference implementation of the Log4j API.</description>
+<pluginSet xmlns="https://logging.apache.org/xml/ns/plugins" version="0.1.0">
 
+  <groupId>org.apache.logging.log4j</groupId>
+  <artifactId>log4j-core</artifactId>
+  <description>Basic definitions untraceable from the plugin hierarchy.</description>
 
-    <scalars>
-        <!-- Some default scalar types -->
-        <scalar className="boolean">
-            <description>A boolean value.</description>
-            <values>
-                <value name="false">
-                    <description>false</description>
-                </value>
-                <value name="true">
-                    <description>true</description>
-                </value>
-            </values>
-        </scalar>
-        <scalar className="byte">
-            <description>An 8-bit signed integer from -128 to 127.</description>
-        </scalar>
-        <scalar className="short">
-            <description>A 16-bit signed integer from -32768 to 32767.</description>
-        </scalar>
-        <scalar className="int">
-            <description>A 32-bit signed integer from -2147483648 to 2147483647.</description>
-        </scalar>
-        <scalar className="long">
-            <description>A 64-bit signed integer from -9223372036854775808 to 9223372036854775807.</description>
-        </scalar>
-        <scalar className="float">
-            <description>A single precision floating number from 1.40239846e-45 to 3.40282347e+38.</description>
-        </scalar>
-        <scalar className="double">
-            <description>A double precision floating number from 4.94065645841246544e-324 to 1.79769313486231570e+308.</description>
-        </scalar>
-        <scalar className="java.lang.String">
-            <description>A string of characters.</description>
-        </scalar>
-        <!--
-          ~ Level is not a scalar, but for the purpose of the XSD we can limit its values to the standard ones.
-          -->
-        <scalar className="org.apache.logging.log4j.Level">
-            <description>Represents a logging level.
-**Note**: the Log4j API supports custom levels, the following list contains only the standard ones.</description>
-            <values>
-                <value name="OFF">
-                    <description>Special level that disables logging. No events should be logged at this level.</description>
-                </value>
-                <value name="FATAL">
-                    <description>A fatal event that will prevent the application from continuing.</description>
-                </value>
-                <value name="ERROR">
-                    <description>An error in the application, possibly recoverable.</description>
-                </value>
-                <value name="WARN">
-                    <description>An event that might possible lead to an error.</description>
-                </value>
-                <value name="INFO">
-                    <description>An event for informational purposes.</description>
-                </value>
-                <value name="DEBUG">
-                    <description>A general debugging event.</description>
-                </value>
-                <value name="TRACE">
-                    <description>A fine-grained debug message, typically capturing the flow through the application.</description>
-                </value>
-                <value name="ALL">
-                    <description>All events should be logged.</description>
-                </value>
-            </values>
-        </scalar>
-    </scalars>
+  <scalars>
+
+    <!-- Primitive type definitions -->
+
+    <scalar className="boolean">
+      <description>A boolean value.</description>
+      <values>
+        <value name="false">
+          <description>false</description>
+        </value>
+        <value name="true">
+          <description>true</description>
+        </value>
+      </values>
+    </scalar>
+
+    <scalar className="byte">
+      <description>An 8-bit signed integer from `-128` to `127`</description>
+    </scalar>
+
+    <scalar className="short">
+      <description>A 16-bit signed integer from `-32768` to `32767`</description>
+    </scalar>
+
+    <scalar className="int">
+      <description>A 32-bit signed integer from `-2147483648` to `2147483647`</description>
+    </scalar>
+
+    <scalar className="long">
+      <description>A 64-bit signed integer from `-9223372036854775808` to `9223372036854775807`</description>
+    </scalar>
+
+    <scalar className="float">
+      <description>A single precision floating number from `1.40239846e-45` to `3.40282347e+38`</description>
+    </scalar>
+
+    <scalar className="double">
+      <description>A double precision floating number from `4.94065645841246544e-324` to `1.79769313486231570e+308`</description>
+    </scalar>
+
+    <scalar className="java.lang.String">
+      <description>A string of characters</description>
+    </scalar>
+
+    <!-- `Level` is not a scalar, but for the purpose of the XSD we can limit its values to the standard ones. -->
+    <scalar className="org.apache.logging.log4j.Level">
+      <description><![CDATA[Represents a logging level.
+NOTE: The Log4j API supports custom levels, the following list contains only the standard ones.]]></description>
+      <values>
+        <value name="OFF">
+          <description><![CDATA[Special level that disables logging.
+No events should be logged at this level.]]></description>
+        </value>
+        <value name="FATAL">
+          <description>A fatal event that will prevent the application from continuing</description>
+        </value>
+        <value name="ERROR">
+          <description>An error in the application, possibly recoverable</description>
+        </value>
+        <value name="WARN">
+          <description>An event that might possible lead to an error</description>
+        </value>
+        <value name="INFO">
+          <description>An event for informational purposes</description>
+        </value>
+        <value name="DEBUG">
+          <description>A general debugging event</description>
+        </value>
+        <value name="TRACE">
+          <description>A fine-grained debug message, typically capturing the flow through the application</description>
+        </value>
+        <value name="ALL">
+          <description>Special level indicating all events should be logged</description>
+        </value>
+      </values>
+    </scalar>
+
+  </scalars>
+
+  <plugins>
 
     <!--
       ~ The main `Configuration` element is not a plugin, so we add a fake entry for it.
       -->
-    <plugins>
-        <plugin name="Configuration" namespace="Core" className="org.apache.logging.log4j.core.config.Configuration">
-            <description>A Log4j 2.x configuration contains many components, two of them `Appenders` and `Loggers` are required.</description>
-            <attributes>
-                <attribute name="advertiser">
-                    <description>If set it should contain the name of an `Advertiser` plugin
-(cf. https://logging.apache.org/log4j/2.x/manual/configuration.html#chainsaw-can-automatically-process-your-log-files-advertising-ap[documentation] ).
-Log4j Core provides a single implementation based on JmDNS called `MulticastDns`.</description>
-                </attribute>
-                <attribute name="dest" defaultValue="err">
-                    <description>Specifies the destination for StatusLogger events.
+    <plugin name="Configuration" namespace="Core" className="org.apache.logging.log4j.core.config.Configuration">
+
+      <description>A Log4j configuration contains many components of which two are required: `Appenders` and `Loggers`.</description>
+
+      <attributes>
+
+        <attribute name="dest" defaultValue="err">
+          <description><![CDATA[Specifies the destination for status logger events.
 The possible values are:
-* `out` for using standard out (default),
-* `err` for using standard error,
-* a string that is interpreted in order as URI, URL or the path to a local file.
 
-If the provided value is invalid, then the default destination of standard out will be used.</description>
-                </attribute>
-                <attribute name="name" required="true">
-                    <description>Name of the configuration.</description>
-                </attribute>
-                <attribute name="monitorInterval" type="int" defaultValue="0">
-                    <description>Number of seconds between polls for configuration changes.</description>
-                </attribute>
-                <attribute name="schema">
-                    <description>The name of a classpath resource to use to validate the configuration.</description>
-                </attribute>
-                <attribute name="shutdownHook">
-                    <description>Specifies whether Log4j should automatically shut down when the JVM shuts down.
-Possible values:
-* `enable`: to enable unconditionally the hook,
-* `disable`: to disable unconditionally the hook.
+* `out` for using standard out (default)
+* `err` for using standard error
+* a string that is interpreted in order as URI, URL or the path to a local file
 
-The shutdown hook is enabled by default, unless Log4j Core detects the presence of the Servlet API.</description>
-                </attribute>
-                <attribute name="shutdownTimeout" type="int">
-                    <description>Timeout in milliseconds of the logger context shut down.</description>
-                </attribute>
-                <attribute name="status" type="org.apache.logging.log4j.Level" defaultValue="ERROR">
-                    <description>Sets the level of the status logger.</description>
-                </attribute>
-                <attribute name="strict" type="boolean" defaultValue="false">
-                    <description>If set to `true` the configuration file will be validated using an XML schema.</description>
-                </attribute>
-                <attribute name="verbose">
-                    <description>Specifies the verbosity level for the status logger.
-This only applies to classes configured by `StatusConfiguration#setVerboseClasses`.</description>
-                </attribute>
-            </attributes>
-            <elements>
-                <element type="org.apache.logging.log4j.core.config.PropertiesPlugin">
-                    <description>Wrapper element for a list of properties.
+If the provided value is invalid, then the default destination of standard out will be used.]]></description>
+        </attribute>
 
-If present, this element must be the **first** child of the configuration.</description>
-                </element>
-                <element type="org.apache.logging.log4j.core.config.AppendersPlugin" required="true">
-                    <description>Wrapper element for a list of appenders.</description>
-                </element>
-                <element type="org.apache.logging.log4j.core.config.CustomLevels">
-                    <description>Wrapper element for a list of custom levels.</description>
-                </element>
-                <element type="org.apache.logging.log4j.core.config.LoggersPlugin">
-                    <description>Wrapper element for a list of logger configurations.</description>
-                </element>
-            </elements>
-        </plugin>
-    </plugins>
+        <attribute name="name" required="true">
+          <description>Name of the configuration</description>
+        </attribute>
+
+        <attribute name="monitorInterval" type="int" defaultValue="0">
+          <description>Number of seconds between polls for configuration changes</description>
+        </attribute>
+
+        <attribute name="schema">
+          <description>The name of a classpath resource to use to validate the configuration</description>
+        </attribute>
+
+        <attribute name="shutdownHook">
+          <description><![CDATA[Indicates if Log4j should automatically shut down when the JVM shuts down.
+Possible values are `enable` and `disable`.
+The shutdown hook is enabled by default, unless Log4j detects the presence of the Servlet API.]]></description>
+        </attribute>
+
+        <attribute name="shutdownTimeout" type="int">
+          <description>Timeout in milliseconds of the logger context shut down</description>
+        </attribute>
+
+        <attribute name="status" type="org.apache.logging.log4j.Level" defaultValue="ERROR">
+          <description>Sets the level of the status logger</description>
+        </attribute>
+
+        <attribute name="strict" type="boolean" defaultValue="false">
+          <description>If set to `true` the configuration file will be validated using an XML schema.</description>
+        </attribute>
+
+      </attributes>
+
+      <elements>
+
+        <element type="org.apache.logging.log4j.core.config.PropertiesPlugin">
+          <description>Wrapper element for a list of properties</description>
+        </element>
+
+        <element type="org.apache.logging.log4j.core.config.AppendersPlugin" required="true">
+          <description>Wrapper element for a list of appenders</description>
+        </element>
+
+        <element type="org.apache.logging.log4j.core.config.CustomLevels">
+          <description>Wrapper element for a list of custom levels</description>
+        </element>
+
+        <element type="org.apache.logging.log4j.core.config.LoggersPlugin">
+          <description>Wrapper element for a list of logger configurations</description>
+        </element>
+
+      </elements>
+
+    </plugin>
+
+  </plugins>
+
 </pluginSet>
