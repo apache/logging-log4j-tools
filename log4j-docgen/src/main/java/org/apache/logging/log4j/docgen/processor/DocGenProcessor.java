@@ -86,6 +86,11 @@ import org.jspecify.annotations.Nullable;
 @NullMarked
 public class DocGenProcessor extends AbstractProcessor {
 
+    /**
+     * The file path generated descriptor will be written to.
+     */
+    public static final String DESCRIPTOR_FILE_PATH = "META-INF/log4j/plugins.xml";
+
     private static final String MULTIPLICITY_UNBOUNDED = "*";
     private static final CharSequence[] GETTER_SETTER_PREFIXES = {"get", "is", "set"};
     /**
@@ -126,7 +131,6 @@ public class DocGenProcessor extends AbstractProcessor {
         this(new PluginSet());
     }
 
-    @SuppressWarnings("DataFlowIssue")
     public DocGenProcessor(final PluginSet pluginSet) {
         this.pluginSet = pluginSet;
         // Will be initialized later
@@ -207,17 +211,15 @@ public class DocGenProcessor extends AbstractProcessor {
 
     private void writePluginDescriptor() {
         try {
-            final FileObject output = processingEnv
-                    .getFiler()
-                    .createResource(StandardLocation.CLASS_OUTPUT, "", "META-INF/log4j/plugins.xml");
+            final FileObject output =
+                    processingEnv.getFiler().createResource(StandardLocation.CLASS_OUTPUT, "", DESCRIPTOR_FILE_PATH);
 
             try (final Writer writer = output.openWriter()) {
                 new PluginBundleStaxWriter().write(writer, pluginSet);
             }
-        } catch (final IOException | XMLStreamException e) {
-            messager.printMessage(
-                    Diagnostic.Kind.ERROR,
-                    "An error occurred while writing to `META-INF/log4j/plugins.xml`: " + e.getMessage());
+        } catch (final IOException | XMLStreamException error) {
+            final String message = String.format("An error occurred while writing to `%s`", DESCRIPTOR_FILE_PATH);
+            throw new RuntimeException(message, error);
         }
     }
 

@@ -66,8 +66,7 @@ public class AsciiDocConverterTest {
         final StandardJavaFileManager fileManager = tool.getStandardFileManager(null, Locale.ROOT, CHARSET);
 
         // Populate sources (aka. compilation units)
-        final Path sourcePath =
-                Paths.get("src/test/resources/javadoc-input/example/" + TEST_CLASS_NAME + ".java");
+        final Path sourcePath = Paths.get("src/test/resources/javadoc-input/example/" + TEST_CLASS_NAME + ".java");
         final Iterable<? extends JavaFileObject> sources = fileManager.getJavaFileObjects(sourcePath);
 
         // Set the target path used by `Javadoc2AsciiDocDoclet` to dump the generated files
