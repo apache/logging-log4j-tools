@@ -17,11 +17,11 @@
 package org.apache.logging.log4j.docgen.processor;
 
 import static java.nio.charset.StandardCharsets.UTF_8;
+import static org.apache.logging.log4j.docgen.TestUtils.resourcePath;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import java.io.IOException;
 import java.io.OutputStream;
-import java.net.URISyntaxException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -48,17 +48,7 @@ import org.junit.jupiter.api.Test;
 
 public class AsciidocConverterTest {
 
-    private static final Path LICENSE_PATH;
-
-    static {
-        try {
-            LICENSE_PATH = Paths.get(AsciidocConverterTest.class
-                    .getResource("/templates/license.ftl")
-                    .toURI());
-        } catch (final URISyntaxException e) {
-            throw new RuntimeException(e);
-        }
-    }
+    private static final Path LICENSE_PATH = resourcePath("/templates/license.ftl");
 
     @Test
     void convertToAsciidoc() throws Exception {
@@ -67,9 +57,7 @@ public class AsciidocConverterTest {
         final StandardJavaFileManager fileManager = tool.getStandardFileManager(null, Locale.ROOT, UTF_8);
 
         final Path basePath = Paths.get(System.getProperty("basedir", "."));
-        final Path sourcePath = Paths.get(AsciidocConverterTest.class
-                .getResource("/processor/asciidoc/example/JavadocExample.java")
-                .toURI());
+        final Path sourcePath = resourcePath("/processor/asciidoc/example/JavadocExample.java");
         final Iterable<? extends JavaFileObject> sources = fileManager.getJavaFileObjects(sourcePath);
 
         final Path destPath = basePath.resolve("target/test-site");
@@ -84,9 +72,7 @@ public class AsciidocConverterTest {
                 .map(d -> d.getMessage(Locale.ROOT))
                 .collect(Collectors.toList());
         assertThat(warnings).isEmpty();
-        final Path expectedPath = Paths.get(AsciidocConverterTest.class
-                .getResource("/expected/processor/JavadocExample.adoc")
-                .toURI());
+        final Path expectedPath = resourcePath("/expected/processor/JavadocExample.adoc");
         assertThat(destPath.resolve("processor/JavadocExample.adoc")).hasSameTextualContentAs(expectedPath, UTF_8);
     }
 
