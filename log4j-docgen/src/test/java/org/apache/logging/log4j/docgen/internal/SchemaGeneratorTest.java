@@ -16,30 +16,27 @@
  */
 package org.apache.logging.log4j.docgen.internal;
 
-import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
-
-import java.io.IOException;
-import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import javax.xml.stream.XMLStreamException;
 import javax.xml.transform.Source;
 import org.apache.logging.log4j.docgen.PluginSet;
 import org.apache.logging.log4j.docgen.io.stax.PluginBundleStaxReader;
 import org.apache.logging.log4j.docgen.xsd.SchemaGenerator;
 import org.apache.logging.log4j.docgen.xsd.SchemaGeneratorRequest;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.io.CleanupMode;
+import org.junit.jupiter.api.io.TempDir;
 import org.xmlunit.assertj3.XmlAssert;
 import org.xmlunit.builder.Input;
 
 public class SchemaGeneratorTest {
 
     @Test
-    void schemaGeneration() {
+    void schemaGeneration(@TempDir(cleanup = CleanupMode.ON_SUCCESS) final Path outputDir) throws Exception {
         final Source xmlSchema =
                 Input.fromURI("https://www.w3.org/2001/XMLSchema.xsd").build();
-        final Path expectedSchema = Paths.get("src/test/resources/expected/xsd/log4j-config.xsd");
-        final Path actualSchema = assertDoesNotThrow(SchemaGeneratorTest::generateSchema);
+        final Path expectedSchema = Paths.get("src/test/resources/generated-plugins.xsd");
+        final Path actualSchema = generateSchema(outputDir);
         XmlAssert.assertThat(actualSchema)
                 .isValidAgainst(xmlSchema)
                 .and(expectedSchema)
@@ -48,17 +45,20 @@ public class SchemaGeneratorTest {
                 .areIdentical();
     }
 
-    private static Path generateSchema() throws XMLStreamException, IOException {
-        final PluginBundleStaxReader reader = new PluginBundleStaxReader();
-        final PluginSet set = reader.read("src/test/resources/META-INF/log4j/plugins-sample.xml");
-        final SchemaGenerator generator = new DefaultSchemaGenerator();
-        final SchemaGeneratorRequest request = new SchemaGeneratorRequest();
-        final Path outputDirectory = Paths.get("target/test-site/xsd");
-        Files.createDirectories(outputDirectory);
-        request.addPluginSet(set);
-        request.setOutputDirectory(outputDirectory);
+    private static Path generateSchema(final Path outputDir) throws Exception {
 
+        // Read sample plugins
+        final PluginBundleStaxReader reader = new PluginBundleStaxReader();
+        final PluginSet pluginSet = reader.read("src/test/resources/example-plugins.xml");
+
+        // Generate the schema
+        final SchemaGeneratorRequest request = new SchemaGeneratorRequest();
+        request.addPluginSet(pluginSet);
+        request.setOutputDirectory(outputDir);
+        final SchemaGenerator generator = new DefaultSchemaGenerator();
         generator.generateSchema(request);
-        return outputDirectory.resolve(request.getFileName());
+
+        // Return the generated XSD file path
+        return outputDir.resolve(request.getFileName());
     }
 }

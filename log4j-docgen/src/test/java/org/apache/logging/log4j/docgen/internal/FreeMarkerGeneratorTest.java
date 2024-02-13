@@ -34,7 +34,7 @@ public class FreeMarkerGeneratorTest {
     @Test
     void generatePluginDocumentation() throws Exception {
         final PluginBundleStaxReader reader = new PluginBundleStaxReader();
-        final PluginSet set = reader.read("src/test/resources/META-INF/log4j/plugins-sample.xml");
+        final PluginSet set = reader.read("src/test/resources/example-plugins.xml");
         final Path templateDir = Paths.get("src/test/resources/templates");
         final Path expectedDirectory = Paths.get("src/test/resources/expected/freemarker");
         final Path outputDirectory = Paths.get("target/test-site/freemarker");
