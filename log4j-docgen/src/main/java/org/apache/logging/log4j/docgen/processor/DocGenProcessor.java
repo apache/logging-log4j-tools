@@ -109,7 +109,7 @@ public class DocGenProcessor extends AbstractProcessor {
     // Scalar types to process
     private final Collection<TypeElement> scalarTypesToDocument = new HashSet<>();
 
-    private AsciidocConverter converter;
+    private AsciiDocConverter converter;
     private DocTrees docTrees;
     private Elements elements;
     private Types types;
@@ -148,7 +148,7 @@ public class DocGenProcessor extends AbstractProcessor {
         messager = processingEnv.getMessager();
         types = processingEnv.getTypeUtils();
 
-        converter = new AsciidocConverter(docTrees);
+        converter = new AsciiDocConverter(docTrees);
 
         annotations = new Annotations(elements, types);
         collectionType = (DeclaredType)
@@ -315,8 +315,8 @@ public class DocGenProcessor extends AbstractProcessor {
         // Gather documentation, which can be on any member.
         for (final Element member : members) {
             final String name = getAttributeOrPropertyName(member);
-            final String asciidoc = converter.toAsciiDoc(member);
-            descriptions.compute(name, (key, value) -> Stream.of(value, asciidoc)
+            final String asciiDoc = converter.toAsciiDoc(member);
+            descriptions.compute(name, (key, value) -> Stream.of(value, asciiDoc)
                     .filter(StringUtils::isNotEmpty)
                     .collect(Collectors.joining("\n")));
         }
@@ -340,9 +340,9 @@ public class DocGenProcessor extends AbstractProcessor {
         pluginElements.forEach(pluginType::addElement);
     }
 
-    private Description createDescription(final String asciidoc) {
+    private Description createDescription(final String asciiDoc) {
         final Description description = new Description();
-        description.setText(StringUtils.stripToEmpty(asciidoc));
+        description.setText(StringUtils.stripToEmpty(asciiDoc));
         return description;
     }
 

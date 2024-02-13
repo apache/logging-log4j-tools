@@ -49,7 +49,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.CleanupMode;
 import org.junit.jupiter.api.io.TempDir;
 
-public class AsciidocConverterTest {
+public class AsciiDocConverterTest {
 
     private static final Path LICENSE_PATH = Paths.get("src/test/resources/templates/license.ftl");
 
@@ -58,7 +58,8 @@ public class AsciidocConverterTest {
     private static final Charset CHARSET = UTF_8;
 
     @Test
-    void convertToAsciidoc(@TempDir(cleanup = CleanupMode.ON_SUCCESS) final Path outputDir) throws Exception {
+    void Javadoc_to_AsciiDoc_conversion_should_work(@TempDir(cleanup = CleanupMode.ON_SUCCESS) final Path outputDir)
+            throws Exception {
 
         // Instantiate the tooling
         final DocumentationTool tool = ToolProvider.getSystemDocumentationTool();
@@ -113,7 +114,7 @@ public class AsciidocConverterTest {
 
         @Override
         public boolean run(final DocletEnvironment environment) {
-            final AsciidocConverter converter = new AsciidocConverter(environment.getDocTrees());
+            final AsciiDocConverter converter = new AsciiDocConverter(environment.getDocTrees());
             final JavaFileManager fileManager = environment.getJavaFileManager();
             try {
                 for (final Element element : environment.getIncludedElements()) {

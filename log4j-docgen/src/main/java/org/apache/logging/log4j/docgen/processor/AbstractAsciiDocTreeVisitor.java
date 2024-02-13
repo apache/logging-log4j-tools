@@ -46,7 +46,7 @@ import org.asciidoctor.ast.Section;
 import org.asciidoctor.ast.StructuralNode;
 import org.asciidoctor.ast.Table;
 
-abstract class AbstractAsciidocTreeVisitor extends SimpleDocTreeVisitor<Void, AsciidocData> {
+abstract class AbstractAsciiDocTreeVisitor extends SimpleDocTreeVisitor<Void, AsciiDocData> {
 
     private static final String JAVA_SOURCE_STYLE = "source,java";
     private static final String XML_SOURCE_STYLE = "source,xml";
@@ -60,7 +60,7 @@ abstract class AbstractAsciidocTreeVisitor extends SimpleDocTreeVisitor<Void, As
     private static final Pattern XML_TAG = Pattern.compile("<\\w+\\s*(\\w+=[\"'][^\"']*[\"']\\s*)*/?>");
 
     @Override
-    public Void visitStartElement(final StartElementTree node, final AsciidocData data) {
+    public Void visitStartElement(final StartElementTree node, final AsciiDocData data) {
         final String elementName = node.getName().toString();
         switch (elementName) {
             case "p":
@@ -133,7 +133,7 @@ abstract class AbstractAsciidocTreeVisitor extends SimpleDocTreeVisitor<Void, As
     }
 
     @Override
-    public Void visitEndElement(final EndElementTree node, final AsciidocData data) {
+    public Void visitEndElement(final EndElementTree node, final AsciiDocData data) {
         final String elementName = node.getName().toString();
         switch (elementName) {
             case "p":
@@ -224,7 +224,7 @@ abstract class AbstractAsciidocTreeVisitor extends SimpleDocTreeVisitor<Void, As
     }
 
     @Override
-    public Void visitLink(final LinkTree node, final AsciidocData data) {
+    public Void visitLink(final LinkTree node, final AsciiDocData data) {
         final String className = substringBefore(node.getReference().getSignature(), '#');
         final String simpleName = StringUtils.substringAfterLast(className, '.');
         data.appendAdjustingSpace(" xref:")
@@ -236,7 +236,7 @@ abstract class AbstractAsciidocTreeVisitor extends SimpleDocTreeVisitor<Void, As
     }
 
     @Override
-    public Void visitLiteral(final LiteralTree node, final AsciidocData data) {
+    public Void visitLiteral(final LiteralTree node, final AsciiDocData data) {
         if (node.getKind() == DocTree.Kind.CODE) {
             data.newTextSpan();
             node.getBody().accept(this, data);
@@ -248,7 +248,7 @@ abstract class AbstractAsciidocTreeVisitor extends SimpleDocTreeVisitor<Void, As
     }
 
     @Override
-    public Void visitEntity(final EntityTree node, final AsciidocData asciidocData) {
+    public Void visitEntity(final EntityTree node, final AsciiDocData asciiDocData) {
         final String text;
         switch (node.getName().toString()) {
             case "amp":
@@ -270,13 +270,13 @@ abstract class AbstractAsciidocTreeVisitor extends SimpleDocTreeVisitor<Void, As
                 text = null;
         }
         if (text != null) {
-            asciidocData.append(text);
+            asciiDocData.append(text);
         }
-        return super.visitEntity(node, asciidocData);
+        return super.visitEntity(node, asciiDocData);
     }
 
     @Override
-    public Void visitText(final TextTree node, final AsciidocData data) {
+    public Void visitText(final TextTree node, final AsciiDocData data) {
         final Block currentParagraph = data.getCurrentParagraph();
         if (BlockImpl.PARAGRAPH_CONTEXT.equals(currentParagraph.getContext())) {
             appendSentences(node.getBody(), data);
@@ -286,7 +286,7 @@ abstract class AbstractAsciidocTreeVisitor extends SimpleDocTreeVisitor<Void, As
         return super.visitText(node, data);
     }
 
-    private static void appendSentences(final String text, final AsciidocData data) {
+    private static void appendSentences(final String text, final AsciiDocData data) {
         final String[] sentences = text.split("(?<=\\w{2}[.!?])", -1);
         // Full sentences
         for (int i = 0; i < sentences.length - 1; i++) {
@@ -296,7 +296,7 @@ abstract class AbstractAsciidocTreeVisitor extends SimpleDocTreeVisitor<Void, As
         data.appendAdjustingSpace(sentences[sentences.length - 1]);
     }
 
-    private void appendSpan(final AsciidocData data, final String delimiter) {
+    private void appendSpan(final AsciiDocData data, final String delimiter) {
         final String body = data.popTextSpan();
         data.append(delimiter);
         final boolean needsEscaping = body.contains(delimiter);

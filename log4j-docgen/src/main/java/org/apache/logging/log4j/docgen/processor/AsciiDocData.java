@@ -31,7 +31,7 @@ import org.asciidoctor.ast.Block;
 import org.asciidoctor.ast.Document;
 import org.asciidoctor.ast.StructuralNode;
 
-final class AsciidocData {
+final class AsciiDocData {
     private static final Pattern WHITESPACE_SEQUENCE = Pattern.compile("\\s+");
     private static final String SPACE = " ";
     private static final char SPACE_CHAR = ' ';
@@ -44,7 +44,7 @@ final class AsciidocData {
     private final Deque<Block> paragraphs = new ArrayDeque<>();
     private final Deque<StringBuilder> lines = new ArrayDeque<>();
 
-    public AsciidocData() {
+    public AsciiDocData() {
         document = new DocumentImpl();
         currentSectionLevel = 1;
         currentNode = document;
@@ -62,7 +62,7 @@ final class AsciidocData {
         getCurrentLine().setLength(0);
     }
 
-    public AsciidocData append(final String text) {
+    public AsciiDocData append(final String text) {
         final String[] lines = text.split("\r?\n", -1);
         for (int i = 0; i < lines.length; i++) {
             getCurrentLine().append(lines[i]);
@@ -73,7 +73,7 @@ final class AsciidocData {
         return this;
     }
 
-    public AsciidocData appendAdjustingSpace(final CharSequence text) {
+    public AsciiDocData appendAdjustingSpace(final CharSequence text) {
         final String normalized = WHITESPACE_SEQUENCE.matcher(text).replaceAll(SPACE);
         if (!normalized.isEmpty()) {
             final StringBuilder currentLine = getCurrentLine();

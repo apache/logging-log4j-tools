@@ -26,13 +26,13 @@ import javax.lang.model.element.Element;
 /**
  * Converts a {@link DocCommentTree} into AsciiDoc text.
  */
-final class AsciidocConverter {
+final class AsciiDocConverter {
 
     private final DocTrees docTrees;
-    private final DocTreeVisitor<Void, AsciidocData> docCommentTreeVisitor;
-    private final DocTreeVisitor<Void, AsciidocData> paramTreeVisitor;
+    private final DocTreeVisitor<Void, AsciiDocData> docCommentTreeVisitor;
+    private final DocTreeVisitor<Void, AsciiDocData> paramTreeVisitor;
 
-    AsciidocConverter(final DocTrees docTrees) {
+    AsciiDocConverter(final DocTrees docTrees) {
         this.docTrees = docTrees;
         this.docCommentTreeVisitor = new DocCommentTreeVisitor();
         this.paramTreeVisitor = new ParamTreeVisitor();
@@ -44,20 +44,20 @@ final class AsciidocConverter {
     }
 
     public String toAsciiDoc(final DocCommentTree tree) {
-        final AsciidocData data = new AsciidocData();
+        final AsciiDocData data = new AsciiDocData();
         tree.accept(docCommentTreeVisitor, data);
         return data.getDocument().convert();
     }
 
     public String toAsciiDoc(final ParamTree tree) {
-        final AsciidocData data = new AsciidocData();
+        final AsciiDocData data = new AsciiDocData();
         tree.accept(paramTreeVisitor, data);
         return data.getDocument().convert();
     }
 
-    private static final class DocCommentTreeVisitor extends AbstractAsciidocTreeVisitor {
+    private static final class DocCommentTreeVisitor extends AbstractAsciiDocTreeVisitor {
         @Override
-        public Void visitDocComment(final DocCommentTree node, final AsciidocData data) {
+        public Void visitDocComment(final DocCommentTree node, final AsciiDocData data) {
             // Summary block wrapped in a new paragraph.
             for (final DocTree docTree : node.getFirstSentence()) {
                 docTree.accept(this, data);
@@ -73,9 +73,9 @@ final class AsciidocConverter {
         }
     }
 
-    private static final class ParamTreeVisitor extends AbstractAsciidocTreeVisitor {
+    private static final class ParamTreeVisitor extends AbstractAsciiDocTreeVisitor {
         @Override
-        public Void visitParam(final ParamTree node, final AsciidocData data) {
+        public Void visitParam(final ParamTree node, final AsciiDocData data) {
             for (final DocTree docTree : node.getDescription()) {
                 docTree.accept(this, data);
             }
