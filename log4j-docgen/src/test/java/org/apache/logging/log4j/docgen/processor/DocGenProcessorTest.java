@@ -16,12 +16,9 @@
  */
 package org.apache.logging.log4j.docgen.processor;
 
-import static org.apache.logging.log4j.docgen.TestUtils.resourcePath;
-import static org.apache.logging.log4j.docgen.TestUtils.resourceUrl;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 
-import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -55,7 +52,7 @@ public class DocGenProcessorTest {
     void descriptorGenerationSucceeds(final String version) {
         final Path basePath = Paths.get(System.getProperty("basedir", "."));
         final Path schema = basePath.resolve("target/generated-site/resources/xsd/plugins-0.1.0.xsd");
-        final URL expected = resourceUrl("/expected/processor/META-INF/log4j/plugins.xml");
+        final Path expected = Paths.get("src/test/resources/expected/processor/META-INF/log4j/plugins.xml");
         final Path actual = assertDoesNotThrow(() -> generateDescriptor(version));
         XmlAssert.assertThat(actual)
                 .isValidAgainst(schema)
@@ -72,7 +69,7 @@ public class DocGenProcessorTest {
                 compiler.getStandardFileManager(null, Locale.ROOT, StandardCharsets.UTF_8);
 
         final Path basePath = Paths.get(System.getProperty("basedir", "."));
-        final Path sourcePath = resourcePath("/processor/" + version);
+        final Path sourcePath = Paths.get("src/test/resources/processor/" + version);
         final Iterable<? extends JavaFileObject> sources;
         try (final Stream<Path> files = Files.walk(sourcePath)) {
             sources = fileManager.getJavaFileObjects(

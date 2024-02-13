@@ -16,12 +16,9 @@
  */
 package org.apache.logging.log4j.docgen.internal;
 
-import static org.apache.logging.log4j.docgen.TestUtils.resourceStream;
-import static org.apache.logging.log4j.docgen.TestUtils.resourceUrl;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 
 import java.io.IOException;
-import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -41,7 +38,7 @@ public class SchemaGeneratorTest {
     void schemaGeneration() {
         final Source xmlSchema =
                 Input.fromURI("https://www.w3.org/2001/XMLSchema.xsd").build();
-        final URL expectedSchema = resourceUrl("/expected/xsd/log4j-config.xsd");
+        final Path expectedSchema = Paths.get("src/test/resources/expected/xsd/log4j-config.xsd");
         final Path actualSchema = assertDoesNotThrow(SchemaGeneratorTest::generateSchema);
         XmlAssert.assertThat(actualSchema)
                 .isValidAgainst(xmlSchema)
@@ -53,7 +50,7 @@ public class SchemaGeneratorTest {
 
     private static Path generateSchema() throws XMLStreamException, IOException {
         final PluginBundleStaxReader reader = new PluginBundleStaxReader();
-        final PluginSet set = reader.read(resourceStream("/META-INF/log4j/plugins-sample.xml"));
+        final PluginSet set = reader.read("src/test/resources/META-INF/log4j/plugins-sample.xml");
         final SchemaGenerator generator = new DefaultSchemaGenerator();
         final SchemaGeneratorRequest request = new SchemaGeneratorRequest();
         final Path outputDirectory = Paths.get("target/test-site/xsd");

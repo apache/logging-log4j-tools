@@ -17,7 +17,6 @@
 package org.apache.logging.log4j.docgen.processor;
 
 import static java.nio.charset.StandardCharsets.UTF_8;
-import static org.apache.logging.log4j.docgen.TestUtils.resourcePath;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import java.io.IOException;
@@ -28,7 +27,6 @@ import java.nio.file.Paths;
 import java.util.List;
 import java.util.Locale;
 import java.util.Set;
-import java.util.stream.Collectors;
 import javax.lang.model.SourceVersion;
 import javax.lang.model.element.Element;
 import javax.tools.Diagnostic;
@@ -48,31 +46,29 @@ import org.junit.jupiter.api.Test;
 
 public class AsciidocConverterTest {
 
-    private static final Path LICENSE_PATH = resourcePath("/templates/license.ftl");
+    private static final Path LICENSE_PATH = Paths.get("src/test/resources/templates/license.ftl");
 
     @Test
     void convertToAsciidoc() throws Exception {
         final DocumentationTool tool = ToolProvider.getSystemDocumentationTool();
-        final DiagnosticCollector<JavaFileObject> ds = new DiagnosticCollector<>();
+        final DiagnosticCollector<JavaFileObject> diagnosticCollector = new DiagnosticCollector<>();
         final StandardJavaFileManager fileManager = tool.getStandardFileManager(null, Locale.ROOT, UTF_8);
 
-        final Path basePath = Paths.get(System.getProperty("basedir", "."));
-        final Path sourcePath = resourcePath("/processor/asciidoc/example/JavadocExample.java");
+        final Path sourcePath = Paths.get("src/test/resources/processor/asciidoc/example/JavadocExample.java");
         final Iterable<? extends JavaFileObject> sources = fileManager.getJavaFileObjects(sourcePath);
 
+        final Path basePath = Paths.get(System.getProperty("basedir", "."));
         final Path destPath = basePath.resolve("target/test-site");
         Files.createDirectories(destPath);
         fileManager.setLocationFromPaths(StandardLocation.CLASS_OUTPUT, Set.of(destPath));
 
-        final DocumentationTask task = tool.getTask(null, fileManager, ds, TestDoclet.class, null, sources);
+        final DocumentationTask task =
+                tool.getTask(null, fileManager, diagnosticCollector, TestDoclet.class, null, sources);
         task.call();
 
-        final List<String> warnings = ds.getDiagnostics().stream()
-                .filter(d -> d.getKind() != Diagnostic.Kind.NOTE)
-                .map(d -> d.getMessage(Locale.ROOT))
-                .collect(Collectors.toList());
-        assertThat(warnings).isEmpty();
-        final Path expectedPath = resourcePath("/expected/processor/JavadocExample.adoc");
+        List<Diagnostic<? extends JavaFileObject>> diagnostics = diagnosticCollector.getDiagnostics();
+        assertThat(diagnostics).noneMatch(diagnostic -> diagnostic.getKind() != Diagnostic.Kind.NOTE);
+        final Path expectedPath = Paths.get("src/test/resources/expected/processor/JavadocExample.adoc");
         assertThat(destPath.resolve("processor/JavadocExample.adoc")).hasSameTextualContentAs(expectedPath, UTF_8);
     }
 

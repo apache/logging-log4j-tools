@@ -16,8 +16,6 @@
  */
 package org.apache.logging.log4j.docgen.internal;
 
-import static org.apache.logging.log4j.docgen.TestUtils.resourcePath;
-import static org.apache.logging.log4j.docgen.TestUtils.resourceStream;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import java.nio.charset.StandardCharsets;
@@ -26,7 +24,6 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.stream.Stream;
 import org.apache.logging.log4j.docgen.PluginSet;
-import org.apache.logging.log4j.docgen.TestUtils;
 import org.apache.logging.log4j.docgen.freemarker.FreeMarkerGenerator;
 import org.apache.logging.log4j.docgen.freemarker.FreeMarkerGeneratorRequest;
 import org.apache.logging.log4j.docgen.io.stax.PluginBundleStaxReader;
@@ -37,9 +34,9 @@ public class FreeMarkerGeneratorTest {
     @Test
     void generatePluginDocumentation() throws Exception {
         final PluginBundleStaxReader reader = new PluginBundleStaxReader();
-        final PluginSet set = reader.read(resourceStream("/META-INF/log4j/plugins-sample.xml"));
-        final Path templateDir = TestUtils.resourcePath("/templates");
-        final Path expectedDirectory = resourcePath("/expected/freemarker");
+        final PluginSet set = reader.read("src/test/resources/META-INF/log4j/plugins-sample.xml");
+        final Path templateDir = Paths.get("src/test/resources/templates");
+        final Path expectedDirectory = Paths.get("src/test/resources/expected/freemarker");
         final Path outputDirectory = Paths.get("target/test-site/freemarker");
 
         final FreeMarkerGenerator generator = new DefaultFreeMarkerGenerator();
