@@ -50,12 +50,12 @@
                 <field>
                     <name>groupId</name>
                     <type>String</type>
-                    <description>The group id of the set.</description>
+                    <description>The group ID of the set.</description>
                 </field>
                 <field>
                     <name>artifactId</name>
                     <type>String</type>
-                    <description>The artifact id of the set.</description>
+                    <description>The artifact ID of the set.</description>
                 </field>
                 <field>
                     <name>version</name>
