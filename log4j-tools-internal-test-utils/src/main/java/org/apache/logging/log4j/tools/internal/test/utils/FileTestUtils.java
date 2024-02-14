@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.logging.log4j.changelog;
+package org.apache.logging.log4j.tools.internal.test.utils;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -29,11 +29,11 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-final class FileTestUtils {
+public final class FileTestUtils {
 
     private FileTestUtils() {}
 
-    static void assertDirectoryContentMatches(final Path actualPath, final Path expectedPath) {
+    public static void assertDirectoryContentMatches(final Path actualPath, final Path expectedPath) {
 
         // Compare file paths
         final Map<String, Path> actualContents = directoryContents(actualPath);

@@ -16,48 +16,38 @@
  */
 package org.apache.logging.log4j.docgen.internal;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import static org.apache.logging.log4j.tools.internal.test.utils.FileTestUtils.assertDirectoryContentMatches;
 
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.stream.Stream;
 import org.apache.logging.log4j.docgen.PluginSet;
 import org.apache.logging.log4j.docgen.freemarker.FreeMarkerGenerator;
 import org.apache.logging.log4j.docgen.freemarker.FreeMarkerGeneratorRequest;
 import org.apache.logging.log4j.docgen.io.stax.PluginBundleStaxReader;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.io.CleanupMode;
+import org.junit.jupiter.api.io.TempDir;
 
 public class FreeMarkerGeneratorTest {
 
     @Test
-    void generatePluginDocumentation() throws Exception {
-        final PluginBundleStaxReader reader = new PluginBundleStaxReader();
-        final PluginSet set = reader.read("src/test/resources/example-plugins.xml");
-        final Path templateDir = Paths.get("src/test/resources/templates");
-        final Path expectedDirectory = Paths.get("src/test/resources/expected/freemarker");
-        final Path outputDirectory = Paths.get("target/test-site/freemarker");
+    void generatePluginDocumentation(@TempDir(cleanup = CleanupMode.ON_SUCCESS) final Path outputDir) throws Exception {
 
+        // Read plugins
+        final PluginBundleStaxReader reader = new PluginBundleStaxReader();
+        final PluginSet pluginSet = reader.read("src/test/resources/example-plugins.xml");
+
+        // Generate the documentation
         final FreeMarkerGenerator generator = new DefaultFreeMarkerGenerator();
         final FreeMarkerGeneratorRequest request = new FreeMarkerGeneratorRequest();
-        request.addPluginSet(set);
-        request.setTemplateDirectory(templateDir);
-        request.setOutputDirectory(outputDirectory);
-
+        request.addPluginSet(pluginSet);
+        final Path templateDirectory = Paths.get("src/test/resources/templates");
+        request.setTemplateDirectory(templateDirectory);
+        request.setOutputDirectory(outputDir);
         generator.generateDocumentation(request);
 
-        try (final Stream<Path> stream = Files.walk(expectedDirectory)) {
-            stream.forEach(expectedPath -> {
-                if (Files.isRegularFile(expectedPath)) {
-                    final Path path = expectedDirectory.relativize(expectedPath);
-                    final Path actualPath = outputDirectory.resolve(path);
-                    assertThat(actualPath)
-                            .exists()
-                            .usingCharset(StandardCharsets.UTF_8)
-                            .hasSameTextualContentAs(expectedPath);
-                }
-            });
-        }
+        // Verify the output
+        final Path expectedDir = Paths.get("src/test/resources/plugins-to-freemarker-output");
+        assertDirectoryContentMatches(outputDir, expectedDir);
     }
 }

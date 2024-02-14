@@ -29,6 +29,10 @@
   <version>${revision}</version>
   <packaging>pom</packaging>
 
+  <modules>
+    <module>../log4j-tools-internal-test-utils</module>
+  </modules>
+
   <properties>
 
     <!-- Dependency versions -->
@@ -51,6 +55,12 @@
 
   <dependencyManagement>
     <dependencies>
+
+      <dependency>
+        <groupId>org.apache.logging.log4j</groupId>
+        <artifactId>log4j-tools-internal-test-utils</artifactId>
+        <version>${project.version}</version>
+      </dependency>
 
       <dependency>
         <groupId>org.junit</groupId>
