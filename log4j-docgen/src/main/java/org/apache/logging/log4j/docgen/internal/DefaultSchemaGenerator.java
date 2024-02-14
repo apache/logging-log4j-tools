@@ -17,6 +17,7 @@
 package org.apache.logging.log4j.docgen.internal;
 
 import java.io.IOException;
+import java.io.OutputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
@@ -51,7 +52,7 @@ public class DefaultSchemaGenerator implements SchemaGenerator {
     private static final String LOG4J_NAMESPACE = "http://logging.apache.org/xml/ns/config";
     private static final String XSD_NAMESPACE = XMLConstants.W3C_XML_SCHEMA_NS_URI;
     private static final String MULTIPLICITY_UNBOUNDED = "*";
-    private static final String UTF_8 = "UTF-8";
+    private static final String ENCODING = "UTF-8";
 
     @Override
     public void generateSchema(final SchemaGeneratorRequest request) throws XMLStreamException {
@@ -63,19 +64,21 @@ public class DefaultSchemaGenerator implements SchemaGenerator {
             final TypeLookup lookup = TypeLookup.of(extendedSets);
             final XMLOutputFactory factory = XMLOutputFactory.newFactory();
             final Path schemaPath = request.getOutputDirectory().resolve(request.getFileName());
-            final XMLStreamWriter writer = factory.createXMLStreamWriter(Files.newOutputStream(schemaPath), UTF_8);
-            try {
-                writeSchema(lookup, writer);
-            } finally {
-                writer.close();
+            try (final OutputStream schemaPathOutputStream = Files.newOutputStream(schemaPath)) {
+                final XMLStreamWriter writer = factory.createXMLStreamWriter(schemaPathOutputStream, ENCODING);
+                try {
+                    writeSchema(lookup, writer);
+                } finally {
+                    writer.close();
+                }
             }
-        } catch (IOException e) {
-            throw new XMLStreamException(e);
+        } catch (final IOException error) {
+            throw new XMLStreamException(error);
         }
     }
 
     private static void writeSchema(final TypeLookup lookup, final XMLStreamWriter writer) throws XMLStreamException {
-        writer.writeStartDocument(UTF_8, "1.0");
+        writer.writeStartDocument(ENCODING, "1.0");
         writer.setDefaultNamespace(XSD_NAMESPACE);
         writer.writeStartElement(XSD_NAMESPACE, "schema");
         writer.writeDefaultNamespace(XSD_NAMESPACE);
