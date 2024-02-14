@@ -40,7 +40,7 @@ import org.junit.jupiter.api.io.CleanupMode;
 import org.junit.jupiter.api.io.TempDir;
 import org.xmlunit.assertj3.XmlAssert;
 
-public class DocGenProcessorTest {
+public class DescriptorGeneratorTest {
 
     @Test
     void log4j2_plugins_should_be_extracted(@TempDir(cleanup = CleanupMode.ON_SUCCESS) final Path outputDir)
@@ -88,7 +88,7 @@ public class DocGenProcessorTest {
                 null,
                 fileManager,
                 diagnosticCollector,
-                asList("-proc:only", "-processor", DocGenProcessor.class.getName()),
+                asList("-proc:only", "-processor", DescriptorGenerator.class.getName()),
                 null,
                 sources);
         task.call();
@@ -98,7 +98,7 @@ public class DocGenProcessorTest {
         assertThat(diagnostics).noneMatch(diagnostic -> diagnostic.getKind() != Diagnostic.Kind.NOTE);
 
         // Resolve the descriptor file
-        final Path descriptor = outputDir.resolve(DocGenProcessor.DESCRIPTOR_FILE_PATH);
+        final Path descriptor = outputDir.resolve(DescriptorGenerator.DESCRIPTOR_FILE_PATH);
         assertThat(descriptor).isNotEmptyFile();
         return descriptor;
     }

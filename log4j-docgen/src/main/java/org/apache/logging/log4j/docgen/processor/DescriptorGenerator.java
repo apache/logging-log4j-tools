@@ -84,7 +84,7 @@ import org.jspecify.annotations.Nullable;
 @ServiceProvider(value = Processor.class, resolution = Resolution.OPTIONAL)
 @SupportedAnnotationTypes({"org.apache.logging.log4j.core.config.plugins.*", "org.apache.logging.log4j.plugins.*"})
 @NullMarked
-public class DocGenProcessor extends AbstractProcessor {
+public class DescriptorGenerator extends AbstractProcessor {
 
     /**
      * The file path generated descriptor will be written to.
@@ -127,11 +127,11 @@ public class DocGenProcessor extends AbstractProcessor {
 
     // Used by reflection
     @SuppressWarnings("unused")
-    public DocGenProcessor() {
+    public DescriptorGenerator() {
         this(new PluginSet());
     }
 
-    public DocGenProcessor(final PluginSet pluginSet) {
+    public DescriptorGenerator(final PluginSet pluginSet) {
         this.pluginSet = pluginSet;
         // Will be initialized later
         annotations = null;
