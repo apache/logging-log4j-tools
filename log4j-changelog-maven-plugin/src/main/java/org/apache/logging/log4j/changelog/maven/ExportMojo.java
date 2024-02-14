@@ -72,7 +72,7 @@ public final class ExportMojo extends AbstractMojo {
     private File outputDirectory;
 
     @Override
-    public synchronized void execute() {
+    public void execute() {
         final Set<ChangelogExporterTemplate> translatedIndexTemplates = toExporterTemplates(indexTemplates);
         final Set<ChangelogExporterTemplate> translatedReleaseChangelogTemplates =
                 toExporterTemplates(changelogTemplates);

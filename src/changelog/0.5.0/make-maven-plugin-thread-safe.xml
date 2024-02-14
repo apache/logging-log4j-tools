@@ -34,7 +34,6 @@
        - Check thread-safety of any other third party libraries.
          This last item can be a bit hard, but inquiries on mailing lists can get you a long way.
 
-       I think we are not prone to any of the problems shared above.
-       To be certain, I have added `synchronized` modifier to each `execute()` method. -->
+       I think we are not prone to any of the problems shared above. -->
   <description format="asciidoc">Make `log4j-changelog-maven-plugin` thread-safe</description>
 </entry>

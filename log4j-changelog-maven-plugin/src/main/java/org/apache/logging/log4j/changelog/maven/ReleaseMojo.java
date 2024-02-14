@@ -65,7 +65,7 @@ public final class ReleaseMojo extends AbstractMojo {
     private String versionPattern;
 
     @Override
-    public synchronized void execute() {
+    public void execute() {
         Pattern compiledVersionPattern = versionPattern != null ? Pattern.compile(versionPattern) : null;
         final ChangelogReleaserArgs args = new ChangelogReleaserArgs(
                 changelogDirectory.toPath(),
