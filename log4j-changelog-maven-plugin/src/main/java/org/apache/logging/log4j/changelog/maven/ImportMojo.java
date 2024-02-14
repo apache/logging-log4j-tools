@@ -14,26 +14,23 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.logging.log4j;
+package org.apache.logging.log4j.changelog.maven;
 
 import java.io.File;
-import java.time.LocalDate;
-import java.time.ZoneId;
-import java.util.regex.Pattern;
+import org.apache.logging.log4j.changelog.importer.MavenChangesImporter;
+import org.apache.logging.log4j.changelog.importer.MavenChangesImporterArgs;
 import org.apache.logging.log4j.changelog.releaser.ChangelogReleaser;
-import org.apache.logging.log4j.changelog.releaser.ChangelogReleaserArgs;
 import org.apache.maven.plugin.AbstractMojo;
-import org.apache.maven.plugins.annotations.LifecyclePhase;
 import org.apache.maven.plugins.annotations.Mojo;
 import org.apache.maven.plugins.annotations.Parameter;
 
 /**
- * Goal moving the contents of an unreleased changelog directory (e.g., {@code .2.x.x} to a released one (e.g., {@code 2.19.0}).
+ * Goal populating a changelog directory from <a href="https://maven.apache.org/plugins/maven-changes-plugin/">maven-changes-plugin</a> source XML.
  *
  * @see ChangelogReleaser
  */
-@Mojo(name = "release", defaultPhase = LifecyclePhase.VALIDATE, threadSafe = true)
-public final class ReleaseMojo extends AbstractMojo {
+@Mojo(name = "import", threadSafe = true)
+public final class ImportMojo extends AbstractMojo {
 
     /**
      * Directory containing release folders composed of changelog entry XML files.
@@ -45,33 +42,24 @@ public final class ReleaseMojo extends AbstractMojo {
     private File changelogDirectory;
 
     /**
-     * The version to be released, e.g., {@code 2.19.0}.
+     * <a href="https://maven.apache.org/plugins/maven-changes-plugin/">maven-changes-plugin</a> source XML, {@code changes.xml}, location.
      */
-    @Parameter(property = "log4j.changelog.releaseVersion", required = true)
-    private String releaseVersion;
+    @Parameter(
+            defaultValue = "${project.basedir}/src/changes/changes.xml",
+            property = "log4j.changelog.changesXmlFile",
+            required = true)
+    private File changesXmlFile;
 
     /**
-     * The regular expression pattern for parsing versions.
-     * <p>
-     * The pattern must provide the following named groups:
-     * </p>
-     * <ol>
-     * <li>major</li>
-     * <li>minor</li>
-     * <li>patch</li>
-     * </ol>
+     * The upcoming release version major number, e.g., {@code 2} for {@code 2.x.x} releases.
      */
-    @Parameter(property = "log4j.changelog.versionPattern")
-    private String versionPattern;
+    @Parameter(property = "log4j.changelog.releaseVersionMajor", required = true)
+    private int releaseVersionMajor;
 
     @Override
     public synchronized void execute() {
-        Pattern compiledVersionPattern = versionPattern != null ? Pattern.compile(versionPattern) : null;
-        final ChangelogReleaserArgs args = new ChangelogReleaserArgs(
-                changelogDirectory.toPath(),
-                releaseVersion,
-                compiledVersionPattern,
-                LocalDate.now(ZoneId.systemDefault()));
-        ChangelogReleaser.performRelease(args);
+        final MavenChangesImporterArgs args =
+                new MavenChangesImporterArgs(changelogDirectory.toPath(), changesXmlFile.toPath(), releaseVersionMajor);
+        MavenChangesImporter.performImport(args);
     }
 }

@@ -15,6 +15,6 @@
  * limitations under the License.
  */
 @Version("0.5.0")
-package org.apache.logging.log4j;
+package org.apache.logging.log4j.changelog.maven;
 
 import org.osgi.annotation.versioning.Version;
