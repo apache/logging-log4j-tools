@@ -16,7 +16,7 @@
   limitations under the License.
 -->
 <#-- @ftlvariable name="type" type="org.apache.logging.log4j.docgen.model.AbstractType" -->
-<#-- @ftlvariable name="lookup" type="org.apache.logging.log4j.docgen.util.TypeLookup" -->
+<#-- @ftlvariable name="lookup" type="org.apache.logging.log4j.docgen.generator.TypeLookup" -->
 <#include "license.ftl">
 = ${type.className?keep_after_last('.')}
 <#if type.description??>

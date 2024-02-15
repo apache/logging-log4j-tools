@@ -14,9 +14,22 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-@Export
-@Version("0.8.0")
-package org.apache.logging.log4j.docgen.util;
+package org.apache.logging.log4j.docgen.generator;
 
-import org.osgi.annotation.bundle.Export;
-import org.osgi.annotation.versioning.Version;
+import static java.util.Objects.requireNonNull;
+
+import java.nio.file.Path;
+import java.util.Set;
+import org.apache.logging.log4j.docgen.PluginSet;
+
+public final class SchemaGeneratorArgs {
+
+    final Set<PluginSet> pluginSets;
+
+    final Path schemaFile;
+
+    public SchemaGeneratorArgs(final Set<PluginSet> pluginSets, final Path schemaFile) {
+        this.pluginSets = requireNonNull(pluginSets, "pluginSets");
+        this.schemaFile = requireNonNull(schemaFile, "schemaFile");
+    }
+}

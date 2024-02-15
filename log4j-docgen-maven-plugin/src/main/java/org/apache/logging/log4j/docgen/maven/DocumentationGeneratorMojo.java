@@ -19,7 +19,8 @@ package org.apache.logging.log4j.docgen.maven;
 import java.io.File;
 import java.util.Set;
 import org.apache.logging.log4j.docgen.PluginSet;
-import org.apache.logging.log4j.docgen.internal.DocumentationGenerator;
+import org.apache.logging.log4j.docgen.generator.DocumentationGenerator;
+import org.apache.logging.log4j.docgen.generator.DocumentationGeneratorArgs;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugins.annotations.LifecyclePhase;
 import org.apache.maven.plugins.annotations.Mojo;
@@ -72,12 +73,13 @@ public class DocumentationGeneratorMojo extends AbstractMojo {
     @Override
     public void execute() {
         final Set<PluginSet> pluginSets = PluginSets.ofDescriptorFiles(descriptorFiles);
-        DocumentationGenerator.generateDocumentation(
+        final DocumentationGeneratorArgs generatorArgs = new DocumentationGeneratorArgs(
                 pluginSets,
                 templateDirectory.toPath(),
                 scalarsTemplateName,
                 pluginTemplateName,
                 interfaceTemplateName,
                 outputDirectory.toPath());
+        DocumentationGenerator.generateDocumentation(generatorArgs);
     }
 }

@@ -20,7 +20,8 @@ import java.io.File;
 import java.util.Set;
 import javax.xml.stream.XMLStreamException;
 import org.apache.logging.log4j.docgen.PluginSet;
-import org.apache.logging.log4j.docgen.internal.SchemaGenerator;
+import org.apache.logging.log4j.docgen.generator.SchemaGenerator;
+import org.apache.logging.log4j.docgen.generator.SchemaGeneratorArgs;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugins.annotations.LifecyclePhase;
@@ -30,7 +31,7 @@ import org.apache.maven.plugins.annotations.Parameter;
 /**
  * Goal generating an XSD from a given plugin descriptor, e.g., {@code plugins.xml}.
  *
- * @see org.apache.logging.log4j.docgen.internal.SchemaGenerator
+ * @see SchemaGenerator
  */
 @Mojo(name = "generate-schema", defaultPhase = LifecyclePhase.GENERATE_RESOURCES, threadSafe = true)
 public class SchemaGeneratorMojo extends AbstractMojo {
@@ -51,7 +52,8 @@ public class SchemaGeneratorMojo extends AbstractMojo {
     public void execute() throws MojoExecutionException {
         final Set<PluginSet> pluginSets = PluginSets.ofDescriptorFiles(descriptorFiles);
         try {
-            SchemaGenerator.generateSchema(pluginSets, schemaFile.toPath());
+            final SchemaGeneratorArgs generatorArgs = new SchemaGeneratorArgs(pluginSets, schemaFile.toPath());
+            SchemaGenerator.generateSchema(generatorArgs);
         } catch (final XMLStreamException error) {
             final String message = String.format("failed generating the schema file `%s`", schemaFile);
             throw new MojoExecutionException(message, error);

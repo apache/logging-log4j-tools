@@ -14,12 +14,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.logging.log4j.docgen.internal;
+package org.apache.logging.log4j.docgen.generator;
+
+import static java.util.Objects.requireNonNull;
 
 import java.io.IOException;
 import java.io.OutputStream;
 import java.nio.file.Files;
-import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -41,7 +42,6 @@ import org.apache.logging.log4j.docgen.PluginType;
 import org.apache.logging.log4j.docgen.ScalarType;
 import org.apache.logging.log4j.docgen.ScalarValue;
 import org.apache.logging.log4j.docgen.Type;
-import org.apache.logging.log4j.docgen.util.TypeLookup;
 
 @Singleton
 @Named("default")
@@ -59,15 +59,15 @@ public final class SchemaGenerator {
 
     private SchemaGenerator() {}
 
-    public static void generateSchema(final Set<PluginSet> pluginSets, final Path schemaFile)
-            throws XMLStreamException {
+    public static void generateSchema(final SchemaGeneratorArgs args) throws XMLStreamException {
+        requireNonNull(args, "args");
         try {
             final List<PluginSet> extendedSets = Stream.concat(
-                            Stream.of(ConfigurationXml.PLUGIN_SET), pluginSets.stream())
+                            Stream.of(ConfigurationXml.PLUGIN_SET), args.pluginSets.stream())
                     .collect(Collectors.toList());
             final TypeLookup lookup = TypeLookup.of(extendedSets);
             final XMLOutputFactory factory = XMLOutputFactory.newFactory();
-            try (final OutputStream schemaPathOutputStream = Files.newOutputStream(schemaFile)) {
+            try (final OutputStream schemaPathOutputStream = Files.newOutputStream(args.schemaFile)) {
                 final XMLStreamWriter writer = factory.createXMLStreamWriter(schemaPathOutputStream, CHARSET_NAME);
                 try {
                     writeSchema(lookup, writer);

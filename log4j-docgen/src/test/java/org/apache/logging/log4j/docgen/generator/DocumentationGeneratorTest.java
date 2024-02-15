@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.logging.log4j.docgen.internal;
+package org.apache.logging.log4j.docgen.generator;
 
 import static org.apache.logging.log4j.tools.internal.test.util.FileTestUtils.assertDirectoryContentMatches;
 
@@ -38,8 +38,9 @@ public class DocumentationGeneratorTest {
 
         // Generate the documentation
         final Path templateDirectory = Paths.get("src/test/resources/templates");
-        DocumentationGenerator.generateDocumentation(
+        final DocumentationGeneratorArgs generatorArgs = new DocumentationGeneratorArgs(
                 Set.of(pluginSet), templateDirectory, "scalars.ftl", "plugin.ftl", "interface.ftl", outputDir);
+        DocumentationGenerator.generateDocumentation(generatorArgs);
 
         // Verify the output
         final Path expectedDir = Paths.get("src/test/resources/plugins-to-freemarker-output");

@@ -14,8 +14,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.logging.log4j.docgen.internal;
+package org.apache.logging.log4j.docgen.generator;
 
+import static java.util.Objects.requireNonNull;
 import static org.apache.logging.log4j.tools.internal.freemarker.util.FreeMarkerUtils.render;
 
 import java.nio.file.Path;
@@ -24,7 +25,6 @@ import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 import java.util.TreeSet;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -33,33 +33,30 @@ import org.apache.logging.log4j.docgen.PluginSet;
 import org.apache.logging.log4j.docgen.PluginType;
 import org.apache.logging.log4j.docgen.ScalarType;
 import org.apache.logging.log4j.docgen.Type;
-import org.apache.logging.log4j.docgen.util.TypeLookup;
 
 public final class DocumentationGenerator {
 
     private DocumentationGenerator() {}
 
-    public static void generateDocumentation(
-            final Set<PluginSet> pluginSets,
-            final Path templateDirectory,
-            final String scalarsTemplateName,
-            final String pluginTemplateName,
-            final String interfaceTemplateName,
-            final Path outputDirectory) {
-        final List<PluginSet> extendedSets = Stream.concat(Stream.of(ConfigurationXml.PLUGIN_SET), pluginSets.stream())
+    public static void generateDocumentation(final DocumentationGeneratorArgs args) {
+        requireNonNull(args, "args");
+        final List<PluginSet> extendedSets = Stream.concat(
+                        Stream.of(ConfigurationXml.PLUGIN_SET), args.pluginSets.stream())
                 .collect(Collectors.toList());
         final TypeLookup lookup = TypeLookup.of(extendedSets);
         final Collection<ScalarType> scalarTypes = new TreeSet<>(Comparator.comparing(ScalarType::getClassName));
         for (final Type type : lookup.values()) {
             if (type instanceof AbstractType) {
-                final String template = type instanceof PluginType ? pluginTemplateName : interfaceTemplateName;
-                documentAbstractType((AbstractType) type, lookup, templateDirectory, template, outputDirectory);
+                final String template =
+                        type instanceof PluginType ? args.pluginTemplateName : args.interfaceTemplateName;
+                documentAbstractType(
+                        (AbstractType) type, lookup, args.templateDirectory, template, args.outputDirectory);
             }
             if (type instanceof ScalarType) {
                 scalarTypes.add((ScalarType) type);
             }
         }
-        documentScalarTypes(scalarTypes, templateDirectory, scalarsTemplateName, outputDirectory);
+        documentScalarTypes(scalarTypes, args.templateDirectory, args.scalarsTemplateName, args.outputDirectory);
     }
 
     private static void documentAbstractType(

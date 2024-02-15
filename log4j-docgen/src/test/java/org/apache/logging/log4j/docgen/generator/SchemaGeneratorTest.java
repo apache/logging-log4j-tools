@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.logging.log4j.docgen.internal;
+package org.apache.logging.log4j.docgen.generator;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -54,7 +54,8 @@ public class SchemaGeneratorTest {
 
         // Generate the schema
         final Path schemaFile = outputDir.resolve("config.xsd");
-        SchemaGenerator.generateSchema(Set.of(pluginSet), schemaFile);
+        final SchemaGeneratorArgs generatorArgs = new SchemaGeneratorArgs(Set.of(pluginSet), schemaFile);
+        SchemaGenerator.generateSchema(generatorArgs);
 
         // Return the generated XSD file path
         assertThat(schemaFile).isNotEmptyFile();
