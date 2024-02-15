@@ -17,13 +17,10 @@
 package org.apache.logging.log4j.docgen.maven;
 
 import java.io.File;
-import java.util.Arrays;
 import java.util.Set;
-import java.util.stream.Collectors;
 import javax.xml.stream.XMLStreamException;
 import org.apache.logging.log4j.docgen.PluginSet;
 import org.apache.logging.log4j.docgen.internal.SchemaGenerator;
-import org.apache.logging.log4j.docgen.io.stax.PluginBundleStaxReader;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugins.annotations.LifecyclePhase;
@@ -52,25 +49,7 @@ public class SchemaGeneratorMojo extends AbstractMojo {
 
     @Override
     public void execute() throws MojoExecutionException {
-        final Set<PluginSet> pluginSet = readPluginSets();
-        generateSchema(pluginSet);
-    }
-
-    private Set<PluginSet> readPluginSets() {
-        final PluginBundleStaxReader reader = new PluginBundleStaxReader();
-        return Arrays.stream(descriptorFiles)
-                .map(descriptorFile -> {
-                    try {
-                        return reader.read(descriptorFile.toString());
-                    } catch (final Exception error) {
-                        final String message = String.format("failed reading descriptor file `%s`", descriptorFile);
-                        throw new RuntimeException(message, error);
-                    }
-                })
-                .collect(Collectors.toSet());
-    }
-
-    private void generateSchema(final Set<PluginSet> pluginSets) throws MojoExecutionException {
+        final Set<PluginSet> pluginSets = PluginSets.ofDescriptorFiles(descriptorFiles);
         try {
             SchemaGenerator.generateSchema(pluginSets, schemaFile.toPath());
         } catch (final XMLStreamException error) {

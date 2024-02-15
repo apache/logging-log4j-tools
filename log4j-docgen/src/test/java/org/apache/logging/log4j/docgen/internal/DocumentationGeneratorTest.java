@@ -27,7 +27,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.CleanupMode;
 import org.junit.jupiter.api.io.TempDir;
 
-public class FreeMarkerGeneratorTest {
+public class DocumentationGeneratorTest {
 
     @Test
     void generatePluginDocumentation(@TempDir(cleanup = CleanupMode.ON_SUCCESS) final Path outputDir) throws Exception {
@@ -38,7 +38,7 @@ public class FreeMarkerGeneratorTest {
 
         // Generate the documentation
         final Path templateDirectory = Paths.get("src/test/resources/templates");
-        FreeMarkerGenerator.generateDocumentation(
+        DocumentationGenerator.generateDocumentation(
                 Set.of(pluginSet), templateDirectory, "scalars.ftl", "plugin.ftl", "interface.ftl", outputDir);
 
         // Verify the output

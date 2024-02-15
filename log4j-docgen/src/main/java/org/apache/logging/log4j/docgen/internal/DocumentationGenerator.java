@@ -35,9 +35,9 @@ import org.apache.logging.log4j.docgen.ScalarType;
 import org.apache.logging.log4j.docgen.Type;
 import org.apache.logging.log4j.docgen.util.TypeLookup;
 
-public final class FreeMarkerGenerator {
+public final class DocumentationGenerator {
 
-    private FreeMarkerGenerator() {}
+    private DocumentationGenerator() {}
 
     public static void generateDocumentation(
             final Set<PluginSet> pluginSets,
