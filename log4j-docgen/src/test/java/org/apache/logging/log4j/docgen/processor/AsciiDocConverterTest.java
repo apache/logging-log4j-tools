@@ -51,7 +51,7 @@ import org.junit.jupiter.api.io.TempDir;
 
 public class AsciiDocConverterTest {
 
-    private static final Path LICENSE_PATH = Paths.get("src/test/resources/templates/license.ftl");
+    private static final Path LICENSE_PATH = Paths.get("src/test/resources/templates/license.adoc.ftl");
 
     private static final String TEST_CLASS_NAME = "JavadocExample";
 

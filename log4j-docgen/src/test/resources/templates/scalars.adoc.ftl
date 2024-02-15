@@ -16,7 +16,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 -->
 <#-- @ftlvariable name="scalars" type="org.apache.logging.log4j.docgen.model.ScalarType[]" -->
-<#include "license.ftl">
+<#include "license.adoc.ftl">
 = Type converters
 
 Type converter plugins are used to convert simple `String` values into other types.

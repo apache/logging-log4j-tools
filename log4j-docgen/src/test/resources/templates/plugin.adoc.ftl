@@ -17,7 +17,7 @@
 -->
 <#-- @ftlvariable name="type" type="org.apache.logging.log4j.docgen.PluginType" -->
 <#-- @ftlvariable name="lookup" type="org.apache.logging.log4j.docgen.generator.TypeLookup" -->
-<#include "license.ftl">
+<#include "license.adoc.ftl">
 = ${type.name}
 
 ${type.description.text}

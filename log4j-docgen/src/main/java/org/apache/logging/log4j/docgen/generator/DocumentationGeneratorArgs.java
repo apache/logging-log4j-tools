@@ -21,6 +21,7 @@ import static java.util.Objects.requireNonNull;
 import java.nio.file.Path;
 import java.util.Set;
 import org.apache.logging.log4j.docgen.PluginSet;
+import org.jspecify.annotations.Nullable;
 
 public final class DocumentationGeneratorArgs {
 
@@ -45,9 +46,19 @@ public final class DocumentationGeneratorArgs {
             final Path outputDirectory) {
         this.pluginSets = requireNonNull(pluginSets, "pluginSets");
         this.templateDirectory = requireNonNull(templateDirectory, "templateDirectory");
-        this.scalarsTemplateName = requireNonNull(scalarsTemplateName, "scalarsTemplateName");
-        this.pluginTemplateName = requireNonNull(pluginTemplateName, "pluginTemplateName");
-        this.interfaceTemplateName = requireNonNull(interfaceTemplateName, "interfaceTemplateName");
+        this.scalarsTemplateName = requireValidTemplateName(scalarsTemplateName, "scalarsTemplateName");
+        this.pluginTemplateName = requireValidTemplateName(pluginTemplateName, "pluginTemplateName");
+        this.interfaceTemplateName = requireValidTemplateName(interfaceTemplateName, "interfaceTemplateName");
         this.outputDirectory = requireNonNull(outputDirectory, "outputDirectory");
+    }
+
+    private static String requireValidTemplateName(@Nullable final String value, final String name) {
+        final String extension = '.' + DocumentationFiles.templateFileNameExtension();
+        if (value == null || !value.endsWith(extension)) {
+            final String message =
+                    String.format("was expecting `%s` to end with a `%s` suffix: `%s`", name, extension, value);
+            throw new IllegalArgumentException(message);
+        }
+        return value;
     }
 }

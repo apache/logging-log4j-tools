@@ -39,7 +39,12 @@ public class DocumentationGeneratorTest {
         // Generate the documentation
         final Path templateDirectory = Paths.get("src/test/resources/templates");
         final DocumentationGeneratorArgs generatorArgs = new DocumentationGeneratorArgs(
-                Set.of(pluginSet), templateDirectory, "scalars.ftl", "plugin.ftl", "interface.ftl", outputDir);
+                Set.of(pluginSet),
+                templateDirectory,
+                "scalars.adoc.ftl",
+                "plugin.adoc.ftl",
+                "interface.adoc.ftl",
+                outputDir);
         DocumentationGenerator.generateDocumentation(generatorArgs);
 
         // Verify the output
