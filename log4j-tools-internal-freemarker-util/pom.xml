@@ -23,60 +23,24 @@
     <groupId>org.apache.logging.log4j</groupId>
     <artifactId>log4j-tools-parent</artifactId>
     <version>${revision}</version>
-    <relativePath>../log4j-tools-parent/pom.xml</relativePath>
+    <relativePath>../log4j-tools-parent</relativePath>
   </parent>
 
-  <artifactId>log4j-changelog</artifactId>
+  <artifactId>log4j-tools-internal-freemarker-util</artifactId>
+
+  <properties>
+
+    <!-- This is an internal library and is not intended for public consumption.
+         Hence, tolerate backward incompatible changes: -->
+    <bnd.baseline.skip>true</bnd.baseline.skip>
+
+  </properties>
 
   <dependencies>
-
     <dependency>
-      <groupId>org.osgi</groupId>
-      <artifactId>osgi.annotation</artifactId>
-      <scope>provided</scope>
+      <groupId>org.freemarker</groupId>
+      <artifactId>freemarker</artifactId>
     </dependency>
-
-    <dependency>
-      <groupId>com.github.spotbugs</groupId>
-      <artifactId>spotbugs-annotations</artifactId>
-      <optional>true</optional>
-    </dependency>
-
-    <dependency>
-      <groupId>org.apache.logging.log4j</groupId>
-      <artifactId>log4j-tools-internal-freemarker-util</artifactId>
-    </dependency>
-
-    <dependency>
-      <groupId>org.apache.logging.log4j</groupId>
-      <artifactId>log4j-tools-internal-test-util</artifactId>
-      <scope>test</scope>
-    </dependency>
-
-    <dependency>
-      <groupId>org.junit.jupiter</groupId>
-      <artifactId>junit-jupiter-engine</artifactId>
-      <scope>test</scope>
-    </dependency>
-
-    <dependency>
-      <groupId>org.junit.jupiter</groupId>
-      <artifactId>junit-jupiter-params</artifactId>
-      <scope>test</scope>
-    </dependency>
-
-    <dependency>
-      <groupId>org.assertj</groupId>
-      <artifactId>assertj-core</artifactId>
-      <scope>test</scope>
-    </dependency>
-
-    <dependency>
-      <groupId>commons-io</groupId>
-      <artifactId>commons-io</artifactId>
-      <scope>test</scope>
-    </dependency>
-
   </dependencies>
 
 </project>

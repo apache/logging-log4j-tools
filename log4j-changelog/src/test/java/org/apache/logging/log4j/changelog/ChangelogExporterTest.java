@@ -16,7 +16,7 @@
  */
 package org.apache.logging.log4j.changelog;
 
-import static org.apache.logging.log4j.tools.internal.test.utils.FileTestUtils.assertDirectoryContentMatches;
+import static org.apache.logging.log4j.tools.internal.test.util.FileTestUtils.assertDirectoryContentMatches;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;

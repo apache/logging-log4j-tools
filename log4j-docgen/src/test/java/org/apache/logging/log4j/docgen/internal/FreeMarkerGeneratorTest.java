@@ -16,13 +16,12 @@
  */
 package org.apache.logging.log4j.docgen.internal;
 
-import static org.apache.logging.log4j.tools.internal.test.utils.FileTestUtils.assertDirectoryContentMatches;
+import static org.apache.logging.log4j.tools.internal.test.util.FileTestUtils.assertDirectoryContentMatches;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Set;
 import org.apache.logging.log4j.docgen.PluginSet;
-import org.apache.logging.log4j.docgen.freemarker.FreeMarkerGenerator;
-import org.apache.logging.log4j.docgen.freemarker.FreeMarkerGeneratorRequest;
 import org.apache.logging.log4j.docgen.io.stax.PluginBundleStaxReader;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.CleanupMode;
@@ -38,13 +37,9 @@ public class FreeMarkerGeneratorTest {
         final PluginSet pluginSet = reader.read("src/test/resources/example-plugins.xml");
 
         // Generate the documentation
-        final FreeMarkerGenerator generator = new DefaultFreeMarkerGenerator();
-        final FreeMarkerGeneratorRequest request = new FreeMarkerGeneratorRequest();
-        request.addPluginSet(pluginSet);
         final Path templateDirectory = Paths.get("src/test/resources/templates");
-        request.setTemplateDirectory(templateDirectory);
-        request.setOutputDirectory(outputDir);
-        generator.generateDocumentation(request);
+        FreeMarkerGenerator.generateDocumentation(
+                Set.of(pluginSet), templateDirectory, "scalars.ftl", "plugin.ftl", "interface.ftl", outputDir);
 
         // Verify the output
         final Path expectedDir = Paths.get("src/test/resources/plugins-to-freemarker-output");

@@ -19,6 +19,8 @@ package org.apache.logging.log4j.changelog.util;
 import edu.umd.cs.findbugs.annotations.Nullable;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.io.StringWriter;
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardOpenOption;
@@ -36,6 +38,10 @@ import org.w3c.dom.Element;
 
 public final class XmlWriter {
 
+    private static final Charset CHARSET = StandardCharsets.UTF_8;
+
+    private static final String CHARSET_NAME = CHARSET.name();
+
     private static final String LS = System.lineSeparator();
 
     private XmlWriter() {}
@@ -44,7 +50,7 @@ public final class XmlWriter {
             final Path filepath, final String rootElementName, final BiConsumer<Document, Element> documentConsumer) {
         try {
             final String xml = toString(rootElementName, documentConsumer);
-            final byte[] xmlBytes = xml.getBytes(CharsetUtils.CHARSET);
+            final byte[] xmlBytes = xml.getBytes(CHARSET);
             @Nullable final Path filepathParent = filepath.getParent();
             if (filepathParent != null) {
                 Files.createDirectories(filepathParent);
@@ -105,7 +111,7 @@ public final class XmlWriter {
         final Transformer transformer = TransformerFactory.newInstance().newTransformer();
         final StreamResult result = new StreamResult(new StringWriter());
         final DOMSource source = new DOMSource(document);
-        transformer.setOutputProperty(OutputKeys.ENCODING, CharsetUtils.CHARSET_NAME);
+        transformer.setOutputProperty(OutputKeys.ENCODING, CHARSET_NAME);
         transformer.setOutputProperty(OutputKeys.INDENT, "yes");
         transformer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "2");
         transformer.transform(source, result);

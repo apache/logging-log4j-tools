@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.logging.log4j.tools.internal.test.utils;
+package org.apache.logging.log4j.tools.internal.test.util;
 
 import static org.assertj.core.api.Assertions.assertThat;
 

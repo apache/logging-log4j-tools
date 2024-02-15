@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.logging.log4j.changelog.exporter;
+package org.apache.logging.log4j.tools.internal.freemarker.util;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import freemarker.cache.FileTemplateLoader;
@@ -27,12 +27,17 @@ import freemarker.template.Version;
 import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.UncheckedIOException;
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardOpenOption;
-import org.apache.logging.log4j.changelog.util.CharsetUtils;
 
-final class FreeMarkerUtils {
+public final class FreeMarkerUtils {
+
+    private static final Charset CHARSET = StandardCharsets.UTF_8;
+
+    private static final String CHARSET_NAME = CHARSET.name();
 
     private FreeMarkerUtils() {}
 
@@ -40,7 +45,7 @@ final class FreeMarkerUtils {
     private static Configuration createConfiguration(final Path templateDirectory) {
         final Version configurationVersion = Configuration.VERSION_2_3_29;
         final Configuration configuration = new Configuration(configurationVersion);
-        configuration.setDefaultEncoding(CharsetUtils.CHARSET_NAME);
+        configuration.setDefaultEncoding(CHARSET_NAME);
         configuration.setTemplateExceptionHandler(TemplateExceptionHandler.RETHROW_HANDLER);
         try {
             configuration.setTemplateLoader(new FileTemplateLoader(templateDirectory.toFile()));
@@ -58,7 +63,7 @@ final class FreeMarkerUtils {
     }
 
     @SuppressFBWarnings("TEMPLATE_INJECTION_FREEMARKER")
-    static void render(
+    public static void render(
             final Path templateDirectory, final String templateName, final Object templateData, final Path outputFile) {
         try {
             final Configuration configuration = createConfiguration(templateDirectory);
@@ -68,10 +73,7 @@ final class FreeMarkerUtils {
                 Files.createDirectories(outputFileParent);
             }
             try (final BufferedWriter outputFileWriter = Files.newBufferedWriter(
-                    outputFile,
-                    CharsetUtils.CHARSET,
-                    StandardOpenOption.CREATE,
-                    StandardOpenOption.TRUNCATE_EXISTING)) {
+                    outputFile, CHARSET, StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING)) {
                 template.process(templateData, outputFileWriter);
             }
         } catch (final Exception error) {

@@ -30,7 +30,8 @@
   <packaging>pom</packaging>
 
   <modules>
-    <module>../log4j-tools-internal-test-utils</module>
+    <module>../log4j-tools-internal-freemarker-util</module>
+    <module>../log4j-tools-internal-test-util</module>
   </modules>
 
   <properties>
@@ -58,7 +59,13 @@
 
       <dependency>
         <groupId>org.apache.logging.log4j</groupId>
-        <artifactId>log4j-tools-internal-test-utils</artifactId>
+        <artifactId>log4j-tools-internal-freemarker-util</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>org.apache.logging.log4j</groupId>
+        <artifactId>log4j-tools-internal-test-util</artifactId>
         <version>${project.version}</version>
       </dependency>
 

@@ -33,6 +33,7 @@ import org.apache.logging.log4j.changelog.ChangelogEntry;
 import org.apache.logging.log4j.changelog.ChangelogFiles;
 import org.apache.logging.log4j.changelog.ChangelogRelease;
 import org.apache.logging.log4j.changelog.util.FileUtils;
+import org.apache.logging.log4j.tools.internal.freemarker.util.FreeMarkerUtils;
 
 public final class ChangelogExporter {
 

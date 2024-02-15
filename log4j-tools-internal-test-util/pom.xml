@@ -26,11 +26,17 @@
     <relativePath>../log4j-tools-parent</relativePath>
   </parent>
 
-  <artifactId>log4j-tools-internal-test-utils</artifactId>
+  <artifactId>log4j-tools-internal-test-util</artifactId>
 
   <properties>
+
+    <!-- This is an internal library and is not intended for public consumption.
+         Hence, tolerate backward incompatible changes: -->
     <bnd.baseline.skip>true</bnd.baseline.skip>
+
+    <!-- This library is intended only for tests, hence, does not need to be deployed: -->
     <maven.deploy.skip>true</maven.deploy.skip>
+
   </properties>
 
   <dependencies>

@@ -74,13 +74,13 @@
     </dependency>
 
     <dependency>
-      <groupId>org.freemarker</groupId>
-      <artifactId>freemarker</artifactId>
+      <groupId>org.apache.logging.log4j</groupId>
+      <artifactId>log4j-tools-internal-freemarker-util</artifactId>
     </dependency>
 
     <dependency>
       <groupId>org.apache.logging.log4j</groupId>
-      <artifactId>log4j-tools-internal-test-utils</artifactId>
+      <artifactId>log4j-tools-internal-test-util</artifactId>
       <scope>test</scope>
     </dependency>
 

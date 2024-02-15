@@ -16,13 +16,14 @@
  */
 package org.apache.logging.log4j.docgen.internal;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Set;
 import javax.xml.transform.Source;
 import org.apache.logging.log4j.docgen.PluginSet;
 import org.apache.logging.log4j.docgen.io.stax.PluginBundleStaxReader;
-import org.apache.logging.log4j.docgen.xsd.SchemaGenerator;
-import org.apache.logging.log4j.docgen.xsd.SchemaGeneratorRequest;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.CleanupMode;
 import org.junit.jupiter.api.io.TempDir;
@@ -52,13 +53,11 @@ public class SchemaGeneratorTest {
         final PluginSet pluginSet = reader.read("src/test/resources/example-plugins.xml");
 
         // Generate the schema
-        final SchemaGeneratorRequest request = new SchemaGeneratorRequest();
-        request.addPluginSet(pluginSet);
-        request.setOutputDirectory(outputDir);
-        final SchemaGenerator generator = new DefaultSchemaGenerator();
-        generator.generateSchema(request);
+        final Path schemaFile = outputDir.resolve("config.xsd");
+        SchemaGenerator.generateSchema(Set.of(pluginSet), schemaFile);
 
         // Return the generated XSD file path
-        return outputDir.resolve(request.getFileName());
+        assertThat(schemaFile).isNotEmptyFile();
+        return schemaFile;
     }
 }

@@ -24,6 +24,8 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 import javax.inject.Named;
 import javax.inject.Singleton;
 import javax.xml.XMLConstants;
@@ -39,33 +41,34 @@ import org.apache.logging.log4j.docgen.PluginType;
 import org.apache.logging.log4j.docgen.ScalarType;
 import org.apache.logging.log4j.docgen.ScalarValue;
 import org.apache.logging.log4j.docgen.Type;
-import org.apache.logging.log4j.docgen.io.stax.PluginBundleStaxReader;
 import org.apache.logging.log4j.docgen.util.TypeLookup;
-import org.apache.logging.log4j.docgen.xsd.SchemaGenerator;
-import org.apache.logging.log4j.docgen.xsd.SchemaGeneratorRequest;
 
 @Singleton
 @Named("default")
-public class DefaultSchemaGenerator implements SchemaGenerator {
+public final class SchemaGenerator {
 
     private static final String LOG4J_PREFIX = "log4j";
-    private static final String LOG4J_NAMESPACE = "http://logging.apache.org/xml/ns/config";
-    private static final String XSD_NAMESPACE = XMLConstants.W3C_XML_SCHEMA_NS_URI;
-    private static final String MULTIPLICITY_UNBOUNDED = "*";
-    private static final String ENCODING = "UTF-8";
 
-    @Override
-    public void generateSchema(final SchemaGeneratorRequest request) throws XMLStreamException {
+    private static final String LOG4J_NAMESPACE = "http://logging.apache.org/xml/ns/config";
+
+    private static final String XSD_NAMESPACE = XMLConstants.W3C_XML_SCHEMA_NS_URI;
+
+    private static final String MULTIPLICITY_UNBOUNDED = "*";
+
+    private static final String CHARSET_NAME = "UTF-8";
+
+    private SchemaGenerator() {}
+
+    public static void generateSchema(final Set<PluginSet> pluginSets, final Path schemaFile)
+            throws XMLStreamException {
         try {
-            final PluginSet configurationSet =
-                    new PluginBundleStaxReader().read(getClass().getResourceAsStream("configuration.xml"));
-            final List<PluginSet> extendedSets = new ArrayList<>(request.getPluginSets());
-            extendedSets.add(configurationSet);
+            final List<PluginSet> extendedSets = Stream.concat(
+                            Stream.of(ConfigurationXml.PLUGIN_SET), pluginSets.stream())
+                    .collect(Collectors.toList());
             final TypeLookup lookup = TypeLookup.of(extendedSets);
             final XMLOutputFactory factory = XMLOutputFactory.newFactory();
-            final Path schemaPath = request.getOutputDirectory().resolve(request.getFileName());
-            try (final OutputStream schemaPathOutputStream = Files.newOutputStream(schemaPath)) {
-                final XMLStreamWriter writer = factory.createXMLStreamWriter(schemaPathOutputStream, ENCODING);
+            try (final OutputStream schemaPathOutputStream = Files.newOutputStream(schemaFile)) {
+                final XMLStreamWriter writer = factory.createXMLStreamWriter(schemaPathOutputStream, CHARSET_NAME);
                 try {
                     writeSchema(lookup, writer);
                 } finally {
@@ -78,7 +81,7 @@ public class DefaultSchemaGenerator implements SchemaGenerator {
     }
 
     private static void writeSchema(final TypeLookup lookup, final XMLStreamWriter writer) throws XMLStreamException {
-        writer.writeStartDocument(ENCODING, "1.0");
+        writer.writeStartDocument(CHARSET_NAME, "1.0");
         writer.setDefaultNamespace(XSD_NAMESPACE);
         writer.writeStartElement(XSD_NAMESPACE, "schema");
         writer.writeDefaultNamespace(XSD_NAMESPACE);

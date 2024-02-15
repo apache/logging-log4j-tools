@@ -16,8 +16,8 @@
   ~ limitations under the License.
   -->
 <!--
-  ~ This is a test schema used in SchemaGeneratorTest.
-  ~ Unlike this file the DefaultSchemaGenerator strips whitespace.
+  ~ This is a test schema used in `SchemaGeneratorTest`.
+  ~ Unlike this file the `SchemaGenerator` strips whitespace.
   -->
 <schema xmlns="http://www.w3.org/2001/XMLSchema" xmlns:log4j="http://logging.apache.org/xml/ns/config" elementFormDefault="qualified" targetNamespace="http://logging.apache.org/xml/ns/config">
   <element type="log4j:org.apache.logging.log4j.core.config.Configuration" name="Configuration"/>

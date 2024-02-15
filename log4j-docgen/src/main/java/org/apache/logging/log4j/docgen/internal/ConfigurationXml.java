@@ -14,16 +14,23 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.logging.log4j.changelog.util;
+package org.apache.logging.log4j.docgen.internal;
 
-import java.nio.charset.Charset;
-import java.nio.charset.StandardCharsets;
+import java.io.InputStream;
+import org.apache.logging.log4j.docgen.PluginSet;
+import org.apache.logging.log4j.docgen.io.stax.PluginBundleStaxReader;
 
-public final class CharsetUtils {
+final class ConfigurationXml {
 
-    private CharsetUtils() {}
+    static final PluginSet PLUGIN_SET = readConfigurationSet();
 
-    public static final Charset CHARSET = StandardCharsets.UTF_8;
-
-    public static final String CHARSET_NAME = CHARSET.name();
+    private static PluginSet readConfigurationSet() {
+        final String resourceName = "configuration.xml";
+        try (final InputStream inputStream = ConfigurationXml.class.getResourceAsStream(resourceName)) {
+            return new PluginBundleStaxReader().read(inputStream);
+        } catch (final Exception error) {
+            final String message = String.format("failed reading plugins from `%s` resource", resourceName);
+            throw new RuntimeException(message, error);
+        }
+    }
 }
