@@ -36,7 +36,7 @@ a|${scalar.description.text}
 Possible values:
 
         <#list scalar.values as value>
-* `${value.name}`: ${value.description.text}
+`${value.name}`:: ${value.description.text}
         </#list>
     </#if>
 </#list>
