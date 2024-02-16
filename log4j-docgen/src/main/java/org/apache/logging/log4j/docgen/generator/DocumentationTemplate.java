@@ -16,11 +16,16 @@
  */
 package org.apache.logging.log4j.docgen.generator;
 
-final class DocumentationFiles {
+import static java.util.Objects.requireNonNull;
 
-    private DocumentationFiles() {}
+public final class DocumentationTemplate {
 
-    public static String templateFileNameExtension() {
-        return "ftl";
+    final String name;
+
+    final String targetPath;
+
+    public DocumentationTemplate(final String name, final String targetPath) {
+        this.name = requireNonNull(name, "name");
+        this.targetPath = requireNonNull(targetPath, "targetPath");
     }
 }

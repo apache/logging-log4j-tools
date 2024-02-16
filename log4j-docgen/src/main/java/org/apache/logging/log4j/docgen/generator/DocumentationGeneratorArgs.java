@@ -21,7 +21,6 @@ import static java.util.Objects.requireNonNull;
 import java.nio.file.Path;
 import java.util.Set;
 import org.apache.logging.log4j.docgen.PluginSet;
-import org.jspecify.annotations.Nullable;
 
 public final class DocumentationGeneratorArgs {
 
@@ -29,36 +28,22 @@ public final class DocumentationGeneratorArgs {
 
     final Path templateDirectory;
 
-    final String scalarsTemplateName;
+    final DocumentationTemplate scalarsTemplate;
 
-    final String pluginTemplateName;
+    final DocumentationTemplate pluginTemplate;
 
-    final String interfaceTemplateName;
-
-    final Path outputDirectory;
+    final DocumentationTemplate interfaceTemplate;
 
     public DocumentationGeneratorArgs(
             final Set<PluginSet> pluginSets,
             final Path templateDirectory,
-            final String scalarsTemplateName,
-            final String pluginTemplateName,
-            final String interfaceTemplateName,
-            final Path outputDirectory) {
+            final DocumentationTemplate scalarsTemplate,
+            final DocumentationTemplate pluginTemplate,
+            final DocumentationTemplate interfaceTemplate) {
         this.pluginSets = requireNonNull(pluginSets, "pluginSets");
         this.templateDirectory = requireNonNull(templateDirectory, "templateDirectory");
-        this.scalarsTemplateName = requireValidTemplateName(scalarsTemplateName, "scalarsTemplateName");
-        this.pluginTemplateName = requireValidTemplateName(pluginTemplateName, "pluginTemplateName");
-        this.interfaceTemplateName = requireValidTemplateName(interfaceTemplateName, "interfaceTemplateName");
-        this.outputDirectory = requireNonNull(outputDirectory, "outputDirectory");
-    }
-
-    private static String requireValidTemplateName(@Nullable final String value, final String name) {
-        final String extension = '.' + DocumentationFiles.templateFileNameExtension();
-        if (value == null || !value.endsWith(extension)) {
-            final String message =
-                    String.format("was expecting `%s` to end with a `%s` suffix: `%s`", name, extension, value);
-            throw new IllegalArgumentException(message);
-        }
-        return value;
+        this.scalarsTemplate = requireNonNull(scalarsTemplate, "scalarsTemplate");
+        this.pluginTemplate = requireNonNull(pluginTemplate, "pluginTemplate");
+        this.interfaceTemplate = requireNonNull(interfaceTemplate, "interfaceTemplate");
     }
 }

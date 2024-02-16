@@ -41,10 +41,12 @@ public class DocumentationGeneratorTest {
         final DocumentationGeneratorArgs generatorArgs = new DocumentationGeneratorArgs(
                 Set.of(pluginSet),
                 templateDirectory,
-                "scalars.adoc.ftl",
-                "plugin.adoc.ftl",
-                "interface.adoc.ftl",
-                outputDir);
+                new DocumentationTemplate(
+                        "scalars.adoc.ftl", outputDir.resolve("scalars.adoc").toString()),
+                new DocumentationTemplate(
+                        "plugin.adoc.ftl", outputDir.resolve("Core/%c.adoc").toString()),
+                new DocumentationTemplate(
+                        "interface.adoc.ftl", outputDir.resolve("Core/%c.adoc").toString()));
         DocumentationGenerator.generateDocumentation(generatorArgs);
 
         // Verify the output

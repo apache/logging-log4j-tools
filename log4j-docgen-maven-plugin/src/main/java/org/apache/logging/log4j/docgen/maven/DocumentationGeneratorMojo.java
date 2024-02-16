@@ -21,6 +21,7 @@ import java.util.Set;
 import org.apache.logging.log4j.docgen.PluginSet;
 import org.apache.logging.log4j.docgen.generator.DocumentationGenerator;
 import org.apache.logging.log4j.docgen.generator.DocumentationGeneratorArgs;
+import org.apache.logging.log4j.docgen.generator.DocumentationTemplate;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugins.annotations.LifecyclePhase;
 import org.apache.maven.plugins.annotations.Mojo;
@@ -47,28 +48,22 @@ public class DocumentationGeneratorMojo extends AbstractMojo {
     private File templateDirectory;
 
     /**
-     * The name of the FreeMarker template to document scalars (e.g., {@code scalars.adoc.ftl})
+     * The template that will be used to document scalar types
      */
-    @Parameter(property = "log4j.docgen.scalarsTemplateName", required = true)
-    private String scalarsTemplateName;
+    @Parameter(required = true)
+    private DocumentationTemplateMojo scalarsTemplate;
 
     /**
-     * The name of the FreeMarker template to document plugins (e.g., {@code plugin.adoc.ftl})
+     * The template that will be used to document plugins
      */
-    @Parameter(property = "log4j.docgen.pluginTemplateName", required = true)
-    private String pluginTemplateName;
+    @Parameter(required = true)
+    private DocumentationTemplateMojo pluginTemplateName;
 
     /**
-     * The name of the FreeMarker template to document interfaces (e.g., {@code interface.adoc.ftl})
+     * The template that will be used to document interfaces
      */
-    @Parameter(property = "log4j.docgen.interfaceTemplateName", required = true)
-    private String interfaceTemplateName;
-
-    /**
-     * The path to output the generated documentation
-     */
-    @Parameter(property = "log4j.docgen.outputDirectory", required = true)
-    private File outputDirectory;
+    @Parameter(required = true)
+    private DocumentationTemplateMojo interfaceTemplate;
 
     @Override
     public void execute() {
@@ -76,10 +71,13 @@ public class DocumentationGeneratorMojo extends AbstractMojo {
         final DocumentationGeneratorArgs generatorArgs = new DocumentationGeneratorArgs(
                 pluginSets,
                 templateDirectory.toPath(),
-                scalarsTemplateName,
-                pluginTemplateName,
-                interfaceTemplateName,
-                outputDirectory.toPath());
+                toApiModel(scalarsTemplate),
+                toApiModel(pluginTemplateName),
+                toApiModel(interfaceTemplate));
         DocumentationGenerator.generateDocumentation(generatorArgs);
+    }
+
+    private static DocumentationTemplate toApiModel(final DocumentationTemplateMojo mojo) {
+        return new DocumentationTemplate(mojo.name, mojo.targetPath);
     }
 }

@@ -17,16 +17,24 @@
 package org.apache.logging.log4j.docgen.generator;
 
 import java.io.InputStream;
+import java.util.Set;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 import org.apache.logging.log4j.docgen.PluginSet;
 import org.apache.logging.log4j.docgen.io.stax.PluginBundleStaxReader;
 
-final class ConfigurationXml {
+final class BaseTypes {
 
-    static final PluginSet PLUGIN_SET = readConfigurationSet();
+    static final Set<PluginSet> PLUGIN_SETS = readBaseTypes();
 
-    private static PluginSet readConfigurationSet() {
-        final String resourceName = "configuration.xml";
-        try (final InputStream inputStream = ConfigurationXml.class.getResourceAsStream(resourceName)) {
+    private static Set<PluginSet> readBaseTypes() {
+        return Stream.of("base-java-types.xml", "base-log4j-types.xml")
+                .map(BaseTypes::readBaseTypes)
+                .collect(Collectors.toSet());
+    }
+
+    private static PluginSet readBaseTypes(final String resourceName) {
+        try (final InputStream inputStream = BaseTypes.class.getResourceAsStream(resourceName)) {
             return new PluginBundleStaxReader().read(inputStream);
         } catch (final Exception error) {
             final String message = String.format("failed reading plugins from `%s` resource", resourceName);

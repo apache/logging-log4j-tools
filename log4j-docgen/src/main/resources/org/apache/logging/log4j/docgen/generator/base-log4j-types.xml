@@ -23,48 +23,6 @@
 
   <scalars>
 
-    <!-- Primitive type definitions -->
-
-    <scalar className="boolean">
-      <description>A boolean value.</description>
-      <values>
-        <value name="false">
-          <description>false</description>
-        </value>
-        <value name="true">
-          <description>true</description>
-        </value>
-      </values>
-    </scalar>
-
-    <scalar className="byte">
-      <description>An 8-bit signed integer from `-128` to `127`</description>
-    </scalar>
-
-    <scalar className="short">
-      <description>A 16-bit signed integer from `-32768` to `32767`</description>
-    </scalar>
-
-    <scalar className="int">
-      <description>A 32-bit signed integer from `-2147483648` to `2147483647`</description>
-    </scalar>
-
-    <scalar className="long">
-      <description>A 64-bit signed integer from `-9223372036854775808` to `9223372036854775807`</description>
-    </scalar>
-
-    <scalar className="float">
-      <description>A single precision floating number from `1.40239846e-45` to `3.40282347e+38`</description>
-    </scalar>
-
-    <scalar className="double">
-      <description>A double precision floating number from `4.94065645841246544e-324` to `1.79769313486231570e+308`</description>
-    </scalar>
-
-    <scalar className="java.lang.String">
-      <description>A string of characters</description>
-    </scalar>
-
     <!-- `Level` is not a scalar, but for the purpose of the XSD we can limit its values to the standard ones. -->
     <scalar className="org.apache.logging.log4j.Level">
       <description><![CDATA[Represents a logging level.

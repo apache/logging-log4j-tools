@@ -62,8 +62,7 @@ public final class SchemaGenerator {
     public static void generateSchema(final SchemaGeneratorArgs args) throws XMLStreamException {
         requireNonNull(args, "args");
         try {
-            final List<PluginSet> extendedSets = Stream.concat(
-                            Stream.of(ConfigurationXml.PLUGIN_SET), args.pluginSets.stream())
+            final List<PluginSet> extendedSets = Stream.concat(BaseTypes.PLUGIN_SETS.stream(), args.pluginSets.stream())
                     .collect(Collectors.toList());
             final TypeLookup lookup = TypeLookup.of(extendedSets);
             final XMLOutputFactory factory = XMLOutputFactory.newFactory();
