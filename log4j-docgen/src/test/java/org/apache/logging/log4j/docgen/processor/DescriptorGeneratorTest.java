@@ -19,6 +19,7 @@ package org.apache.logging.log4j.docgen.processor;
 import static java.nio.charset.StandardCharsets.UTF_8;
 import static java.util.Arrays.asList;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -54,6 +55,13 @@ public class DescriptorGeneratorTest {
         test(outputDir, Paths.get("src/test/resources/plugins-using-log4j3"));
     }
 
+    @Test
+    void failure_source_should_be_reported(@TempDir(cleanup = CleanupMode.ON_SUCCESS) final Path outputDir) {
+        assertThatThrownBy(() -> test(outputDir, Paths.get("src/test/resources/javadoc-invalid-input")))
+                .hasMessageContaining("failed to process element `example.JavadocExample`")
+                .hasRootCauseMessage("A <li> tag must be a child of a <ol> or <ul> tag.");
+    }
+
     private static void test(final Path outputDir, final Path sourceDir) throws Exception {
         final Path modelloGeneratedSchema = Paths.get("target/generated-site/resources/xsd/plugins-0.1.0.xsd");
         final Path expectedDescriptor = Paths.get("src/test/resources/generated-plugins.xml");
@@ -79,7 +87,7 @@ public class DescriptorGeneratorTest {
             sources = fileManager.getJavaFileObjects(sourceFiles);
         }
 
-        // Set the target path used by `DocGenProcessor` to dump the generated files
+        // Set the target path used by `DescriptorGenerator` to dump the generated files
         fileManager.setLocationFromPaths(StandardLocation.CLASS_OUTPUT, Set.of(outputDir));
 
         // Compile the sources

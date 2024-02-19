@@ -182,31 +182,47 @@ public class DescriptorGenerator extends AbstractProcessor {
     }
 
     private void addPluginDocumentation(final Element element) {
-        if (element instanceof TypeElement) {
-            final PluginType pluginType = new PluginType();
-            pluginType.setName(annotations.getPluginSpecifiedName(element).orElseGet(() -> element.getSimpleName()
-                    .toString()));
-            pluginType.setNamespace(
-                    annotations.getPluginSpecifiedNamespace(element).orElse("Core"));
-            populatePlugin((TypeElement) element, pluginType);
-            pluginSet.addPlugin(pluginType);
-        } else {
-            messager.printMessage(Diagnostic.Kind.WARNING, "Found @Plugin annotation on unexpected element.", element);
+        try {
+            if (element instanceof TypeElement) {
+                final PluginType pluginType = new PluginType();
+                pluginType.setName(annotations.getPluginSpecifiedName(element).orElseGet(() -> element.getSimpleName()
+                        .toString()));
+                pluginType.setNamespace(
+                        annotations.getPluginSpecifiedNamespace(element).orElse("Core"));
+                populatePlugin((TypeElement) element, pluginType);
+                pluginSet.addPlugin(pluginType);
+            } else {
+                messager.printMessage(
+                        Diagnostic.Kind.WARNING, "Found @Plugin annotation on unexpected element.", element);
+            }
+        } catch (final Exception error) {
+            final String message = String.format("failed to process element `%s`", element);
+            throw new RuntimeException(message, error);
         }
     }
 
     private void addAbstractTypeDocumentation(final QualifiedNameable element) {
-        final AbstractType abstractType = new AbstractType();
-        populateAbstractType(element, abstractType);
-        if (!abstractType.getDescription().getText().isEmpty()) {
-            pluginSet.addAbstractType(abstractType);
+        try {
+            final AbstractType abstractType = new AbstractType();
+            populateAbstractType(element, abstractType);
+            if (!abstractType.getDescription().getText().isEmpty()) {
+                pluginSet.addAbstractType(abstractType);
+            }
+        } catch (final Exception error) {
+            final String message = String.format("failed to process element `%s`", element);
+            throw new RuntimeException(message, error);
         }
     }
 
     private void addScalarTypeDocumentation(final TypeElement element) {
-        final ScalarType scalarType = new ScalarType();
-        populateScalarType(element, scalarType);
-        pluginSet.addScalar(scalarType);
+        try {
+            final ScalarType scalarType = new ScalarType();
+            populateScalarType(element, scalarType);
+            pluginSet.addScalar(scalarType);
+        } catch (final Exception error) {
+            final String message = String.format("failed to process element `%s`", element);
+            throw new RuntimeException(message, error);
+        }
     }
 
     private void writePluginDescriptor() {

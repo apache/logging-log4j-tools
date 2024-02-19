@@ -120,7 +120,7 @@ public class AsciiDocConverterTest {
                     if (ElementKind.CLASS.equals(element.getKind())
                             && TEST_CLASS_NAME.equals(element.getSimpleName().toString())) {
                         final FileObject output = fileManager.getFileForOutput(
-                                StandardLocation.CLASS_OUTPUT, "", "JavadocExample.adoc", null);
+                                StandardLocation.CLASS_OUTPUT, "", TEST_CLASS_NAME + ".adoc", null);
                         final String asciiDoc = converter.toAsciiDoc(element);
                         assertThat(asciiDoc).isNotNull();
                         try (final OutputStream os = output.openOutputStream()) {
