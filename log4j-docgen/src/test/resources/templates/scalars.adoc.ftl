@@ -15,25 +15,28 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 -->
-<#-- @ftlvariable name="scalars" type="org.apache.logging.log4j.docgen.model.ScalarType[]" -->
+<#-- @ftlvariable name="sourcedTypes" type="org.apache.logging.log4j.docgen.generator.ArtifactSourcedType[]" -->
 <#include "license.adoc.ftl">
+[#type-converters]
 = Type converters
 
 Type converter plugins are used to convert simple `String` values into other types.
+<#list sourcedTypes as sourcedType>
+<#assign scalar = sourcedType.type/>
+<#-- @ftlvariable name="scalar" type="org.apache.logging.log4j.docgen.model.ScalarType" -->
 
-== Available converters
+[#${scalar.className?replace('.', '_')}]
+== `${scalar.className}`
 
-[cols="1m,2"]
-|===
-|Type|Description
+    <#if sourcedType.groupId?has_content && sourcedType.artifactId?has_content>
+Provider:: `${sourcedType.groupId}:${sourcedType.artifactId}`
+    </#if>
 
-<#list scalars as scalar>
-|[[${scalar.className}]]
-${scalar.className?replace('org.apache.logging.log4j', 'o.a.l.l')}
-a|${scalar.description.text}
+${scalar.description.text}
     <#if scalar.values?size != 0>
 
-Possible values:
+[#${scalar.className?replace('.', '_')}-values]
+=== Possible values
 
         <#list scalar.values as value>
 `${value.name}`:: ${value.description.text}

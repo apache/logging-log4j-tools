@@ -21,13 +21,33 @@ import org.apache.maven.plugins.annotations.Parameter;
 public final class DocumentationTemplateMojo {
 
     /**
-     * The name of the template (e.g., {@code plugin.adoc.ftl}, {@code scalars.adoc.ftl})
+     * The name of the FreeMarker template.
+     * <p>
+     * This corresponds to the file path (relative to {@link DocumentationGeneratorMojo#templateDirectory the template directory}) of the FreeMarker template.
+     * For instance, {@code scalars.adoc.ftl}, {@code plugin.adoc.ftl}, and {@code interface.adoc.ftl} for scalar values, plugins, and interfaces, respectively.
+     * </p>
      */
     @Parameter(required = true)
     String name;
 
     /**
-     * The target file path rendered content will be written to (e.g., {@code %g/%a/%c.adoc})
+     * The target file path rendered content will be written to.
+     * <p>
+     * Certain directives are subject to substitution:
+     * </p>
+     * <ul>
+     * <li>%a – artifact ID, if the type is provided with an artifact origin; {@code unknown-artifactId}, otherwise</li>
+     * <li>%c – class name</li>
+     * <li>%g – group ID, if the type is provided with an artifact origin; {@code unknown-groupId}, otherwise</li>
+     * <li>%v – version, if the type is provided with an artifact origin; {@code unknown-version}, otherwise</li>
+     * </ul>
+     * <p>
+     * For instance,
+     * </p>
+     * <ul>
+     * <li>{@code scalars.adoc} for scalar values</li>
+     * <li>{@code %g/%a/%c.adoc} for interfaces and plugins</li>
+     * </ul>
      */
     @Parameter(required = true)
     String targetPath;

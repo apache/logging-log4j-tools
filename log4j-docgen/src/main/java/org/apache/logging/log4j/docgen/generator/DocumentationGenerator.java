@@ -21,7 +21,6 @@ import static org.apache.logging.log4j.tools.internal.freemarker.util.FreeMarker
 
 import java.nio.file.Path;
 import java.util.Collection;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeSet;
@@ -31,6 +30,8 @@ import org.apache.logging.log4j.docgen.AbstractType;
 import org.apache.logging.log4j.docgen.PluginSet;
 import org.apache.logging.log4j.docgen.PluginType;
 import org.apache.logging.log4j.docgen.ScalarType;
+import org.apache.logging.log4j.docgen.Type;
+import org.jspecify.annotations.Nullable;
 
 public final class DocumentationGenerator {
 
@@ -41,14 +42,15 @@ public final class DocumentationGenerator {
         final List<PluginSet> extendedSets = Stream.concat(BaseTypes.PLUGIN_SETS.stream(), args.pluginSets.stream())
                 .collect(Collectors.toList());
         final TypeLookup lookup = TypeLookup.of(extendedSets);
-        final Collection<ScalarType> scalarTypes = new TreeSet<>();
-        lookup.forEach((typeKey, type) -> {
+        final Collection<ArtifactSourcedType> scalarTypes = new TreeSet<>();
+        lookup.forEach((className, sourcedType) -> {
+            final Type type = sourcedType.type;
             if (type instanceof PluginType) {
-                documentAbstractType((AbstractType) type, lookup, args.templateDirectory, args.pluginTemplate);
+                documentAbstractType(sourcedType, lookup, args.templateDirectory, args.pluginTemplate);
             } else if (type instanceof AbstractType) {
-                documentAbstractType((AbstractType) type, lookup, args.templateDirectory, args.interfaceTemplate);
+                documentAbstractType(sourcedType, lookup, args.templateDirectory, args.interfaceTemplate);
             } else if (type instanceof ScalarType) {
-                scalarTypes.add((ScalarType) type);
+                scalarTypes.add(sourcedType);
             } else {
                 throw new RuntimeException("unknown type: `" + type + "`");
             }
@@ -57,28 +59,39 @@ public final class DocumentationGenerator {
     }
 
     private static void documentAbstractType(
-            final AbstractType abstractType,
+            final ArtifactSourcedType sourcedType,
             final TypeLookup lookup,
             final Path templateDirectory,
             final DocumentationTemplate template) {
-        final Map<String, Object> templateData = new HashMap<>();
-        templateData.put("type", abstractType);
-        templateData.put("lookup", lookup);
-        final Path targetPath = createAbstractTypeTargetPath(abstractType, template.targetPath);
+        final Map<String, Object> templateData = Map.of(
+                "sourcedType", sourcedType,
+                "lookup", lookup);
+        final Path targetPath = createAbstractTypeTargetPath(sourcedType, template.targetPath);
         render(templateDirectory, template.name, templateData, targetPath);
     }
 
-    private static Path createAbstractTypeTargetPath(final AbstractType abstractType, final String targetPathPattern) {
-        final String targetPath = targetPathPattern.replaceAll("%c", abstractType.getClassName());
+    private static Path createAbstractTypeTargetPath(
+            final ArtifactSourcedType sourcedType, final String targetPathPattern) {
+        final String groupId = or(sourcedType.groupId, "unknown-groupId");
+        final String artifactId = or(sourcedType.artifactId, "unknown-artifactId");
+        final String version = or(sourcedType.version, "unknown-version");
+        final String targetPath = targetPathPattern
+                .replaceAll("%g", groupId)
+                .replaceAll("%a", artifactId)
+                .replaceAll("%v", version)
+                .replaceAll("%c", sourcedType.type.getClassName());
         return Path.of(targetPath);
     }
 
+    private static String or(@Nullable final String value, final String fallback) {
+        return value != null ? value : fallback;
+    }
+
     private static void documentScalarTypes(
-            final Collection<ScalarType> scalarTypes,
+            final Collection<ArtifactSourcedType> scalarTypes,
             final Path templateDirectory,
             final DocumentationTemplate template) {
-        final Map<String, Object> templateData = new HashMap<>();
-        templateData.put("scalars", scalarTypes);
+        final Map<String, Object> templateData = Map.of("sourcedTypes", scalarTypes);
         render(templateDirectory, template.name, templateData, Path.of(template.targetPath));
     }
 }

@@ -22,7 +22,7 @@
   <scalars>
 
     <scalar className="boolean">
-      <description>A boolean value.</description>
+      <description>A boolean value</description>
       <values>
         <value name="false">
           <description>false</description>

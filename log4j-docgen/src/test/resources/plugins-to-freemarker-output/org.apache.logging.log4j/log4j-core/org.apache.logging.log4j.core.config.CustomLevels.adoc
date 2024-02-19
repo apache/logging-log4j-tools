@@ -14,17 +14,23 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 ////
+[#org_apache_logging_log4j_core_config_CustomLevels]
 = CustomLevels
+
+Class:: `org.apache.logging.log4j.core.config.CustomLevels`
+Provider:: `org.apache.logging.log4j:log4j-core`
 
 A wrapper for a list of custom level configurations.
 
+[#org_apache_logging_log4j_core_config_CustomLevels-XML-snippet]
 == XML snippet
 [source, xml]
 ----
 <CustomLevels/>
 ----
 
-== Nested Components
+[#org_apache_logging_log4j_core_config_CustomLevels-components]
+== Nested components
 
 Required components are in **bold face**.
 

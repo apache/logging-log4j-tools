@@ -14,10 +14,19 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 ////
-= Layout
+[#org_apache_logging_log4j_core_Filter]
+= Filter
 
-A layout is responsible for formatting a `LogEvent` as a string.
+Class:: `org.apache.logging.log4j.core.Filter`
+Provider:: `org.apache.logging.log4j:log4j-core`
 
+Interface that must be implemented to allow custom event filtering.
+It is highly recommended that applications make use of the filters provided with this Log4j Core before creating their own.
+
+This interface supports "global" filters (i.e. - all events must pass through them first), attached to specific loggers and associated with Appenders.
+It is recommended that, where possible, `Filter` implementations create a generic filtering method that can be called from any of the filter methods.
+
+[#org_apache_logging_log4j_core_Filter-implementations]
 == Known implementations
 
-* xref:org.apache.logging.log4j.core.layout.PatternLayout.adoc[PatternLayout]
+* xref:org.apache.logging.log4j.core.filter.BurstFilter.adoc[BurstFilter]

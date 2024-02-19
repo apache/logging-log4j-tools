@@ -14,17 +14,23 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 ////
-= Property
+[#org_apache_logging_log4j_core_config_CustomLevelConfig]
+= CustomLevel
 
-Represents a key/value pair in the configuration.
+Class:: `org.apache.logging.log4j.core.config.CustomLevelConfig`
+Provider:: `org.apache.logging.log4j:log4j-core`
 
+Configures a custom level.
+
+[#org_apache_logging_log4j_core_config_CustomLevelConfig-XML-snippet]
 == XML snippet
 [source, xml]
 ----
-<Property name=""
-          value=""/>
+<CustomLevel intLevel=""
+             name=""/>
 ----
 
+[#org_apache_logging_log4j_core_config_CustomLevelConfig-attributes]
 == Attributes
 
 Required attributes are in **bold face**.
@@ -33,14 +39,14 @@ Required attributes are in **bold face**.
 |===
 |Name|Type|Default|Description
 
-|**name**
-|xref:../scalars.adoc#java.lang.String[String]
+|**intLevel**
+|xref:../../scalars.adoc#int[int]
 |
-a|Name of the property.
+a|An integer determines the strength of the custom level relative to the built-in levels.
 
-|value
-|xref:../scalars.adoc#java.lang.String[String]
+|**name**
+|xref:../../scalars.adoc#java_lang_String[String]
 |
-a|Value of the property.
+a|The name of the level.
 
 |===

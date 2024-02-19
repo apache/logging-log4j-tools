@@ -101,7 +101,8 @@ public final class SchemaGenerator {
     }
 
     private static void writeTypes(final TypeLookup lookup, final XMLStreamWriter writer) throws XMLStreamException {
-        for (final Type type : lookup.values()) {
+        for (final ArtifactSourcedType sourcedType : lookup.values()) {
+            final Type type = sourcedType.type;
             if (isBuiltinXmlType(type.getClassName())) {
                 continue;
             }
@@ -199,7 +200,7 @@ public final class SchemaGenerator {
             implementations.add(abstractType.getClassName());
         }
         for (final String implementation : implementations) {
-            final PluginType pluginType = (PluginType) lookup.get(implementation);
+            final PluginType pluginType = (PluginType) lookup.get(implementation).type;
             for (final String key : getKeyAndAliases(pluginType)) {
                 writer.writeEmptyElement(XSD_NAMESPACE, "element");
                 writer.writeAttribute("name", key);
@@ -235,7 +236,7 @@ public final class SchemaGenerator {
             throws XMLStreamException {
         final String type = element.getType();
         final String xmlType = getXmlType(lookup, type);
-        final AbstractType abstractType = (AbstractType) lookup.get(type);
+        final AbstractType abstractType = (AbstractType) lookup.get(type).type;
         final PluginType pluginType = abstractType instanceof PluginType ? (PluginType) abstractType : null;
         /*
          * If a plugin extends another plugin or has multiple aliases
@@ -287,7 +288,7 @@ public final class SchemaGenerator {
             case "java.lang.String":
                 return "string";
         }
-        final Type type = lookup.get(className);
+        final ArtifactSourcedType type = lookup.get(className);
         if (type != null) {
             return LOG4J_PREFIX + ":" + className;
         }

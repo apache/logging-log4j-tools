@@ -15,19 +15,25 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 -->
+<#-- @ftlvariable name="sourcedType" type="org.apache.logging.log4j.docgen.model.ArtifactSourcedType" -->
+<#assign type = sourcedType.type/>
 <#-- @ftlvariable name="type" type="org.apache.logging.log4j.docgen.model.AbstractType" -->
 <#-- @ftlvariable name="lookup" type="org.apache.logging.log4j.docgen.generator.TypeLookup" -->
 <#include "license.adoc.ftl">
+[#${type.className?replace('.', '_')}]
 = ${type.className?keep_after_last('.')}
-<#if type.description??>
 
+Class:: `${type.className}`
+<#if sourcedType.groupId?has_content && sourcedType.artifactId?has_content>
+Provider:: `${sourcedType.groupId}:${sourcedType.artifactId}`
+
+</#if><#if type.description??>
 ${type.description.text}
 </#if>
 
+[#${type.className?replace('.', '_')}-implementations]
 == Known implementations
-<#if type.implementations??>
 
-    <#list type.implementations as impl>
+<#list type.implementations as impl>
 * xref:${impl}.adoc[${impl?contains('.')?then(impl?keep_after_last('.'), impl)}]
-    </#list>
-</#if>
+</#list>

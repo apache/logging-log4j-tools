@@ -14,14 +14,39 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 ////
-= Filter
+[#org_apache_logging_log4j_core_config_Property]
+= Property
 
-Interface that must be implemented to allow custom event filtering.
-It is highly recommended that applications make use of the filters provided with this Log4j Core before creating their own.
+Class:: `org.apache.logging.log4j.core.config.Property`
+Provider:: `org.apache.logging.log4j:log4j-core`
 
-This interface supports "global" filters (i.e. - all events must pass through them first), attached to specific loggers and associated with Appenders.
-It is recommended that, where possible, `Filter` implementations create a generic filtering method that can be called from any of the filter methods.
+Represents a key/value pair in the configuration.
 
-== Known implementations
+[#org_apache_logging_log4j_core_config_Property-XML-snippet]
+== XML snippet
+[source, xml]
+----
+<Property name=""
+          value=""/>
+----
 
-* xref:org.apache.logging.log4j.core.filter.BurstFilter.adoc[BurstFilter]
+[#org_apache_logging_log4j_core_config_Property-attributes]
+== Attributes
+
+Required attributes are in **bold face**.
+
+[cols="1m,1m,1m,5"]
+|===
+|Name|Type|Default|Description
+
+|**name**
+|xref:../../scalars.adoc#java_lang_String[String]
+|
+a|Name of the property.
+
+|value
+|xref:../../scalars.adoc#java_lang_String[String]
+|
+a|Value of the property.
+
+|===

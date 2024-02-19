@@ -14,7 +14,11 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 ////
+[#org_apache_logging_log4j_core_Appender]
 = Appender
+
+Class:: `org.apache.logging.log4j.core.Appender`
+Provider:: `org.apache.logging.log4j:log4j-core`
 
 Appends log events.
 An Appender can contain a `Layout` if applicable as well as an `ErrorHandler`.
@@ -27,6 +31,7 @@ For instance, many Appenders can take advantage of the `@OutputStreamManager` cl
 It is recommended that Appenders don't do any heavy lifting since there can be many instances of the class being used at any given time.
 When resources require locking (e.g., through `@FileLock`), it is important to isolate synchronized code to prevent concurrency issues.
 
+[#org_apache_logging_log4j_core_Appender-implementations]
 == Known implementations
 
 * xref:org.apache.logging.log4j.core.appender.ConsoleAppender.adoc[ConsoleAppender]

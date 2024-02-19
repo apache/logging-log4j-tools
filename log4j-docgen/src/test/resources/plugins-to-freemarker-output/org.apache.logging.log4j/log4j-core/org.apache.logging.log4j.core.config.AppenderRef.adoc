@@ -14,22 +14,25 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 ////
-= PatternLayout
+[#org_apache_logging_log4j_core_config_AppenderRef]
+= AppenderRef
 
-A flexible layout configurable with pattern string.
+Class:: `org.apache.logging.log4j.core.config.AppenderRef`
+Provider:: `org.apache.logging.log4j:log4j-core`
 
-The goal of this class is to {@link org.apache.logging.log4j.core.Layout#toByteArray format} a {@link LogEvent} and return the results.
-The format of the result depends on the _conversion pattern_.
+Reference to an appender defined in the `Appenders` section.
 
-The conversion pattern is closely related to the conversion pattern of the printf function in C.
-A conversion pattern is composed of literal text and format control expressions called _conversion specifiers_.
-
+[#org_apache_logging_log4j_core_config_AppenderRef-XML-snippet]
 == XML snippet
 [source, xml]
 ----
-<PatternLayout pattern="%m%n"/>
+<AppenderRef level=""
+             ref="">
+    <a-Filter-implementation/>
+</AppenderRef>
 ----
 
+[#org_apache_logging_log4j_core_config_AppenderRef-attributes]
 == Attributes
 
 Required attributes are in **bold face**.
@@ -38,9 +41,29 @@ Required attributes are in **bold face**.
 |===
 |Name|Type|Default|Description
 
-|pattern
-|xref:../scalars.adoc#java.lang.String[String]
-|%m%n
-a|The pattern to use to format log events.
+|level
+|xref:../../scalars.adoc#org_apache_logging_log4j_Level[Level]
+|
+a|The level to filter against.
+
+|**ref**
+|xref:../../scalars.adoc#java_lang_String[String]
+|
+a|The name of an appender.
+
+|===
+
+[#org_apache_logging_log4j_core_config_AppenderRef-components]
+== Nested components
+
+Required components are in **bold face**.
+
+[cols="1m,1m,5"]
+|===
+|Tag|Type|Description
+
+|N/A
+|xref:org.apache.logging.log4j.core.Filter.adoc[Filter]
+a|The filter to use.
 
 |===

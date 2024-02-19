@@ -14,33 +14,32 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 ////
-= CustomLevel
+[#org_apache_logging_log4j_core_config_PropertiesPlugin]
+= Properties
 
-Configures a custom level.
+Class:: `org.apache.logging.log4j.core.config.PropertiesPlugin`
+Provider:: `org.apache.logging.log4j:log4j-core`
 
+A wrapper for a list of properties.
+
+[#org_apache_logging_log4j_core_config_PropertiesPlugin-XML-snippet]
 == XML snippet
 [source, xml]
 ----
-<CustomLevel intLevel=""
-             name=""/>
+<Properties/>
 ----
 
-== Attributes
+[#org_apache_logging_log4j_core_config_PropertiesPlugin-components]
+== Nested components
 
-Required attributes are in **bold face**.
+Required components are in **bold face**.
 
-[cols="1m,1m,1m,5"]
+[cols="1m,1m,5"]
 |===
-|Name|Type|Default|Description
+|Tag|Type|Description
 
-|**intLevel**
-|xref:../scalars.adoc#int[int]
-|
-a|An integer determines the strength of the custom level relative to the built-in levels.
-
-|**name**
-|xref:../scalars.adoc#java.lang.String[String]
-|
-a|The name of the level.
+|Property
+|xref:org.apache.logging.log4j.core.config.Property.adoc[Property]
+a|A list of properties.
 
 |===

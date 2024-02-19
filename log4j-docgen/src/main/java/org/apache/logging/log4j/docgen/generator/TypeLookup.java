@@ -16,16 +16,19 @@
  */
 package org.apache.logging.log4j.docgen.generator;
 
-import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import java.util.TreeMap;
-import java.util.function.Predicate;
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 import org.apache.logging.log4j.docgen.AbstractType;
+import org.apache.logging.log4j.docgen.PluginElement;
 import org.apache.logging.log4j.docgen.PluginSet;
 import org.apache.logging.log4j.docgen.PluginType;
 import org.apache.logging.log4j.docgen.Type;
+import org.jspecify.annotations.Nullable;
 
-final class TypeLookup extends TreeMap<String, Type> {
+final class TypeLookup extends TreeMap<String, ArtifactSourcedType> {
 
     private static final long serialVersionUID = 1L;
 
@@ -33,30 +36,92 @@ final class TypeLookup extends TreeMap<String, Type> {
         return new TypeLookup(pluginSets);
     }
 
-    private TypeLookup(final Iterable<? extends PluginSet> sets) {
-        final Predicate<PluginType> hasCoreNamespace = p -> "Core".equals(p.getNamespace());
-        // Round 1: Merge all the information from the sets
-        sets.forEach(set -> {
-            set.getScalars().forEach(scalar -> put(scalar.getClassName(), scalar));
-            set.getAbstractTypes().forEach(abstractType -> put(abstractType.getClassName(), abstractType));
-            set.getPlugins().stream().filter(hasCoreNamespace).forEach(plugin -> put(plugin.getClassName(), plugin));
-        });
-        // Round 2: fill in the set of abstract types used in elements and the list of their possible implementations
-        final Set<String> requiredAbstractTypes = new HashSet<>();
-        sets.forEach(set -> set.getPlugins().stream().filter(hasCoreNamespace).forEach(plugin -> {
-            plugin.getSupertypes()
-                    .forEach(supertype -> ((AbstractType) computeIfAbsent(supertype, TypeLookup::createAbstractType))
-                            .addImplementation(plugin.getClassName()));
-            plugin.getElements().forEach(element -> requiredAbstractTypes.add(element.getType()));
-        }));
-        // Round 3: remove the types that are not required and do not have a description
-        values().removeIf(
-                        type -> !requiredAbstractTypes.contains(type.getClassName()) && type.getDescription() == null);
+    private TypeLookup(final Iterable<? extends PluginSet> pluginSets) {
+        mergeDescriptors(pluginSets);
+        populateTypeHierarchy(pluginSets);
+        removeUnusedTypes(pluginSets);
     }
 
-    private static AbstractType createAbstractType(final String className) {
-        final AbstractType abstractType = new AbstractType();
-        abstractType.setClassName(className);
-        return abstractType;
+    private void mergeDescriptors(Iterable<? extends PluginSet> pluginSets) {
+        pluginSets.forEach(pluginSet -> {
+            pluginSet.getScalars().forEach(scalar -> {
+                final ArtifactSourcedType sourcedType = ArtifactSourcedType.ofPluginSet(pluginSet, scalar);
+                put(scalar.getClassName(), sourcedType);
+            });
+            pluginSet.getAbstractTypes().forEach(abstractType -> {
+                final ArtifactSourcedType sourcedType = ArtifactSourcedType.ofPluginSet(pluginSet, abstractType);
+                put(abstractType.getClassName(), sourcedType);
+            });
+            pluginSet.getPlugins().forEach(pluginType -> {
+                final ArtifactSourcedType sourcedType = ArtifactSourcedType.ofPluginSet(pluginSet, pluginType);
+                put(pluginType.getClassName(), sourcedType);
+            });
+        });
+    }
+
+    private void populateTypeHierarchy(Iterable<? extends PluginSet> pluginSets) {
+        pluginSets.forEach(pluginSet -> {
+            final Set<PluginType> pluginTypes = pluginSet.getPlugins();
+            pluginTypes.forEach(plugin -> {
+                final Set<String> superTypeClassNames = plugin.getSupertypes();
+                superTypeClassNames.forEach(superTypeClassName -> {
+                    final AbstractType sourcedSuperType = getOrPutAbstractType(superTypeClassName, pluginSet);
+                    sourcedSuperType.addImplementation(plugin.getClassName());
+                });
+            });
+        });
+    }
+
+    /**
+     * Gets the {@link AbstractType} associated with the provided class name, otherwise puts a new one sourced using the provided {@link PluginSet}.
+     * <h1>Invocation order matters!</h1>
+     * <p>
+     * Consider we are processing {@code plugins.xml}s from following artifacts:
+     * </p>
+     * <ol>
+     * <li>{@code log4j-core} providing {@code Layout}</li>
+     * <li>{@code log4j-layout-template-json} providing {@code JsonTemplateLayout} extending from {@code Layout}
+     * </ol>
+     * <p>
+     * If {@code plugins.xml} of {@code log4j-layout-template-json} gets processed first, {@code Layout} type will be <strong>incorrectly</strong> associated with {@code log4j-layout-template-json}.
+     * Hence, {@code log4j-core} processing needs to happen before the {@code log4j-layout-template-json} processing.
+     * </p>
+     *
+     * @param className a class name
+     * @param pluginSet the descriptor sourcing the type
+     * @return either the existing {@link AbstractType} associated with the provided class name, or a new one created
+     */
+    @Nullable
+    private AbstractType getOrPutAbstractType(final String className, final PluginSet pluginSet) {
+
+        // If there is already an entry with the same class name, return that
+        @Nullable final ArtifactSourcedType foundSourcedType = get(className);
+        if (foundSourcedType != null) {
+            return (AbstractType) foundSourcedType.type;
+        }
+
+        // Otherwise, create a new one, and return that
+        else {
+            final AbstractType type = new AbstractType();
+            type.setClassName(className);
+            final ArtifactSourcedType sourcedType = ArtifactSourcedType.ofPluginSet(pluginSet, type);
+            put(className, sourcedType);
+            return type;
+        }
+    }
+
+    private void removeUnusedTypes(Iterable<? extends PluginSet> pluginSets) {
+        final Set<String> requiredAbstractTypes = StreamSupport.stream(pluginSets.spliterator(), false)
+                .map(PluginSet::getPlugins)
+                .flatMap(Set::stream)
+                .map(PluginType::getElements)
+                .flatMap(List::stream)
+                .map(PluginElement::getType)
+                .collect(Collectors.toSet());
+        values().removeIf(sourcedType -> {
+            final Type type = sourcedType.type;
+            final boolean typeRequired = !requiredAbstractTypes.contains(type.getClassName());
+            return typeRequired && type.getDescription() == null;
+        });
     }
 }

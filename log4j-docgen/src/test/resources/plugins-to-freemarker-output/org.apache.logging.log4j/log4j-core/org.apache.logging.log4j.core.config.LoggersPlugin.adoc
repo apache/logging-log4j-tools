@@ -14,17 +14,23 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 ////
-= Appenders
+[#org_apache_logging_log4j_core_config_LoggersPlugin]
+= Loggers
 
-A wrapper for a list of appenders.
+Class:: `org.apache.logging.log4j.core.config.LoggersPlugin`
+Provider:: `org.apache.logging.log4j:log4j-core`
 
+A wrapper for a list of logger configurations.
+
+[#org_apache_logging_log4j_core_config_LoggersPlugin-XML-snippet]
 == XML snippet
 [source, xml]
 ----
-<Appenders/>
+<Loggers/>
 ----
 
-== Nested Components
+[#org_apache_logging_log4j_core_config_LoggersPlugin-components]
+== Nested components
 
 Required components are in **bold face**.
 
@@ -32,8 +38,8 @@ Required components are in **bold face**.
 |===
 |Tag|Type|Description
 
-|N/A
-|xref:org.apache.logging.log4j.core.Appender.adoc[Appender]
-a|A list of appender.
+|Logger
+|xref:org.apache.logging.log4j.core.config.LoggerConfig.adoc[LoggerConfig]
+a|A list of logger configurations.
 
 |===

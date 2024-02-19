@@ -14,11 +14,16 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 ////
+[#org_apache_logging_log4j_core_filter_BurstFilter]
 = BurstFilter
+
+Class:: `org.apache.logging.log4j.core.filter.BurstFilter`
+Provider:: `org.apache.logging.log4j:log4j-core`
 
 The BurstFilter is a logging filter that regulates logging traffic.
 Use this filter when you want to control the mean rate and maximum burst of log statements that can be sent to an appender.
 
+[#org_apache_logging_log4j_core_filter_BurstFilter-XML-snippet]
 == XML snippet
 [source, xml]
 ----
@@ -29,6 +34,7 @@ Use this filter when you want to control the mean rate and maximum burst of log 
              rate="10"/>
 ----
 
+[#org_apache_logging_log4j_core_filter_BurstFilter-attributes]
 == Attributes
 
 Required attributes are in **bold face**.
@@ -38,27 +44,27 @@ Required attributes are in **bold face**.
 |Name|Type|Default|Description
 
 |level
-|xref:../scalars.adoc#org.apache.logging.log4j.Level[Level]
+|xref:../../scalars.adoc#org_apache_logging_log4j_Level[Level]
 |WARN
 a|Log events less specific than this level are filtered, while events with level equal or more specific always match.
 
 |maxBurst
-|xref:../scalars.adoc#long[long]
+|xref:../../scalars.adoc#long[long]
 |
 a|Sets the maximum number of events that can occur before events are filtered for exceeding the average rate.
 
 |onMatch
-|xref:../scalars.adoc#org.apache.logging.log4j.core.Filter.Result[Result]
+|xref:../../scalars.adoc#org_apache_logging_log4j_core_Filter_Result[Result]
 |NEUTRAL
 a|Action to perform if the filter matches.
 
 |onMismatch
-|xref:../scalars.adoc#org.apache.logging.log4j.core.Filter.Result[Result]
+|xref:../../scalars.adoc#org_apache_logging_log4j_core_Filter_Result[Result]
 |DENY
 a|Action to perform if the filter does not match.
 
 |rate
-|xref:../scalars.adoc#float[float]
+|xref:../../scalars.adoc#float[float]
 |10
 a|Sets the average number of events per second to allow.
 

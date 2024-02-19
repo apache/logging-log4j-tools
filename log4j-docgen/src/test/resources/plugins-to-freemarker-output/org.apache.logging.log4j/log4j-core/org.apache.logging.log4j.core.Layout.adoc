@@ -14,26 +14,15 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 ////
-= Properties
+[#org_apache_logging_log4j_core_Layout]
+= Layout
 
-A wrapper for a list of properties.
+Class:: `org.apache.logging.log4j.core.Layout`
+Provider:: `org.apache.logging.log4j:log4j-core`
 
-== XML snippet
-[source, xml]
-----
-<Properties/>
-----
+A layout is responsible for formatting a `LogEvent` as a string.
 
-== Nested Components
+[#org_apache_logging_log4j_core_Layout-implementations]
+== Known implementations
 
-Required components are in **bold face**.
-
-[cols="1m,1m,5"]
-|===
-|Tag|Type|Description
-
-|Property
-|xref:org.apache.logging.log4j.core.config.Property.adoc[Property]
-a|A list of properties.
-
-|===
+* xref:org.apache.logging.log4j.core.layout.PatternLayout.adoc[PatternLayout]

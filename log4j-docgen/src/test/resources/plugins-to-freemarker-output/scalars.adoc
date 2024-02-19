@@ -14,48 +14,69 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 ////
+[#type-converters]
 = Type converters
 
 Type converter plugins are used to convert simple `String` values into other types.
 
-== Available converters
+[#boolean]
+== `boolean`
 
-[cols="1m,2"]
-|===
-|Type|Description
 
-|[[boolean]]
-boolean
-a|A boolean value.
+A boolean value
 
-Possible values:
+[#boolean-values]
+=== Possible values
 
 `false`:: false
 `true`:: true
-|[[byte]]
-byte
-a|An 8-bit signed integer from `-128` to `127`
-|[[double]]
-double
-a|A double precision floating number from `4.94065645841246544e-324` to `1.79769313486231570e+308`
-|[[float]]
-float
-a|A single precision floating number from `1.40239846e-45` to `3.40282347e+38`
-|[[int]]
-int
-a|A 32-bit signed integer from `-2147483648` to `2147483647`
-|[[java.lang.String]]
-java.lang.String
-a|A string of characters
-|[[long]]
-long
-a|A 64-bit signed integer from `-9223372036854775808` to `9223372036854775807`
-|[[org.apache.logging.log4j.Level]]
-o.a.l.l.Level
-a|Represents a logging level.
+
+[#byte]
+== `byte`
+
+
+An 8-bit signed integer from `-128` to `127`
+
+[#double]
+== `double`
+
+
+A double precision floating number from `4.94065645841246544e-324` to `1.79769313486231570e+308`
+
+[#float]
+== `float`
+
+
+A single precision floating number from `1.40239846e-45` to `3.40282347e+38`
+
+[#int]
+== `int`
+
+
+A 32-bit signed integer from `-2147483648` to `2147483647`
+
+[#java_lang_String]
+== `java.lang.String`
+
+
+A string of characters
+
+[#long]
+== `long`
+
+
+A 64-bit signed integer from `-9223372036854775808` to `9223372036854775807`
+
+[#org_apache_logging_log4j_Level]
+== `org.apache.logging.log4j.Level`
+
+Provider:: `org.apache.logging.log4j:log4j-core`
+
+Represents a logging level.
 NOTE: The Log4j API supports custom levels, the following list contains only the standard ones.
 
-Possible values:
+[#org_apache_logging_log4j_Level-values]
+=== Possible values
 
 `OFF`:: Special level that disables logging.
 No events should be logged at this level.
@@ -66,23 +87,36 @@ No events should be logged at this level.
 `DEBUG`:: A general debugging event
 `TRACE`:: A fine-grained debug message, typically capturing the flow through the application
 `ALL`:: Special level indicating all events should be logged
-|[[org.apache.logging.log4j.core.Filter.Result]]
-o.a.l.l.core.Filter.Result
-a|The result that can returned from a filter method call.
 
-Possible values:
+[#org_apache_logging_log4j_core_Filter_Result]
+== `org.apache.logging.log4j.core.Filter.Result`
+
+Provider:: `org.apache.logging.log4j:log4j-core`
+
+The result that can returned from a filter method call.
+
+[#org_apache_logging_log4j_core_Filter_Result-values]
+=== Possible values
 
 `ACCEPT`:: The event will be processed without further filtering based on the log Level.
 `NEUTRAL`:: No decision could be made, further filtering should occur.
 `DENY`:: The event should not be processed.
-|[[org.apache.logging.log4j.core.appender.ConsoleAppender.Target]]
-o.a.l.l.core.appender.ConsoleAppender.Target
-a|Specifies the target of a console appender.
 
-Possible values:
+[#org_apache_logging_log4j_core_appender_ConsoleAppender_Target]
+== `org.apache.logging.log4j.core.appender.ConsoleAppender.Target`
+
+Provider:: `org.apache.logging.log4j:log4j-core`
+
+Specifies the target of a console appender.
+
+[#org_apache_logging_log4j_core_appender_ConsoleAppender_Target-values]
+=== Possible values
 
 `SYSTEM_OUT`:: Logs to the standard output.
 `SYSTEM_ERR`:: Logs to the standard error.
-|[[short]]
-short
-a|A 16-bit signed integer from `-32768` to `32767`
+
+[#short]
+== `short`
+
+
+A 16-bit signed integer from `-32768` to `32767`
