@@ -16,7 +16,6 @@
  */
 package org.apache.logging.log4j.docgen.processor;
 
-import static org.apache.commons.lang3.StringUtils.defaultIfEmpty;
 import static org.apache.commons.lang3.StringUtils.defaultString;
 
 import aQute.bnd.annotation.Resolution;
@@ -162,7 +161,8 @@ public class DescriptorGenerator extends AbstractProcessor {
     private static DeclaredType getDeclaredType(final ProcessingEnvironment processingEnv, final String className) {
         final Types typeUtils = processingEnv.getTypeUtils();
         final Elements elementUtils = processingEnv.getElementUtils();
-        return (DeclaredType) typeUtils.erasure(elementUtils.getTypeElement(className).asType());
+        return (DeclaredType)
+                typeUtils.erasure(elementUtils.getTypeElement(className).asType());
     }
 
     @Override
@@ -209,7 +209,8 @@ public class DescriptorGenerator extends AbstractProcessor {
         try {
             final AbstractType abstractType = new AbstractType();
             populateAbstractType(element, abstractType);
-            if (!abstractType.getDescription().getText().isEmpty()) {
+            @Nullable final Description description = abstractType.getDescription();
+            if (description != null) {
                 pluginSet.addAbstractType(abstractType);
             }
         } catch (final Exception error) {
@@ -359,14 +360,20 @@ public class DescriptorGenerator extends AbstractProcessor {
         pluginElements.forEach(pluginType::addElement);
     }
 
-    private Description createDescription(final String asciiDoc) {
+    @Nullable
+    private Description createDescription(final Element element, final @Nullable String fallbackDescriptionText) {
+        @Nullable String descriptionText = converter.toAsciiDoc(element);
+        if (StringUtils.isBlank(descriptionText)) {
+            if (StringUtils.isBlank(fallbackDescriptionText)) {
+                return null;
+            } else {
+                descriptionText = fallbackDescriptionText;
+            }
+        }
+        descriptionText = descriptionText.trim();
         final Description description = new Description();
-        description.setText(StringUtils.stripToEmpty(asciiDoc));
+        description.setText(descriptionText);
         return description;
-    }
-
-    private Description createDescription(final Element element, final @Nullable String fallback) {
-        return createDescription(defaultIfEmpty(converter.toAsciiDoc(element), defaultString(fallback)));
     }
 
     private PluginAttribute createPluginAttribute(

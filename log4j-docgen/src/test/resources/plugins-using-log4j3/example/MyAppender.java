@@ -113,6 +113,8 @@ public final class MyAppender extends AbstractAppender implements Appender {
          */
         private @PluginBuilderAttribute double aDouble;
 
+        private @PluginBuilderAttribute double undocumentedAttribute;
+
         private Object notAnAttribute;
 
         /**

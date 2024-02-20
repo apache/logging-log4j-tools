@@ -42,6 +42,7 @@ import org.apache.logging.log4j.docgen.PluginType;
 import org.apache.logging.log4j.docgen.ScalarType;
 import org.apache.logging.log4j.docgen.ScalarValue;
 import org.apache.logging.log4j.docgen.Type;
+import org.jspecify.annotations.Nullable;
 
 @Singleton
 @Named("default")
@@ -189,10 +190,7 @@ public final class SchemaGenerator {
             throws XMLStreamException {
         writer.writeStartElement(XSD_NAMESPACE, "group");
         writer.writeAttribute("name", abstractType.getClassName());
-        final Description description = abstractType.getDescription();
-        if (description != null) {
-            writeDocumentation(description, writer);
-        }
+        writeDocumentation(abstractType.getDescription(), writer);
         writer.writeStartElement(XSD_NAMESPACE, "choice");
 
         final Set<String> implementations = abstractType.getImplementations();
@@ -212,13 +210,15 @@ public final class SchemaGenerator {
         writer.writeEndElement();
     }
 
-    private static void writeDocumentation(final Description description, final XMLStreamWriter writer)
+    private static void writeDocumentation(@Nullable final Description description, final XMLStreamWriter writer)
             throws XMLStreamException {
-        writer.writeStartElement(XSD_NAMESPACE, "annotation");
-        writer.writeStartElement(XSD_NAMESPACE, "documentation");
-        writer.writeCharacters(description.getText());
-        writer.writeEndElement();
-        writer.writeEndElement();
+        if (description != null) {
+            writer.writeStartElement(XSD_NAMESPACE, "annotation");
+            writer.writeStartElement(XSD_NAMESPACE, "documentation");
+            writer.writeCharacters(description.getText());
+            writer.writeEndElement();
+            writer.writeEndElement();
+        }
     }
 
     private static void writeScalarValue(final ScalarValue value, final XMLStreamWriter writer)

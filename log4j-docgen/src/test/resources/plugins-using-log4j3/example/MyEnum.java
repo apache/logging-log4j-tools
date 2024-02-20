@@ -35,5 +35,6 @@ public enum MyEnum {
     /**
      * Value D.
      */
-    D;
+    D,
+    WITHOUT_DESCRIPTION;
 }

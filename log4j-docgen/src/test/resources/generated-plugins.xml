@@ -31,6 +31,7 @@
                 <value name="D">
                     <description>Value D.</description>
                 </value>
+                <value name="WITHOUT_DESCRIPTION"/>
             </values>
             <description>A very important enum.</description>
         </scalar>
@@ -77,6 +78,7 @@
                 <attribute name="stringAtt" required="true">
                     <description>A `String` attribute.</description>
                 </attribute>
+                <attribute name="undocumentedAttribute" type="double"/>
             </attributes>
             <elements>
                 <element type="example.AbstractAppender">
