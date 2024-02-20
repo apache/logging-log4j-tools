@@ -17,7 +17,6 @@
 package org.apache.logging.log4j.docgen.processor;
 
 import static java.nio.charset.StandardCharsets.UTF_8;
-import static java.util.Arrays.asList;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
@@ -91,12 +90,17 @@ public class DescriptorGeneratorTest {
         fileManager.setLocationFromPaths(StandardLocation.CLASS_OUTPUT, Set.of(outputDir));
 
         // Compile the sources
+        final Path descriptorFilePath = outputDir.resolve("plugins.xml");
         final DiagnosticCollector<JavaFileObject> diagnosticCollector = new DiagnosticCollector<>();
         final CompilationTask task = compiler.getTask(
                 null,
                 fileManager,
                 diagnosticCollector,
-                asList("-proc:only", "-processor", DescriptorGenerator.class.getName()),
+                List.of(
+                        "-proc:only",
+                        "-processor",
+                        DescriptorGenerator.class.getName(),
+                        "-A" + DescriptorGenerator.DESCRIPTOR_FILE_PATH_PROPERTY_NAME + "=" + descriptorFilePath),
                 null,
                 sources);
         task.call();
@@ -106,8 +110,7 @@ public class DescriptorGeneratorTest {
         assertThat(diagnostics).noneMatch(diagnostic -> diagnostic.getKind() != Diagnostic.Kind.NOTE);
 
         // Resolve the descriptor file
-        final Path descriptor = outputDir.resolve(DescriptorGenerator.DESCRIPTOR_FILE_PATH);
-        assertThat(descriptor).isNotEmptyFile();
-        return descriptor;
+        assertThat(descriptorFilePath).isNotEmptyFile();
+        return descriptorFilePath;
     }
 }

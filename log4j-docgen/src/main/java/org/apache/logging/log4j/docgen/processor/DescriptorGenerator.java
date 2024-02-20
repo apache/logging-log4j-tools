@@ -28,6 +28,8 @@ import com.sun.source.util.DocTrees;
 import com.sun.source.util.SimpleDocTreeVisitor;
 import java.io.IOException;
 import java.io.Writer;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.Collection;
 import java.util.Comparator;
 import java.util.HashMap;
@@ -44,6 +46,7 @@ import javax.annotation.processing.ProcessingEnvironment;
 import javax.annotation.processing.Processor;
 import javax.annotation.processing.RoundEnvironment;
 import javax.annotation.processing.SupportedAnnotationTypes;
+import javax.annotation.processing.SupportedOptions;
 import javax.lang.model.SourceVersion;
 import javax.lang.model.element.AnnotationMirror;
 import javax.lang.model.element.Element;
@@ -64,8 +67,6 @@ import javax.lang.model.util.SimpleElementVisitor8;
 import javax.lang.model.util.SimpleTypeVisitor8;
 import javax.lang.model.util.Types;
 import javax.tools.Diagnostic;
-import javax.tools.FileObject;
-import javax.tools.StandardLocation;
 import javax.xml.stream.XMLStreamException;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.docgen.AbstractType;
@@ -83,19 +84,18 @@ import org.jspecify.annotations.Nullable;
 
 @ServiceProvider(value = Processor.class, resolution = Resolution.OPTIONAL)
 @SupportedAnnotationTypes({"org.apache.logging.log4j.core.config.plugins.*", "org.apache.logging.log4j.plugins.*"})
+@SupportedOptions({DescriptorGenerator.DESCRIPTOR_FILE_PATH_PROPERTY_NAME})
 @NullMarked
 public class DescriptorGenerator extends AbstractProcessor {
 
-    /**
-     * The file path generated descriptor will be written to.
-     */
-    public static final String DESCRIPTOR_FILE_PATH = "META-INF/log4j/plugins.xml";
+    static final String DESCRIPTOR_FILE_PATH_PROPERTY_NAME = "log4j.docgen.descriptorFilePath";
 
     private static final String MULTIPLICITY_UNBOUNDED = "*";
+
     private static final CharSequence[] GETTER_SETTER_PREFIXES = {"get", "is", "set"};
+
     /**
-     * Reference types from the {@code java.*} namespace that are described
-     * in {@code org/apache/logging/log4j/docgen/internal/configuration.xml}
+     * Reference types from the {@code java.*} namespace that are described in {@code org/apache/logging/log4j/docgen/generator/base-java-types.xml}.
      */
     private static final Set<String> KNOWN_SCALAR_TYPES = Set.of(
             "java.lang.Boolean",
@@ -108,57 +108,61 @@ public class DescriptorGenerator extends AbstractProcessor {
             "java.lang.Double",
             "java.lang.String");
 
-    private final PluginSet pluginSet;
+    private final PluginSet pluginSet = new PluginSet();
+
     // Abstract types to process
     private final Collection<TypeElement> abstractTypesToDocument = new HashSet<>();
+
     // Scalar types to process
     private final Collection<TypeElement> scalarTypesToDocument = new HashSet<>();
 
-    private AsciiDocConverter converter;
+    private Path descriptorFilePath;
+
     private DocTrees docTrees;
+
     private Elements elements;
-    private Types types;
+
     private Messager messager;
+
+    private Types types;
+
+    private AsciiDocConverter converter;
+
     private Annotations annotations;
-    // Type corresponding to java.util.Collection
+
+    // Type corresponding to `java.util.Collection`
     private DeclaredType collectionType;
-    // Type corresponding to java.lang.Enum
+
+    // Type corresponding to `java.lang.Enum`
     private DeclaredType enumType;
-
-    // Used by reflection
-    @SuppressWarnings("unused")
-    public DescriptorGenerator() {
-        this(new PluginSet());
-    }
-
-    public DescriptorGenerator(final PluginSet pluginSet) {
-        this.pluginSet = pluginSet;
-        // Will be initialized later
-        annotations = null;
-        collectionType = null;
-        converter = null;
-        docTrees = null;
-        elements = null;
-        enumType = null;
-        messager = null;
-        types = null;
-    }
 
     @Override
     public synchronized void init(final ProcessingEnvironment processingEnv) {
         super.init(processingEnv);
+        descriptorFilePath = getDescriptorFilePath(processingEnv);
         docTrees = DocTrees.instance(processingEnv);
         elements = processingEnv.getElementUtils();
         messager = processingEnv.getMessager();
         types = processingEnv.getTypeUtils();
-
         converter = new AsciiDocConverter(docTrees);
-
         annotations = new Annotations(elements, types);
-        collectionType = (DeclaredType)
-                types.erasure(elements.getTypeElement("java.util.Collection").asType());
-        enumType = (DeclaredType)
-                types.erasure(elements.getTypeElement("java.lang.Enum").asType());
+        collectionType = getDeclaredType(processingEnv, "java.util.Collection");
+        enumType = getDeclaredType(processingEnv, "java.lang.Enum");
+    }
+
+    private static Path getDescriptorFilePath(final ProcessingEnvironment processingEnv) {
+        @Nullable String descriptorFilePath = processingEnv.getOptions().get(DESCRIPTOR_FILE_PATH_PROPERTY_NAME);
+        if (StringUtils.isBlank(descriptorFilePath)) {
+            final String message = String.format("missing property: `%s`", DESCRIPTOR_FILE_PATH_PROPERTY_NAME);
+            throw new IllegalStateException(message);
+        }
+        return Path.of(descriptorFilePath);
+    }
+
+    private static DeclaredType getDeclaredType(final ProcessingEnvironment processingEnv, final String className) {
+        final Types typeUtils = processingEnv.getTypeUtils();
+        final Elements elementUtils = processingEnv.getElementUtils();
+        return (DeclaredType) typeUtils.erasure(elementUtils.getTypeElement(className).asType());
     }
 
     @Override
@@ -227,14 +231,11 @@ public class DescriptorGenerator extends AbstractProcessor {
 
     private void writePluginDescriptor() {
         try {
-            final FileObject output =
-                    processingEnv.getFiler().createResource(StandardLocation.CLASS_OUTPUT, "", DESCRIPTOR_FILE_PATH);
-
-            try (final Writer writer = output.openWriter()) {
+            try (final Writer writer = Files.newBufferedWriter(descriptorFilePath)) {
                 new PluginBundleStaxWriter().write(writer, pluginSet);
             }
         } catch (final IOException | XMLStreamException error) {
-            final String message = String.format("An error occurred while writing to `%s`", DESCRIPTOR_FILE_PATH);
+            final String message = String.format("failed to write to `%s`", descriptorFilePath);
             throw new RuntimeException(message, error);
         }
     }
