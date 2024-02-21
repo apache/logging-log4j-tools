@@ -100,24 +100,8 @@
         </class>
 
         <class>
-            <name>Documented</name>
-            <description>Any documented element.</description>
-            <fields>
-                <field>
-                    <name>description</name>
-                    <association>
-                        <type>Description</type>
-                    </association>
-                    <required>true</required>
-                    <description>Description of the plugin.</description>
-                </field>
-            </fields>
-        </class>
-
-        <class>
             <name>Type</name>
             <description>Any Java type used in a Log4j configuration.</description>
-            <superClass>Documented</superClass>
             <interfaces>
                 <interface>java.lang.Comparable&lt;Type&gt;</interface>
             </interfaces>
@@ -127,6 +111,13 @@
                     <type>String</type>
                     <required>true</required>
                     <description>Fully qualified name of the class implementing the plugin.</description>
+                </field>
+                <field>
+                    <name>description</name>
+                    <association>
+                        <type>Description</type>
+                    </association>
+                    <description>Description of the plugin.</description>
                 </field>
             </fields>
             <codeSegments>
