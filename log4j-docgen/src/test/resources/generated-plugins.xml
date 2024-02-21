@@ -16,6 +16,10 @@
   ~ limitations under the License.
   -->
 <pluginSet xmlns="https://logging.apache.org/xml/ns/plugins" version="0.1.0">
+    <groupId>com.example.groupId</groupId>
+    <artifactId>example-artifactId</artifactId>
+    <version>1.2.3</version>
+    <description>example description</description>
     <scalars>
         <scalar className="example.MyEnum">
             <values>

@@ -83,11 +83,25 @@ import org.jspecify.annotations.Nullable;
 
 @ServiceProvider(value = Processor.class, resolution = Resolution.OPTIONAL)
 @SupportedAnnotationTypes({"org.apache.logging.log4j.core.config.plugins.*", "org.apache.logging.log4j.plugins.*"})
-@SupportedOptions({DescriptorGenerator.DESCRIPTOR_FILE_PATH_PROPERTY_NAME})
+@SupportedOptions({
+    DescriptorGenerator.DESCRIPTOR_FILE_PATH_OPTION_KEY,
+    DescriptorGenerator.GROUP_ID_OPTION_KEY,
+    DescriptorGenerator.ARTIFACT_ID_OPTION_KEY,
+    DescriptorGenerator.VERSION_OPTION_KEY,
+    DescriptorGenerator.DESCRIPTION_OPTION_KEY
+})
 @NullMarked
 public class DescriptorGenerator extends AbstractProcessor {
 
-    static final String DESCRIPTOR_FILE_PATH_PROPERTY_NAME = "log4j.docgen.descriptorFilePath";
+    static final String DESCRIPTOR_FILE_PATH_OPTION_KEY = "log4j.docgen.descriptorFilePath";
+
+    static final String GROUP_ID_OPTION_KEY = "log4j.docgen.groupId";
+
+    static final String ARTIFACT_ID_OPTION_KEY = "log4j.docgen.artifactId";
+
+    static final String VERSION_OPTION_KEY = "log4j.docgen.version";
+
+    static final String DESCRIPTION_OPTION_KEY = "log4j.docgen.description";
 
     private static final String MULTIPLICITY_UNBOUNDED = "*";
 
@@ -107,13 +121,13 @@ public class DescriptorGenerator extends AbstractProcessor {
             "java.lang.Double",
             "java.lang.String");
 
-    private final PluginSet pluginSet = new PluginSet();
-
     // Abstract types to process
     private final Collection<TypeElement> abstractTypesToDocument = new HashSet<>();
 
     // Scalar types to process
     private final Collection<TypeElement> scalarTypesToDocument = new HashSet<>();
+
+    private PluginSet pluginSet;
 
     private Path descriptorFilePath;
 
@@ -138,7 +152,8 @@ public class DescriptorGenerator extends AbstractProcessor {
     @Override
     public synchronized void init(final ProcessingEnvironment processingEnv) {
         super.init(processingEnv);
-        descriptorFilePath = getDescriptorFilePath(processingEnv);
+        pluginSet = createPluginSet(processingEnv);
+        descriptorFilePath = Path.of(requireOption(processingEnv, DESCRIPTOR_FILE_PATH_OPTION_KEY));
         docTrees = DocTrees.instance(processingEnv);
         elements = processingEnv.getElementUtils();
         messager = processingEnv.getMessager();
@@ -149,13 +164,36 @@ public class DescriptorGenerator extends AbstractProcessor {
         enumType = getDeclaredType(processingEnv, "java.lang.Enum");
     }
 
-    private static Path getDescriptorFilePath(final ProcessingEnvironment processingEnv) {
-        @Nullable String descriptorFilePath = processingEnv.getOptions().get(DESCRIPTOR_FILE_PATH_PROPERTY_NAME);
-        if (StringUtils.isBlank(descriptorFilePath)) {
-            final String message = String.format("missing property: `%s`", DESCRIPTOR_FILE_PATH_PROPERTY_NAME);
-            throw new IllegalStateException(message);
+    private static PluginSet createPluginSet(final ProcessingEnvironment processingEnv) {
+        final PluginSet pluginSet = new PluginSet();
+        final String groupId = requireOption(processingEnv, GROUP_ID_OPTION_KEY);
+        final String artifactId = requireOption(processingEnv, ARTIFACT_ID_OPTION_KEY);
+        @Nullable final String version = getOption(processingEnv, VERSION_OPTION_KEY);
+        @Nullable final String description = getOption(processingEnv, DESCRIPTION_OPTION_KEY);
+        pluginSet.setGroupId(groupId);
+        pluginSet.setArtifactId(artifactId);
+        pluginSet.setVersion(version);
+        if (description != null) {
+            final Description descriptionModel = new Description();
+            descriptionModel.setText(description);
+            pluginSet.setDescription(descriptionModel);
         }
-        return Path.of(descriptorFilePath);
+        return pluginSet;
+    }
+
+    private static String requireOption(final ProcessingEnvironment processingEnv, final String key) {
+        @Nullable final String value = getOption(processingEnv, key);
+        if (value == null) {
+            final String message = String.format("missing option: `%s`", key);
+            throw new IllegalArgumentException(message);
+        }
+        return value;
+    }
+
+    @Nullable
+    private static String getOption(final ProcessingEnvironment processingEnv, final String key) {
+        @Nullable final String value = processingEnv.getOptions().get(key);
+        return StringUtils.isBlank(value) ? null : value.trim();
     }
 
     private static DeclaredType getDeclaredType(final ProcessingEnvironment processingEnv, final String className) {

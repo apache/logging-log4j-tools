@@ -100,7 +100,11 @@ public class DescriptorGeneratorTest {
                         "-proc:only",
                         "-processor",
                         DescriptorGenerator.class.getName(),
-                        "-A" + DescriptorGenerator.DESCRIPTOR_FILE_PATH_PROPERTY_NAME + "=" + descriptorFilePath),
+                        "-A" + DescriptorGenerator.DESCRIPTOR_FILE_PATH_OPTION_KEY + "=" + descriptorFilePath,
+                        "-A" + DescriptorGenerator.GROUP_ID_OPTION_KEY + "=com.example.groupId",
+                        "-A" + DescriptorGenerator.ARTIFACT_ID_OPTION_KEY + "=example-artifactId",
+                        "-A" + DescriptorGenerator.VERSION_OPTION_KEY + "=1.2.3",
+                        "-A" + DescriptorGenerator.DESCRIPTION_OPTION_KEY + "=example description"),
                 null,
                 sources);
         task.call();
