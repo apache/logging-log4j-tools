@@ -246,9 +246,8 @@ public class DescriptorGenerator extends AbstractProcessor {
     private void addAbstractTypeDocumentation(final QualifiedNameable element) {
         try {
             final AbstractType abstractType = new AbstractType();
-            populateAbstractType(element, abstractType);
-            @Nullable final Description description = abstractType.getDescription();
-            if (description != null) {
+            populateType(element, abstractType);
+            if (!abstractType.getClassName().startsWith("java.")) {
                 pluginSet.addAbstractType(abstractType);
             }
         } catch (final Exception error) {
@@ -284,10 +283,6 @@ public class DescriptorGenerator extends AbstractProcessor {
         docgenType.setClassName(element.getQualifiedName().toString());
         // Description
         docgenType.setDescription(createDescription(element, null));
-    }
-
-    private void populateAbstractType(final QualifiedNameable element, final AbstractType abstractType) {
-        populateType(element, abstractType);
     }
 
     private void populateScalarType(final TypeElement element, final ScalarType scalarType) {
@@ -334,7 +329,7 @@ public class DescriptorGenerator extends AbstractProcessor {
     }
 
     private void populatePlugin(final TypeElement element, final PluginType pluginType) {
-        populateAbstractType(element, pluginType);
+        populateType(element, pluginType);
         // Supertypes
         registerSupertypes(element).forEach(pluginType::addSupertype);
         // Plugin factory
