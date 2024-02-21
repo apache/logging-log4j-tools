@@ -27,6 +27,7 @@ import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugins.annotations.LifecyclePhase;
 import org.apache.maven.plugins.annotations.Mojo;
 import org.apache.maven.plugins.annotations.Parameter;
+import org.jspecify.annotations.Nullable;
 
 /**
  * Goal generating an XSD from a given plugin descriptor, e.g., {@code plugins.xml}.
@@ -37,10 +38,24 @@ import org.apache.maven.plugins.annotations.Parameter;
 public class SchemaGeneratorMojo extends AbstractMojo {
 
     /**
-     * The paths of the plugin descriptor XML files
+     * The paths of the plugin descriptor XML files.
+     * <p>
+     * If you want to provide to a multitude of files, you might want to use {@link #descriptorFileMatchers} instead.
+     * </p>
      */
-    @Parameter(property = "log4j.docgen.descriptorFiles", required = true)
+    @Nullable
+    @Parameter(property = "log4j.docgen.descriptorFiles")
     private File[] descriptorFiles;
+
+    /**
+     * The {@link java.nio.file.FileSystem#getPathMatcher(String) PathMatcher}s to populate the paths of the plugin descriptor XML files.
+     * <p>
+     * If you want to refer to a particular file, you might want to use {@link #descriptorFiles} instead.
+     * </p>
+     */
+    @Nullable
+    @Parameter
+    private PathMatcherMojo[] descriptorFileMatchers;
 
     /**
      * The path of the XSD file to write to
@@ -50,7 +65,8 @@ public class SchemaGeneratorMojo extends AbstractMojo {
 
     @Override
     public void execute() throws MojoExecutionException {
-        final Set<PluginSet> pluginSets = PluginSets.ofDescriptorFiles(descriptorFiles);
+        final Set<PluginSet> pluginSets =
+                PluginSets.ofDescriptorFilesAndFileMatchers(descriptorFiles, descriptorFileMatchers);
         try {
             final SchemaGeneratorArgs generatorArgs = new SchemaGeneratorArgs(pluginSets, schemaFile.toPath());
             SchemaGenerator.generateSchema(generatorArgs);

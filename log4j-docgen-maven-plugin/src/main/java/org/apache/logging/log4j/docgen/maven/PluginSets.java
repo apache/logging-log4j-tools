@@ -17,17 +17,37 @@
 package org.apache.logging.log4j.docgen.maven;
 
 import java.io.File;
+import java.nio.file.Path;
 import java.util.Arrays;
+import java.util.LinkedHashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
 import org.apache.logging.log4j.docgen.PluginSet;
 import org.apache.logging.log4j.docgen.io.stax.PluginBundleStaxReader;
+import org.jspecify.annotations.Nullable;
 
 final class PluginSets {
 
-    static Set<PluginSet> ofDescriptorFiles(File[] descriptorFiles) {
+    static Set<PluginSet> ofDescriptorFilesAndFileMatchers(
+            @Nullable final File[] descriptorFiles, @Nullable final PathMatcherMojo[] descriptorFileMatchers) {
+
+        // Check arguments
+        final File[] effectiveDescriptorFiles = descriptorFiles != null ? descriptorFiles : new File[0];
+        final PathMatcherMojo[] effectiveDescriptorFileMatchers =
+                descriptorFileMatchers != null ? descriptorFileMatchers : new PathMatcherMojo[0];
+        if (effectiveDescriptorFiles.length == 0 && effectiveDescriptorFileMatchers.length == 0) {
+            throw new IllegalArgumentException(
+                    "at least one of the `descriptorFiles` and `descriptorFileMatchers` configurations must be provided");
+        }
+
+        // Collect paths
+        final Set<Path> foundDescriptorPaths = new LinkedHashSet<>();
+        Arrays.stream(effectiveDescriptorFiles).map(File::toPath).forEach(foundDescriptorPaths::add);
+        Arrays.stream(effectiveDescriptorFileMatchers).forEach(matcher -> matcher.findPaths(foundDescriptorPaths::add));
+
+        // Create plugin sets
         final PluginBundleStaxReader reader = new PluginBundleStaxReader();
-        return Arrays.stream(descriptorFiles)
+        return foundDescriptorPaths.stream()
                 .map(descriptorFile -> {
                     try {
                         return reader.read(descriptorFile.toString());

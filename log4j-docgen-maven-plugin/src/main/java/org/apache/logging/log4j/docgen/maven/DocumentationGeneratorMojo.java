@@ -26,6 +26,7 @@ import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugins.annotations.LifecyclePhase;
 import org.apache.maven.plugins.annotations.Mojo;
 import org.apache.maven.plugins.annotations.Parameter;
+import org.jspecify.annotations.Nullable;
 
 /**
  * Goal generating documentation by feeding the configuration collected from the provided plugin descriptors (e.g., {@code plugins.xml}) to the FreeMarker templates provided.
@@ -36,48 +37,63 @@ import org.apache.maven.plugins.annotations.Parameter;
 public class DocumentationGeneratorMojo extends AbstractMojo {
 
     /**
-     * The paths of the plugin descriptor XML files
+     * The paths of the plugin descriptor XML files.
+     * <p>
+     * If you want to provide to a multitude of files, you might want to use {@link #descriptorFileMatchers} instead.
+     * </p>
      */
-    @Parameter(property = "log4j.docgen.descriptorFiles", required = true)
+    @Nullable
+    @Parameter(property = "log4j.docgen.descriptorFiles")
     private File[] descriptorFiles;
 
     /**
-     * The path to the FreeMarker template directory
+     * The {@link java.nio.file.FileSystem#getPathMatcher(String) PathMatcher}s to populate the paths of the plugin descriptor XML files.
+     * <p>
+     * If you want to refer to a particular file, you might want to use {@link #descriptorFiles} instead.
+     * </p>
+     */
+    @Nullable
+    @Parameter
+    private PathMatcherMojo[] descriptorFileMatchers;
+
+    /**
+     * The path to the FreeMarker template directory.
      */
     @Parameter(property = "log4j.docgen.templateDirectory", required = true)
     private File templateDirectory;
 
     /**
-     * The template that will be used to document scalar types
+     * The template that will be used to document scalar types.
      */
     @Parameter(required = true)
     private DocumentationTemplateMojo scalarsTemplate;
 
     /**
-     * The template that will be used to document plugins
+     * The template that will be used to document plugins.
      */
     @Parameter(required = true)
-    private DocumentationTemplateMojo pluginTemplateName;
+    private DocumentationTemplateMojo pluginTemplate;
 
     /**
-     * The template that will be used to document interfaces
+     * The template that will be used to document interfaces.
      */
     @Parameter(required = true)
     private DocumentationTemplateMojo interfaceTemplate;
 
     @Override
     public void execute() {
-        final Set<PluginSet> pluginSets = PluginSets.ofDescriptorFiles(descriptorFiles);
+        final Set<PluginSet> pluginSets =
+                PluginSets.ofDescriptorFilesAndFileMatchers(descriptorFiles, descriptorFileMatchers);
         final DocumentationGeneratorArgs generatorArgs = new DocumentationGeneratorArgs(
                 pluginSets,
                 templateDirectory.toPath(),
                 toApiModel(scalarsTemplate),
-                toApiModel(pluginTemplateName),
+                toApiModel(pluginTemplate),
                 toApiModel(interfaceTemplate));
         DocumentationGenerator.generateDocumentation(generatorArgs);
     }
 
     private static DocumentationTemplate toApiModel(final DocumentationTemplateMojo mojo) {
-        return new DocumentationTemplate(mojo.name, mojo.targetPath);
+        return new DocumentationTemplate(mojo.source, mojo.target);
     }
 }

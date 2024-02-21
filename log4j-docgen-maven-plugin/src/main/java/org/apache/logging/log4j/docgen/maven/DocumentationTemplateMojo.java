@@ -18,6 +18,9 @@ package org.apache.logging.log4j.docgen.maven;
 
 import org.apache.maven.plugins.annotations.Parameter;
 
+/**
+ * Models a FreeMarker template source and target.
+ */
 public final class DocumentationTemplateMojo {
 
     /**
@@ -28,7 +31,7 @@ public final class DocumentationTemplateMojo {
      * </p>
      */
     @Parameter(required = true)
-    String name;
+    String source;
 
     /**
      * The target file path rendered content will be written to.
@@ -50,5 +53,5 @@ public final class DocumentationTemplateMojo {
      * </ul>
      */
     @Parameter(required = true)
-    String targetPath;
+    String target;
 }
