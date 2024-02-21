@@ -50,7 +50,7 @@ public final class PathMatcherMojo {
     private boolean dotFilesExcluded;
 
     /**
-     * The path patterns (e.g., {@code glob:*.xml}) that will be used to filter paths found in {@link #baseDirectory}.
+     * The path patterns (e.g., <code>glob:**&#47;*.xml</code>) that will be used to filter paths found in {@link #baseDirectory}.
      * @see FileSystem#getPathMatcher(String)
      */
     @Nullable
