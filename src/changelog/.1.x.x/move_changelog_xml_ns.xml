@@ -2,7 +2,8 @@
 <entry xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns="https://logging.apache.org/xml/ns"
        xsi:schemaLocation="https://logging.apache.org/xml/ns https://logging.apache.org/log4j/tools/1.x/xsd/changelog.xsd"
-       type="updated">
-  <issue id="98" link="https://github.com/apache/logging-log4j-tools/pull/98"/>
-  <description format="asciidoc">Update `org.apache.maven.plugin-tools:maven-plugin-annotations` to version `3.11.0`</description>
+       type="changed">
+  <description format="asciidoc">
+    Move `log4j-changelog` XML namespace and schema location to `https://logging.apache.org/xml/ns` and `https://logging.apache.org/log4j/tools/1.x/xsd/changelog.xsd`, respectively
+  </description>
 </entry>

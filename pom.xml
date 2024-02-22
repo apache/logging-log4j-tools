@@ -178,6 +178,35 @@
         </executions>
       </plugin>
 
+      <!-- Fix broken changelog entry file validation inherited from `logging-parent`.
+
+           Inherited `validate-changelog` execution explicitly fixes the `log4j-changelog` namespace and schema location.
+           For one, this is not necessary, since all changelog entry files contain explicit namespace and schema location attributes.
+           Second, this makes it impossible to upgrade changelog entry file schemas to a newer version than the one expected by `logging-parent`.
+
+           TODO: This will probably be fixed in `logging-parent` version `11.0.0` release.
+                 Hence, from then on, this `xml-maven-plugin` override can be removed. -->
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>xml-maven-plugin</artifactId>
+        <executions>
+          <execution>
+            <id>validate-changelog</id>
+            <configuration combine.self="override">
+              <validationSets>
+                <validationSet>
+                  <dir>src/changelog</dir>
+                  <includes>
+                    <include>**/*.xml</include>
+                  </includes>
+                  <validating>true</validating>
+                </validationSet>
+              </validationSets>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+
     </plugins>
   </build>
 

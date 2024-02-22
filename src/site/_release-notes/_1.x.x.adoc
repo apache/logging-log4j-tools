@@ -46,6 +46,11 @@ This minor release contains various bug fixes and improvements.
 
 * Add a `log4j-docgen` module with a common XML model to document sets of Log4j plugins.
 
+[#release-notes-1-x-x-changed]
+==== Changed
+
+* Move `log4j-changelog` XML namespace and schema location to `https://logging.apache.org/xml/ns` and `https://logging.apache.org/log4j/tools/1.x/xsd/changelog.xsd`, respectively
+
 [#release-notes-1-x-x-removed]
 ==== Removed
 

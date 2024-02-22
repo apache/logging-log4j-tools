@@ -15,9 +15,9 @@
   ~ See the License for the specific language governing permissions and
   ~ limitations under the License.
   -->
-<entry xmlns="http://logging.apache.org/log4j/changelog"
+<entry xmlns="https://logging.apache.org/xml/ns"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xsi:schemaLocation="http://logging.apache.org/log4j/changelog https://logging.apache.org/log4j/changelog-0.1.3.xsd"
+       xsi:schemaLocation="https://logging.apache.org/xml/ns https://logging.apache.org/log4j/tools/1.x/xsd/changelog.xsd"
        type="added">
   <issue id="LOG4J2-857" link="https://issues.apache.org/jira/browse/LOG4J2-857"/>
   <description format="asciidoc">

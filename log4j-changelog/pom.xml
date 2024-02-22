@@ -79,4 +79,30 @@
 
   </dependencies>
 
+  <build>
+    <plugins>
+
+      <!-- Copy `src/main/resources/log4j-changelog.xsd` to `src/site/xsd/changelog.xsd` of the root module -->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-antrun-plugin</artifactId>
+        <executions>
+          <execution>
+            <id>copy-changelog-xsd</id>
+            <goals>
+              <goal>run</goal>
+            </goals>
+            <phase>generate-resources</phase>
+            <configuration>
+              <target>
+                <copy file="${project.build.resources[0].directory}/log4j-changelog.xsd" overwrite="true" tofile="${maven.multiModuleProjectDirectory}/src/site/xsd/changelog.xsd" />
+              </target>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+
+    </plugins>
+  </build>
+
 </project>
