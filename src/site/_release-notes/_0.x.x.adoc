@@ -52,6 +52,7 @@ This minor release contains various bug fixes and improvements.
 * Update `org.apache.logging:logging-parent` to version `10.6.0`
 * Update `jakarta.inject:jakarta.inject-api` to version `2.0.1` (https://github.com/apache/logging-log4j-tools/pull/94[94])
 * Update `org.apache.logging.log4j:log4j-core` to version `2.23.0` (https://github.com/apache/logging-log4j-tools/pull/106[106])
+* Update `org.apache.logging.log4j:log4j-plugins` to version `3.0.0-beta2` (https://github.com/apache/logging-log4j-tools/pull/107[107])
 * Update `org.apache.maven.plugin-tools:maven-plugin-annotations` to version `3.11.0` (https://github.com/apache/logging-log4j-tools/pull/98[98])
 * Update `org.assertj:assertj-core` to version `3.25.3` (https://github.com/apache/logging-log4j-tools/pull/104[104])
 * Update `org.codehaus.modello:modello-maven-plugin` to version `2.3.0` (https://github.com/apache/logging-log4j-tools/pull/105[105])
