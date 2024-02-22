@@ -37,7 +37,7 @@
     <!-- Dependency versions -->
     <asciidoctorj-api.version>3.0.0-alpha.2</asciidoctorj-api.version>
     <!-- We explicitly test against Log4j 2 -->
-    <log4j-core.version>2.22.1</log4j-core.version>
+    <log4j-core.version>2.23.0</log4j-core.version>
     <log4j-plugins.version>3.0.0-beta1</log4j-plugins.version>
 
   </properties>
