@@ -19,8 +19,6 @@
        xmlns="http://logging.apache.org/log4j/changelog"
        xsi:schemaLocation="http://logging.apache.org/log4j/changelog https://logging.apache.org/log4j/changelog-0.1.3.xsd"
        type="fixed">
-  <description format="asciidoc">
-    `log4j-tools-bom` was broken due to removed `parent` during flattening.
-    This is automatically fixed by the recent `logging-parent` version `10.4.0` update.
-  </description>
+  <description format="asciidoc">`log4j-tools-bom` was broken due to removed `parent` during flattening.
+This is automatically fixed by the recent `logging-parent` version `10.4.0` update.</description>
 </entry>

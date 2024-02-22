@@ -49,7 +49,8 @@ This minor release contains various bug fixes and improvements.
 [#release-notes-0-6-0-fixed]
 ==== Fixed
 
-* `log4j-tools-bom` was broken due to removed `parent` during flattening. This is automatically fixed by the recent `logging-parent` version `10.4.0` update.
+* `log4j-tools-bom` was broken due to removed `parent` during flattening.
+This is automatically fixed by the recent `logging-parent` version `10.4.0` update.
 
 [#release-notes-0-6-0-updated]
 ==== Updated
