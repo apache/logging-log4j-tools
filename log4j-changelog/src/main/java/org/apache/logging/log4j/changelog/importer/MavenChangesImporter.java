@@ -16,8 +16,6 @@
  */
 package org.apache.logging.log4j.changelog.importer;
 
-import static org.apache.logging.log4j.changelog.util.StringUtils.isBlank;
-
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
@@ -98,22 +96,11 @@ public final class MavenChangesImporter {
             issues.add(issue);
         }
 
-        // Create the `author`s
-        final List<ChangelogEntry.Author> authors = new ArrayList<>(2);
-        for (final String authorId : action.dev.split("\\s*,\\s*")) {
-            if (!isBlank(authorId)) {
-                authors.add(new ChangelogEntry.Author(authorId, null));
-            }
-        }
-        if (action.dueTo != null) {
-            authors.add(new ChangelogEntry.Author(null, action.dueTo));
-        }
-
         // Create the `description`
         final ChangelogEntry.Description description = new ChangelogEntry.Description("asciidoc", action.description);
 
         // Create the instance
-        return new ChangelogEntry(type, issues, authors, description);
+        return new ChangelogEntry(type, issues, description);
     }
 
     /**

@@ -37,12 +37,12 @@ For complete information on Apache Log4j 2, including instructions on how to sub
 
 === Added
 
-* Don't use `Paths.get()` to avoid circular file systems [https://issues.apache.org/jira/browse/LOG4J2-3527[LOG4J2-3527]] (@rgoers)
+* Don't use `Paths.get()` to avoid circular file systems [https://issues.apache.org/jira/browse/LOG4J2-3527[LOG4J2-3527]]
 
 === Fixed
 
-* `DirectWriteRolloverStrategy` should use the current time when creating files [https://issues.apache.org/jira/browse/LOG4J2-3339[LOG4J2-3339]] (@rgoers)
+* `DirectWriteRolloverStrategy` should use the current time when creating files [https://issues.apache.org/jira/browse/LOG4J2-3339[LOG4J2-3339]]
 
 === Removed
 
-* The `DirectWriteRolloverStrategy` was not detecting the correct index to use during startup [https://issues.apache.org/jira/browse/LOG4J2-3490[LOG4J2-3490]] (@rgoers)
+* The `DirectWriteRolloverStrategy` was not detecting the correct index to use during startup [https://issues.apache.org/jira/browse/LOG4J2-3490[LOG4J2-3490]]

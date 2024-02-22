@@ -27,5 +27,5 @@ Changes staged for the next 3.x.x version that is yet to be released.
 
 === Changed
 
-* Simplify Maven `site` phase and align it with the one in `release-2.x` branch [https://github.com/apache/logging-log4j2/pull/1220[1220]] (@vy)
-* Switch the issue tracker from https://issues.apache.org/jira/browse/LOG4J2[JIRA] to https://github.com/apache/logging-log4j2/issues[GitHub Issues] [https://github.com/apache/logging-log4j2/pull/1221[1221]] (@vy)
+* Simplify Maven `site` phase and align it with the one in `release-2.x` branch [https://github.com/apache/logging-log4j2/pull/1220[1220]]
+* Switch the issue tracker from https://issues.apache.org/jira/browse/LOG4J2[JIRA] to https://github.com/apache/logging-log4j2/issues[GitHub Issues] [https://github.com/apache/logging-log4j2/pull/1221[1221]]

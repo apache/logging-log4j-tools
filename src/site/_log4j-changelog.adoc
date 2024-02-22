@@ -132,8 +132,6 @@ A sample _changelog entry_ file is shared below.
            https://logging.apache.org/log4j/changelog-0.1.3.xsd"
        type="fixed">
   <issue id="LOG4J2-3556" link="https://issues.apache.org/jira/browse/LOG4J2-3556"/>
-  <author id="github:vy"/>
-  <author name="Arthur Gavlyukovskiy"/>
   <description format="asciidoc">
     Make `JsonTemplateLayout` stack trace truncation operate for each label block
   </description>
@@ -151,14 +149,6 @@ Some remarks about the structure of changelog entry files:
 ** `removed` – for now removed features
 ** `updated` – for dependency updates
 * `issue` element is optional, can occur multiple times, and, if present, must contain `id` and `link` attributes
-* `author` element is optional, can occur multiple times, and, if present, must have at least one of `id` or `name` attributes
-+
-[WARNING]
-====
-The usage of `author` is mostly discouraged.
-It is yet another bit to maintain and creates role-related (who did what) problems.
-Many modern software projects are developed using a VCS (e.g., Git) and supporting services (e.g., GitHub) which make it trivial to trace back the origin of a change using commit and issue IDs.
-====
 * There must be a single `description` element with non-blank content and `format` attribute
 
 [#log4j-changelog-export]
@@ -204,8 +194,7 @@ This release primarily contains bug fixes and minor enhancements.
 
 <#list entries as entry>
 * ${entry.description.text?replace("\\s+", " ", "r")}
-(for <#list entry.issues as issue>${issue.link}[${issue.id}]<#if issue?has_next>, </#if></#list>
-by <#list entry.authors as author><#if author.name?has_content>${author.name}<#else>`${author.id}`</#if><#if author?has_next>, </#if></#list>)
+(<#list entry.issues as issue>${issue.link}[${issue.id}]<#if issue?has_next>, </#if></#list>)
 </#list>
 </#list>
 </#if>

@@ -33,20 +33,28 @@
     3. Commit both `.release-notes.adoc.ftl` and the generated `7.8.0.adoc`
 ////
 
-[#release-notes-0-x-x]
-=== 0.x.x
+[#release-notes-1-x-x]
+=== 1.x.x
 
 
 
 This minor release contains various bug fixes and improvements.
 
 
-[#release-notes-0-x-x-added]
+[#release-notes-1-x-x-added]
 ==== Added
 
 * Add a `log4j-docgen` module with a common XML model to document sets of Log4j plugins.
 
-[#release-notes-0-x-x-updated]
+[#release-notes-1-x-x-removed]
+==== Removed
+
+* Remove `author` from `log4j-changelog`.
++
+It was yet another bit to maintain and created role-related (who did what) problems.
+Many modern software projects use a VCS (e.g., Git) and support services (e.g., GitHub) which make it trivial to trace back the origin of a change using commit and issue IDs.
+
+[#release-notes-1-x-x-updated]
 ==== Updated
 
 * Update `org.apache.logging:logging-parent` to version `10.6.0`

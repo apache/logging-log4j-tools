@@ -48,9 +48,9 @@ For complete information on Apache Log4j 2, including instructions on how to sub
 
 === Fixed
 
-* Flag `LogManager` as initialized if the `LoggerFactory` is provided as a property [https://issues.apache.org/jira/browse/LOG4J2-3304[LOG4J2-3304]] (@rgoers, francis-FY)
+* Flag `LogManager` as initialized if the `LoggerFactory` is provided as a property [https://issues.apache.org/jira/browse/LOG4J2-3304[LOG4J2-3304]]
 
 === Removed
 
-* Fix `ThreadContextDataInjector` initialization deadlock [https://issues.apache.org/jira/browse/LOG4J2-3333[LOG4J2-3333]] (@ckozak)
-* Document that the Spring Boot Lookup requires the `log4j-spring-boot` dependency [https://issues.apache.org/jira/browse/LOG4J2-3405[LOG4J2-3405]] (@rgoers)
+* Fix `ThreadContextDataInjector` initialization deadlock [https://issues.apache.org/jira/browse/LOG4J2-3333[LOG4J2-3333]]
+* Document that the Spring Boot Lookup requires the `log4j-spring-boot` dependency [https://issues.apache.org/jira/browse/LOG4J2-3405[LOG4J2-3405]]

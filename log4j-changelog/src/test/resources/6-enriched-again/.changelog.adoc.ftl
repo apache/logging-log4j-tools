@@ -20,7 +20,7 @@
 === ${entryType?capitalize}
 
 <#list entries as entry>
-* ${entry.description.text?replace("\\s+", " ", "r")}<#if entry.issues?has_content> [<#list entry.issues as issue>${issue.link}[${issue.id}]<#if issue?has_next>, </#if></#list>]</#if><#if entry.authors?has_content> (<#list entry.authors as author><#if author.id?has_content>@${author.id}<#else>${author.name}</#if><#if author?has_next>, </#if></#list>)</#if>
+* ${entry.description.text?replace("\\s+", " ", "r")}<#if entry.issues?has_content> [<#list entry.issues as issue>${issue.link}[${issue.id}]<#if issue?has_next>, </#if></#list>]</#if>
 </#list>
 </#list>
 </#if>

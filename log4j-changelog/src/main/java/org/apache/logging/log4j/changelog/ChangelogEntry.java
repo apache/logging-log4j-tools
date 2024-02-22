@@ -16,7 +16,6 @@
  */
 package org.apache.logging.log4j.changelog;
 
-import edu.umd.cs.findbugs.annotations.Nullable;
 import java.nio.file.Path;
 import java.util.List;
 import java.util.Locale;
@@ -31,8 +30,6 @@ public final class ChangelogEntry {
     public final Type type;
 
     public final List<Issue> issues;
-
-    public final List<Author> authors;
 
     public final Description description;
 
@@ -71,18 +68,6 @@ public final class ChangelogEntry {
         }
     }
 
-    public static final class Author {
-
-        public final String id;
-
-        public final String name;
-
-        public Author(final String id, final String name) {
-            this.id = id;
-            this.name = name;
-        }
-    }
-
     public static final class Description {
 
         public final String format;
@@ -95,11 +80,9 @@ public final class ChangelogEntry {
         }
     }
 
-    public ChangelogEntry(
-            final Type type, final List<Issue> issues, final List<Author> authors, final Description description) {
+    public ChangelogEntry(final Type type, final List<Issue> issues, final Description description) {
         this.type = type;
         this.issues = issues;
-        this.authors = authors;
         this.description = description;
     }
 
@@ -115,17 +98,6 @@ public final class ChangelogEntry {
                 issueElement.setAttribute("id", issue.id);
                 issueElement.setAttribute("link", issue.link);
                 entryElement.appendChild(issueElement);
-            });
-
-            // Create the `author` elements
-            authors.forEach(author -> {
-                final Element authorElement = document.createElement("author");
-                if (author.id != null) {
-                    authorElement.setAttribute("id", author.id);
-                } else {
-                    authorElement.setAttribute("name", author.name);
-                }
-                entryElement.appendChild(authorElement);
             });
 
             // Create the `description` element
@@ -159,22 +131,6 @@ public final class ChangelogEntry {
                 })
                 .collect(Collectors.toList());
 
-        // Read the `author` elements
-        final List<Author> authors = XmlReader.findChildElementsMatchingName(entryElement, "author")
-                .map(authorElement -> {
-                    @Nullable
-                    final String authorId = authorElement.hasAttribute("id") ? authorElement.getAttribute("id") : null;
-                    @Nullable
-                    final String authorName =
-                            authorElement.hasAttribute("name") ? authorElement.getAttribute("name") : null;
-                    if (authorId == null && authorName == null) {
-                        throw XmlReader.failureAtXmlNode(
-                                authorElement, "`author` must have at least one of `id` or `name` attributes");
-                    }
-                    return new Author(authorId, authorName);
-                })
-                .collect(Collectors.toList());
-
         // Read the `description` element
         final Element descriptionElement = XmlReader.requireChildElementMatchingName(entryElement, "description");
         final String descriptionFormat = XmlReader.requireAttribute(descriptionElement, "format");
@@ -182,6 +138,6 @@ public final class ChangelogEntry {
         final Description description = new Description(descriptionFormat, descriptionText);
 
         // Create the instance
-        return new ChangelogEntry(type, issues, authors, description);
+        return new ChangelogEntry(type, issues, description);
     }
 }

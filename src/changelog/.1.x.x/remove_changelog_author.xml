@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entry xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns="http://logging.apache.org/log4j/changelog"
+       xsi:schemaLocation="http://logging.apache.org/log4j/changelog https://logging.apache.org/log4j/changelog-0.1.3.xsd"
+       type="removed">
+  <description format="asciidoc">Remove `author` from `log4j-changelog`.
++
+It was yet another bit to maintain and created role-related (who did what) problems.
+Many modern software projects use a VCS (e.g., Git) and support services (e.g., GitHub) which make it trivial to trace back the origin of a change using commit and issue IDs.</description>
+</entry>
