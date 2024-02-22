@@ -269,6 +269,10 @@ public class DescriptorGenerator extends AbstractProcessor {
 
     private void writePluginDescriptor() {
         try {
+            @Nullable final Path descriptorFileParentPath = descriptorFilePath.getParent();
+            if (descriptorFileParentPath != null) {
+                Files.createDirectories(descriptorFileParentPath);
+            }
             try (final Writer writer = Files.newBufferedWriter(descriptorFilePath)) {
                 new PluginBundleStaxWriter().write(writer, pluginSet);
             }

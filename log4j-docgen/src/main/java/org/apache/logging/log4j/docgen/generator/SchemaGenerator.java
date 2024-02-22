@@ -21,6 +21,7 @@ import static java.util.Objects.requireNonNull;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -67,6 +68,10 @@ public final class SchemaGenerator {
                     .collect(Collectors.toList());
             final TypeLookup lookup = TypeLookup.of(extendedSets);
             final XMLOutputFactory factory = XMLOutputFactory.newFactory();
+            @Nullable final Path schemaFileParent = args.schemaFile.getParent();
+            if (schemaFileParent != null) {
+                Files.createDirectories(schemaFileParent);
+            }
             try (final OutputStream schemaPathOutputStream = Files.newOutputStream(args.schemaFile)) {
                 final XMLStreamWriter writer = factory.createXMLStreamWriter(schemaPathOutputStream, CHARSET_NAME);
                 try {
@@ -198,11 +203,14 @@ public final class SchemaGenerator {
             implementations.add(abstractType.getClassName());
         }
         for (final String implementation : implementations) {
-            final PluginType pluginType = (PluginType) lookup.get(implementation).type;
-            for (final String key : getKeyAndAliases(pluginType)) {
-                writer.writeEmptyElement(XSD_NAMESPACE, "element");
-                writer.writeAttribute("name", key);
-                writer.writeAttribute("type", LOG4J_PREFIX + ":" + pluginType.getClassName());
+            @Nullable final ArtifactSourcedType sourcedType = lookup.get(implementation);
+            if (sourcedType != null) {
+                final PluginType pluginType = (PluginType) sourcedType.type;
+                for (final String key : getKeyAndAliases(pluginType)) {
+                    writer.writeEmptyElement(XSD_NAMESPACE, "element");
+                    writer.writeAttribute("name", key);
+                    writer.writeAttribute("type", LOG4J_PREFIX + ":" + pluginType.getClassName());
+                }
             }
         }
 
@@ -235,8 +243,15 @@ public final class SchemaGenerator {
             final TypeLookup lookup, final PluginElement element, final XMLStreamWriter writer)
             throws XMLStreamException {
         final String type = element.getType();
-        final String xmlType = getXmlType(lookup, type);
-        final AbstractType abstractType = (AbstractType) lookup.get(type).type;
+        @Nullable final String xmlType = getXmlType(lookup, type);
+        if (xmlType == null) {
+            return;
+        }
+        final Type rawType = lookup.get(type).type;
+        if (!(rawType instanceof AbstractType)) {
+            return;
+        }
+        final AbstractType abstractType = (AbstractType) rawType;
         final PluginType pluginType = abstractType instanceof PluginType ? (PluginType) abstractType : null;
         /*
          * If a plugin extends another plugin or has multiple aliases
@@ -265,9 +280,13 @@ public final class SchemaGenerator {
     private static void writePluginAttribute(
             final TypeLookup lookup, final PluginAttribute attribute, final XMLStreamWriter writer)
             throws XMLStreamException {
+        @Nullable final String xmlType = getXmlType(lookup, attribute.getType());
+        if (xmlType == null) {
+            return;
+        }
         writer.writeStartElement(XSD_NAMESPACE, "attribute");
         writer.writeAttribute("name", attribute.getName());
-        writer.writeAttribute("type", getXmlType(lookup, attribute.getType()));
+        writer.writeAttribute("type", xmlType);
         final Description description = attribute.getDescription();
         if (description != null) {
             writeDocumentation(description, writer);
@@ -275,6 +294,7 @@ public final class SchemaGenerator {
         writer.writeEndElement();
     }
 
+    @Nullable
     private static String getXmlType(final TypeLookup lookup, final String className) {
         switch (className) {
             case "boolean":
@@ -292,7 +312,7 @@ public final class SchemaGenerator {
         if (type != null) {
             return LOG4J_PREFIX + ":" + className;
         }
-        throw new IllegalArgumentException("Unknown Java type '" + className + "'.");
+        return null;
     }
 
     private static void writeMultiplicity(
