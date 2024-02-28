@@ -19,7 +19,7 @@
   ~ This is a test schema used in `SchemaGeneratorTest`.
   ~ Unlike this file the `SchemaGenerator` strips whitespace.
   -->
-<schema xmlns="http://www.w3.org/2001/XMLSchema" xmlns:log4j="http://logging.apache.org/xml/ns/config" elementFormDefault="qualified" targetNamespace="http://logging.apache.org/xml/ns/config">
+<schema xmlns="http://www.w3.org/2001/XMLSchema" xmlns:log4j="https://logging.apache.org/xml/ns" elementFormDefault="qualified" targetNamespace="https://logging.apache.org/xml/ns" version="0.1.0">
   <element type="log4j:org.apache.logging.log4j.core.config.Configuration" name="Configuration"/>
   <simpleType name="org.apache.logging.log4j.Level">
     <annotation>

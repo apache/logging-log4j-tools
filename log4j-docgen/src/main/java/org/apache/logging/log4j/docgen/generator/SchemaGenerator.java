@@ -51,9 +51,11 @@ public final class SchemaGenerator {
 
     private static final String LOG4J_PREFIX = "log4j";
 
-    private static final String LOG4J_NAMESPACE = "http://logging.apache.org/xml/ns/config";
+    private static final String LOG4J_NAMESPACE = "https://logging.apache.org/xml/ns";
 
     private static final String XSD_NAMESPACE = XMLConstants.W3C_XML_SCHEMA_NS_URI;
+
+    private static final String VERSION = new PluginSet().getSchemaVersion();
 
     private static final String MULTIPLICITY_UNBOUNDED = "*";
 
@@ -93,6 +95,7 @@ public final class SchemaGenerator {
         writer.writeNamespace(LOG4J_PREFIX, LOG4J_NAMESPACE);
         writer.writeAttribute("elementFormDefault", "qualified");
         writer.writeAttribute("targetNamespace", LOG4J_NAMESPACE);
+        writer.writeAttribute("version", VERSION);
 
         // The root element
         writer.writeEmptyElement(XSD_NAMESPACE, "element");
