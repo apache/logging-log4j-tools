@@ -17,5 +17,5 @@
   -->
 <release xmlns="https://logging.apache.org/xml/ns"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="https://logging.apache.org/xml/ns https://logging.apache.org/log4j/tools/1.x/xsd/changelog.xsd"
+         xsi:schemaLocation="https://logging.apache.org/xml/ns https://logging.apache.org/xml/ns/log4j-changelog-1.0.0.xsd"
          date="2022-06-28" version="2.18.0"/>

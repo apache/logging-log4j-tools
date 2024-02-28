@@ -17,7 +17,7 @@
   -->
 <entry xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns="https://logging.apache.org/xml/ns"
-       xsi:schemaLocation="https://logging.apache.org/xml/ns https://logging.apache.org/log4j/tools/1.x/xsd/changelog.xsd"
+       xsi:schemaLocation="https://logging.apache.org/xml/ns https://logging.apache.org/xml/ns/log4j-changelog-1.0.0.xsd"
        type="added">
   <issue id="37" link="https://github.com/apache/logging-log4j-tools/issues/37"/>
   <description format="asciidoc">The changelog release models passed to the index template file (`.index.adoc.ftl`) is enriched with `changelogEntryCount` fields</description>

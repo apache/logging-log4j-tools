@@ -17,7 +17,7 @@
   -->
 <entry xmlns="https://logging.apache.org/xml/ns"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xsi:schemaLocation="https://logging.apache.org/xml/ns https://logging.apache.org/log4j/tools/1.x/xsd/changelog.xsd"
+       xsi:schemaLocation="https://logging.apache.org/xml/ns https://logging.apache.org/xml/ns/log4j-changelog-1.0.0.xsd"
        type="removed">
   <issue id="LOG4J2-3490" link="https://issues.apache.org/jira/browse/LOG4J2-3490"/>
   <description format="asciidoc">The `DirectWriteRolloverStrategy` was not detecting the correct index to use during startup</description>

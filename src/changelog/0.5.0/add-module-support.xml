@@ -17,7 +17,7 @@
   -->
 <entry xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns="https://logging.apache.org/xml/ns"
-       xsi:schemaLocation="https://logging.apache.org/xml/ns https://logging.apache.org/log4j/tools/1.x/xsd/changelog.xsd"
+       xsi:schemaLocation="https://logging.apache.org/xml/ns https://logging.apache.org/xml/ns/log4j-changelog-1.0.0.xsd"
        type="added">
   <description format="asciidoc">Added OSGi and JPMS support</description>
 </entry>

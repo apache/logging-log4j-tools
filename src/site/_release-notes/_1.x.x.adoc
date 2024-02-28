@@ -49,7 +49,7 @@ This minor release contains various bug fixes and improvements.
 [#release-notes-1-x-x-changed]
 ==== Changed
 
-* Move `log4j-changelog` XML namespace and schema location to `https://logging.apache.org/xml/ns` and `https://logging.apache.org/log4j/tools/1.x/xsd/changelog.xsd`, respectively
+* Move `log4j-changelog` XML namespace and schema location to `https://logging.apache.org/xml/ns` and `https://logging.apache.org/xml/ns/log4j-changelog-1.0.0.xsd`, respectively
 
 [#release-notes-1-x-x-removed]
 ==== Removed
