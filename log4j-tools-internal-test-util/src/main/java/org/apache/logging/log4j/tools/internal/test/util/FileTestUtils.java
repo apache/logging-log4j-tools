@@ -28,6 +28,7 @@ import java.util.TreeMap;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
+import org.assertj.core.api.SoftAssertions;
 
 public final class FileTestUtils {
 
@@ -42,13 +43,15 @@ public final class FileTestUtils {
         assertThat(actualContents).containsOnlyKeys(relativeFilePaths);
 
         // Compare file contents
+        final SoftAssertions assertions = new SoftAssertions();
         relativeFilePaths.forEach(relativeFilePath -> {
             final Path actualFilePath = actualContents.get(relativeFilePath);
             final Path expectedFilePath = expectedContents.get(relativeFilePath);
             if (!Files.isDirectory(actualFilePath) || !Files.isDirectory(expectedFilePath)) {
-                assertThat(actualFilePath).hasSameTextualContentAs(expectedFilePath);
+                assertions.assertThat(actualFilePath).hasSameTextualContentAs(expectedFilePath);
             }
         });
+        assertions.assertAll();
     }
 
     private static Map<String, Path> directoryContents(final Path root) {

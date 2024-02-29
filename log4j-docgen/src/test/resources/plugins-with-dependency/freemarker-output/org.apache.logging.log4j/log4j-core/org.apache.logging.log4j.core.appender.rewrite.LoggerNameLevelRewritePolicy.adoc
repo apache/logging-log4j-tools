@@ -27,7 +27,7 @@ Rewrites log event levels for a given logger name.
 [source, xml]
 ----
 <LoggerNameLevelRewritePolicy logger="">
-    <KeyValuePair/>
+    <KeyValuePair/><!-- multiple occurrences allowed -->
 </LoggerNameLevelRewritePolicy>
 ----
 

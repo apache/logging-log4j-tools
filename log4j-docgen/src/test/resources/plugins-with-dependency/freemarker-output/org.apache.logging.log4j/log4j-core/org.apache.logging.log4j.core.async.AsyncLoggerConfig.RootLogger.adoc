@@ -31,8 +31,8 @@ An asynchronous root Logger.
            level=""
            levelAndRefs="">
     <a-Filter-implementation/>
-    <AppenderRef/>
-    <property/>
+    <AppenderRef/><!-- multiple occurrences allowed -->
+    <property/><!-- multiple occurrences allowed -->
 </asyncRoot>
 ----
 

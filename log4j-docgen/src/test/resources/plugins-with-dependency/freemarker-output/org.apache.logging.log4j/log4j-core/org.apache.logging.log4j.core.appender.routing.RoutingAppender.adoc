@@ -36,7 +36,7 @@ The pattern should contain one or more substitution patterns of the form "$${[ke
     <a-RewritePolicy-implementation/>
     <a-PurgePolicy-implementation/>
     <Routes/>
-    <property/>
+    <property/><!-- multiple occurrences allowed -->
     <a-AbstractScript-implementation/>
 </Routing>
 ----

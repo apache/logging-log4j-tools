@@ -79,7 +79,7 @@ Optional components are denoted by `?`-suffixed types.
 |Tag|Type|Description
 
 |
-|xref:../scalars.adoc#java_lang_String[String]?
+|String?
 a|An array of Strings where each String is a xref:Pattern.adoc[] compilation flag.
 
 |===

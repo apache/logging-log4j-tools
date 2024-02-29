@@ -35,7 +35,7 @@ Character encoding is handled within the Layout.
               name="">
     <a-Filter-implementation/>
     <a-Layout-implementation/>
-    <property/>
+    <property/><!-- multiple occurrences allowed -->
 </OutputStream>
 ----
 

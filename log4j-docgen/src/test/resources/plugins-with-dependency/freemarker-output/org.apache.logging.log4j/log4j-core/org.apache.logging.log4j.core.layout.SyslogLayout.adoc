@@ -32,6 +32,7 @@ Formats a log event as a BSD Log record.
               header=""
               newLine=""
               newLineEscape="">
+    <a-Serializer-implementation/>
 </SyslogLayout>
 ----
 
@@ -84,5 +85,9 @@ Optional components are denoted by `?`-suffixed types.
 [cols="1m,1m,5"]
 |===
 |Tag|Type|Description
+
+|
+|Serializer?
+a|
 
 |===

@@ -47,8 +47,9 @@ This layout compresses JSON to GZIP or ZLIB (the `compressionType`) if log event
             threadContextExcludes=""
             threadContextIncludes=""
             threadContextPrefix="">
+    <a-Serializer-implementation/>
     <a-PatternSelector-implementation/>
-    <KeyValuePair/>
+    <KeyValuePair/><!-- multiple occurrences allowed -->
 </GelfLayout>
 ----
 
@@ -170,6 +171,10 @@ Optional components are denoted by `?`-suffixed types.
 [cols="1m,1m,5"]
 |===
 |Tag|Type|Description
+
+|
+|Serializer?
+a|
 
 |
 |xref:../log4j-core/org.apache.logging.log4j.core.layout.PatternSelector.adoc[PatternSelector]?

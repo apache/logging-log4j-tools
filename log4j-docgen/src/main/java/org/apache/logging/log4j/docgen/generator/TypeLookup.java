@@ -16,8 +16,10 @@
  */
 package org.apache.logging.log4j.docgen.generator;
 
+import java.util.Iterator;
 import java.util.Set;
 import java.util.TreeMap;
+import java.util.function.Predicate;
 import org.apache.logging.log4j.docgen.AbstractType;
 import org.apache.logging.log4j.docgen.PluginSet;
 import org.apache.logging.log4j.docgen.PluginType;
@@ -27,13 +29,14 @@ final class TypeLookup extends TreeMap<String, ArtifactSourcedType> {
 
     private static final long serialVersionUID = 1L;
 
-    static TypeLookup of(final Iterable<? extends PluginSet> pluginSets) {
-        return new TypeLookup(pluginSets);
+    static TypeLookup of(final Iterable<? extends PluginSet> pluginSets, final Predicate<String> classNameFilter) {
+        return new TypeLookup(pluginSets, classNameFilter);
     }
 
-    private TypeLookup(final Iterable<? extends PluginSet> pluginSets) {
+    private TypeLookup(final Iterable<? extends PluginSet> pluginSets, final Predicate<String> classNameFilter) {
         mergeDescriptors(pluginSets);
         populateTypeHierarchy(pluginSets);
+        filterTypes(classNameFilter);
     }
 
     private void mergeDescriptors(Iterable<? extends PluginSet> pluginSets) {
@@ -101,6 +104,17 @@ final class TypeLookup extends TreeMap<String, ArtifactSourcedType> {
             final ArtifactSourcedType sourcedType = ArtifactSourcedType.ofPluginSet(pluginSet, type);
             put(className, sourcedType);
             return type;
+        }
+    }
+
+    private void filterTypes(final Predicate<String> classNameMatcher) {
+        final Iterator<String> classNameIterator = keySet().iterator();
+        while (classNameIterator.hasNext()) {
+            final String className = classNameIterator.next();
+            final boolean matching = classNameMatcher.test(className);
+            if (!matching) {
+                classNameIterator.remove();
+            }
         }
     }
 }

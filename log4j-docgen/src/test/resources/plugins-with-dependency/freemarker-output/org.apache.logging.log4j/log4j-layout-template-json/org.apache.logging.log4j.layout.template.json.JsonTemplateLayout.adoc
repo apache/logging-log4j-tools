@@ -39,7 +39,7 @@ Provider:: `org.apache.logging.log4j:log4j-layout-template-json`
                     stackTraceElementTemplateUri=""
                     stackTraceEnabled=""
                     truncatedStringSuffix="">
-    <EventTemplateAdditionalField/>
+    <EventTemplateAdditionalField/><!-- multiple occurrences allowed -->
 </JsonTemplateLayout>
 ----
 

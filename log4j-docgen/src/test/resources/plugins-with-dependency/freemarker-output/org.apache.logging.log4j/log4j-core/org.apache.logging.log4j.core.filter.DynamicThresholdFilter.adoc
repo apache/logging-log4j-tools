@@ -32,7 +32,7 @@ By default the context is the xref:ThreadContext.adoc[], but users may xref:Cont
                         key=""
                         onMatch=""
                         onMismatch="">
-    <KeyValuePair/>
+    <KeyValuePair/><!-- multiple occurrences allowed -->
 </DynamicThresholdFilter>
 ----
 

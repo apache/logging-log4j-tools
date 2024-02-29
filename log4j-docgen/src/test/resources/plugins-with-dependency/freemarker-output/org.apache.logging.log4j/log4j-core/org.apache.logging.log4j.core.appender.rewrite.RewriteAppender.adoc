@@ -30,7 +30,7 @@ This Appender allows the logging event to be manipulated before it is processed 
          name="">
     <a-Filter-implementation/>
     <a-RewritePolicy-implementation/>
-    <AppenderRef/>
+    <AppenderRef/><!-- multiple occurrences allowed -->
 </Rewrite>
 ----
 

@@ -42,7 +42,7 @@ Formats a log event in accordance with RFC 5424.
                newLine=""
                newLineEscape=""
                useTlsMessageFormat="">
-    <LoggerFields/>
+    <LoggerFields/><!-- multiple occurrences allowed -->
 </Rfc5424Layout>
 ----
 

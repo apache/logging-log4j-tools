@@ -19,54 +19,6 @@ limitations under the License.
 
 Type converter plugins are used to convert simple `String` values into other types.
 
-[#boolean]
-== `boolean`
-
-
-A boolean value
-
-[#boolean-values]
-=== Possible values
-
-`false`:: false
-`true`:: true
-
-[#byte]
-== `byte`
-
-
-An 8-bit signed integer from `-128` to `127`
-
-[#double]
-== `double`
-
-
-A double precision floating number from `4.94065645841246544e-324` to `1.79769313486231570e+308`
-
-[#float]
-== `float`
-
-
-A single precision floating number from `1.40239846e-45` to `3.40282347e+38`
-
-[#int]
-== `int`
-
-
-A 32-bit signed integer from `-2147483648` to `2147483647`
-
-[#java_lang_String]
-== `java.lang.String`
-
-
-A string of characters
-
-[#long]
-== `long`
-
-
-A 64-bit signed integer from `-9223372036854775808` to `9223372036854775807`
-
 [#org_apache_logging_log4j_Level]
 == `org.apache.logging.log4j.Level`
 
@@ -114,9 +66,3 @@ Specifies the target of a console appender.
 
 `SYSTEM_OUT`:: Logs to the standard output.
 `SYSTEM_ERR`:: Logs to the standard error.
-
-[#short]
-== `short`
-
-
-A 16-bit signed integer from `-32768` to `32767`

@@ -18,16 +18,15 @@ package org.apache.logging.log4j.docgen.maven;
 
 import java.io.File;
 import java.util.Set;
+import java.util.function.Predicate;
 import javax.xml.stream.XMLStreamException;
 import org.apache.logging.log4j.docgen.PluginSet;
 import org.apache.logging.log4j.docgen.generator.SchemaGenerator;
 import org.apache.logging.log4j.docgen.generator.SchemaGeneratorArgs;
-import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugins.annotations.LifecyclePhase;
 import org.apache.maven.plugins.annotations.Mojo;
 import org.apache.maven.plugins.annotations.Parameter;
-import org.jspecify.annotations.Nullable;
 
 /**
  * Goal generating an XSD from a given plugin descriptor, e.g., {@code plugins.xml}.
@@ -35,27 +34,7 @@ import org.jspecify.annotations.Nullable;
  * @see SchemaGenerator
  */
 @Mojo(name = "generate-schema", defaultPhase = LifecyclePhase.GENERATE_RESOURCES, threadSafe = true)
-public class SchemaGeneratorMojo extends AbstractMojo {
-
-    /**
-     * The paths of the plugin descriptor XML files.
-     * <p>
-     * If you want to provide to a multitude of files, you might want to use {@link #descriptorFileMatchers} instead.
-     * </p>
-     */
-    @Nullable
-    @Parameter(property = "log4j.docgen.descriptorFiles")
-    private File[] descriptorFiles;
-
-    /**
-     * The {@link java.nio.file.FileSystem#getPathMatcher(String) PathMatcher}s to populate the paths of the plugin descriptor XML files.
-     * <p>
-     * If you want to refer to a particular file, you might want to use {@link #descriptorFiles} instead.
-     * </p>
-     */
-    @Nullable
-    @Parameter
-    private PathMatcherMojo[] descriptorFileMatchers;
+public class SchemaGeneratorMojo extends AbstractGeneratorMojo {
 
     /**
      * The path of the XSD file to write to
@@ -67,8 +46,10 @@ public class SchemaGeneratorMojo extends AbstractMojo {
     public void execute() throws MojoExecutionException {
         final Set<PluginSet> pluginSets =
                 PluginSets.ofDescriptorFilesAndFileMatchers(descriptorFiles, descriptorFileMatchers);
+        final Predicate<String> classNameFilter = typeFilter != null ? typeFilter.createPredicate() : ignored -> true;
         try {
-            final SchemaGeneratorArgs generatorArgs = new SchemaGeneratorArgs(pluginSets, schemaFile.toPath());
+            final SchemaGeneratorArgs generatorArgs =
+                    new SchemaGeneratorArgs(pluginSets, classNameFilter, schemaFile.toPath());
             SchemaGenerator.generateSchema(generatorArgs);
         } catch (final XMLStreamException error) {
             final String message = String.format("failed generating the schema file `%s`", schemaFile);

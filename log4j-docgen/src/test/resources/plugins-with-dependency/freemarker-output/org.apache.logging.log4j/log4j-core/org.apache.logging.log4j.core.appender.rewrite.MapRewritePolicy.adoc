@@ -27,7 +27,7 @@ This policy modifies events by replacing or possibly adding keys and values to t
 [source, xml]
 ----
 <MapRewritePolicy mode="">
-    <KeyValuePair/>
+    <KeyValuePair/><!-- multiple occurrences allowed -->
 </MapRewritePolicy>
 ----
 

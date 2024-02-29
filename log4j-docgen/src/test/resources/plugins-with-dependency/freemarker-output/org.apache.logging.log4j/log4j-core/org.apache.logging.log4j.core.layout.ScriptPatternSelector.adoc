@@ -33,7 +33,7 @@ If no key is returned or there is no match the default pattern will be used.
                        defaultPattern=""
                        disableAnsi=""
                        noConsoleNoAnsi="">
-    <PatternMatch/>
+    <PatternMatch/><!-- multiple occurrences allowed -->
     <a-AbstractScript-implementation/>
 </ScriptPatternSelector>
 ----

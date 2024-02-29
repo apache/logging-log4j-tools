@@ -28,7 +28,7 @@ Configures the root logger
 ----
 <Root includeLocation=""
       level="ERROR">
-    <AppenderRef/>
+    <AppenderRef/><!-- multiple occurrences allowed -->
     <a-Filter-implementation/>
 </Root>
 ----

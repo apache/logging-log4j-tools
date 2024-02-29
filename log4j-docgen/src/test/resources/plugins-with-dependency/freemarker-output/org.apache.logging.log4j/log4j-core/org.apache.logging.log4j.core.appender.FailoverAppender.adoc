@@ -78,7 +78,7 @@ Optional components are denoted by `?`-suffixed types.
 |Tag|Type|Description
 
 |
-|xref:../scalars.adoc#java_lang_String[String]?
+|String?
 a|The name of one or more Appenders to fail over to (at least one is required).
 
 |

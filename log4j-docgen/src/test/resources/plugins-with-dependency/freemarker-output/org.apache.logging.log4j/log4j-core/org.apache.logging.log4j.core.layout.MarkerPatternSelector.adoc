@@ -30,7 +30,7 @@ Selects the pattern to use based on the Marker in the LogEvent.
                        defaultPattern=""
                        disableAnsi=""
                        noConsoleNoAnsi="">
-    <PatternMatch/>
+    <PatternMatch/><!-- multiple occurrences allowed -->
 </MarkerPatternSelector>
 ----
 

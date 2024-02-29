@@ -23,12 +23,15 @@ import static org.apache.logging.log4j.tools.internal.test.util.FileTestUtils.as
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Set;
+import java.util.function.Predicate;
 import org.apache.logging.log4j.docgen.PluginSet;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.CleanupMode;
 import org.junit.jupiter.api.io.TempDir;
 
 public class DocumentationGeneratorTest {
+
+    private static final Predicate<String> CLASS_NAME_MATCHER = className -> !className.startsWith("java.");
 
     @Test
     void simple_descriptor_should_work(@TempDir(cleanup = CleanupMode.ON_SUCCESS) final Path outputDir) {
@@ -54,6 +57,7 @@ public class DocumentationGeneratorTest {
         final Path templateDirectory = Paths.get("src/test/resources/templates");
         final DocumentationGeneratorArgs generatorArgs = new DocumentationGeneratorArgs(
                 pluginSets,
+                CLASS_NAME_MATCHER,
                 templateDirectory,
                 new DocumentationTemplate(
                         "scalars.adoc.ftl", outputDir.resolve("scalars.adoc").toString()),

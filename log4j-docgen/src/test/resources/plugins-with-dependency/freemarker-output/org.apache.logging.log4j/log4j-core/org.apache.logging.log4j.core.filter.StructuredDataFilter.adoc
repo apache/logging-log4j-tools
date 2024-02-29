@@ -29,7 +29,7 @@ Filter based on data in a StructuredDataMessage.
 <StructuredDataFilter onMatch=""
                       onMismatch=""
                       operator="">
-    <KeyValuePair/>
+    <KeyValuePair/><!-- multiple occurrences allowed -->
 </StructuredDataFilter>
 ----
 

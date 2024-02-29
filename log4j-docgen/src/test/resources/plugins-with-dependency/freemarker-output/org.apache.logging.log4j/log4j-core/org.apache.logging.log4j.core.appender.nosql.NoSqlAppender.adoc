@@ -35,8 +35,9 @@ For examples on how to write your own NoSQL provider, see the simple source code
        name="">
     <a-Filter-implementation/>
     <a-Layout-implementation/>
-    <property/>
-    <KeyValuePair/>
+    <a-NoSqlProvider-implementation/>
+    <property/><!-- multiple occurrences allowed -->
+    <KeyValuePair/><!-- multiple occurrences allowed -->
 </NoSql>
 ----
 
@@ -74,6 +75,10 @@ Optional components are denoted by `?`-suffixed types.
 [cols="1m,1m,5"]
 |===
 |Tag|Type|Description
+
+|
+|NoSqlProvider?
+a|Sets the provider.
 
 |property
 |xref:../log4j-core/org.apache.logging.log4j.core.config.Property.adoc[Property]?

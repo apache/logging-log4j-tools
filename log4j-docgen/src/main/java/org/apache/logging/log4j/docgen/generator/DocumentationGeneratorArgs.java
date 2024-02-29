@@ -20,11 +20,14 @@ import static java.util.Objects.requireNonNull;
 
 import java.nio.file.Path;
 import java.util.Set;
+import java.util.function.Predicate;
 import org.apache.logging.log4j.docgen.PluginSet;
 
 public final class DocumentationGeneratorArgs {
 
     final Set<PluginSet> pluginSets;
+
+    final Predicate<String> classNameFilter;
 
     final Path templateDirectory;
 
@@ -36,11 +39,13 @@ public final class DocumentationGeneratorArgs {
 
     public DocumentationGeneratorArgs(
             final Set<PluginSet> pluginSets,
+            final Predicate<String> classNameFilter,
             final Path templateDirectory,
             final DocumentationTemplate scalarsTemplate,
             final DocumentationTemplate pluginTemplate,
             final DocumentationTemplate interfaceTemplate) {
         this.pluginSets = requireNonNull(pluginSets, "pluginSets");
+        this.classNameFilter = requireNonNull(classNameFilter, "classNameFilter");
         this.templateDirectory = requireNonNull(templateDirectory, "templateDirectory");
         this.scalarsTemplate = requireNonNull(scalarsTemplate, "scalarsTemplate");
         this.pluginTemplate = requireNonNull(pluginTemplate, "pluginTemplate");

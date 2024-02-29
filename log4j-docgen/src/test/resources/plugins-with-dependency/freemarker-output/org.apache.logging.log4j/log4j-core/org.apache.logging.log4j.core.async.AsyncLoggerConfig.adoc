@@ -47,8 +47,8 @@ This means that even with immediateFlush=false, there will never be any items le
              levelAndRefs=""
              name="">
     <a-Filter-implementation/>
-    <AppenderRef/>
-    <property/>
+    <AppenderRef/><!-- multiple occurrences allowed -->
+    <property/><!-- multiple occurrences allowed -->
 </asyncLogger>
 ----
 

@@ -33,7 +33,7 @@ This handy to get you off the ground without having to deal with JNDI.
                driverClassName=""
                password=""
                userName="">
-    <property/>
+    <property/><!-- multiple occurrences allowed -->
 </DriverManager>
 ----
 

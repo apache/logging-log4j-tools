@@ -43,7 +43,7 @@ OTOH, a Writer cannot print byte streams.
          target="">
     <a-Filter-implementation/>
     <a-Layout-implementation/>
-    <property/>
+    <property/><!-- multiple occurrences allowed -->
 </Console>
 ----
 

@@ -43,7 +43,7 @@ An appender that writes to random access files and can roll over at intervals.
     <a-Layout-implementation/>
     <a-RolloverStrategy-implementation/>
     <a-TriggeringPolicy-implementation/>
-    <property/>
+    <property/><!-- multiple occurrences allowed -->
 </RollingRandomAccessFile>
 ----
 

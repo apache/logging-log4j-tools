@@ -18,15 +18,14 @@ package org.apache.logging.log4j.docgen.maven;
 
 import java.io.File;
 import java.util.Set;
+import java.util.function.Predicate;
 import org.apache.logging.log4j.docgen.PluginSet;
 import org.apache.logging.log4j.docgen.generator.DocumentationGenerator;
 import org.apache.logging.log4j.docgen.generator.DocumentationGeneratorArgs;
 import org.apache.logging.log4j.docgen.generator.DocumentationTemplate;
-import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugins.annotations.LifecyclePhase;
 import org.apache.maven.plugins.annotations.Mojo;
 import org.apache.maven.plugins.annotations.Parameter;
-import org.jspecify.annotations.Nullable;
 
 /**
  * Goal generating documentation by feeding the configuration collected from the provided plugin descriptors (e.g., {@code plugins.xml}) to the FreeMarker templates provided.
@@ -34,27 +33,7 @@ import org.jspecify.annotations.Nullable;
  * @see DocumentationGenerator
  */
 @Mojo(name = "generate-documentation", defaultPhase = LifecyclePhase.GENERATE_RESOURCES, threadSafe = true)
-public class DocumentationGeneratorMojo extends AbstractMojo {
-
-    /**
-     * The paths of the plugin descriptor XML files.
-     * <p>
-     * If you want to provide to a multitude of files, you might want to use {@link #descriptorFileMatchers} instead.
-     * </p>
-     */
-    @Nullable
-    @Parameter(property = "log4j.docgen.descriptorFiles")
-    private File[] descriptorFiles;
-
-    /**
-     * The {@link java.nio.file.FileSystem#getPathMatcher(String) PathMatcher}s to populate the paths of the plugin descriptor XML files.
-     * <p>
-     * If you want to refer to a particular file, you might want to use {@link #descriptorFiles} instead.
-     * </p>
-     */
-    @Nullable
-    @Parameter
-    private PathMatcherMojo[] descriptorFileMatchers;
+public class DocumentationGeneratorMojo extends AbstractGeneratorMojo {
 
     /**
      * The path to the FreeMarker template directory.
@@ -84,8 +63,10 @@ public class DocumentationGeneratorMojo extends AbstractMojo {
     public void execute() {
         final Set<PluginSet> pluginSets =
                 PluginSets.ofDescriptorFilesAndFileMatchers(descriptorFiles, descriptorFileMatchers);
+        final Predicate<String> classNameFilter = typeFilter != null ? typeFilter.createPredicate() : ignored -> true;
         final DocumentationGeneratorArgs generatorArgs = new DocumentationGeneratorArgs(
                 pluginSets,
+                classNameFilter,
                 templateDirectory.toPath(),
                 toApiModel(scalarsTemplate),
                 toApiModel(pluginTemplate),

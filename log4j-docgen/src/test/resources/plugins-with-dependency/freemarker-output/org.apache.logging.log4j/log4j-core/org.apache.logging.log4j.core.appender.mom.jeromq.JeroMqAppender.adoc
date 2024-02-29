@@ -52,7 +52,7 @@ Requires the JeroMQ jar (LGPL as of 0.3.5)
         xpubVerbose="">
     <a-Filter-implementation/>
     <a-Layout-implementation/>
-    <property/>
+    <property/><!-- multiple occurrences allowed -->
 </JeroMQ>
 ----
 

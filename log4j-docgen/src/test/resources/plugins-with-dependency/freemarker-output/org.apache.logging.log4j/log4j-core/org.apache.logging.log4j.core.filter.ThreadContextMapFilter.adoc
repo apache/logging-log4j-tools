@@ -29,7 +29,7 @@ Filter based on a value in the Thread Context Map (MDC).
 <ThreadContextMapFilter onMatch=""
                         onMismatch=""
                         operator="">
-    <KeyValuePair/>
+    <KeyValuePair/><!-- multiple occurrences allowed -->
 </ThreadContextMapFilter>
 ----
 

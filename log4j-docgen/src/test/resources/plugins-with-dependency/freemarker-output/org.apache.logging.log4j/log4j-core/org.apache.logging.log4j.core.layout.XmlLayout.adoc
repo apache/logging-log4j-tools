@@ -56,7 +56,8 @@ Supports Lookup expressions.
            locationInfo=""
            properties=""
            stacktraceAsString="">
-    <KeyValuePair/>
+    <a-Serializer-implementation/>
+    <KeyValuePair/><!-- multiple occurrences allowed -->
 </XmlLayout>
 ----
 
@@ -146,6 +147,10 @@ Optional components are denoted by `?`-suffixed types.
 [cols="1m,1m,5"]
 |===
 |Tag|Type|Description
+
+|
+|Serializer?
+a|
 
 |KeyValuePair
 |xref:../log4j-core/org.apache.logging.log4j.core.util.KeyValuePair.adoc[KeyValuePair]?

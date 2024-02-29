@@ -35,7 +35,7 @@ Sends log events over HTTP.
       verifyHostname="">
     <a-Filter-implementation/>
     <a-Layout-implementation/>
-    <property/>
+    <property/><!-- multiple occurrences allowed -->
     <Ssl/>
 </Http>
 ----

@@ -19,24 +19,6 @@ limitations under the License.
 
 Type converter plugins are used to convert simple `String` values into other types.
 
-[#boolean]
-== `boolean`
-
-
-A boolean value
-
-[#boolean-values]
-=== Possible values
-
-`false`:: false
-`true`:: true
-
-[#byte]
-== `byte`
-
-
-An 8-bit signed integer from `-128` to `127`
-
 [#com_conversantmedia_util_concurrent_SpinPolicy]
 == `com.conversantmedia.util.concurrent.SpinPolicy`
 
@@ -50,71 +32,6 @@ Provider:: `org.apache.logging.log4j:log4j-core`
 `WAITING`:: 
 `BLOCKING`:: 
 `SPINNING`:: 
-
-[#double]
-== `double`
-
-
-A double precision floating number from `4.94065645841246544e-324` to `1.79769313486231570e+308`
-
-[#float]
-== `float`
-
-
-A single precision floating number from `1.40239846e-45` to `3.40282347e+38`
-
-[#int]
-== `int`
-
-
-A 32-bit signed integer from `-2147483648` to `2147483647`
-
-[#java_lang_Class]
-== `java.lang.Class`
-
-Provider:: `org.apache.logging.log4j:log4j-core`
-
-
-
-[#java_lang_String]
-== `java.lang.String`
-
-
-A string of characters
-
-[#java_net_InetAddress]
-== `java.net.InetAddress`
-
-Provider:: `org.apache.logging.log4j:log4j-core`
-
-
-
-[#java_net_URL]
-== `java.net.URL`
-
-Provider:: `org.apache.logging.log4j:log4j-core`
-
-
-
-[#java_nio_charset_Charset]
-== `java.nio.charset.Charset`
-
-Provider:: `org.apache.logging.log4j:log4j-core`
-
-
-
-[#java_util_regex_Pattern]
-== `java.util.regex.Pattern`
-
-Provider:: `org.apache.logging.log4j:log4j-core`
-
-
-
-[#long]
-== `long`
-
-
-A 64-bit signed integer from `-9223372036854775808` to `9223372036854775807`
 
 [#org_apache_commons_csv_QuoteMode]
 == `org.apache.commons.csv.QuoteMode`
@@ -413,9 +330,3 @@ Provider:: `org.apache.logging.log4j:log4j-layout-template-json`
 Provider:: `org.apache.logging.log4j:log4j-layout-template-json`
 
 
-
-[#short]
-== `short`
-
-
-A 16-bit signed integer from `-32768` to `32767`

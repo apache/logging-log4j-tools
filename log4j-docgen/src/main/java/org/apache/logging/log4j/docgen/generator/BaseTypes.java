@@ -28,9 +28,7 @@ final class BaseTypes {
     static final Set<PluginSet> PLUGIN_SETS = readBaseTypes();
 
     private static Set<PluginSet> readBaseTypes() {
-        return Stream.of("base-java-types.xml", "base-log4j-types.xml")
-                .map(BaseTypes::readBaseTypes)
-                .collect(Collectors.toSet());
+        return Stream.of("base-log4j-types.xml").map(BaseTypes::readBaseTypes).collect(Collectors.toSet());
     }
 
     private static PluginSet readBaseTypes(final String resourceName) {

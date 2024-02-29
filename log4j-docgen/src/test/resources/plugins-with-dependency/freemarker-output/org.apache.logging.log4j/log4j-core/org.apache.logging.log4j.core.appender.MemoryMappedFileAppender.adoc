@@ -38,7 +38,7 @@ Memory Mapped File Appender.
                   regionLength="">
     <a-Filter-implementation/>
     <a-Layout-implementation/>
-    <property/>
+    <property/><!-- multiple occurrences allowed -->
 </MemoryMappedFile>
 ----
 

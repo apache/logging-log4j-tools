@@ -27,7 +27,7 @@ Contains the individual Route elements.
 [source, xml]
 ----
 <Routes pattern="">
-    <Route/>
+    <Route/><!-- multiple occurrences allowed -->
     <a-AbstractScript-implementation/>
 </Routes>
 ----

@@ -29,7 +29,7 @@ A LoggerFields container.
 <LoggerFields discardIfAllFieldsAreEmpty=""
               enterpriseId=""
               sdId="">
-    <KeyValuePair/>
+    <KeyValuePair/><!-- multiple occurrences allowed -->
 </LoggerFields>
 ----
 

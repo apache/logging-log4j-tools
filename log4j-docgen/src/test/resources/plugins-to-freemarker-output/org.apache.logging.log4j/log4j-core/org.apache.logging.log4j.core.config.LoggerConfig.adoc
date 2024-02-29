@@ -29,7 +29,7 @@ Configures a particular logger
 <Logger includeLocation=""
         level=""
         name="">
-    <AppenderRef/>
+    <AppenderRef/><!-- multiple occurrences allowed -->
     <a-Filter-implementation/>
 </Logger>
 ----

@@ -35,7 +35,7 @@ Sends log events to an Apache Kafka topic.
        topic="">
     <a-Filter-implementation/>
     <a-Layout-implementation/>
-    <property/>
+    <property/><!-- multiple occurrences allowed -->
 </Kafka>
 ----
 

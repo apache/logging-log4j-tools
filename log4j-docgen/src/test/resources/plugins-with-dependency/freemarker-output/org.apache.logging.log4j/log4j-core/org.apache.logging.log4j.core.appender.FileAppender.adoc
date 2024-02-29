@@ -42,7 +42,7 @@ File Appender.
       name="">
     <a-Filter-implementation/>
     <a-Layout-implementation/>
-    <property/>
+    <property/><!-- multiple occurrences allowed -->
 </File>
 ----
 

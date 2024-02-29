@@ -41,7 +41,7 @@ public final class DocumentationGenerator {
         requireNonNull(args, "args");
         final List<PluginSet> extendedSets = Stream.concat(BaseTypes.PLUGIN_SETS.stream(), args.pluginSets.stream())
                 .collect(Collectors.toList());
-        final TypeLookup lookup = TypeLookup.of(extendedSets);
+        final TypeLookup lookup = TypeLookup.of(extendedSets, args.classNameFilter);
         final Collection<ArtifactSourcedType> scalarTypes = new TreeSet<>();
         lookup.forEach((className, sourcedType) -> {
             final Type type = sourcedType.type;

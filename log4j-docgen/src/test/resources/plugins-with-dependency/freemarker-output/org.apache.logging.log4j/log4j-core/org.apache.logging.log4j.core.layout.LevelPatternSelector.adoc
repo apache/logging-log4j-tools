@@ -30,7 +30,7 @@ Selects the pattern to use based on the Level in the LogEvent.
                       defaultPattern=""
                       disableAnsi=""
                       noConsoleNoAnsi="">
-    <PatternMatch/>
+    <PatternMatch/><!-- multiple occurrences allowed -->
 </LevelPatternSelector>
 ----
 

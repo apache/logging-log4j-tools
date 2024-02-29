@@ -44,7 +44,7 @@ However, configurations set up for the 2.0 version of the JMS appenders will sti
      userName="">
     <a-Filter-implementation/>
     <a-Layout-implementation/>
-    <property/>
+    <property/><!-- multiple occurrences allowed -->
 </JMS>
 ----
 

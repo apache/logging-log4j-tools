@@ -51,7 +51,7 @@ This can be modified by setting a filter for the appender.
       to="">
     <a-Filter-implementation/>
     <a-Layout-implementation/>
-    <property/>
+    <property/><!-- multiple occurrences allowed -->
     <Ssl/>
 </SMTP>
 ----

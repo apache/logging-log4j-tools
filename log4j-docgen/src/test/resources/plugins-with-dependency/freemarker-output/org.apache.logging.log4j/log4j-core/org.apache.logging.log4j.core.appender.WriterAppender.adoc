@@ -30,7 +30,7 @@ Appends log events to a xref:Writer.adoc[].
         name="">
     <a-Filter-implementation/>
     <a-Layout-implementation/>
-    <property/>
+    <property/><!-- multiple occurrences allowed -->
 </Writer>
 ----
 

@@ -38,8 +38,8 @@ The AsyncAppender does not allow a filter to be specified on the Appender refere
        shutdownTimeout="">
     <a-Filter-implementation/>
     <a-BlockingQueueFactory-implementation/>
-    <AppenderRef/>
-    <property/>
+    <AppenderRef/><!-- multiple occurrences allowed -->
+    <property/><!-- multiple occurrences allowed -->
 </Async>
 ----
 

@@ -20,16 +20,21 @@ import static java.util.Objects.requireNonNull;
 
 import java.nio.file.Path;
 import java.util.Set;
+import java.util.function.Predicate;
 import org.apache.logging.log4j.docgen.PluginSet;
 
 public final class SchemaGeneratorArgs {
 
     final Set<PluginSet> pluginSets;
 
+    final Predicate<String> classNameFilter;
+
     final Path schemaFile;
 
-    public SchemaGeneratorArgs(final Set<PluginSet> pluginSets, final Path schemaFile) {
+    public SchemaGeneratorArgs(
+            final Set<PluginSet> pluginSets, final Predicate<String> classNameFilter, final Path schemaFile) {
         this.pluginSets = requireNonNull(pluginSets, "pluginSets");
+        this.classNameFilter = requireNonNull(classNameFilter, "classNameFilter");
         this.schemaFile = requireNonNull(schemaFile, "schemaFile");
     }
 }

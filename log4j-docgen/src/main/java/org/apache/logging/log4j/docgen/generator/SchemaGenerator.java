@@ -68,7 +68,7 @@ public final class SchemaGenerator {
         try {
             final List<PluginSet> extendedSets = Stream.concat(BaseTypes.PLUGIN_SETS.stream(), args.pluginSets.stream())
                     .collect(Collectors.toList());
-            final TypeLookup lookup = TypeLookup.of(extendedSets);
+            final TypeLookup lookup = TypeLookup.of(extendedSets, args.classNameFilter);
             final XMLOutputFactory factory = XMLOutputFactory.newFactory();
             @Nullable final Path schemaFileParent = args.schemaFile.getParent();
             if (schemaFileParent != null) {
@@ -207,7 +207,7 @@ public final class SchemaGenerator {
         }
         for (final String implementation : implementations) {
             @Nullable final ArtifactSourcedType sourcedType = lookup.get(implementation);
-            if (sourcedType != null) {
+            if (sourcedType != null && sourcedType.type instanceof PluginType) {
                 final PluginType pluginType = (PluginType) sourcedType.type;
                 for (final String key : getKeyAndAliases(pluginType)) {
                     writer.writeEmptyElement(XSD_NAMESPACE, "element");
@@ -250,7 +250,11 @@ public final class SchemaGenerator {
         if (xmlType == null) {
             return;
         }
-        final Type rawType = lookup.get(type).type;
+        final ArtifactSourcedType sourcedType = lookup.get(type);
+        if (sourcedType == null) {
+            return;
+        }
+        final Type rawType = sourcedType.type;
         if (!(rawType instanceof AbstractType)) {
             return;
         }
