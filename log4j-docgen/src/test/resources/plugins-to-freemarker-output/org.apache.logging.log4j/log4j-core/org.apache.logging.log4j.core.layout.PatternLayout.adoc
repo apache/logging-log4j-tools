@@ -38,14 +38,14 @@ A conversion pattern is composed of literal text and format control expressions 
 [#org_apache_logging_log4j_core_layout_PatternLayout-attributes]
 == Attributes
 
-Required attributes are in **bold face**.
+Optional attributes are denoted by `?`-suffixed types.
 
 [cols="1m,1m,1m,5"]
 |===
 |Name|Type|Default|Description
 
 |pattern
-|xref:../../scalars.adoc#java_lang_String[String]
+|xref:../../scalars.adoc#java_lang_String[String]?
 |%m%n
 a|The pattern to use to format log events.
 

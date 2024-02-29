@@ -16,13 +16,14 @@
  */
 package org.apache.logging.log4j.docgen.generator;
 
+import static org.apache.logging.log4j.docgen.generator.PluginSetUtils.readDescriptor;
+import static org.apache.logging.log4j.docgen.generator.PluginSetUtils.readDescriptors;
 import static org.apache.logging.log4j.tools.internal.test.util.FileTestUtils.assertDirectoryContentMatches;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Set;
 import org.apache.logging.log4j.docgen.PluginSet;
-import org.apache.logging.log4j.docgen.io.stax.PluginBundleStaxReader;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.CleanupMode;
 import org.junit.jupiter.api.io.TempDir;
@@ -30,16 +31,29 @@ import org.junit.jupiter.api.io.TempDir;
 public class DocumentationGeneratorTest {
 
     @Test
-    void generatePluginDocumentation(@TempDir(cleanup = CleanupMode.ON_SUCCESS) final Path outputDir) throws Exception {
+    void simple_descriptor_should_work(@TempDir(cleanup = CleanupMode.ON_SUCCESS) final Path outputDir) {
+        final PluginSet pluginSet = readDescriptor("src/test/resources/example-plugins.xml");
+        final Path referenceOutputDir = Paths.get("src/test/resources/plugins-to-freemarker-output");
+        generateDocumentationAndVerifyOutput(outputDir, Set.of(pluginSet), referenceOutputDir);
+    }
 
-        // Read plugins
-        final PluginBundleStaxReader reader = new PluginBundleStaxReader();
-        final PluginSet pluginSet = reader.read("src/test/resources/example-plugins.xml");
+    @Test
+    void multiple_descriptors_should_be_able_to_link_each_other(
+            @TempDir(cleanup = CleanupMode.ON_SUCCESS) final Path outputDir) {
+        final Set<PluginSet> pluginSets = readDescriptors(
+                "src/test/resources/plugins-with-dependency/descriptors/log4j-core-plugins.xml",
+                "src/test/resources/plugins-with-dependency/descriptors/log4j-layout-template-json-plugins.xml");
+        final Path referenceOutputDir = Paths.get("src/test/resources/plugins-with-dependency/freemarker-output");
+        generateDocumentationAndVerifyOutput(outputDir, pluginSets, referenceOutputDir);
+    }
+
+    private static void generateDocumentationAndVerifyOutput(
+            final Path outputDir, final Set<PluginSet> pluginSets, final Path referenceOutputDir) {
 
         // Generate the documentation
         final Path templateDirectory = Paths.get("src/test/resources/templates");
         final DocumentationGeneratorArgs generatorArgs = new DocumentationGeneratorArgs(
-                Set.of(pluginSet),
+                pluginSets,
                 templateDirectory,
                 new DocumentationTemplate(
                         "scalars.adoc.ftl", outputDir.resolve("scalars.adoc").toString()),
@@ -50,7 +64,6 @@ public class DocumentationGeneratorTest {
         DocumentationGenerator.generateDocumentation(generatorArgs);
 
         // Verify the output
-        final Path expectedDir = Paths.get("src/test/resources/plugins-to-freemarker-output");
-        assertDirectoryContentMatches(outputDir, expectedDir);
+        assertDirectoryContentMatches(outputDir, referenceOutputDir);
     }
 }

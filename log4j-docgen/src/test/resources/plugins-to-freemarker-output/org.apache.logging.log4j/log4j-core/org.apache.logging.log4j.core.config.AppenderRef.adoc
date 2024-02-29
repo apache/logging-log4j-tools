@@ -35,18 +35,18 @@ Reference to an appender defined in the `Appenders` section.
 [#org_apache_logging_log4j_core_config_AppenderRef-attributes]
 == Attributes
 
-Required attributes are in **bold face**.
+Optional attributes are denoted by `?`-suffixed types.
 
 [cols="1m,1m,1m,5"]
 |===
 |Name|Type|Default|Description
 
 |level
-|xref:../../scalars.adoc#org_apache_logging_log4j_Level[Level]
+|xref:../../scalars.adoc#org_apache_logging_log4j_Level[Level]?
 |
 a|The level to filter against.
 
-|**ref**
+|ref
 |xref:../../scalars.adoc#java_lang_String[String]
 |
 a|The name of an appender.
@@ -56,14 +56,14 @@ a|The name of an appender.
 [#org_apache_logging_log4j_core_config_AppenderRef-components]
 == Nested components
 
-Required components are in **bold face**.
+Optional components are denoted by `?`-suffixed types.
 
 [cols="1m,1m,5"]
 |===
 |Tag|Type|Description
 
-|N/A
-|xref:org.apache.logging.log4j.core.Filter.adoc[Filter]
+|
+|xref:../log4j-core/org.apache.logging.log4j.core.Filter.adoc[Filter]?
 a|The filter to use.
 
 |===

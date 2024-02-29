@@ -1,0 +1,85 @@
+////
+Licensed to the Apache Software Foundation (ASF) under one or more
+contributor license agreements. See the NOTICE file distributed with
+this work for additional information regarding copyright ownership.
+The ASF licenses this file to You under the Apache License, Version 2.0
+(the "License"); you may not use this file except in compliance with
+the License. You may obtain a copy of the License at
+
+    https://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+////
+[#org_apache_logging_log4j_core_filter_RegexFilter]
+= RegexFilter
+
+Class:: `org.apache.logging.log4j.core.filter.RegexFilter`
+Provider:: `org.apache.logging.log4j:log4j-core`
+
+This filter returns the onMatch result if the message matches the regular expression.
+
+The "useRawMsg" attribute can be used to indicate whether the regular expression should be applied to the result of calling Message.
+getMessageFormat (true) or Message.
+getFormattedMessage() (false). The default is false.
+
+[#org_apache_logging_log4j_core_filter_RegexFilter-XML-snippet]
+== XML snippet
+[source, xml]
+----
+<RegexFilter onMatch=""
+             onMismatch=""
+             regex=""
+             useRawMsg="">
+    <a-String-implementation/><!-- multiple occurrences allowed -->
+</RegexFilter>
+----
+
+[#org_apache_logging_log4j_core_filter_RegexFilter-attributes]
+== Attributes
+
+Optional attributes are denoted by `?`-suffixed types.
+
+[cols="1m,1m,1m,5"]
+|===
+|Name|Type|Default|Description
+
+|onMatch
+|xref:../../scalars.adoc#org_apache_logging_log4j_core_Filter_Result[Result]?
+|
+a|The action to perform when a match occurs.
+
+|onMismatch
+|xref:../../scalars.adoc#org_apache_logging_log4j_core_Filter_Result[Result]?
+|
+a|The action to perform when a mismatch occurs.
+
+|regex
+|xref:../../scalars.adoc#java_lang_String[String]?
+|
+a|The regular expression to match.
+
+|useRawMsg
+|xref:../../scalars.adoc#java_lang_Boolean[Boolean]?
+|
+a|If true, the raw message will be used, otherwise the formatted message will be used.
+
+|===
+
+[#org_apache_logging_log4j_core_filter_RegexFilter-components]
+== Nested components
+
+Optional components are denoted by `?`-suffixed types.
+
+[cols="1m,1m,5"]
+|===
+|Tag|Type|Description
+
+|
+|xref:../scalars.adoc#java_lang_String[String]?
+a|An array of Strings where each String is a xref:Pattern.adoc[] compilation flag.
+
+|===

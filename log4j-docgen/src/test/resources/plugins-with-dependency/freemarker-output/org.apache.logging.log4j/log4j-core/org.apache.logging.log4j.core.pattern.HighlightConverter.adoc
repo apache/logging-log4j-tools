@@ -1,0 +1,70 @@
+////
+Licensed to the Apache Software Foundation (ASF) under one or more
+contributor license agreements. See the NOTICE file distributed with
+this work for additional information regarding copyright ownership.
+The ASF licenses this file to You under the Apache License, Version 2.0
+(the "License"); you may not use this file except in compliance with
+the License. You may obtain a copy of the License at
+
+    https://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+////
+[#org_apache_logging_log4j_core_pattern_HighlightConverter]
+= highlight
+
+Class:: `org.apache.logging.log4j.core.pattern.HighlightConverter`
+Provider:: `org.apache.logging.log4j:log4j-core`
+
+Highlight pattern converter.
+
+Formats the result of a pattern using a color appropriate for the Level in the LogEvent.
+
+For example:
+
+[source,java]
+----
+%highlight{%d{ ISO8601 } [%t] %-5level: %msg%n%throwable}
+----
+
+You can define custom colors for each Level:
+
+[source,java]
+----
+%highlight{%d{ ISO8601 } [%t] %-5level: %msg%n%throwable}{FATAL=red, ERROR=red, WARN=yellow, INFO=green, DEBUG=cyan,
+TRACE=black}
+----
+
+You can use a predefined style:
+
+[source,java]
+----
+%highlight{%d{ ISO8601 } [%t] %-5level: %msg%n%throwable}{STYLE=DEFAULT}
+----
+
+The available predefined styles are:
+
+* `Default`
+* `Log4j` - The same as `Default`
+* `Logback`
+
+You can use whitespace around the comma and equal sign.
+The names in values MUST come from the xref:AnsiEscape.adoc[] enum, case is normalized to upper-case internally.
+
+To disable ANSI output unconditionally, specify an additional option `disableAnsi=true`, or to disable ANSI output if no console is detected, specify option `noConsoleNoAnsi=true` e.g..
+
+[source,java]
+----
+%highlight{%d{ ISO8601 } [%t] %-5level: %msg%n%throwable}{STYLE=DEFAULT, noConsoleNoAnsi=true}
+----
+
+[#org_apache_logging_log4j_core_pattern_HighlightConverter-XML-snippet]
+== XML snippet
+[source, xml]
+----
+<highlight/>
+----

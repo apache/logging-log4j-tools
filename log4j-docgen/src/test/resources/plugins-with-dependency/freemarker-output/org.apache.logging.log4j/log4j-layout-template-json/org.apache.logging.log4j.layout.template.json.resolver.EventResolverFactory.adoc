@@ -1,0 +1,45 @@
+////
+Licensed to the Apache Software Foundation (ASF) under one or more
+contributor license agreements. See the NOTICE file distributed with
+this work for additional information regarding copyright ownership.
+The ASF licenses this file to You under the Apache License, Version 2.0
+(the "License"); you may not use this file except in compliance with
+the License. You may obtain a copy of the License at
+
+    https://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+////
+[#org_apache_logging_log4j_layout_template_json_resolver_EventResolverFactory]
+= EventResolverFactory
+
+Class:: `org.apache.logging.log4j.layout.template.json.resolver.EventResolverFactory`
+Provider:: `org.apache.logging.log4j:log4j-layout-template-json`
+
+xref:TemplateResolverFactory.adoc[] specialized for xref:LogEvent.adoc[]s.
+
+[#org_apache_logging_log4j_layout_template_json_resolver_EventResolverFactory-implementations]
+== Known implementations
+
+* xref:../log4j-layout-template-json/org.apache.logging.log4j.layout.template.json.resolver.CaseConverterResolverFactory.adoc[CaseConverterResolverFactory]
+* xref:../log4j-layout-template-json/org.apache.logging.log4j.layout.template.json.resolver.CounterResolverFactory.adoc[CounterResolverFactory]
+* xref:../log4j-layout-template-json/org.apache.logging.log4j.layout.template.json.resolver.EndOfBatchResolverFactory.adoc[EndOfBatchResolverFactory]
+* xref:../log4j-layout-template-json/org.apache.logging.log4j.layout.template.json.resolver.ExceptionResolverFactory.adoc[ExceptionResolverFactory]
+* xref:../log4j-layout-template-json/org.apache.logging.log4j.layout.template.json.resolver.ExceptionRootCauseResolverFactory.adoc[ExceptionRootCauseResolverFactory]
+* xref:../log4j-layout-template-json/org.apache.logging.log4j.layout.template.json.resolver.LevelResolverFactory.adoc[LevelResolverFactory]
+* xref:../log4j-layout-template-json/org.apache.logging.log4j.layout.template.json.resolver.LoggerResolverFactory.adoc[LoggerResolverFactory]
+* xref:../log4j-layout-template-json/org.apache.logging.log4j.layout.template.json.resolver.MainMapResolverFactory.adoc[MainMapResolverFactory]
+* xref:../log4j-layout-template-json/org.apache.logging.log4j.layout.template.json.resolver.MapResolverFactory.adoc[MapResolverFactory]
+* xref:../log4j-layout-template-json/org.apache.logging.log4j.layout.template.json.resolver.MarkerResolverFactory.adoc[MarkerResolverFactory]
+* xref:../log4j-layout-template-json/org.apache.logging.log4j.layout.template.json.resolver.MessageParameterResolverFactory.adoc[MessageParameterResolverFactory]
+* xref:../log4j-layout-template-json/org.apache.logging.log4j.layout.template.json.resolver.MessageResolverFactory.adoc[MessageResolverFactory]
+* xref:../log4j-layout-template-json/org.apache.logging.log4j.layout.template.json.resolver.PatternResolverFactory.adoc[PatternResolverFactory]
+* xref:../log4j-layout-template-json/org.apache.logging.log4j.layout.template.json.resolver.SourceResolverFactory.adoc[SourceResolverFactory]
+* xref:../log4j-layout-template-json/org.apache.logging.log4j.layout.template.json.resolver.ThreadContextDataResolverFactory.adoc[ThreadContextDataResolverFactory]
+* xref:../log4j-layout-template-json/org.apache.logging.log4j.layout.template.json.resolver.ThreadContextStackResolverFactory.adoc[ThreadContextStackResolverFactory]
+* xref:../log4j-layout-template-json/org.apache.logging.log4j.layout.template.json.resolver.ThreadResolverFactory.adoc[ThreadResolverFactory]
+* xref:../log4j-layout-template-json/org.apache.logging.log4j.layout.template.json.resolver.TimestampResolverFactory.adoc[TimestampResolverFactory]

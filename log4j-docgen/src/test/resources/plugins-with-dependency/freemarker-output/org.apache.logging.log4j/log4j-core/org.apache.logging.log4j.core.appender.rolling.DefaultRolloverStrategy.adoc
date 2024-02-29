@@ -1,0 +1,146 @@
+////
+Licensed to the Apache Software Foundation (ASF) under one or more
+contributor license agreements. See the NOTICE file distributed with
+this work for additional information regarding copyright ownership.
+The ASF licenses this file to You under the Apache License, Version 2.0
+(the "License"); you may not use this file except in compliance with
+the License. You may obtain a copy of the License at
+
+    https://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+////
+[#org_apache_logging_log4j_core_appender_rolling_DefaultRolloverStrategy]
+= DefaultRolloverStrategy
+
+Class:: `org.apache.logging.log4j.core.appender.rolling.DefaultRolloverStrategy`
+Provider:: `org.apache.logging.log4j:log4j-core`
+
+When rolling over, `DefaultRolloverStrategy` renames files according to an algorithm as described below.
+
+The DefaultRolloverStrategy is a combination of a time-based policy and a fixed-window policy.
+When the file name pattern contains a date format then the rollover time interval will be used to calculate the time to use in the file pattern.
+When the file pattern contains an integer replacement token one of the counting techniques will be used.
+
+When the ascending attribute is set to true (the default) then the counter will be incremented and the current log file will be renamed to include the counter value.
+If the counter hits the maximum value then the oldest file, which will have the smallest counter, will be deleted, all other files will be renamed to have their counter decremented and then the current file will be renamed to have the maximum counter value.
+Note that with this counting strategy specifying a large maximum value may entirely avoid renaming files.
+
+When the ascending attribute is false, then the "normal" fixed-window strategy will be used.
+
+Let _max_ and _min_ represent the values of respectively the *MaxIndex* and *MinIndex* options.
+Let "foo.
+log" be the value of the *ActiveFile* option and "foo.
+%i.log" the value of *FileNamePattern*. Then, when rolling over, the file `foo. _max_.log` will be deleted, the file `foo. _max-1_.log` will be renamed as `foo. _max_.log`, the file `foo. _max-2_.log` renamed as `foo. _max-1_.log`, and so on, the file `foo. _min+1_.log` renamed as `foo. _min+2_.log`. Lastly, the active file `foo. log` will be renamed as `foo. _min_.log` and a new active file name `foo. log` will be created.
+
+Given that this rollover algorithm requires as many file renaming operations as the window size, large window sizes are discouraged.
+
+[#org_apache_logging_log4j_core_appender_rolling_DefaultRolloverStrategy-XML-snippet]
+== XML snippet
+[source, xml]
+----
+<DefaultRolloverStrategy compressionLevel=""
+                         compressionLevel=""
+                         fileIndex=""
+                         fileIndex=""
+                         max=""
+                         max=""
+                         min=""
+                         min=""
+                         stopCustomActionsOnError=""
+                         stopCustomActionsOnError=""
+                         tempCompressedFilePattern="">
+    <a-Action-implementation/><!-- multiple occurrences allowed -->
+    <a-Action-implementation/><!-- multiple occurrences allowed -->
+</DefaultRolloverStrategy>
+----
+
+[#org_apache_logging_log4j_core_appender_rolling_DefaultRolloverStrategy-attributes]
+== Attributes
+
+Optional attributes are denoted by `?`-suffixed types.
+
+[cols="1m,1m,1m,5"]
+|===
+|Name|Type|Default|Description
+
+|compressionLevel
+|xref:../../scalars.adoc#java_lang_String[String]?
+|
+a|
+
+|compressionLevel
+|xref:../../scalars.adoc#java_lang_String[String]?
+|
+a|The compression level, 0 (less) through 9 (more); applies only to ZIP files.
+
+|fileIndex
+|xref:../../scalars.adoc#java_lang_String[String]?
+|
+a|
+
+|fileIndex
+|xref:../../scalars.adoc#java_lang_String[String]?
+|
+a|If set to "max" (the default), files with a higher index will be newer than files with a smaller index.
+If set to "min", file renaming and the counter will follow the Fixed Window strategy.
+
+|max
+|xref:../../scalars.adoc#java_lang_String[String]?
+|
+a|
+
+|max
+|xref:../../scalars.adoc#java_lang_String[String]?
+|
+a|The maximum number of files to keep.
+
+|min
+|xref:../../scalars.adoc#java_lang_String[String]?
+|
+a|
+
+|min
+|xref:../../scalars.adoc#java_lang_String[String]?
+|
+a|The minimum number of files to keep.
+
+|stopCustomActionsOnError
+|xref:../../scalars.adoc#boolean[boolean]?
+|
+a|
+
+|stopCustomActionsOnError
+|xref:../../scalars.adoc#boolean[boolean]?
+|
+a|whether to stop executing asynchronous actions if an error occurs
+
+|tempCompressedFilePattern
+|xref:../../scalars.adoc#java_lang_String[String]?
+|
+a|
+
+|===
+
+[#org_apache_logging_log4j_core_appender_rolling_DefaultRolloverStrategy-components]
+== Nested components
+
+Optional components are denoted by `?`-suffixed types.
+
+[cols="1m,1m,5"]
+|===
+|Tag|Type|Description
+
+|
+|xref:../log4j-core/org.apache.logging.log4j.core.appender.rolling.action.Action.adoc[Action]?
+a|
+
+|
+|xref:../log4j-core/org.apache.logging.log4j.core.appender.rolling.action.Action.adoc[Action]?
+a|custom actions to perform asynchronously after rollover
+
+|===

@@ -16,6 +16,7 @@
  */
 package org.apache.logging.log4j.docgen.generator;
 
+import static org.apache.logging.log4j.docgen.generator.PluginSetUtils.readDescriptor;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import java.nio.file.Path;
@@ -23,7 +24,6 @@ import java.nio.file.Paths;
 import java.util.Set;
 import javax.xml.transform.Source;
 import org.apache.logging.log4j.docgen.PluginSet;
-import org.apache.logging.log4j.docgen.io.stax.PluginBundleStaxReader;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.CleanupMode;
 import org.junit.jupiter.api.io.TempDir;
@@ -49,8 +49,7 @@ public class SchemaGeneratorTest {
     private static Path generateSchema(final Path outputDir) throws Exception {
 
         // Read sample plugins
-        final PluginBundleStaxReader reader = new PluginBundleStaxReader();
-        final PluginSet pluginSet = reader.read("src/test/resources/example-plugins.xml");
+        final PluginSet pluginSet = readDescriptor("src/test/resources/example-plugins.xml");
 
         // Generate the schema
         final Path schemaFile = outputDir.resolve("config.xsd");

@@ -1,0 +1,74 @@
+////
+Licensed to the Apache Software Foundation (ASF) under one or more
+contributor license agreements. See the NOTICE file distributed with
+this work for additional information regarding copyright ownership.
+The ASF licenses this file to You under the Apache License, Version 2.0
+(the "License"); you may not use this file except in compliance with
+the License. You may obtain a copy of the License at
+
+    https://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+////
+[#org_apache_logging_log4j_core_appender_rolling_action_IfFileName]
+= IfFileName
+
+Class:: `org.apache.logging.log4j.core.appender.rolling.action.IfFileName`
+Provider:: `org.apache.logging.log4j:log4j-core`
+
+PathCondition that accepts files for deletion if their relative path matches either a glob pattern or a regular expression.
+
+If both a regular expression and a glob pattern are specified the glob pattern is used and the regular expression is ignored.
+
+The regular expression is a pattern as defined by the xref:Pattern.adoc[] class.
+A glob is a simplified pattern expression described in xref:FileSystem.adoc[].
+
+[#org_apache_logging_log4j_core_appender_rolling_action_IfFileName-XML-snippet]
+== XML snippet
+[source, xml]
+----
+<IfFileName glob=""
+            regex="">
+    <a-PathCondition-implementation/><!-- multiple occurrences allowed -->
+</IfFileName>
+----
+
+[#org_apache_logging_log4j_core_appender_rolling_action_IfFileName-attributes]
+== Attributes
+
+Optional attributes are denoted by `?`-suffixed types.
+
+[cols="1m,1m,1m,5"]
+|===
+|Name|Type|Default|Description
+
+|glob
+|xref:../../scalars.adoc#java_lang_String[String]?
+|
+a|the baseDir-relative path pattern of the files to delete (may contain '*' and '?' wildcarts)
+
+|regex
+|xref:../../scalars.adoc#java_lang_String[String]?
+|
+a|the regular expression that matches the baseDir-relative path of the file(s) to delete
+
+|===
+
+[#org_apache_logging_log4j_core_appender_rolling_action_IfFileName-components]
+== Nested components
+
+Optional components are denoted by `?`-suffixed types.
+
+[cols="1m,1m,5"]
+|===
+|Tag|Type|Description
+
+|
+|xref:../log4j-core/org.apache.logging.log4j.core.appender.rolling.action.PathCondition.adoc[PathCondition]?
+a|nested conditions to evaluate if this condition accepts a path
+
+|===

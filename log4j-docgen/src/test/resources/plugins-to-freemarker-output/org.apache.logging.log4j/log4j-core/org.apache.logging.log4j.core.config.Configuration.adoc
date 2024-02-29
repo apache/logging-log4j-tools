@@ -44,14 +44,14 @@ A Log4j configuration contains many components of which two are required: `Appen
 [#org_apache_logging_log4j_core_config_Configuration-attributes]
 == Attributes
 
-Required attributes are in **bold face**.
+Optional attributes are denoted by `?`-suffixed types.
 
 [cols="1m,1m,1m,5"]
 |===
 |Name|Type|Default|Description
 
 |dest
-|xref:../../scalars.adoc#java_lang_String[String]
+|xref:../../scalars.adoc#java_lang_String[String]?
 |err
 a|Specifies the destination for status logger events.
 The possible values are:
@@ -63,39 +63,39 @@ The possible values are:
 If the provided value is invalid, then the default destination of standard out will be used.
 
 |monitorInterval
-|xref:../../scalars.adoc#int[int]
+|xref:../../scalars.adoc#int[int]?
 |0
 a|Number of seconds between polls for configuration changes
 
-|**name**
+|name
 |xref:../../scalars.adoc#java_lang_String[String]
 |
 a|Name of the configuration
 
 |schema
-|xref:../../scalars.adoc#java_lang_String[String]
+|xref:../../scalars.adoc#java_lang_String[String]?
 |
 a|The name of a classpath resource to use to validate the configuration
 
 |shutdownHook
-|xref:../../scalars.adoc#java_lang_String[String]
+|xref:../../scalars.adoc#java_lang_String[String]?
 |
 a|Indicates if Log4j should automatically shut down when the JVM shuts down.
 Possible values are `enable` and `disable`.
 The shutdown hook is enabled by default, unless Log4j detects the presence of the Servlet API.
 
 |shutdownTimeout
-|xref:../../scalars.adoc#int[int]
+|xref:../../scalars.adoc#int[int]?
 |
 a|Timeout in milliseconds of the logger context shut down
 
 |status
-|xref:../../scalars.adoc#org_apache_logging_log4j_Level[Level]
+|xref:../../scalars.adoc#org_apache_logging_log4j_Level[Level]?
 |ERROR
 a|Sets the level of the status logger
 
 |strict
-|xref:../../scalars.adoc#boolean[boolean]
+|xref:../../scalars.adoc#boolean[boolean]?
 |false
 a|If set to `true` the configuration file will be validated using an XML schema.
 
@@ -104,26 +104,26 @@ a|If set to `true` the configuration file will be validated using an XML schema.
 [#org_apache_logging_log4j_core_config_Configuration-components]
 == Nested components
 
-Required components are in **bold face**.
+Optional components are denoted by `?`-suffixed types.
 
 [cols="1m,1m,5"]
 |===
 |Tag|Type|Description
 
-|**Appenders**
-|xref:org.apache.logging.log4j.core.config.AppendersPlugin.adoc[AppendersPlugin]
+|Appenders
+|xref:../log4j-core/org.apache.logging.log4j.core.config.AppendersPlugin.adoc[AppendersPlugin]
 a|Wrapper element for a list of appenders
 
 |CustomLevels
-|xref:org.apache.logging.log4j.core.config.CustomLevels.adoc[CustomLevels]
+|xref:../log4j-core/org.apache.logging.log4j.core.config.CustomLevels.adoc[CustomLevels]?
 a|Wrapper element for a list of custom levels
 
 |Loggers
-|xref:org.apache.logging.log4j.core.config.LoggersPlugin.adoc[LoggersPlugin]
+|xref:../log4j-core/org.apache.logging.log4j.core.config.LoggersPlugin.adoc[LoggersPlugin]?
 a|Wrapper element for a list of logger configurations
 
 |Properties
-|xref:org.apache.logging.log4j.core.config.PropertiesPlugin.adoc[PropertiesPlugin]
+|xref:../log4j-core/org.apache.logging.log4j.core.config.PropertiesPlugin.adoc[PropertiesPlugin]?
 a|Wrapper element for a list of properties
 
 |===

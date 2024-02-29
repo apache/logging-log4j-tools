@@ -35,5 +35,5 @@ ${type.description.text}
 == Known implementations
 
 <#list type.implementations as impl>
-* xref:${impl}.adoc[${impl?contains('.')?then(impl?keep_after_last('.'), impl)}]
+* xref:../${lookup[impl].artifactId}/${impl}.adoc[${impl?contains('.')?then(impl?keep_after_last('.'), impl)}]
 </#list>

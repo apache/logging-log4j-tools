@@ -1,0 +1,64 @@
+////
+Licensed to the Apache Software Foundation (ASF) under one or more
+contributor license agreements. See the NOTICE file distributed with
+this work for additional information regarding copyright ownership.
+The ASF licenses this file to You under the Apache License, Version 2.0
+(the "License"); you may not use this file except in compliance with
+the License. You may obtain a copy of the License at
+
+    https://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+////
+[#org_apache_logging_log4j_core_appender_rolling_action_IfLastModified]
+= IfLastModified
+
+Class:: `org.apache.logging.log4j.core.appender.rolling.action.IfLastModified`
+Provider:: `org.apache.logging.log4j:log4j-core`
+
+PathCondition that accepts paths that are older than the specified duration.
+
+[#org_apache_logging_log4j_core_appender_rolling_action_IfLastModified-XML-snippet]
+== XML snippet
+[source, xml]
+----
+<IfLastModified age="">
+    <a-PathCondition-implementation/><!-- multiple occurrences allowed -->
+</IfLastModified>
+----
+
+[#org_apache_logging_log4j_core_appender_rolling_action_IfLastModified-attributes]
+== Attributes
+
+Optional attributes are denoted by `?`-suffixed types.
+
+[cols="1m,1m,1m,5"]
+|===
+|Name|Type|Default|Description
+
+|age
+|xref:../../scalars.adoc#org_apache_logging_log4j_core_appender_rolling_action_Duration[Duration]
+|
+a|The path age that is accepted by this condition.
+Must be a valid Duration.
+
+|===
+
+[#org_apache_logging_log4j_core_appender_rolling_action_IfLastModified-components]
+== Nested components
+
+Optional components are denoted by `?`-suffixed types.
+
+[cols="1m,1m,5"]
+|===
+|Tag|Type|Description
+
+|
+|xref:../log4j-core/org.apache.logging.log4j.core.appender.rolling.action.PathCondition.adoc[PathCondition]?
+a|nested conditions to evaluate if this condition accepts a path
+
+|===

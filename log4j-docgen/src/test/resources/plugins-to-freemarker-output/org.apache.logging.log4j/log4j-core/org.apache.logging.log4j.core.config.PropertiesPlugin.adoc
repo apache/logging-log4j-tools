@@ -32,14 +32,14 @@ A wrapper for a list of properties.
 [#org_apache_logging_log4j_core_config_PropertiesPlugin-components]
 == Nested components
 
-Required components are in **bold face**.
+Optional components are denoted by `?`-suffixed types.
 
 [cols="1m,1m,5"]
 |===
 |Tag|Type|Description
 
 |Property
-|xref:org.apache.logging.log4j.core.config.Property.adoc[Property]
+|xref:../log4j-core/org.apache.logging.log4j.core.config.Property.adoc[Property]?
 a|A list of properties.
 
 |===

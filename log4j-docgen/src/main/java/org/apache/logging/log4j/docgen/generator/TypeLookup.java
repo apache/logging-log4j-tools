@@ -16,16 +16,11 @@
  */
 package org.apache.logging.log4j.docgen.generator;
 
-import java.util.List;
 import java.util.Set;
 import java.util.TreeMap;
-import java.util.stream.Collectors;
-import java.util.stream.StreamSupport;
 import org.apache.logging.log4j.docgen.AbstractType;
-import org.apache.logging.log4j.docgen.PluginElement;
 import org.apache.logging.log4j.docgen.PluginSet;
 import org.apache.logging.log4j.docgen.PluginType;
-import org.apache.logging.log4j.docgen.Type;
 import org.jspecify.annotations.Nullable;
 
 final class TypeLookup extends TreeMap<String, ArtifactSourcedType> {
@@ -39,22 +34,21 @@ final class TypeLookup extends TreeMap<String, ArtifactSourcedType> {
     private TypeLookup(final Iterable<? extends PluginSet> pluginSets) {
         mergeDescriptors(pluginSets);
         populateTypeHierarchy(pluginSets);
-        removeUnusedTypes(pluginSets);
     }
 
     private void mergeDescriptors(Iterable<? extends PluginSet> pluginSets) {
         pluginSets.forEach(pluginSet -> {
             pluginSet.getScalars().forEach(scalar -> {
                 final ArtifactSourcedType sourcedType = ArtifactSourcedType.ofPluginSet(pluginSet, scalar);
-                put(scalar.getClassName(), sourcedType);
+                putIfAbsent(scalar.getClassName(), sourcedType);
             });
             pluginSet.getAbstractTypes().forEach(abstractType -> {
                 final ArtifactSourcedType sourcedType = ArtifactSourcedType.ofPluginSet(pluginSet, abstractType);
-                put(abstractType.getClassName(), sourcedType);
+                putIfAbsent(abstractType.getClassName(), sourcedType);
             });
             pluginSet.getPlugins().forEach(pluginType -> {
                 final ArtifactSourcedType sourcedType = ArtifactSourcedType.ofPluginSet(pluginSet, pluginType);
-                put(pluginType.getClassName(), sourcedType);
+                putIfAbsent(pluginType.getClassName(), sourcedType);
             });
         });
     }
@@ -108,20 +102,5 @@ final class TypeLookup extends TreeMap<String, ArtifactSourcedType> {
             put(className, sourcedType);
             return type;
         }
-    }
-
-    private void removeUnusedTypes(Iterable<? extends PluginSet> pluginSets) {
-        final Set<String> requiredAbstractTypes = StreamSupport.stream(pluginSets.spliterator(), false)
-                .map(PluginSet::getPlugins)
-                .flatMap(Set::stream)
-                .map(PluginType::getElements)
-                .flatMap(List::stream)
-                .map(PluginElement::getType)
-                .collect(Collectors.toSet());
-        values().removeIf(sourcedType -> {
-            final Type type = sourcedType.type;
-            final boolean typeRequired = !requiredAbstractTypes.contains(type.getClassName());
-            return typeRequired && type.getDescription() == null;
-        });
     }
 }

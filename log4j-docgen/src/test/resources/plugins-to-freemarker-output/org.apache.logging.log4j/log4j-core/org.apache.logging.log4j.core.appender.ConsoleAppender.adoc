@@ -40,42 +40,42 @@ Write log events to the console.
 [#org_apache_logging_log4j_core_appender_ConsoleAppender-attributes]
 == Attributes
 
-Required attributes are in **bold face**.
+Optional attributes are denoted by `?`-suffixed types.
 
 [cols="1m,1m,1m,5"]
 |===
 |Name|Type|Default|Description
 
 |bufferedIo
-|xref:../../scalars.adoc#boolean[boolean]
+|xref:../../scalars.adoc#boolean[boolean]?
 |true
 a|If set to `true` (default) the appender will buffer messages before sending them.
 This attribute is ignored if `immediateFlush` is set to `true`.
 
 |bufferSize
-|xref:../../scalars.adoc#int[int]
+|xref:../../scalars.adoc#int[int]?
 |
 a|Size in bytes of the appender's buffer.
 
 |ignoreExceptions
-|xref:../../scalars.adoc#boolean[boolean]
+|xref:../../scalars.adoc#boolean[boolean]?
 |true
 a|If set to `false` logging exceptions will be forwarded to the caller.
 
 |immediateFlush
-|xref:../../scalars.adoc#boolean[boolean]
+|xref:../../scalars.adoc#boolean[boolean]?
 |true
 a|If set to `true`, the appender flushes the output stream at each message and
 buffering is disabled regardless of the value of `bufferedIo`.
 
-|**name**
+|name
 |xref:../../scalars.adoc#java_lang_String[String]
 |
 a|The name of the appender used in appender references.
 Must be unique.
 
 |target
-|xref:../../scalars.adoc#org_apache_logging_log4j_core_appender_ConsoleAppender_Target[Target]
+|xref:../../scalars.adoc#org_apache_logging_log4j_core_appender_ConsoleAppender_Target[Target]?
 |SYSTEM_OUT
 a|Specifies the target of the appender.
 
@@ -84,18 +84,18 @@ a|Specifies the target of the appender.
 [#org_apache_logging_log4j_core_appender_ConsoleAppender-components]
 == Nested components
 
-Required components are in **bold face**.
+Optional components are denoted by `?`-suffixed types.
 
 [cols="1m,1m,5"]
 |===
 |Tag|Type|Description
 
-|N/A
-|xref:org.apache.logging.log4j.core.Filter.adoc[Filter]
+|
+|xref:../log4j-core/org.apache.logging.log4j.core.Filter.adoc[Filter]?
 a|A filter to apply to events before sending them to destination.
 
-|**N/A**
-|xref:org.apache.logging.log4j.core.Layout.adoc[Layout]
+|
+|xref:../log4j-core/org.apache.logging.log4j.core.Layout.adoc[Layout]
 a|The layout to be used with the appender.
 
 |===

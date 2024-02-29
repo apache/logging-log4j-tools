@@ -33,18 +33,18 @@ Configures a custom level.
 [#org_apache_logging_log4j_core_config_CustomLevelConfig-attributes]
 == Attributes
 
-Required attributes are in **bold face**.
+Optional attributes are denoted by `?`-suffixed types.
 
 [cols="1m,1m,1m,5"]
 |===
 |Name|Type|Default|Description
 
-|**intLevel**
+|intLevel
 |xref:../../scalars.adoc#int[int]
 |
 a|An integer determines the strength of the custom level relative to the built-in levels.
 
-|**name**
+|name
 |xref:../../scalars.adoc#java_lang_String[String]
 |
 a|The name of the level.

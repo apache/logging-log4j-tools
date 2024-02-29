@@ -25,4 +25,4 @@ A layout is responsible for formatting a `LogEvent` as a string.
 [#org_apache_logging_log4j_core_Layout-implementations]
 == Known implementations
 
-* xref:org.apache.logging.log4j.core.layout.PatternLayout.adoc[PatternLayout]
+* xref:../log4j-core/org.apache.logging.log4j.core.layout.PatternLayout.adoc[PatternLayout]

@@ -1,0 +1,54 @@
+////
+Licensed to the Apache Software Foundation (ASF) under one or more
+contributor license agreements. See the NOTICE file distributed with
+this work for additional information regarding copyright ownership.
+The ASF licenses this file to You under the Apache License, Version 2.0
+(the "License"); you may not use this file except in compliance with
+the License. You may obtain a copy of the License at
+
+    https://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+////
+[#org_apache_logging_log4j_core_config_plugins_convert_TypeConverter]
+= TypeConverter
+
+Class:: `org.apache.logging.log4j.core.config.plugins.convert.TypeConverter`
+Provider:: `org.apache.logging.log4j:log4j-core`
+
+Interface for doing automatic String conversion to a specific type.
+
+[#org_apache_logging_log4j_core_config_plugins_convert_TypeConverter-implementations]
+== Known implementations
+
+* xref:../log4j-core/org.apache.logging.log4j.core.config.plugins.convert.TypeConverters.BigDecimalConverter.adoc[BigDecimalConverter]
+* xref:../log4j-core/org.apache.logging.log4j.core.config.plugins.convert.TypeConverters.BigIntegerConverter.adoc[BigIntegerConverter]
+* xref:../log4j-core/org.apache.logging.log4j.core.config.plugins.convert.TypeConverters.BooleanConverter.adoc[BooleanConverter]
+* xref:../log4j-core/org.apache.logging.log4j.core.config.plugins.convert.TypeConverters.ByteArrayConverter.adoc[ByteArrayConverter]
+* xref:../log4j-core/org.apache.logging.log4j.core.config.plugins.convert.TypeConverters.ByteConverter.adoc[ByteConverter]
+* xref:../log4j-core/org.apache.logging.log4j.core.config.plugins.convert.TypeConverters.CharArrayConverter.adoc[CharArrayConverter]
+* xref:../log4j-core/org.apache.logging.log4j.core.config.plugins.convert.TypeConverters.CharacterConverter.adoc[CharacterConverter]
+* xref:../log4j-core/org.apache.logging.log4j.core.config.plugins.convert.TypeConverters.CharsetConverter.adoc[CharsetConverter]
+* xref:../log4j-core/org.apache.logging.log4j.core.config.plugins.convert.TypeConverters.ClassConverter.adoc[ClassConverter]
+* xref:../log4j-core/org.apache.logging.log4j.core.config.plugins.convert.TypeConverters.CronExpressionConverter.adoc[CronExpressionConverter]
+* xref:../log4j-core/org.apache.logging.log4j.core.config.plugins.convert.TypeConverters.DoubleConverter.adoc[DoubleConverter]
+* xref:../log4j-core/org.apache.logging.log4j.core.config.plugins.convert.TypeConverters.DurationConverter.adoc[DurationConverter]
+* xref:../log4j-core/org.apache.logging.log4j.core.config.plugins.convert.TypeConverters.FileConverter.adoc[FileConverter]
+* xref:../log4j-core/org.apache.logging.log4j.core.config.plugins.convert.TypeConverters.FloatConverter.adoc[FloatConverter]
+* xref:../log4j-core/org.apache.logging.log4j.core.config.plugins.convert.TypeConverters.InetAddressConverter.adoc[InetAddressConverter]
+* xref:../log4j-core/org.apache.logging.log4j.core.config.plugins.convert.TypeConverters.IntegerConverter.adoc[IntegerConverter]
+* xref:../log4j-core/org.apache.logging.log4j.core.config.plugins.convert.TypeConverters.LevelConverter.adoc[LevelConverter]
+* xref:../log4j-core/org.apache.logging.log4j.core.config.plugins.convert.TypeConverters.LongConverter.adoc[LongConverter]
+* xref:../log4j-core/org.apache.logging.log4j.core.config.plugins.convert.TypeConverters.PathConverter.adoc[PathConverter]
+* xref:../log4j-core/org.apache.logging.log4j.core.config.plugins.convert.TypeConverters.PatternConverter.adoc[PatternConverter]
+* xref:../log4j-core/org.apache.logging.log4j.core.config.plugins.convert.TypeConverters.SecurityProviderConverter.adoc[SecurityProviderConverter]
+* xref:../log4j-core/org.apache.logging.log4j.core.config.plugins.convert.TypeConverters.ShortConverter.adoc[ShortConverter]
+* xref:../log4j-core/org.apache.logging.log4j.core.config.plugins.convert.TypeConverters.StringConverter.adoc[StringConverter]
+* xref:../log4j-core/org.apache.logging.log4j.core.config.plugins.convert.TypeConverters.UriConverter.adoc[UriConverter]
+* xref:../log4j-core/org.apache.logging.log4j.core.config.plugins.convert.TypeConverters.UrlConverter.adoc[UrlConverter]
+* xref:../log4j-core/org.apache.logging.log4j.core.config.plugins.convert.TypeConverters.UuidConverter.adoc[UuidConverter]
+* xref:../log4j-layout-template-json/org.apache.logging.log4j.layout.template.json.util.RecyclerFactoryConverter.adoc[RecyclerFactoryConverter]

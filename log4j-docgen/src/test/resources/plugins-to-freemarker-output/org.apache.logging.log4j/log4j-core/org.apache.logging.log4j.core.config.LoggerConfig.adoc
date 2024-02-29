@@ -37,25 +37,25 @@ Configures a particular logger
 [#org_apache_logging_log4j_core_config_LoggerConfig-attributes]
 == Attributes
 
-Required attributes are in **bold face**.
+Optional attributes are denoted by `?`-suffixed types.
 
 [cols="1m,1m,1m,5"]
 |===
 |Name|Type|Default|Description
 
 |includeLocation
-|xref:../../scalars.adoc#boolean[boolean]
+|xref:../../scalars.adoc#boolean[boolean]?
 |
 a|When set to `false` location information will **not** be computed.
 
 The default value depends on the logger context implementation: it is `false` for `AsyncLoggerContext` and `true` for `LoggerContext`.
 
 |level
-|xref:../../scalars.adoc#org_apache_logging_log4j_Level[Level]
+|xref:../../scalars.adoc#org_apache_logging_log4j_Level[Level]?
 |
 a|The level of the logger.
 
-|**name**
+|name
 |xref:../../scalars.adoc#java_lang_String[String]
 |
 a|The name of the logger.
@@ -65,18 +65,18 @@ a|The name of the logger.
 [#org_apache_logging_log4j_core_config_LoggerConfig-components]
 == Nested components
 
-Required components are in **bold face**.
+Optional components are denoted by `?`-suffixed types.
 
 [cols="1m,1m,5"]
 |===
 |Tag|Type|Description
 
 |AppenderRef
-|xref:org.apache.logging.log4j.core.config.AppenderRef.adoc[AppenderRef]
+|xref:../log4j-core/org.apache.logging.log4j.core.config.AppenderRef.adoc[AppenderRef]?
 a|A list of appenders to use with this logger.
 
-|N/A
-|xref:org.apache.logging.log4j.core.Filter.adoc[Filter]
+|
+|xref:../log4j-core/org.apache.logging.log4j.core.Filter.adoc[Filter]?
 a|A filter to filter events, before calling the appenders.
 
 |===
@@ -84,4 +84,4 @@ a|A filter to filter events, before calling the appenders.
 [#org_apache_logging_log4j_core_config_LoggerConfig-implementations]
 == Known implementations
 
-* xref:org.apache.logging.log4j.core.config.LoggerConfig.RootLogger.adoc[RootLogger]
+* xref:../log4j-core/org.apache.logging.log4j.core.config.LoggerConfig.RootLogger.adoc[RootLogger]

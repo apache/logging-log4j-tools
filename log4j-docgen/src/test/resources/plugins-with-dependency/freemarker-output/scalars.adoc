@@ -1,0 +1,421 @@
+////
+Licensed to the Apache Software Foundation (ASF) under one or more
+contributor license agreements. See the NOTICE file distributed with
+this work for additional information regarding copyright ownership.
+The ASF licenses this file to You under the Apache License, Version 2.0
+(the "License"); you may not use this file except in compliance with
+the License. You may obtain a copy of the License at
+
+    https://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+////
+[#type-converters]
+= Type converters
+
+Type converter plugins are used to convert simple `String` values into other types.
+
+[#boolean]
+== `boolean`
+
+
+A boolean value
+
+[#boolean-values]
+=== Possible values
+
+`false`:: false
+`true`:: true
+
+[#byte]
+== `byte`
+
+
+An 8-bit signed integer from `-128` to `127`
+
+[#com_conversantmedia_util_concurrent_SpinPolicy]
+== `com.conversantmedia.util.concurrent.SpinPolicy`
+
+Provider:: `org.apache.logging.log4j:log4j-core`
+
+
+
+[#com_conversantmedia_util_concurrent_SpinPolicy-values]
+=== Possible values
+
+`WAITING`:: 
+`BLOCKING`:: 
+`SPINNING`:: 
+
+[#double]
+== `double`
+
+
+A double precision floating number from `4.94065645841246544e-324` to `1.79769313486231570e+308`
+
+[#float]
+== `float`
+
+
+A single precision floating number from `1.40239846e-45` to `3.40282347e+38`
+
+[#int]
+== `int`
+
+
+A 32-bit signed integer from `-2147483648` to `2147483647`
+
+[#java_lang_Class]
+== `java.lang.Class`
+
+Provider:: `org.apache.logging.log4j:log4j-core`
+
+
+
+[#java_lang_String]
+== `java.lang.String`
+
+
+A string of characters
+
+[#java_net_InetAddress]
+== `java.net.InetAddress`
+
+Provider:: `org.apache.logging.log4j:log4j-core`
+
+
+
+[#java_net_URL]
+== `java.net.URL`
+
+Provider:: `org.apache.logging.log4j:log4j-core`
+
+
+
+[#java_nio_charset_Charset]
+== `java.nio.charset.Charset`
+
+Provider:: `org.apache.logging.log4j:log4j-core`
+
+
+
+[#java_util_regex_Pattern]
+== `java.util.regex.Pattern`
+
+Provider:: `org.apache.logging.log4j:log4j-core`
+
+
+
+[#long]
+== `long`
+
+
+A 64-bit signed integer from `-9223372036854775808` to `9223372036854775807`
+
+[#org_apache_commons_csv_QuoteMode]
+== `org.apache.commons.csv.QuoteMode`
+
+Provider:: `org.apache.logging.log4j:log4j-core`
+
+
+
+[#org_apache_commons_csv_QuoteMode-values]
+=== Possible values
+
+`ALL`:: 
+`ALL_NON_NULL`:: 
+`MINIMAL`:: 
+`NON_NUMERIC`:: 
+`NONE`:: 
+
+[#org_apache_logging_log4j_Level]
+== `org.apache.logging.log4j.Level`
+
+Provider:: `org.apache.logging.log4j:log4j-core`
+
+Represents a logging level.
+NOTE: The Log4j API supports custom levels, the following list contains only the standard ones.
+
+[#org_apache_logging_log4j_Level-values]
+=== Possible values
+
+`OFF`:: Special level that disables logging.
+No events should be logged at this level.
+`FATAL`:: A fatal event that will prevent the application from continuing
+`ERROR`:: An error in the application, possibly recoverable
+`WARN`:: An event that might possible lead to an error
+`INFO`:: An event for informational purposes
+`DEBUG`:: A general debugging event
+`TRACE`:: A fine-grained debug message, typically capturing the flow through the application
+`ALL`:: Special level indicating all events should be logged
+
+[#org_apache_logging_log4j_core_Filter_Result]
+== `org.apache.logging.log4j.core.Filter.Result`
+
+Provider:: `org.apache.logging.log4j:log4j-core`
+
+The result that can returned from a filter method call.
+
+[#org_apache_logging_log4j_core_Filter_Result-values]
+=== Possible values
+
+`ACCEPT`:: The event will be processed without further filtering based on the log Level.
+`NEUTRAL`:: No decision could be made, further filtering should occur.
+`DENY`:: The event should not be processed.
+
+[#org_apache_logging_log4j_core_appender_ConsoleAppender_Target]
+== `org.apache.logging.log4j.core.appender.ConsoleAppender.Target`
+
+Provider:: `org.apache.logging.log4j:log4j-core`
+
+Enumeration of console destinations.
+
+[#org_apache_logging_log4j_core_appender_ConsoleAppender_Target-values]
+=== Possible values
+
+`SYSTEM_OUT`:: Standard output.
+`SYSTEM_ERR`:: Standard error output.
+
+[#org_apache_logging_log4j_core_appender_rolling_action_Duration]
+== `org.apache.logging.log4j.core.appender.rolling.action.Duration`
+
+Provider:: `org.apache.logging.log4j:log4j-core`
+
+Simplified implementation of the ISO-8601 Durations standard.
+
+The supported format is `PnDTnHnMnS`, with 'P' and 'T' optional.
+Days are considered to be exactly 24 hours.
+
+Similarly to the `java. time. Duration` class, this class does not support year or month sections in the format.
+This implementation does not support fractions or negative values.
+
+[#org_apache_logging_log4j_core_async_JCToolsBlockingQueueFactory_WaitStrategy]
+== `org.apache.logging.log4j.core.async.JCToolsBlockingQueueFactory.WaitStrategy`
+
+Provider:: `org.apache.logging.log4j:log4j-core`
+
+
+
+[#org_apache_logging_log4j_core_async_JCToolsBlockingQueueFactory_WaitStrategy-values]
+=== Possible values
+
+`SPIN`:: 
+`YIELD`:: 
+`PARK`:: 
+`PROGRESSIVE`:: 
+
+[#org_apache_logging_log4j_core_layout_GelfLayout_CompressionType]
+== `org.apache.logging.log4j.core.layout.GelfLayout.CompressionType`
+
+Provider:: `org.apache.logging.log4j:log4j-core`
+
+
+
+[#org_apache_logging_log4j_core_layout_GelfLayout_CompressionType-values]
+=== Possible values
+
+`GZIP`:: 
+`ZLIB`:: 
+`OFF`:: 
+
+[#org_apache_logging_log4j_core_layout_HtmlLayout_FontSize]
+== `org.apache.logging.log4j.core.layout.HtmlLayout.FontSize`
+
+Provider:: `org.apache.logging.log4j:log4j-core`
+
+Possible font sizes
+
+[#org_apache_logging_log4j_core_layout_HtmlLayout_FontSize-values]
+=== Possible values
+
+`SMALLER`:: 
+`XXSMALL`:: 
+`XSMALL`:: 
+`SMALL`:: 
+`MEDIUM`:: 
+`LARGE`:: 
+`XLARGE`:: 
+`XXLARGE`:: 
+`LARGER`:: 
+
+[#org_apache_logging_log4j_core_net_Facility]
+== `org.apache.logging.log4j.core.net.Facility`
+
+Provider:: `org.apache.logging.log4j:log4j-core`
+
+The facility codes used by the Syslog system.
+
+[cols="1,1"]
+|===
+
+h| Numerical Code
+h| Facility
+
+h| Facility
+| 0
+| kernel messages
+
+| 1
+| user-level messages
+
+| 2
+| mail system
+
+| 3
+| system daemons
+
+| 4
+| security/authorization messages
+
+| 5
+| messages generated internally by syslogd
+
+| 6
+| line printer subsystem
+
+| 7
+| network news subsystem
+
+| 8
+| UUCP subsystem
+
+| 9
+| clock daemon
+
+| 10
+| security/authorization messages
+
+| 11
+| FTP daemon
+
+| 12
+| NTP subsystem
+
+| 13
+| log audit
+
+| 14
+| log alert
+
+| 15
+| clock daemon (note 2)
+
+| 16
+| local use 0 (local0)
+
+| 17
+| local use 1 (local1)
+
+| 18
+| local use 2 (local2)
+
+| 19
+| local use 3 (local3)
+
+| 20
+| local use 4 (local4)
+
+| 21
+| local use 5 (local5)
+
+| 22
+| local use 6 (local6)
+
+| 23
+| local use 7 (local7)
+
+|===
+
+[#org_apache_logging_log4j_core_net_Facility-values]
+=== Possible values
+
+`KERN`:: Kernel messages.
+`USER`:: User level messages.
+`MAIL`:: Mail system.
+`DAEMON`:: System daemons.
+`AUTH`:: Security/Authorization messages.
+`SYSLOG`:: Messages generated by syslogd.
+`LPR`:: Line printer subsystem.
+`NEWS`:: Network news subsystem.
+`UUCP`:: UUCP subsystem.
+`CRON`:: Clock daemon.
+`AUTHPRIV`:: Security/Authorization messages.
+`FTP`:: FTP daemon.
+`NTP`:: NTP subsystem.
+`LOG_AUDIT`:: Log audit.
+`LOG_ALERT`:: Log alert.
+`CLOCK`:: Clock daemon.
+`LOCAL0`:: Local use 0.
+`LOCAL1`:: Local use 1.
+`LOCAL2`:: Local use 2.
+`LOCAL3`:: Local use 3.
+`LOCAL4`:: Local use 4.
+`LOCAL5`:: Local use 5.
+`LOCAL6`:: Local use 6.
+`LOCAL7`:: Local use 7.
+
+[#org_apache_logging_log4j_core_net_Protocol]
+== `org.apache.logging.log4j.core.net.Protocol`
+
+Provider:: `org.apache.logging.log4j:log4j-core`
+
+Enumerates the supported protocols.
+
+[#org_apache_logging_log4j_core_net_Protocol-values]
+=== Possible values
+
+`TCP`:: TCP Protocol.
+`SSL`:: SSL Protocol.
+`UDP`:: UDP Protocol.
+
+[#org_apache_logging_log4j_core_net_Rfc1349TrafficClass]
+== `org.apache.logging.log4j.core.net.Rfc1349TrafficClass`
+
+Provider:: `org.apache.logging.log4j:log4j-core`
+
+Enumerates the RFC 1349 TOS field.
+
+* `IPTOS_LOWCOST (0x02)`
+* `IPTOS_RELIABILITY (0x04)`
+* `IPTOS_THROUGHPUT (0x08)`
+* `IPTOS_LOWDELAY (0x10)`
+*
+
+[#org_apache_logging_log4j_core_net_Rfc1349TrafficClass-values]
+=== Possible values
+
+`IPTOS_NORMAL`:: IPTOS_NORMAL (0x00)
+`IPTOS_LOWCOST`:: IPTOS_LOWCOST (0x02)
+`IPTOS_LOWDELAY`:: IPTOS_LOWDELAY (0x10)
+`IPTOS_RELIABILITY`:: IPTOS_RELIABILITY (0x04)
+`IPTOS_THROUGHPUT`:: IPTOS_THROUGHPUT (0x08)
+
+[#org_apache_logging_log4j_layout_template_json_JsonTemplateLayout_EventTemplateAdditionalField_Format]
+== `org.apache.logging.log4j.layout.template.json.JsonTemplateLayout.EventTemplateAdditionalField.Format`
+
+Provider:: `org.apache.logging.log4j:log4j-layout-template-json`
+
+
+
+[#org_apache_logging_log4j_layout_template_json_JsonTemplateLayout_EventTemplateAdditionalField_Format-values]
+=== Possible values
+
+`STRING`:: 
+`JSON`:: 
+
+[#org_apache_logging_log4j_layout_template_json_util_RecyclerFactory]
+== `org.apache.logging.log4j.layout.template.json.util.RecyclerFactory`
+
+Provider:: `org.apache.logging.log4j:log4j-layout-template-json`
+
+
+
+[#short]
+== `short`
+
+
+A 16-bit signed integer from `-32768` to `32767`

@@ -33,19 +33,19 @@ Represents a key/value pair in the configuration.
 [#org_apache_logging_log4j_core_config_Property-attributes]
 == Attributes
 
-Required attributes are in **bold face**.
+Optional attributes are denoted by `?`-suffixed types.
 
 [cols="1m,1m,1m,5"]
 |===
 |Name|Type|Default|Description
 
-|**name**
+|name
 |xref:../../scalars.adoc#java_lang_String[String]
 |
 a|Name of the property.
 
 |value
-|xref:../../scalars.adoc#java_lang_String[String]
+|xref:../../scalars.adoc#java_lang_String[String]?
 |
 a|Value of the property.
 

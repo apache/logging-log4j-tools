@@ -34,4 +34,4 @@ When resources require locking (e.g., through `@FileLock`), it is important to i
 [#org_apache_logging_log4j_core_Appender-implementations]
 == Known implementations
 
-* xref:org.apache.logging.log4j.core.appender.ConsoleAppender.adoc[ConsoleAppender]
+* xref:../log4j-core/org.apache.logging.log4j.core.appender.ConsoleAppender.adoc[ConsoleAppender]
