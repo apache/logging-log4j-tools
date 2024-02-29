@@ -145,23 +145,23 @@ Optional components are denoted by `?`-suffixed types.
 |Tag|Type|Description
 
 |
-|xref:../log4j-core/org.apache.logging.log4j.core.appender.rolling.RolloverStrategy.adoc[RolloverStrategy]?
+|xref:../../org.apache.logging.log4j/log4j-core/org.apache.logging.log4j.core.appender.rolling.RolloverStrategy.adoc[RolloverStrategy]?
 a|
 
 |
-|xref:../log4j-core/org.apache.logging.log4j.core.appender.rolling.TriggeringPolicy.adoc[TriggeringPolicy]
+|xref:../../org.apache.logging.log4j/log4j-core/org.apache.logging.log4j.core.appender.rolling.TriggeringPolicy.adoc[TriggeringPolicy]
 a|
 
 |property
-|xref:../log4j-core/org.apache.logging.log4j.core.config.Property.adoc[Property]?
+|xref:../../org.apache.logging.log4j/log4j-core/org.apache.logging.log4j.core.config.Property.adoc[Property]?
 a|
 
 |
-|xref:../log4j-core/org.apache.logging.log4j.core.Filter.adoc[Filter]?
+|xref:../../org.apache.logging.log4j/log4j-core/org.apache.logging.log4j.core.Filter.adoc[Filter]?
 a|
 
 |
-|xref:../log4j-core/org.apache.logging.log4j.core.Layout.adoc[Layout]?
+|xref:../../org.apache.logging.log4j/log4j-core/org.apache.logging.log4j.core.Layout.adoc[Layout]?
 a|
 
 |===

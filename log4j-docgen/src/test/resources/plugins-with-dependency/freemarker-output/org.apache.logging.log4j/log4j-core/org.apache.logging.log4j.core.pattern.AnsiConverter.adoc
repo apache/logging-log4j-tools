@@ -25,5 +25,5 @@ Marks classes that implement ANSI escape code conversions.
 [#org_apache_logging_log4j_core_pattern_AnsiConverter-implementations]
 == Known implementations
 
-* xref:../log4j-core/org.apache.logging.log4j.core.pattern.HighlightConverter.adoc[HighlightConverter]
-* xref:../log4j-core/org.apache.logging.log4j.core.pattern.StyleConverter.adoc[StyleConverter]
+* xref:../../org.apache.logging.log4j/log4j-core/org.apache.logging.log4j.core.pattern.HighlightConverter.adoc[HighlightConverter]
+* xref:../../org.apache.logging.log4j/log4j-core/org.apache.logging.log4j.core.pattern.StyleConverter.adoc[StyleConverter]

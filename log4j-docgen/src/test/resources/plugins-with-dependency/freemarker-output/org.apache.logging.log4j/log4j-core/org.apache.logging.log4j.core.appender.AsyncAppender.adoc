@@ -99,19 +99,19 @@ Optional components are denoted by `?`-suffixed types.
 |Tag|Type|Description
 
 |
-|xref:../log4j-core/org.apache.logging.log4j.core.async.BlockingQueueFactory.adoc[BlockingQueueFactory]?
+|xref:../../org.apache.logging.log4j/log4j-core/org.apache.logging.log4j.core.async.BlockingQueueFactory.adoc[BlockingQueueFactory]?
 a|
 
 |AppenderRef
-|xref:../log4j-core/org.apache.logging.log4j.core.config.AppenderRef.adoc[AppenderRef]
+|xref:../../org.apache.logging.log4j/log4j-core/org.apache.logging.log4j.core.config.AppenderRef.adoc[AppenderRef]
 a|
 
 |property
-|xref:../log4j-core/org.apache.logging.log4j.core.config.Property.adoc[Property]?
+|xref:../../org.apache.logging.log4j/log4j-core/org.apache.logging.log4j.core.config.Property.adoc[Property]?
 a|
 
 |
-|xref:../log4j-core/org.apache.logging.log4j.core.Filter.adoc[Filter]?
+|xref:../../org.apache.logging.log4j/log4j-core/org.apache.logging.log4j.core.Filter.adoc[Filter]?
 a|
 
 |===

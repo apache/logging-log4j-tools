@@ -25,5 +25,5 @@ Outputs the Throwable portion of the LoggingEvent as a full stack trace unless t
 [#org_apache_logging_log4j_core_pattern_ThrowablePatternConverter-implementations]
 == Known implementations
 
-* xref:../log4j-core/org.apache.logging.log4j.core.pattern.ExtendedThrowablePatternConverter.adoc[ExtendedThrowablePatternConverter]
-* xref:../log4j-core/org.apache.logging.log4j.core.pattern.RootThrowablePatternConverter.adoc[RootThrowablePatternConverter]
+* xref:../../org.apache.logging.log4j/log4j-core/org.apache.logging.log4j.core.pattern.ExtendedThrowablePatternConverter.adoc[ExtendedThrowablePatternConverter]
+* xref:../../org.apache.logging.log4j/log4j-core/org.apache.logging.log4j.core.pattern.RootThrowablePatternConverter.adoc[RootThrowablePatternConverter]

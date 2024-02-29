@@ -24,5 +24,5 @@ Provider:: `org.apache.logging.log4j:log4j-core`
 [#org_apache_logging_log4j_core_net_Advertiser-implementations]
 == Known implementations
 
-* xref:../log4j-core/org.apache.logging.log4j.core.config.DefaultAdvertiser.adoc[DefaultAdvertiser]
-* xref:../log4j-core/org.apache.logging.log4j.core.net.MulticastDnsAdvertiser.adoc[MulticastDnsAdvertiser]
+* xref:../../org.apache.logging.log4j/log4j-core/org.apache.logging.log4j.core.config.DefaultAdvertiser.adoc[DefaultAdvertiser]
+* xref:../../org.apache.logging.log4j/log4j-core/org.apache.logging.log4j.core.net.MulticastDnsAdvertiser.adoc[MulticastDnsAdvertiser]

@@ -25,6 +25,6 @@ Allows different patterns to be used with the PatternLayout based on some select
 [#org_apache_logging_log4j_core_layout_PatternSelector-implementations]
 == Known implementations
 
-* xref:../log4j-core/org.apache.logging.log4j.core.layout.LevelPatternSelector.adoc[LevelPatternSelector]
-* xref:../log4j-core/org.apache.logging.log4j.core.layout.MarkerPatternSelector.adoc[MarkerPatternSelector]
-* xref:../log4j-core/org.apache.logging.log4j.core.layout.ScriptPatternSelector.adoc[ScriptPatternSelector]
+* xref:../../org.apache.logging.log4j/log4j-core/org.apache.logging.log4j.core.layout.LevelPatternSelector.adoc[LevelPatternSelector]
+* xref:../../org.apache.logging.log4j/log4j-core/org.apache.logging.log4j.core.layout.MarkerPatternSelector.adoc[MarkerPatternSelector]
+* xref:../../org.apache.logging.log4j/log4j-core/org.apache.logging.log4j.core.layout.ScriptPatternSelector.adoc[ScriptPatternSelector]

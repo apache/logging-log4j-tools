@@ -25,7 +25,7 @@ Provides methods to create ConfigurationBuilders.
 [#org_apache_logging_log4j_core_config_builder_api_ConfigurationBuilderFactory-implementations]
 == Known implementations
 
-* xref:../log4j-core/org.apache.logging.log4j.core.config.json.JsonConfigurationFactory.adoc[JsonConfigurationFactory]
-* xref:../log4j-core/org.apache.logging.log4j.core.config.properties.PropertiesConfigurationFactory.adoc[PropertiesConfigurationFactory]
-* xref:../log4j-core/org.apache.logging.log4j.core.config.xml.XmlConfigurationFactory.adoc[XmlConfigurationFactory]
-* xref:../log4j-core/org.apache.logging.log4j.core.config.yaml.YamlConfigurationFactory.adoc[YamlConfigurationFactory]
+* xref:../../org.apache.logging.log4j/log4j-core/org.apache.logging.log4j.core.config.json.JsonConfigurationFactory.adoc[JsonConfigurationFactory]
+* xref:../../org.apache.logging.log4j/log4j-core/org.apache.logging.log4j.core.config.properties.PropertiesConfigurationFactory.adoc[PropertiesConfigurationFactory]
+* xref:../../org.apache.logging.log4j/log4j-core/org.apache.logging.log4j.core.config.xml.XmlConfigurationFactory.adoc[XmlConfigurationFactory]
+* xref:../../org.apache.logging.log4j/log4j-core/org.apache.logging.log4j.core.config.yaml.YamlConfigurationFactory.adoc[YamlConfigurationFactory]

@@ -111,19 +111,19 @@ Optional components are denoted by `?`-suffixed types.
 |Tag|Type|Description
 
 |Appenders
-|xref:../log4j-core/org.apache.logging.log4j.core.config.AppendersPlugin.adoc[AppendersPlugin]
+|xref:../../org.apache.logging.log4j/log4j-core/org.apache.logging.log4j.core.config.AppendersPlugin.adoc[AppendersPlugin]
 a|Wrapper element for a list of appenders
 
 |CustomLevels
-|xref:../log4j-core/org.apache.logging.log4j.core.config.CustomLevels.adoc[CustomLevels]?
+|xref:../../org.apache.logging.log4j/log4j-core/org.apache.logging.log4j.core.config.CustomLevels.adoc[CustomLevels]?
 a|Wrapper element for a list of custom levels
 
 |Loggers
-|xref:../log4j-core/org.apache.logging.log4j.core.config.LoggersPlugin.adoc[LoggersPlugin]?
+|xref:../../org.apache.logging.log4j/log4j-core/org.apache.logging.log4j.core.config.LoggersPlugin.adoc[LoggersPlugin]?
 a|Wrapper element for a list of logger configurations
 
 |Properties
-|xref:../log4j-core/org.apache.logging.log4j.core.config.PropertiesPlugin.adoc[PropertiesPlugin]?
+|xref:../../org.apache.logging.log4j/log4j-core/org.apache.logging.log4j.core.config.PropertiesPlugin.adoc[PropertiesPlugin]?
 a|Wrapper element for a list of properties
 
 |===

@@ -72,31 +72,31 @@ Optional components are denoted by `?`-suffixed types.
 |Tag|Type|Description
 
 |
-|xref:../log4j-core/org.apache.logging.log4j.core.appender.rewrite.RewritePolicy.adoc[RewritePolicy]?
+|xref:../../org.apache.logging.log4j/log4j-core/org.apache.logging.log4j.core.appender.rewrite.RewritePolicy.adoc[RewritePolicy]?
 a|
 
 |
-|xref:../log4j-core/org.apache.logging.log4j.core.appender.routing.PurgePolicy.adoc[PurgePolicy]?
+|xref:../../org.apache.logging.log4j/log4j-core/org.apache.logging.log4j.core.appender.routing.PurgePolicy.adoc[PurgePolicy]?
 a|
 
 |Routes
-|xref:../log4j-core/org.apache.logging.log4j.core.appender.routing.Routes.adoc[Routes]?
+|xref:../../org.apache.logging.log4j/log4j-core/org.apache.logging.log4j.core.appender.routing.Routes.adoc[Routes]?
 a|
 
 |property
-|xref:../log4j-core/org.apache.logging.log4j.core.config.Property.adoc[Property]?
+|xref:../../org.apache.logging.log4j/log4j-core/org.apache.logging.log4j.core.config.Property.adoc[Property]?
 a|
 
 |
-|xref:../log4j-core/org.apache.logging.log4j.core.Filter.adoc[Filter]?
+|xref:../../org.apache.logging.log4j/log4j-core/org.apache.logging.log4j.core.Filter.adoc[Filter]?
 a|
 
 |
-|xref:../log4j-core/org.apache.logging.log4j.core.Layout.adoc[Layout]?
+|xref:../../org.apache.logging.log4j/log4j-core/org.apache.logging.log4j.core.Layout.adoc[Layout]?
 a|
 
 |
-|xref:../log4j-core/org.apache.logging.log4j.core.script.AbstractScript.adoc[AbstractScript]?
+|xref:../../org.apache.logging.log4j/log4j-core/org.apache.logging.log4j.core.script.AbstractScript.adoc[AbstractScript]?
 a|
 
 |===

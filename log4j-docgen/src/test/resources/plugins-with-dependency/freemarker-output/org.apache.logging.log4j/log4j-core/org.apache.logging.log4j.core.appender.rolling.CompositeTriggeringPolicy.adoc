@@ -39,7 +39,7 @@ Optional components are denoted by `?`-suffixed types.
 |Tag|Type|Description
 
 |
-|xref:../log4j-core/org.apache.logging.log4j.core.appender.rolling.TriggeringPolicy.adoc[TriggeringPolicy]?
+|xref:../../org.apache.logging.log4j/log4j-core/org.apache.logging.log4j.core.appender.rolling.TriggeringPolicy.adoc[TriggeringPolicy]?
 a|The triggering policies.
 
 |===

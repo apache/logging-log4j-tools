@@ -25,9 +25,9 @@ Abstract convenience class for triggering policies that extend xref:AbstractLife
 [#org_apache_logging_log4j_core_appender_rolling_AbstractTriggeringPolicy-implementations]
 == Known implementations
 
-* xref:../log4j-core/org.apache.logging.log4j.core.appender.rolling.CompositeTriggeringPolicy.adoc[CompositeTriggeringPolicy]
-* xref:../log4j-core/org.apache.logging.log4j.core.appender.rolling.CronTriggeringPolicy.adoc[CronTriggeringPolicy]
-* xref:../log4j-core/org.apache.logging.log4j.core.appender.rolling.NoOpTriggeringPolicy.adoc[NoOpTriggeringPolicy]
-* xref:../log4j-core/org.apache.logging.log4j.core.appender.rolling.OnStartupTriggeringPolicy.adoc[OnStartupTriggeringPolicy]
-* xref:../log4j-core/org.apache.logging.log4j.core.appender.rolling.SizeBasedTriggeringPolicy.adoc[SizeBasedTriggeringPolicy]
-* xref:../log4j-core/org.apache.logging.log4j.core.appender.rolling.TimeBasedTriggeringPolicy.adoc[TimeBasedTriggeringPolicy]
+* xref:../../org.apache.logging.log4j/log4j-core/org.apache.logging.log4j.core.appender.rolling.CompositeTriggeringPolicy.adoc[CompositeTriggeringPolicy]
+* xref:../../org.apache.logging.log4j/log4j-core/org.apache.logging.log4j.core.appender.rolling.CronTriggeringPolicy.adoc[CronTriggeringPolicy]
+* xref:../../org.apache.logging.log4j/log4j-core/org.apache.logging.log4j.core.appender.rolling.NoOpTriggeringPolicy.adoc[NoOpTriggeringPolicy]
+* xref:../../org.apache.logging.log4j/log4j-core/org.apache.logging.log4j.core.appender.rolling.OnStartupTriggeringPolicy.adoc[OnStartupTriggeringPolicy]
+* xref:../../org.apache.logging.log4j/log4j-core/org.apache.logging.log4j.core.appender.rolling.SizeBasedTriggeringPolicy.adoc[SizeBasedTriggeringPolicy]
+* xref:../../org.apache.logging.log4j/log4j-core/org.apache.logging.log4j.core.appender.rolling.TimeBasedTriggeringPolicy.adoc[TimeBasedTriggeringPolicy]

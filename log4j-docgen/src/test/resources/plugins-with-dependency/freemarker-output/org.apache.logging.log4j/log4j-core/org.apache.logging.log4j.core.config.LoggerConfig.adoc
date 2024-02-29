@@ -25,6 +25,6 @@ Logger object that is created via configuration.
 [#org_apache_logging_log4j_core_config_LoggerConfig-implementations]
 == Known implementations
 
-* xref:../log4j-core/org.apache.logging.log4j.core.async.AsyncLoggerConfig.adoc[AsyncLoggerConfig]
-* xref:../log4j-core/org.apache.logging.log4j.core.async.AsyncLoggerConfig.RootLogger.adoc[RootLogger]
-* xref:../log4j-core/org.apache.logging.log4j.core.config.LoggerConfig.RootLogger.adoc[RootLogger]
+* xref:../../org.apache.logging.log4j/log4j-core/org.apache.logging.log4j.core.async.AsyncLoggerConfig.adoc[AsyncLoggerConfig]
+* xref:../../org.apache.logging.log4j/log4j-core/org.apache.logging.log4j.core.async.AsyncLoggerConfig.RootLogger.adoc[RootLogger]
+* xref:../../org.apache.logging.log4j/log4j-core/org.apache.logging.log4j.core.config.LoggerConfig.RootLogger.adoc[RootLogger]

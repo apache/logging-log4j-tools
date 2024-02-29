@@ -28,4 +28,4 @@ This handy to get you off the ground without having to deal with JNDI.
 [#org_apache_logging_log4j_core_appender_db_jdbc_AbstractDriverManagerConnectionSource-implementations]
 == Known implementations
 
-* xref:../log4j-core/org.apache.logging.log4j.core.appender.db.jdbc.DriverManagerConnectionSource.adoc[DriverManagerConnectionSource]
+* xref:../../org.apache.logging.log4j/log4j-core/org.apache.logging.log4j.core.appender.db.jdbc.DriverManagerConnectionSource.adoc[DriverManagerConnectionSource]

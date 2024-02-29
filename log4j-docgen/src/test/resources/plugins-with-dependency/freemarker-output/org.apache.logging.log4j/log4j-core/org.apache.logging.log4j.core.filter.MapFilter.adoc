@@ -25,5 +25,5 @@ A Filter that operates on a Map.
 [#org_apache_logging_log4j_core_filter_MapFilter-implementations]
 == Known implementations
 
-* xref:../log4j-core/org.apache.logging.log4j.core.filter.StructuredDataFilter.adoc[StructuredDataFilter]
-* xref:../log4j-core/org.apache.logging.log4j.core.filter.ThreadContextMapFilter.adoc[ThreadContextMapFilter]
+* xref:../../org.apache.logging.log4j/log4j-core/org.apache.logging.log4j.core.filter.StructuredDataFilter.adoc[StructuredDataFilter]
+* xref:../../org.apache.logging.log4j/log4j-core/org.apache.logging.log4j.core.filter.ThreadContextMapFilter.adoc[ThreadContextMapFilter]

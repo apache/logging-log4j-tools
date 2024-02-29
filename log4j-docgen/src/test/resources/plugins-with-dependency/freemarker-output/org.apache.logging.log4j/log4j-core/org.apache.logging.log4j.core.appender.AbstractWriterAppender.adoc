@@ -25,4 +25,4 @@ Appends log events as strings to a writer.
 [#org_apache_logging_log4j_core_appender_AbstractWriterAppender-implementations]
 == Known implementations
 
-* xref:../log4j-core/org.apache.logging.log4j.core.appender.WriterAppender.adoc[WriterAppender]
+* xref:../../org.apache.logging.log4j/log4j-core/org.apache.logging.log4j.core.appender.WriterAppender.adoc[WriterAppender]

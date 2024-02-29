@@ -29,5 +29,5 @@ When creating _plugin_ builders, it is customary to create the builder class as 
 [#org_apache_logging_log4j_core_util_Builder-implementations]
 == Known implementations
 
-* xref:../log4j-core/org.apache.logging.log4j.core.net.SocketOptions.adoc[SocketOptions]
-* xref:../log4j-core/org.apache.logging.log4j.core.net.SocketPerformancePreferences.adoc[SocketPerformancePreferences]
+* xref:../../org.apache.logging.log4j/log4j-core/org.apache.logging.log4j.core.net.SocketOptions.adoc[SocketOptions]
+* xref:../../org.apache.logging.log4j/log4j-core/org.apache.logging.log4j.core.net.SocketPerformancePreferences.adoc[SocketPerformancePreferences]

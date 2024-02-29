@@ -25,6 +25,6 @@ Container for the language and body of a script.
 [#org_apache_logging_log4j_core_script_AbstractScript-implementations]
 == Known implementations
 
-* xref:../log4j-core/org.apache.logging.log4j.core.script.Script.adoc[Script]
-* xref:../log4j-core/org.apache.logging.log4j.core.script.ScriptFile.adoc[ScriptFile]
-* xref:../log4j-core/org.apache.logging.log4j.core.script.ScriptRef.adoc[ScriptRef]
+* xref:../../org.apache.logging.log4j/log4j-core/org.apache.logging.log4j.core.script.Script.adoc[Script]
+* xref:../../org.apache.logging.log4j/log4j-core/org.apache.logging.log4j.core.script.ScriptFile.adoc[ScriptFile]
+* xref:../../org.apache.logging.log4j/log4j-core/org.apache.logging.log4j.core.script.ScriptRef.adoc[ScriptRef]

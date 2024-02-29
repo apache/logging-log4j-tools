@@ -24,5 +24,5 @@ Provider:: `org.apache.logging.log4j:log4j-core`
 [#org_apache_logging_log4j_core_net_ssl_StoreConfiguration-implementations]
 == Known implementations
 
-* xref:../log4j-core/org.apache.logging.log4j.core.net.ssl.KeyStoreConfiguration.adoc[KeyStoreConfiguration]
-* xref:../log4j-core/org.apache.logging.log4j.core.net.ssl.TrustStoreConfiguration.adoc[TrustStoreConfiguration]
+* xref:../../org.apache.logging.log4j/log4j-core/org.apache.logging.log4j.core.net.ssl.KeyStoreConfiguration.adoc[KeyStoreConfiguration]
+* xref:../../org.apache.logging.log4j/log4j-core/org.apache.logging.log4j.core.net.ssl.TrustStoreConfiguration.adoc[TrustStoreConfiguration]

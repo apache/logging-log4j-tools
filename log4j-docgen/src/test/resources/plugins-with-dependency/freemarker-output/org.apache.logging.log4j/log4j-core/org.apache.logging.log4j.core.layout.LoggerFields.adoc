@@ -69,7 +69,7 @@ Optional components are denoted by `?`-suffixed types.
 |Tag|Type|Description
 
 |KeyValuePair
-|xref:../log4j-core/org.apache.logging.log4j.core.util.KeyValuePair.adoc[KeyValuePair]?
+|xref:../../org.apache.logging.log4j/log4j-core/org.apache.logging.log4j.core.util.KeyValuePair.adoc[KeyValuePair]?
 a|An array of KeyValuePairs.
 
 |===

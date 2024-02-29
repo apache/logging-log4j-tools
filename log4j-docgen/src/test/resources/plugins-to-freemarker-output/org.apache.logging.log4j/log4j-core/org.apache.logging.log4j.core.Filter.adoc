@@ -29,4 +29,4 @@ It is recommended that, where possible, `Filter` implementations create a generi
 [#org_apache_logging_log4j_core_Filter-implementations]
 == Known implementations
 
-* xref:../log4j-core/org.apache.logging.log4j.core.filter.BurstFilter.adoc[BurstFilter]
+* xref:../../org.apache.logging.log4j/log4j-core/org.apache.logging.log4j.core.filter.BurstFilter.adoc[BurstFilter]

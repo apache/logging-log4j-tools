@@ -25,6 +25,6 @@ Interface to be implemented by components that support modifications to the LogE
 [#org_apache_logging_log4j_core_appender_rewrite_RewritePolicy-implementations]
 == Known implementations
 
-* xref:../log4j-core/org.apache.logging.log4j.core.appender.rewrite.LoggerNameLevelRewritePolicy.adoc[LoggerNameLevelRewritePolicy]
-* xref:../log4j-core/org.apache.logging.log4j.core.appender.rewrite.MapRewritePolicy.adoc[MapRewritePolicy]
-* xref:../log4j-core/org.apache.logging.log4j.core.appender.rewrite.PropertiesRewritePolicy.adoc[PropertiesRewritePolicy]
+* xref:../../org.apache.logging.log4j/log4j-core/org.apache.logging.log4j.core.appender.rewrite.LoggerNameLevelRewritePolicy.adoc[LoggerNameLevelRewritePolicy]
+* xref:../../org.apache.logging.log4j/log4j-core/org.apache.logging.log4j.core.appender.rewrite.MapRewritePolicy.adoc[MapRewritePolicy]
+* xref:../../org.apache.logging.log4j/log4j-core/org.apache.logging.log4j.core.appender.rewrite.PropertiesRewritePolicy.adoc[PropertiesRewritePolicy]

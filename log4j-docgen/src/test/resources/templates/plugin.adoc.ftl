@@ -107,7 +107,7 @@ Optional components are denoted by `?`-suffixed types.
                 <#case 'PluginType'>
                 <#case 'AbstractType'>
 |${tagCell}
-|xref:../${elementSourcedType.artifactId}/${element.type}.adoc[${elementName}]${requirementSuffix}
+|xref:../../${elementSourcedType.groupId}/${elementSourcedType.artifactId}/${element.type}.adoc[${elementName}]${requirementSuffix}
 a|${descriptionCell}
                     <#break>
                 <#case 'ScalarType'>
@@ -133,6 +133,7 @@ a|${descriptionCell}
 == Known implementations
 
     <#list type.implementations as impl>
-* xref:../${lookup[impl].artifactId}/${impl}.adoc[${impl?contains('.')?then(impl?keep_after_last('.'), impl)}]
+        <#assign implSourcedType = lookup[impl]/>
+* xref:../../${implSourcedType.groupId}/${implSourcedType.artifactId}/${impl}.adoc[${impl?contains('.')?then(impl?keep_after_last('.'), impl)}]
     </#list>
 </#if>

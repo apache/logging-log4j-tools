@@ -24,6 +24,6 @@ Provider:: `org.apache.logging.log4j:log4j-core`
 [#org_apache_logging_log4j_core_layout_AbstractJacksonLayout-implementations]
 == Known implementations
 
-* xref:../log4j-core/org.apache.logging.log4j.core.layout.JsonLayout.adoc[JsonLayout]
-* xref:../log4j-core/org.apache.logging.log4j.core.layout.XmlLayout.adoc[XmlLayout]
-* xref:../log4j-core/org.apache.logging.log4j.core.layout.YamlLayout.adoc[YamlLayout]
+* xref:../../org.apache.logging.log4j/log4j-core/org.apache.logging.log4j.core.layout.JsonLayout.adoc[JsonLayout]
+* xref:../../org.apache.logging.log4j/log4j-core/org.apache.logging.log4j.core.layout.XmlLayout.adoc[XmlLayout]
+* xref:../../org.apache.logging.log4j/log4j-core/org.apache.logging.log4j.core.layout.YamlLayout.adoc[YamlLayout]

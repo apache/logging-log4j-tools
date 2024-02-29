@@ -61,11 +61,11 @@ Optional components are denoted by `?`-suffixed types.
 |Tag|Type|Description
 
 |KeyStore
-|xref:../log4j-core/org.apache.logging.log4j.core.net.ssl.KeyStoreConfiguration.adoc[KeyStoreConfiguration]?
+|xref:../../org.apache.logging.log4j/log4j-core/org.apache.logging.log4j.core.net.ssl.KeyStoreConfiguration.adoc[KeyStoreConfiguration]?
 a|The KeyStoreConfiguration.
 
 |TrustStore
-|xref:../log4j-core/org.apache.logging.log4j.core.net.ssl.TrustStoreConfiguration.adoc[TrustStoreConfiguration]?
+|xref:../../org.apache.logging.log4j/log4j-core/org.apache.logging.log4j.core.net.ssl.TrustStoreConfiguration.adoc[TrustStoreConfiguration]?
 a|The TrustStoreConfiguration.
 
 |===

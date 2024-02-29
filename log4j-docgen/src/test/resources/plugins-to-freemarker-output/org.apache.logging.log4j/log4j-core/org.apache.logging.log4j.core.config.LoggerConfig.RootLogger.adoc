@@ -66,11 +66,11 @@ Optional components are denoted by `?`-suffixed types.
 |Tag|Type|Description
 
 |AppenderRef
-|xref:../log4j-core/org.apache.logging.log4j.core.config.AppenderRef.adoc[AppenderRef]?
+|xref:../../org.apache.logging.log4j/log4j-core/org.apache.logging.log4j.core.config.AppenderRef.adoc[AppenderRef]?
 a|A list of appenders to use with this logger.
 
 |
-|xref:../log4j-core/org.apache.logging.log4j.core.Filter.adoc[Filter]?
+|xref:../../org.apache.logging.log4j/log4j-core/org.apache.logging.log4j.core.Filter.adoc[Filter]?
 a|A filter to filter events, before calling the appenders.
 
 |===

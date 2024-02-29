@@ -25,8 +25,8 @@ Interface used to check for portions of the configuration that may be optionally
 [#org_apache_logging_log4j_core_config_arbiters_Arbiter-implementations]
 == Known implementations
 
-* xref:../log4j-core/org.apache.logging.log4j.core.config.arbiters.ClassArbiter.adoc[ClassArbiter]
-* xref:../log4j-core/org.apache.logging.log4j.core.config.arbiters.DefaultArbiter.adoc[DefaultArbiter]
-* xref:../log4j-core/org.apache.logging.log4j.core.config.arbiters.EnvironmentArbiter.adoc[EnvironmentArbiter]
-* xref:../log4j-core/org.apache.logging.log4j.core.config.arbiters.ScriptArbiter.adoc[ScriptArbiter]
-* xref:../log4j-core/org.apache.logging.log4j.core.config.arbiters.SystemPropertyArbiter.adoc[SystemPropertyArbiter]
+* xref:../../org.apache.logging.log4j/log4j-core/org.apache.logging.log4j.core.config.arbiters.ClassArbiter.adoc[ClassArbiter]
+* xref:../../org.apache.logging.log4j/log4j-core/org.apache.logging.log4j.core.config.arbiters.DefaultArbiter.adoc[DefaultArbiter]
+* xref:../../org.apache.logging.log4j/log4j-core/org.apache.logging.log4j.core.config.arbiters.EnvironmentArbiter.adoc[EnvironmentArbiter]
+* xref:../../org.apache.logging.log4j/log4j-core/org.apache.logging.log4j.core.config.arbiters.ScriptArbiter.adoc[ScriptArbiter]
+* xref:../../org.apache.logging.log4j/log4j-core/org.apache.logging.log4j.core.config.arbiters.SystemPropertyArbiter.adoc[SystemPropertyArbiter]

@@ -68,7 +68,7 @@ Optional components are denoted by `?`-suffixed types.
 |Tag|Type|Description
 
 |
-|xref:../log4j-core/org.apache.logging.log4j.core.appender.rolling.action.PathCondition.adoc[PathCondition]?
+|xref:../../org.apache.logging.log4j/log4j-core/org.apache.logging.log4j.core.appender.rolling.action.PathCondition.adoc[PathCondition]?
 a|nested conditions to evaluate if this condition accepts a path
 
 |===

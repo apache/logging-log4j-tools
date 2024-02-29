@@ -58,11 +58,11 @@ Optional components are denoted by `?`-suffixed types.
 |Tag|Type|Description
 
 |Route
-|xref:../log4j-core/org.apache.logging.log4j.core.appender.routing.Route.adoc[Route]
+|xref:../../org.apache.logging.log4j/log4j-core/org.apache.logging.log4j.core.appender.routing.Route.adoc[Route]
 a|
 
 |
-|xref:../log4j-core/org.apache.logging.log4j.core.script.AbstractScript.adoc[AbstractScript]?
+|xref:../../org.apache.logging.log4j/log4j-core/org.apache.logging.log4j.core.script.AbstractScript.adoc[AbstractScript]?
 a|
 
 |===

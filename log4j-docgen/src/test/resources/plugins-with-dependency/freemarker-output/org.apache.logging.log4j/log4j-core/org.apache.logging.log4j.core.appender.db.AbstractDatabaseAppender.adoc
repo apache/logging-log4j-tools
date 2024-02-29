@@ -27,5 +27,5 @@ All database appenders should inherit from this base appender.
 [#org_apache_logging_log4j_core_appender_db_AbstractDatabaseAppender-implementations]
 == Known implementations
 
-* xref:../log4j-core/org.apache.logging.log4j.core.appender.db.jdbc.JdbcAppender.adoc[JdbcAppender]
-* xref:../log4j-core/org.apache.logging.log4j.core.appender.nosql.NoSqlAppender.adoc[NoSqlAppender]
+* xref:../../org.apache.logging.log4j/log4j-core/org.apache.logging.log4j.core.appender.db.jdbc.JdbcAppender.adoc[JdbcAppender]
+* xref:../../org.apache.logging.log4j/log4j-core/org.apache.logging.log4j.core.appender.nosql.NoSqlAppender.adoc[NoSqlAppender]

@@ -25,10 +25,10 @@ Filter that accepts or rejects a candidate `Path` for deletion.
 [#org_apache_logging_log4j_core_appender_rolling_action_PathCondition-implementations]
 == Known implementations
 
-* xref:../log4j-core/org.apache.logging.log4j.core.appender.rolling.action.IfAccumulatedFileCount.adoc[IfAccumulatedFileCount]
-* xref:../log4j-core/org.apache.logging.log4j.core.appender.rolling.action.IfAccumulatedFileSize.adoc[IfAccumulatedFileSize]
-* xref:../log4j-core/org.apache.logging.log4j.core.appender.rolling.action.IfAll.adoc[IfAll]
-* xref:../log4j-core/org.apache.logging.log4j.core.appender.rolling.action.IfAny.adoc[IfAny]
-* xref:../log4j-core/org.apache.logging.log4j.core.appender.rolling.action.IfFileName.adoc[IfFileName]
-* xref:../log4j-core/org.apache.logging.log4j.core.appender.rolling.action.IfLastModified.adoc[IfLastModified]
-* xref:../log4j-core/org.apache.logging.log4j.core.appender.rolling.action.IfNot.adoc[IfNot]
+* xref:../../org.apache.logging.log4j/log4j-core/org.apache.logging.log4j.core.appender.rolling.action.IfAccumulatedFileCount.adoc[IfAccumulatedFileCount]
+* xref:../../org.apache.logging.log4j/log4j-core/org.apache.logging.log4j.core.appender.rolling.action.IfAccumulatedFileSize.adoc[IfAccumulatedFileSize]
+* xref:../../org.apache.logging.log4j/log4j-core/org.apache.logging.log4j.core.appender.rolling.action.IfAll.adoc[IfAll]
+* xref:../../org.apache.logging.log4j/log4j-core/org.apache.logging.log4j.core.appender.rolling.action.IfAny.adoc[IfAny]
+* xref:../../org.apache.logging.log4j/log4j-core/org.apache.logging.log4j.core.appender.rolling.action.IfFileName.adoc[IfFileName]
+* xref:../../org.apache.logging.log4j/log4j-core/org.apache.logging.log4j.core.appender.rolling.action.IfLastModified.adoc[IfLastModified]
+* xref:../../org.apache.logging.log4j/log4j-core/org.apache.logging.log4j.core.appender.rolling.action.IfNot.adoc[IfNot]

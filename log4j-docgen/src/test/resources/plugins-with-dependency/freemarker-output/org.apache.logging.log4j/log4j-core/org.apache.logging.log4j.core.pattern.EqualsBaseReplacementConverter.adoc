@@ -25,5 +25,5 @@ Equals pattern converter.
 [#org_apache_logging_log4j_core_pattern_EqualsBaseReplacementConverter-implementations]
 == Known implementations
 
-* xref:../log4j-core/org.apache.logging.log4j.core.pattern.EqualsIgnoreCaseReplacementConverter.adoc[EqualsIgnoreCaseReplacementConverter]
-* xref:../log4j-core/org.apache.logging.log4j.core.pattern.EqualsReplacementConverter.adoc[EqualsReplacementConverter]
+* xref:../../org.apache.logging.log4j/log4j-core/org.apache.logging.log4j.core.pattern.EqualsIgnoreCaseReplacementConverter.adoc[EqualsIgnoreCaseReplacementConverter]
+* xref:../../org.apache.logging.log4j/log4j-core/org.apache.logging.log4j.core.pattern.EqualsReplacementConverter.adoc[EqualsReplacementConverter]

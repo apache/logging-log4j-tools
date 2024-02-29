@@ -65,15 +65,15 @@ Optional components are denoted by `?`-suffixed types.
 |Tag|Type|Description
 
 |
-|xref:../log4j-core/org.apache.logging.log4j.core.appender.rewrite.RewritePolicy.adoc[RewritePolicy]?
+|xref:../../org.apache.logging.log4j/log4j-core/org.apache.logging.log4j.core.appender.rewrite.RewritePolicy.adoc[RewritePolicy]?
 a|The policy to use to modify the event.
 
 |AppenderRef
-|xref:../log4j-core/org.apache.logging.log4j.core.config.AppenderRef.adoc[AppenderRef]?
+|xref:../../org.apache.logging.log4j/log4j-core/org.apache.logging.log4j.core.config.AppenderRef.adoc[AppenderRef]?
 a|An array of Appender names to call.
 
 |
-|xref:../log4j-core/org.apache.logging.log4j.core.Filter.adoc[Filter]?
+|xref:../../org.apache.logging.log4j/log4j-core/org.apache.logging.log4j.core.Filter.adoc[Filter]?
 a|A Filter to filter events.
 
 |===

@@ -25,4 +25,4 @@ Policy for purging routed appenders
 [#org_apache_logging_log4j_core_appender_routing_PurgePolicy-implementations]
 == Known implementations
 
-* xref:../log4j-core/org.apache.logging.log4j.core.appender.routing.IdlePurgePolicy.adoc[IdlePurgePolicy]
+* xref:../../org.apache.logging.log4j/log4j-core/org.apache.logging.log4j.core.appender.routing.IdlePurgePolicy.adoc[IdlePurgePolicy]

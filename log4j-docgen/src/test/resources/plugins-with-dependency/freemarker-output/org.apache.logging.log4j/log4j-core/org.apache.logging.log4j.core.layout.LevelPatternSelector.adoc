@@ -75,7 +75,7 @@ Optional components are denoted by `?`-suffixed types.
 |Tag|Type|Description
 
 |PatternMatch
-|xref:../log4j-core/org.apache.logging.log4j.core.layout.PatternMatch.adoc[PatternMatch]?
+|xref:../../org.apache.logging.log4j/log4j-core/org.apache.logging.log4j.core.layout.PatternMatch.adoc[PatternMatch]?
 a|
 
 |===

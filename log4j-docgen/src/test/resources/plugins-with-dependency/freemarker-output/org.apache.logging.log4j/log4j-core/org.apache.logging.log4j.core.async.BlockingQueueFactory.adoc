@@ -25,7 +25,7 @@ Factory for creating instances of xref:BlockingQueue.adoc[].
 [#org_apache_logging_log4j_core_async_BlockingQueueFactory-implementations]
 == Known implementations
 
-* xref:../log4j-core/org.apache.logging.log4j.core.async.ArrayBlockingQueueFactory.adoc[ArrayBlockingQueueFactory]
-* xref:../log4j-core/org.apache.logging.log4j.core.async.DisruptorBlockingQueueFactory.adoc[DisruptorBlockingQueueFactory]
-* xref:../log4j-core/org.apache.logging.log4j.core.async.JCToolsBlockingQueueFactory.adoc[JCToolsBlockingQueueFactory]
-* xref:../log4j-core/org.apache.logging.log4j.core.async.LinkedTransferQueueFactory.adoc[LinkedTransferQueueFactory]
+* xref:../../org.apache.logging.log4j/log4j-core/org.apache.logging.log4j.core.async.ArrayBlockingQueueFactory.adoc[ArrayBlockingQueueFactory]
+* xref:../../org.apache.logging.log4j/log4j-core/org.apache.logging.log4j.core.async.DisruptorBlockingQueueFactory.adoc[DisruptorBlockingQueueFactory]
+* xref:../../org.apache.logging.log4j/log4j-core/org.apache.logging.log4j.core.async.JCToolsBlockingQueueFactory.adoc[JCToolsBlockingQueueFactory]
+* xref:../../org.apache.logging.log4j/log4j-core/org.apache.logging.log4j.core.async.LinkedTransferQueueFactory.adoc[LinkedTransferQueueFactory]

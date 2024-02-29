@@ -27,4 +27,4 @@ Supports both TCP and UDP.
 [#org_apache_logging_log4j_core_appender_SocketAppender-implementations]
 == Known implementations
 
-* xref:../log4j-core/org.apache.logging.log4j.core.appender.SyslogAppender.adoc[SyslogAppender]
+* xref:../../org.apache.logging.log4j/log4j-core/org.apache.logging.log4j.core.appender.SyslogAppender.adoc[SyslogAppender]

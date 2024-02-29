@@ -25,4 +25,4 @@ Defines the interface of classes that can sort Paths.
 [#org_apache_logging_log4j_core_appender_rolling_action_PathSorter-implementations]
 == Known implementations
 
-* xref:../log4j-core/org.apache.logging.log4j.core.appender.rolling.action.PathSortByModificationTime.adoc[PathSortByModificationTime]
+* xref:../../org.apache.logging.log4j/log4j-core/org.apache.logging.log4j.core.appender.rolling.action.PathSortByModificationTime.adoc[PathSortByModificationTime]

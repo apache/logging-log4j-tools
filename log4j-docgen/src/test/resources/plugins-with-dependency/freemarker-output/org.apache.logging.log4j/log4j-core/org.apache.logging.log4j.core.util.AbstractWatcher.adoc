@@ -27,4 +27,4 @@ Causes a reconfiguration when a file changes.
 [#org_apache_logging_log4j_core_util_AbstractWatcher-implementations]
 == Known implementations
 
-* xref:../log4j-core/org.apache.logging.log4j.core.config.HttpWatcher.adoc[HttpWatcher]
+* xref:../../org.apache.logging.log4j/log4j-core/org.apache.logging.log4j.core.config.HttpWatcher.adoc[HttpWatcher]

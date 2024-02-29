@@ -27,6 +27,6 @@ If you want to use the xref:JdbcAppender.adoc[] but none of the provided connect
 [#org_apache_logging_log4j_core_appender_db_jdbc_ConnectionSource-implementations]
 == Known implementations
 
-* xref:../log4j-core/org.apache.logging.log4j.core.appender.db.jdbc.DataSourceConnectionSource.adoc[DataSourceConnectionSource]
-* xref:../log4j-core/org.apache.logging.log4j.core.appender.db.jdbc.DriverManagerConnectionSource.adoc[DriverManagerConnectionSource]
-* xref:../log4j-core/org.apache.logging.log4j.core.appender.db.jdbc.FactoryMethodConnectionSource.adoc[FactoryMethodConnectionSource]
+* xref:../../org.apache.logging.log4j/log4j-core/org.apache.logging.log4j.core.appender.db.jdbc.DataSourceConnectionSource.adoc[DataSourceConnectionSource]
+* xref:../../org.apache.logging.log4j/log4j-core/org.apache.logging.log4j.core.appender.db.jdbc.DriverManagerConnectionSource.adoc[DriverManagerConnectionSource]
+* xref:../../org.apache.logging.log4j/log4j-core/org.apache.logging.log4j.core.appender.db.jdbc.FactoryMethodConnectionSource.adoc[FactoryMethodConnectionSource]

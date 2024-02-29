@@ -25,5 +25,5 @@ xref:PatternConverter.adoc[]s implement this interface to accept an array of obj
 [#org_apache_logging_log4j_core_pattern_ArrayPatternConverter-implementations]
 == Known implementations
 
-* xref:../log4j-core/org.apache.logging.log4j.core.pattern.DatePatternConverter.adoc[DatePatternConverter]
-* xref:../log4j-core/org.apache.logging.log4j.core.pattern.IntegerPatternConverter.adoc[IntegerPatternConverter]
+* xref:../../org.apache.logging.log4j/log4j-core/org.apache.logging.log4j.core.pattern.DatePatternConverter.adoc[DatePatternConverter]
+* xref:../../org.apache.logging.log4j/log4j-core/org.apache.logging.log4j.core.pattern.IntegerPatternConverter.adoc[IntegerPatternConverter]

@@ -41,7 +41,7 @@ Optional components are denoted by `?`-suffixed types.
 |Tag|Type|Description
 
 |
-|xref:../log4j-core/org.apache.logging.log4j.core.script.AbstractScript.adoc[AbstractScript]?
+|xref:../../org.apache.logging.log4j/log4j-core/org.apache.logging.log4j.core.script.AbstractScript.adoc[AbstractScript]?
 a|The script to run.
 This may be a xref:org.apache.logging.log4j.core.script.Script.adoc[Script], a xref:ScriptFile.adoc[] or a xref:ScriptRef.adoc[]. The script must return a `List<PathWithAttributes>`. When the script is executed, it is provided the following bindings:
 

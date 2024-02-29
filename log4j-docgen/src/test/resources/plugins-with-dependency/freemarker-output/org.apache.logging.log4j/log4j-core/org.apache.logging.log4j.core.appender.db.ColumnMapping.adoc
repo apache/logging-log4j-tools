@@ -107,7 +107,7 @@ Optional components are denoted by `?`-suffixed types.
 |Tag|Type|Description
 
 |
-|xref:../log4j-core/org.apache.logging.log4j.core.StringLayout.adoc[StringLayout]?
+|xref:../../org.apache.logging.log4j/log4j-core/org.apache.logging.log4j.core.StringLayout.adoc[StringLayout]?
 a|Layout of value to write to database (before type conversion).
 
 Not applicable if xref:.adoc[] is a xref:ReadOnlyStringMap.adoc[], xref:ThreadContextMap.adoc[], or xref:ThreadContextStack.adoc[].
