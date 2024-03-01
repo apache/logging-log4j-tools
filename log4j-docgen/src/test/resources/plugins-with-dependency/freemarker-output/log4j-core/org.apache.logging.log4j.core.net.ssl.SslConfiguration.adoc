@@ -1,0 +1,71 @@
+////
+Licensed to the Apache Software Foundation (ASF) under one or more
+contributor license agreements. See the NOTICE file distributed with
+this work for additional information regarding copyright ownership.
+The ASF licenses this file to You under the Apache License, Version 2.0
+(the "License"); you may not use this file except in compliance with
+the License. You may obtain a copy of the License at
+
+    https://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+////
+[#org_apache_logging_log4j_core_net_ssl_SslConfiguration]
+= Ssl
+
+Class:: `org.apache.logging.log4j.core.net.ssl.SslConfiguration`
+Provider:: `org.apache.logging.log4j:log4j-core`
+
+SSL Configuration
+
+[#org_apache_logging_log4j_core_net_ssl_SslConfiguration-XML-snippet]
+== XML snippet
+[source, xml]
+----
+<Ssl protocol="">
+    <KeyStore/>
+    <TrustStore/>
+</Ssl>
+----
+
+[#org_apache_logging_log4j_core_net_ssl_SslConfiguration-attributes]
+== Attributes
+
+Optional attributes are denoted by `?`-suffixed types.
+
+[cols="1m,1m,1m,5"]
+|===
+|Name|Type|Default|Description
+
+|protocol
+|xref:../scalars.adoc#java_lang_String[String]?
+|
+a|The protocol, see http://docs.
+oracle.
+com/javase/7/docs/technotes/guides/security/StandardNames.
+html#SSLContext
+
+|===
+
+[#org_apache_logging_log4j_core_net_ssl_SslConfiguration-components]
+== Nested components
+
+Optional components are denoted by `?`-suffixed types.
+
+[cols="1m,1m,5"]
+|===
+|Tag|Type|Description
+
+|KeyStore
+|xref:../log4j-core/org.apache.logging.log4j.core.net.ssl.KeyStoreConfiguration.adoc[KeyStoreConfiguration]?
+a|The KeyStoreConfiguration.
+
+|TrustStore
+|xref:../log4j-core/org.apache.logging.log4j.core.net.ssl.TrustStoreConfiguration.adoc[TrustStoreConfiguration]?
+a|The TrustStoreConfiguration.
+
+|===

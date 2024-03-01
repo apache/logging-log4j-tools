@@ -1,0 +1,95 @@
+////
+Licensed to the Apache Software Foundation (ASF) under one or more
+contributor license agreements. See the NOTICE file distributed with
+this work for additional information regarding copyright ownership.
+The ASF licenses this file to You under the Apache License, Version 2.0
+(the "License"); you may not use this file except in compliance with
+the License. You may obtain a copy of the License at
+
+    https://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+////
+[#org_apache_logging_log4j_core_appender_rolling_action_PosixViewAttributeAction]
+= PosixViewAttribute
+
+Class:: `org.apache.logging.log4j.core.appender.rolling.action.PosixViewAttributeAction`
+Provider:: `org.apache.logging.log4j:log4j-core`
+
+File POSIX attribute view action.
+
+Allow to define file permissions, user and group for log files on POSIX supported OS.
+
+[#org_apache_logging_log4j_core_appender_rolling_action_PosixViewAttributeAction-XML-snippet]
+== XML snippet
+[source, xml]
+----
+<PosixViewAttribute basePath=""
+                    fileGroup=""
+                    fileOwner=""
+                    filePermissions=""
+                    followLinks=""
+                    maxDepth="">
+    <a-PathCondition-implementation/><!-- multiple occurrences allowed -->
+</PosixViewAttribute>
+----
+
+[#org_apache_logging_log4j_core_appender_rolling_action_PosixViewAttributeAction-attributes]
+== Attributes
+
+Optional attributes are denoted by `?`-suffixed types.
+
+[cols="1m,1m,1m,5"]
+|===
+|Name|Type|Default|Description
+
+|basePath
+|xref:../scalars.adoc#java_lang_String[String]
+|
+a|
+
+|fileGroup
+|xref:../scalars.adoc#java_lang_String[String]?
+|
+a|
+
+|fileOwner
+|xref:../scalars.adoc#java_lang_String[String]?
+|
+a|
+
+|filePermissions
+|xref:../scalars.adoc#java_lang_String[String]?
+|
+a|
+
+|followLinks
+|xref:../scalars.adoc#boolean[boolean]?
+|
+a|
+
+|maxDepth
+|xref:../scalars.adoc#int[int]?
+|
+a|
+
+|===
+
+[#org_apache_logging_log4j_core_appender_rolling_action_PosixViewAttributeAction-components]
+== Nested components
+
+Optional components are denoted by `?`-suffixed types.
+
+[cols="1m,1m,5"]
+|===
+|Tag|Type|Description
+
+|
+|xref:../log4j-core/org.apache.logging.log4j.core.appender.rolling.action.PathCondition.adoc[PathCondition]?
+a|
+
+|===

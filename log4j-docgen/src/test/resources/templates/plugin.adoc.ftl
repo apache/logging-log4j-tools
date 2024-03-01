@@ -77,7 +77,7 @@ Optional attributes are denoted by `?`-suffixed types.
     <#list type.attributes?sort_by('name') as attr>
         <#assign requirementSuffix = attr.required?then('', '?')/>
 |${attr.name}
-|xref:../../scalars.adoc#${attr.type?replace('.', '_')}[${attr.type?contains('.')?then(attr.type?keep_after_last('.'), attr.type)}]${requirementSuffix}
+|xref:../scalars.adoc#${attr.type?replace('.', '_')}[${attr.type?contains('.')?then(attr.type?keep_after_last('.'), attr.type)}]${requirementSuffix}
 |${attr.defaultValue!}
 a|${(attr.description.text)!}
 
@@ -107,7 +107,7 @@ Optional components are denoted by `?`-suffixed types.
                 <#case 'PluginType'>
                 <#case 'AbstractType'>
 |${tagCell}
-|xref:../../${elementSourcedType.groupId}/${elementSourcedType.artifactId}/${element.type}.adoc[${elementName}]${requirementSuffix}
+|xref:../${elementSourcedType.artifactId}/${element.type}.adoc[${elementName}]${requirementSuffix}
 a|${descriptionCell}
                     <#break>
                 <#case 'ScalarType'>
@@ -134,6 +134,6 @@ a|${descriptionCell}
 
     <#list type.implementations as impl>
         <#assign implSourcedType = lookup[impl]/>
-* xref:../../${implSourcedType.groupId}/${implSourcedType.artifactId}/${impl}.adoc[${impl?contains('.')?then(impl?keep_after_last('.'), impl)}]
+* xref:../${implSourcedType.artifactId}/${impl}.adoc[${impl?contains('.')?then(impl?keep_after_last('.'), impl)}]
     </#list>
 </#if>

@@ -1,0 +1,84 @@
+////
+Licensed to the Apache Software Foundation (ASF) under one or more
+contributor license agreements. See the NOTICE file distributed with
+this work for additional information regarding copyright ownership.
+The ASF licenses this file to You under the Apache License, Version 2.0
+(the "License"); you may not use this file except in compliance with
+the License. You may obtain a copy of the License at
+
+    https://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+////
+[#org_apache_logging_log4j_core_AbstractLifeCycle]
+= AbstractLifeCycle
+
+Class:: `org.apache.logging.log4j.core.AbstractLifeCycle`
+Provider:: `org.apache.logging.log4j:log4j-core`
+
+A life cycle to be extended.
+
+Wraps a xref:LifeCycle.State.adoc[State].
+
+[#org_apache_logging_log4j_core_AbstractLifeCycle-implementations]
+== Known implementations
+
+* xref:../log4j-core/org.apache.logging.log4j.core.appender.AsyncAppender.adoc[AsyncAppender]
+* xref:../log4j-core/org.apache.logging.log4j.core.appender.ConsoleAppender.adoc[ConsoleAppender]
+* xref:../log4j-core/org.apache.logging.log4j.core.appender.CountingNoOpAppender.adoc[CountingNoOpAppender]
+* xref:../log4j-core/org.apache.logging.log4j.core.appender.FailoverAppender.adoc[FailoverAppender]
+* xref:../log4j-core/org.apache.logging.log4j.core.appender.FileAppender.adoc[FileAppender]
+* xref:../log4j-core/org.apache.logging.log4j.core.appender.HttpAppender.adoc[HttpAppender]
+* xref:../log4j-core/org.apache.logging.log4j.core.appender.MemoryMappedFileAppender.adoc[MemoryMappedFileAppender]
+* xref:../log4j-core/org.apache.logging.log4j.core.appender.NullAppender.adoc[NullAppender]
+* xref:../log4j-core/org.apache.logging.log4j.core.appender.OutputStreamAppender.adoc[OutputStreamAppender]
+* xref:../log4j-core/org.apache.logging.log4j.core.appender.RandomAccessFileAppender.adoc[RandomAccessFileAppender]
+* xref:../log4j-core/org.apache.logging.log4j.core.appender.RollingFileAppender.adoc[RollingFileAppender]
+* xref:../log4j-core/org.apache.logging.log4j.core.appender.RollingRandomAccessFileAppender.adoc[RollingRandomAccessFileAppender]
+* xref:../log4j-core/org.apache.logging.log4j.core.appender.ScriptAppenderSelector.adoc[ScriptAppenderSelector]
+* xref:../log4j-core/org.apache.logging.log4j.core.appender.SmtpAppender.adoc[SmtpAppender]
+* xref:../log4j-core/org.apache.logging.log4j.core.appender.SocketAppender.adoc[SocketAppender]
+* xref:../log4j-core/org.apache.logging.log4j.core.appender.SyslogAppender.adoc[SyslogAppender]
+* xref:../log4j-core/org.apache.logging.log4j.core.appender.WriterAppender.adoc[WriterAppender]
+* xref:../log4j-core/org.apache.logging.log4j.core.appender.db.jdbc.DataSourceConnectionSource.adoc[DataSourceConnectionSource]
+* xref:../log4j-core/org.apache.logging.log4j.core.appender.db.jdbc.DriverManagerConnectionSource.adoc[DriverManagerConnectionSource]
+* xref:../log4j-core/org.apache.logging.log4j.core.appender.db.jdbc.FactoryMethodConnectionSource.adoc[FactoryMethodConnectionSource]
+* xref:../log4j-core/org.apache.logging.log4j.core.appender.db.jdbc.JdbcAppender.adoc[JdbcAppender]
+* xref:../log4j-core/org.apache.logging.log4j.core.appender.mom.JmsAppender.adoc[JmsAppender]
+* xref:../log4j-core/org.apache.logging.log4j.core.appender.mom.jeromq.JeroMqAppender.adoc[JeroMqAppender]
+* xref:../log4j-core/org.apache.logging.log4j.core.appender.mom.kafka.KafkaAppender.adoc[KafkaAppender]
+* xref:../log4j-core/org.apache.logging.log4j.core.appender.nosql.NoSqlAppender.adoc[NoSqlAppender]
+* xref:../log4j-core/org.apache.logging.log4j.core.appender.rewrite.RewriteAppender.adoc[RewriteAppender]
+* xref:../log4j-core/org.apache.logging.log4j.core.appender.rolling.CompositeTriggeringPolicy.adoc[CompositeTriggeringPolicy]
+* xref:../log4j-core/org.apache.logging.log4j.core.appender.rolling.CronTriggeringPolicy.adoc[CronTriggeringPolicy]
+* xref:../log4j-core/org.apache.logging.log4j.core.appender.rolling.NoOpTriggeringPolicy.adoc[NoOpTriggeringPolicy]
+* xref:../log4j-core/org.apache.logging.log4j.core.appender.rolling.OnStartupTriggeringPolicy.adoc[OnStartupTriggeringPolicy]
+* xref:../log4j-core/org.apache.logging.log4j.core.appender.rolling.SizeBasedTriggeringPolicy.adoc[SizeBasedTriggeringPolicy]
+* xref:../log4j-core/org.apache.logging.log4j.core.appender.rolling.TimeBasedTriggeringPolicy.adoc[TimeBasedTriggeringPolicy]
+* xref:../log4j-core/org.apache.logging.log4j.core.appender.routing.IdlePurgePolicy.adoc[IdlePurgePolicy]
+* xref:../log4j-core/org.apache.logging.log4j.core.appender.routing.RoutingAppender.adoc[RoutingAppender]
+* xref:../log4j-core/org.apache.logging.log4j.core.async.AsyncLoggerConfig.adoc[AsyncLoggerConfig]
+* xref:../log4j-core/org.apache.logging.log4j.core.async.AsyncLoggerConfig.RootLogger.adoc[RootLogger]
+* xref:../log4j-core/org.apache.logging.log4j.core.config.LoggerConfig.adoc[LoggerConfig]
+* xref:../log4j-core/org.apache.logging.log4j.core.config.LoggerConfig.RootLogger.adoc[RootLogger]
+* xref:../log4j-core/org.apache.logging.log4j.core.filter.BurstFilter.adoc[BurstFilter]
+* xref:../log4j-core/org.apache.logging.log4j.core.filter.CompositeFilter.adoc[CompositeFilter]
+* xref:../log4j-core/org.apache.logging.log4j.core.filter.DenyAllFilter.adoc[DenyAllFilter]
+* xref:../log4j-core/org.apache.logging.log4j.core.filter.DynamicThresholdFilter.adoc[DynamicThresholdFilter]
+* xref:../log4j-core/org.apache.logging.log4j.core.filter.LevelMatchFilter.adoc[LevelMatchFilter]
+* xref:../log4j-core/org.apache.logging.log4j.core.filter.LevelRangeFilter.adoc[LevelRangeFilter]
+* xref:../log4j-core/org.apache.logging.log4j.core.filter.MapFilter.adoc[MapFilter]
+* xref:../log4j-core/org.apache.logging.log4j.core.filter.MarkerFilter.adoc[MarkerFilter]
+* xref:../log4j-core/org.apache.logging.log4j.core.filter.MutableThreadContextMapFilter.adoc[MutableThreadContextMapFilter]
+* xref:../log4j-core/org.apache.logging.log4j.core.filter.NoMarkerFilter.adoc[NoMarkerFilter]
+* xref:../log4j-core/org.apache.logging.log4j.core.filter.RegexFilter.adoc[RegexFilter]
+* xref:../log4j-core/org.apache.logging.log4j.core.filter.ScriptFilter.adoc[ScriptFilter]
+* xref:../log4j-core/org.apache.logging.log4j.core.filter.StringMatchFilter.adoc[StringMatchFilter]
+* xref:../log4j-core/org.apache.logging.log4j.core.filter.StructuredDataFilter.adoc[StructuredDataFilter]
+* xref:../log4j-core/org.apache.logging.log4j.core.filter.ThreadContextMapFilter.adoc[ThreadContextMapFilter]
+* xref:../log4j-core/org.apache.logging.log4j.core.filter.ThresholdFilter.adoc[ThresholdFilter]
+* xref:../log4j-core/org.apache.logging.log4j.core.filter.TimeFilter.adoc[TimeFilter]

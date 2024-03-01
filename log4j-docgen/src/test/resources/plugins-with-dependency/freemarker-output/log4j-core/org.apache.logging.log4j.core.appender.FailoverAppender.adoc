@@ -1,0 +1,88 @@
+////
+Licensed to the Apache Software Foundation (ASF) under one or more
+contributor license agreements. See the NOTICE file distributed with
+this work for additional information regarding copyright ownership.
+The ASF licenses this file to You under the Apache License, Version 2.0
+(the "License"); you may not use this file except in compliance with
+the License. You may obtain a copy of the License at
+
+    https://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+////
+[#org_apache_logging_log4j_core_appender_FailoverAppender]
+= Failover
+
+Class:: `org.apache.logging.log4j.core.appender.FailoverAppender`
+Provider:: `org.apache.logging.log4j:log4j-core`
+
+The FailoverAppender will capture exceptions in an Appender and then route the event to a different appender.
+
+Hopefully it is obvious that the Appenders must be configured to not suppress exceptions for the FailoverAppender to work.
+
+[#org_apache_logging_log4j_core_appender_FailoverAppender-XML-snippet]
+== XML snippet
+[source, xml]
+----
+<Failover ignoreExceptions=""
+          name=""
+          primary=""
+          retryIntervalSeconds="">
+    <a-String-implementation/><!-- multiple occurrences allowed -->
+    <a-Filter-implementation/>
+</Failover>
+----
+
+[#org_apache_logging_log4j_core_appender_FailoverAppender-attributes]
+== Attributes
+
+Optional attributes are denoted by `?`-suffixed types.
+
+[cols="1m,1m,1m,5"]
+|===
+|Name|Type|Default|Description
+
+|ignoreExceptions
+|xref:../scalars.adoc#java_lang_String[String]?
+|
+a|If `"true"` (default) exceptions encountered when appending events are logged; otherwise they are propagated to the caller.
+
+|name
+|xref:../scalars.adoc#java_lang_String[String]?
+|
+a|The name of the Appender (required).
+
+|primary
+|xref:../scalars.adoc#java_lang_String[String]?
+|
+a|The name of the primary Appender (required).
+
+|retryIntervalSeconds
+|xref:../scalars.adoc#java_lang_String[String]?
+|
+a|The retry interval in seconds.
+
+|===
+
+[#org_apache_logging_log4j_core_appender_FailoverAppender-components]
+== Nested components
+
+Optional components are denoted by `?`-suffixed types.
+
+[cols="1m,1m,5"]
+|===
+|Tag|Type|Description
+
+|
+|String?
+a|The name of one or more Appenders to fail over to (at least one is required).
+
+|
+|xref:../log4j-core/org.apache.logging.log4j.core.Filter.adoc[Filter]?
+a|A Filter (optional).
+
+|===

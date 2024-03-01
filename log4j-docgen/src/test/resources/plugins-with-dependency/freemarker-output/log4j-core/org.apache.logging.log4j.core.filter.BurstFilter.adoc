@@ -1,0 +1,82 @@
+////
+Licensed to the Apache Software Foundation (ASF) under one or more
+contributor license agreements. See the NOTICE file distributed with
+this work for additional information regarding copyright ownership.
+The ASF licenses this file to You under the Apache License, Version 2.0
+(the "License"); you may not use this file except in compliance with
+the License. You may obtain a copy of the License at
+
+    https://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+////
+[#org_apache_logging_log4j_core_filter_BurstFilter]
+= BurstFilter
+
+Class:: `org.apache.logging.log4j.core.filter.BurstFilter`
+Provider:: `org.apache.logging.log4j:log4j-core`
+
+The `BurstFilter` is a logging filter that regulates logging traffic.
+
+Use this filter when you want to control the maximum burst of log statements that can be sent to an appender.
+The filter is configured in the log4j configuration file.
+For example, the following configuration limits the number of INFO level (as well as DEBUG and TRACE) log statements that can be sent to the console to a burst of 100 with an average rate of 16 per second.
+WARN, ERROR and FATAL messages would continue to be delivered.
+`<Console name="console"> <PatternLayout pattern="%-5p %d{dd-MMM-yyyy HH:mm:ss} %x %t %m%n"/> <Filters> <BurstFilter level="INFO" rate="16" maxBurst="100"/> </Filters> </Console>`
+
+[#org_apache_logging_log4j_core_filter_BurstFilter-XML-snippet]
+== XML snippet
+[source, xml]
+----
+<BurstFilter level=""
+             maxBurst=""
+             onMatch=""
+             onMismatch=""
+             rate=""/>
+----
+
+[#org_apache_logging_log4j_core_filter_BurstFilter-attributes]
+== Attributes
+
+Optional attributes are denoted by `?`-suffixed types.
+
+[cols="1m,1m,1m,5"]
+|===
+|Name|Type|Default|Description
+
+|level
+|xref:../scalars.adoc#org_apache_logging_log4j_Level[Level]?
+|
+a|Sets the logging level to use.
+
+|maxBurst
+|xref:../scalars.adoc#long[long]?
+|
+a|Sets the maximum number of events that can occur before events are filtered for exceeding the average rate.
+
+|onMatch
+|xref:../scalars.adoc#org_apache_logging_log4j_core_Filter_Result[Result]?
+|
+a|Sets the Result to return when the filter matches.
+
+Defaults to Result.
+NEUTRAL.
+
+|onMismatch
+|xref:../scalars.adoc#org_apache_logging_log4j_core_Filter_Result[Result]?
+|
+a|Sets the Result to return when the filter does not match.
+
+The default is Result.
+DENY.
+
+|rate
+|xref:../scalars.adoc#float[float]?
+|
+a|Sets the average number of events per second to allow.
+
+|===

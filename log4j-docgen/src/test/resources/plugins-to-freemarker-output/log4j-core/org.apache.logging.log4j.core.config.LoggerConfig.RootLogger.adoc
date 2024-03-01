@@ -1,0 +1,76 @@
+////
+Licensed to the Apache Software Foundation (ASF) under one or more
+contributor license agreements. See the NOTICE file distributed with
+this work for additional information regarding copyright ownership.
+The ASF licenses this file to You under the Apache License, Version 2.0
+(the "License"); you may not use this file except in compliance with
+the License. You may obtain a copy of the License at
+
+    https://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+////
+[#org_apache_logging_log4j_core_config_LoggerConfig_RootLogger]
+= Root
+
+Class:: `org.apache.logging.log4j.core.config.LoggerConfig.RootLogger`
+Provider:: `org.apache.logging.log4j:log4j-core`
+
+Configures the root logger
+
+[#org_apache_logging_log4j_core_config_LoggerConfig_RootLogger-XML-snippet]
+== XML snippet
+[source, xml]
+----
+<Root includeLocation=""
+      level="ERROR">
+    <AppenderRef/><!-- multiple occurrences allowed -->
+    <a-Filter-implementation/>
+</Root>
+----
+
+[#org_apache_logging_log4j_core_config_LoggerConfig_RootLogger-attributes]
+== Attributes
+
+Optional attributes are denoted by `?`-suffixed types.
+
+[cols="1m,1m,1m,5"]
+|===
+|Name|Type|Default|Description
+
+|includeLocation
+|xref:../scalars.adoc#boolean[boolean]?
+|
+a|When set to `false` location information will **not** be computed.
+
+The default value depends on the logger context implementation: it is `false` for `AsyncLoggerContext` and `true` for `LoggerContext`.
+
+|level
+|xref:../scalars.adoc#org_apache_logging_log4j_Level[Level]?
+|ERROR
+a|The level of the logger.
+
+|===
+
+[#org_apache_logging_log4j_core_config_LoggerConfig_RootLogger-components]
+== Nested components
+
+Optional components are denoted by `?`-suffixed types.
+
+[cols="1m,1m,5"]
+|===
+|Tag|Type|Description
+
+|AppenderRef
+|xref:../log4j-core/org.apache.logging.log4j.core.config.AppenderRef.adoc[AppenderRef]?
+a|A list of appenders to use with this logger.
+
+|
+|xref:../log4j-core/org.apache.logging.log4j.core.Filter.adoc[Filter]?
+a|A filter to filter events, before calling the appenders.
+
+|===

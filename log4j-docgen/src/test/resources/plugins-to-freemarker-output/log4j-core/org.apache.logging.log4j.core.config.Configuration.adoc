@@ -1,0 +1,129 @@
+////
+Licensed to the Apache Software Foundation (ASF) under one or more
+contributor license agreements. See the NOTICE file distributed with
+this work for additional information regarding copyright ownership.
+The ASF licenses this file to You under the Apache License, Version 2.0
+(the "License"); you may not use this file except in compliance with
+the License. You may obtain a copy of the License at
+
+    https://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+////
+[#org_apache_logging_log4j_core_config_Configuration]
+= Configuration
+
+Class:: `org.apache.logging.log4j.core.config.Configuration`
+Provider:: `org.apache.logging.log4j:log4j-core`
+
+A Log4j configuration contains many components of which two are required: `Appenders` and `Loggers`.
+
+[#org_apache_logging_log4j_core_config_Configuration-XML-snippet]
+== XML snippet
+[source, xml]
+----
+<Configuration dest="err"
+               monitorInterval="0"
+               name=""
+               schema=""
+               shutdownHook=""
+               shutdownTimeout=""
+               status="ERROR"
+               strict="false">
+    <Properties/>
+    <Appenders/>
+    <CustomLevels/>
+    <Loggers/>
+</Configuration>
+----
+
+[#org_apache_logging_log4j_core_config_Configuration-attributes]
+== Attributes
+
+Optional attributes are denoted by `?`-suffixed types.
+
+[cols="1m,1m,1m,5"]
+|===
+|Name|Type|Default|Description
+
+|dest
+|xref:../scalars.adoc#java_lang_String[String]?
+|err
+a|Specifies the destination for status logger events.
+The possible values are:
+
+* `out` for using standard out (default)
+* `err` for using standard error
+* a string that is interpreted in order as URI, URL or the path to a local file
+
+If the provided value is invalid, then the default destination of standard out will be used.
+
+|monitorInterval
+|xref:../scalars.adoc#int[int]?
+|0
+a|Number of seconds between polls for configuration changes
+
+|name
+|xref:../scalars.adoc#java_lang_String[String]
+|
+a|Name of the configuration
+
+|schema
+|xref:../scalars.adoc#java_lang_String[String]?
+|
+a|The name of a classpath resource to use to validate the configuration
+
+|shutdownHook
+|xref:../scalars.adoc#java_lang_String[String]?
+|
+a|Indicates if Log4j should automatically shut down when the JVM shuts down.
+Possible values are `enable` and `disable`.
+The shutdown hook is enabled by default, unless Log4j detects the presence of the Servlet API.
+
+|shutdownTimeout
+|xref:../scalars.adoc#int[int]?
+|
+a|Timeout in milliseconds of the logger context shut down
+
+|status
+|xref:../scalars.adoc#org_apache_logging_log4j_Level[Level]?
+|ERROR
+a|Sets the level of the status logger
+
+|strict
+|xref:../scalars.adoc#boolean[boolean]?
+|false
+a|If set to `true` the configuration file will be validated using an XML schema.
+
+|===
+
+[#org_apache_logging_log4j_core_config_Configuration-components]
+== Nested components
+
+Optional components are denoted by `?`-suffixed types.
+
+[cols="1m,1m,5"]
+|===
+|Tag|Type|Description
+
+|Appenders
+|xref:../log4j-core/org.apache.logging.log4j.core.config.AppendersPlugin.adoc[AppendersPlugin]
+a|Wrapper element for a list of appenders
+
+|CustomLevels
+|xref:../log4j-core/org.apache.logging.log4j.core.config.CustomLevels.adoc[CustomLevels]?
+a|Wrapper element for a list of custom levels
+
+|Loggers
+|xref:../log4j-core/org.apache.logging.log4j.core.config.LoggersPlugin.adoc[LoggersPlugin]?
+a|Wrapper element for a list of logger configurations
+
+|Properties
+|xref:../log4j-core/org.apache.logging.log4j.core.config.PropertiesPlugin.adoc[PropertiesPlugin]?
+a|Wrapper element for a list of properties
+
+|===

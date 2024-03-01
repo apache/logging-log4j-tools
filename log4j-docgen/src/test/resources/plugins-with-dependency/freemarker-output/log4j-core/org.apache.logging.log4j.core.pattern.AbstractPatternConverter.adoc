@@ -1,0 +1,76 @@
+////
+Licensed to the Apache Software Foundation (ASF) under one or more
+contributor license agreements. See the NOTICE file distributed with
+this work for additional information regarding copyright ownership.
+The ASF licenses this file to You under the Apache License, Version 2.0
+(the "License"); you may not use this file except in compliance with
+the License. You may obtain a copy of the License at
+
+    https://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+////
+[#org_apache_logging_log4j_core_pattern_AbstractPatternConverter]
+= AbstractPatternConverter
+
+Class:: `org.apache.logging.log4j.core.pattern.AbstractPatternConverter`
+Provider:: `org.apache.logging.log4j:log4j-core`
+
+AbstractPatternConverter is an abstract class that provides the formatting functionality that derived classes need.
+
+Conversion specifiers in a conversion patterns are parsed to individual PatternConverters.
+Each of which is responsible for converting an object in a converter specific manner.
+
+[#org_apache_logging_log4j_core_pattern_AbstractPatternConverter-implementations]
+== Known implementations
+
+* xref:../log4j-core/org.apache.logging.log4j.core.pattern.AbstractStyleNameConverter.Black.adoc[Black]
+* xref:../log4j-core/org.apache.logging.log4j.core.pattern.AbstractStyleNameConverter.Blue.adoc[Blue]
+* xref:../log4j-core/org.apache.logging.log4j.core.pattern.AbstractStyleNameConverter.Cyan.adoc[Cyan]
+* xref:../log4j-core/org.apache.logging.log4j.core.pattern.AbstractStyleNameConverter.Green.adoc[Green]
+* xref:../log4j-core/org.apache.logging.log4j.core.pattern.AbstractStyleNameConverter.Magenta.adoc[Magenta]
+* xref:../log4j-core/org.apache.logging.log4j.core.pattern.AbstractStyleNameConverter.Red.adoc[Red]
+* xref:../log4j-core/org.apache.logging.log4j.core.pattern.AbstractStyleNameConverter.White.adoc[White]
+* xref:../log4j-core/org.apache.logging.log4j.core.pattern.AbstractStyleNameConverter.Yellow.adoc[Yellow]
+* xref:../log4j-core/org.apache.logging.log4j.core.pattern.ClassNamePatternConverter.adoc[ClassNamePatternConverter]
+* xref:../log4j-core/org.apache.logging.log4j.core.pattern.DatePatternConverter.adoc[DatePatternConverter]
+* xref:../log4j-core/org.apache.logging.log4j.core.pattern.EncodingPatternConverter.adoc[EncodingPatternConverter]
+* xref:../log4j-core/org.apache.logging.log4j.core.pattern.EndOfBatchPatternConverter.adoc[EndOfBatchPatternConverter]
+* xref:../log4j-core/org.apache.logging.log4j.core.pattern.EqualsIgnoreCaseReplacementConverter.adoc[EqualsIgnoreCaseReplacementConverter]
+* xref:../log4j-core/org.apache.logging.log4j.core.pattern.EqualsReplacementConverter.adoc[EqualsReplacementConverter]
+* xref:../log4j-core/org.apache.logging.log4j.core.pattern.ExtendedThrowablePatternConverter.adoc[ExtendedThrowablePatternConverter]
+* xref:../log4j-core/org.apache.logging.log4j.core.pattern.FileLocationPatternConverter.adoc[FileLocationPatternConverter]
+* xref:../log4j-core/org.apache.logging.log4j.core.pattern.FullLocationPatternConverter.adoc[FullLocationPatternConverter]
+* xref:../log4j-core/org.apache.logging.log4j.core.pattern.HighlightConverter.adoc[HighlightConverter]
+* xref:../log4j-core/org.apache.logging.log4j.core.pattern.IntegerPatternConverter.adoc[IntegerPatternConverter]
+* xref:../log4j-core/org.apache.logging.log4j.core.pattern.LevelPatternConverter.adoc[LevelPatternConverter]
+* xref:../log4j-core/org.apache.logging.log4j.core.pattern.LineLocationPatternConverter.adoc[LineLocationPatternConverter]
+* xref:../log4j-core/org.apache.logging.log4j.core.pattern.LineSeparatorPatternConverter.adoc[LineSeparatorPatternConverter]
+* xref:../log4j-core/org.apache.logging.log4j.core.pattern.LoggerFqcnPatternConverter.adoc[LoggerFqcnPatternConverter]
+* xref:../log4j-core/org.apache.logging.log4j.core.pattern.LoggerPatternConverter.adoc[LoggerPatternConverter]
+* xref:../log4j-core/org.apache.logging.log4j.core.pattern.MapPatternConverter.adoc[MapPatternConverter]
+* xref:../log4j-core/org.apache.logging.log4j.core.pattern.MarkerPatternConverter.adoc[MarkerPatternConverter]
+* xref:../log4j-core/org.apache.logging.log4j.core.pattern.MarkerSimpleNamePatternConverter.adoc[MarkerSimpleNamePatternConverter]
+* xref:../log4j-core/org.apache.logging.log4j.core.pattern.MaxLengthConverter.adoc[MaxLengthConverter]
+* xref:../log4j-core/org.apache.logging.log4j.core.pattern.MdcPatternConverter.adoc[MdcPatternConverter]
+* xref:../log4j-core/org.apache.logging.log4j.core.pattern.MessagePatternConverter.adoc[MessagePatternConverter]
+* xref:../log4j-core/org.apache.logging.log4j.core.pattern.MethodLocationPatternConverter.adoc[MethodLocationPatternConverter]
+* xref:../log4j-core/org.apache.logging.log4j.core.pattern.NanoTimePatternConverter.adoc[NanoTimePatternConverter]
+* xref:../log4j-core/org.apache.logging.log4j.core.pattern.NdcPatternConverter.adoc[NdcPatternConverter]
+* xref:../log4j-core/org.apache.logging.log4j.core.pattern.ProcessIdPatternConverter.adoc[ProcessIdPatternConverter]
+* xref:../log4j-core/org.apache.logging.log4j.core.pattern.RegexReplacementConverter.adoc[RegexReplacementConverter]
+* xref:../log4j-core/org.apache.logging.log4j.core.pattern.RelativeTimePatternConverter.adoc[RelativeTimePatternConverter]
+* xref:../log4j-core/org.apache.logging.log4j.core.pattern.RepeatPatternConverter.adoc[RepeatPatternConverter]
+* xref:../log4j-core/org.apache.logging.log4j.core.pattern.RootThrowablePatternConverter.adoc[RootThrowablePatternConverter]
+* xref:../log4j-core/org.apache.logging.log4j.core.pattern.SequenceNumberPatternConverter.adoc[SequenceNumberPatternConverter]
+* xref:../log4j-core/org.apache.logging.log4j.core.pattern.StyleConverter.adoc[StyleConverter]
+* xref:../log4j-core/org.apache.logging.log4j.core.pattern.ThreadIdPatternConverter.adoc[ThreadIdPatternConverter]
+* xref:../log4j-core/org.apache.logging.log4j.core.pattern.ThreadNamePatternConverter.adoc[ThreadNamePatternConverter]
+* xref:../log4j-core/org.apache.logging.log4j.core.pattern.ThreadPriorityPatternConverter.adoc[ThreadPriorityPatternConverter]
+* xref:../log4j-core/org.apache.logging.log4j.core.pattern.ThrowablePatternConverter.adoc[ThrowablePatternConverter]
+* xref:../log4j-core/org.apache.logging.log4j.core.pattern.UuidPatternConverter.adoc[UuidPatternConverter]
+* xref:../log4j-core/org.apache.logging.log4j.core.pattern.VariablesNotEmptyReplacementConverter.adoc[VariablesNotEmptyReplacementConverter]

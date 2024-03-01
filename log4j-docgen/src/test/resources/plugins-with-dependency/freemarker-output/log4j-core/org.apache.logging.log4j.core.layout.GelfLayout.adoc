@@ -1,0 +1,187 @@
+////
+Licensed to the Apache Software Foundation (ASF) under one or more
+contributor license agreements. See the NOTICE file distributed with
+this work for additional information regarding copyright ownership.
+The ASF licenses this file to You under the Apache License, Version 2.0
+(the "License"); you may not use this file except in compliance with
+the License. You may obtain a copy of the License at
+
+    https://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+////
+[#org_apache_logging_log4j_core_layout_GelfLayout]
+= GelfLayout
+
+Class:: `org.apache.logging.log4j.core.layout.GelfLayout`
+Provider:: `org.apache.logging.log4j:log4j-core`
+
+Lays out events in the Graylog Extended Log Format (GELF) 1.1.
+
+This layout compresses JSON to GZIP or ZLIB (the `compressionType`) if log event data is larger than 1024 bytes (the `compressionThreshold`). This layout does not implement chunking.
+
+[#org_apache_logging_log4j_core_layout_GelfLayout-XML-snippet]
+== XML snippet
+[source, xml]
+----
+<GelfLayout charset=""
+            compressionThreshold=""
+            compressionType=""
+            footer=""
+            header=""
+            host=""
+            includeMapMessage=""
+            includeNewLineDelimiter=""
+            includeNullDelimiter=""
+            includeStacktrace=""
+            includeThreadContext=""
+            mapMessageExcludes=""
+            mapMessageIncludes=""
+            mapPrefix=""
+            messagePattern=""
+            omitEmptyFields=""
+            threadContextExcludes=""
+            threadContextIncludes=""
+            threadContextPrefix="">
+    <a-Serializer-implementation/>
+    <a-PatternSelector-implementation/>
+    <KeyValuePair/><!-- multiple occurrences allowed -->
+</GelfLayout>
+----
+
+[#org_apache_logging_log4j_core_layout_GelfLayout-attributes]
+== Attributes
+
+Optional attributes are denoted by `?`-suffixed types.
+
+[cols="1m,1m,1m,5"]
+|===
+|Name|Type|Default|Description
+
+|charset
+|xref:../scalars.adoc#java_nio_charset_Charset[Charset]?
+|
+a|
+
+|compressionThreshold
+|xref:../scalars.adoc#int[int]?
+|
+a|Compress if data is larger than this number of bytes (optional, defaults to 1024).
+
+|compressionType
+|xref:../scalars.adoc#org_apache_logging_log4j_core_layout_GelfLayout_CompressionType[CompressionType]?
+|
+a|Compression to use (optional, defaults to GZIP).
+
+|footer
+|xref:../scalars.adoc#java_lang_String[String]?
+|
+a|
+
+|header
+|xref:../scalars.adoc#java_lang_String[String]?
+|
+a|
+
+|host
+|xref:../scalars.adoc#java_lang_String[String]?
+|
+a|The value of the `host` property (optional, defaults to local host name).
+
+|includeMapMessage
+|xref:../scalars.adoc#boolean[boolean]?
+|
+a|Whether to include MapMessage fields as additional fields (optional, default to true).
+
+|includeNewLineDelimiter
+|xref:../scalars.adoc#boolean[boolean]?
+|
+a|Whether to include newline (LF) as delimiter after each event (optional, default to false).
+
+|includeNullDelimiter
+|xref:../scalars.adoc#boolean[boolean]?
+|
+a|Whether to include NULL byte as delimiter after each event (optional, default to false).
+
+Useful for Graylog GELF TCP input.
+
+|includeStacktrace
+|xref:../scalars.adoc#boolean[boolean]?
+|
+a|Whether to include full stacktrace of logged Throwables (optional, default to true).
+
+If set to false, only the class name and message of the Throwable will be included.
+
+|includeThreadContext
+|xref:../scalars.adoc#boolean[boolean]?
+|
+a|Whether to include thread context as additional fields (optional, default to true).
+
+|mapMessageExcludes
+|xref:../scalars.adoc#java_lang_String[String]?
+|
+a|A comma separated list of MapMessage keys to exclude;
+
+|mapMessageIncludes
+|xref:../scalars.adoc#java_lang_String[String]?
+|
+a|A comma separated list of thread context keys to include;
+
+|mapPrefix
+|xref:../scalars.adoc#java_lang_String[String]?
+|
+a|The String to prefix the MapMessage attributes.
+
+|messagePattern
+|xref:../scalars.adoc#java_lang_String[String]?
+|
+a|The pattern to use to format the message.
+
+|omitEmptyFields
+|xref:../scalars.adoc#boolean[boolean]?
+|
+a|
+
+|threadContextExcludes
+|xref:../scalars.adoc#java_lang_String[String]?
+|
+a|
+
+|threadContextIncludes
+|xref:../scalars.adoc#java_lang_String[String]?
+|
+a|
+
+|threadContextPrefix
+|xref:../scalars.adoc#java_lang_String[String]?
+|
+a|The String to prefix the ThreadContext attributes.
+
+|===
+
+[#org_apache_logging_log4j_core_layout_GelfLayout-components]
+== Nested components
+
+Optional components are denoted by `?`-suffixed types.
+
+[cols="1m,1m,5"]
+|===
+|Tag|Type|Description
+
+|
+|Serializer?
+a|
+
+|
+|xref:../log4j-core/org.apache.logging.log4j.core.layout.PatternSelector.adoc[PatternSelector]?
+a|The PatternSelector to use to format the message.
+
+|KeyValuePair
+|xref:../log4j-core/org.apache.logging.log4j.core.util.KeyValuePair.adoc[KeyValuePair]?
+a|Additional fields to set on each log event.
+
+|===

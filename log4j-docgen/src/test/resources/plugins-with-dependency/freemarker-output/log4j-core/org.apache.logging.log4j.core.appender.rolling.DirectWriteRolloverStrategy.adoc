@@ -1,0 +1,108 @@
+////
+Licensed to the Apache Software Foundation (ASF) under one or more
+contributor license agreements. See the NOTICE file distributed with
+this work for additional information regarding copyright ownership.
+The ASF licenses this file to You under the Apache License, Version 2.0
+(the "License"); you may not use this file except in compliance with
+the License. You may obtain a copy of the License at
+
+    https://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+////
+[#org_apache_logging_log4j_core_appender_rolling_DirectWriteRolloverStrategy]
+= DirectWriteRolloverStrategy
+
+Class:: `org.apache.logging.log4j.core.appender.rolling.DirectWriteRolloverStrategy`
+Provider:: `org.apache.logging.log4j:log4j-core`
+
+When rolling over, `DirectWriteRolloverStrategy` writes directly to the file as resolved by the file pattern.
+
+Files will be renamed files according to an algorithm as described below.
+
+The DirectWriteRolloverStrategy uses similar logic as DefaultRolloverStrategy to determine the file name based on the file pattern, however the DirectWriteRolloverStrategy writes directly to a file and does not rename it during rollover, except if it is compressed, in which case it will add the appropriate file extension.
+
+[#org_apache_logging_log4j_core_appender_rolling_DirectWriteRolloverStrategy-XML-snippet]
+== XML snippet
+[source, xml]
+----
+<DirectWriteRolloverStrategy compressionLevel=""
+                             compressionLevel=""
+                             maxFiles=""
+                             maxFiles=""
+                             stopCustomActionsOnError=""
+                             stopCustomActionsOnError=""
+                             tempCompressedFilePattern="">
+    <a-Action-implementation/><!-- multiple occurrences allowed -->
+    <a-Action-implementation/><!-- multiple occurrences allowed -->
+</DirectWriteRolloverStrategy>
+----
+
+[#org_apache_logging_log4j_core_appender_rolling_DirectWriteRolloverStrategy-attributes]
+== Attributes
+
+Optional attributes are denoted by `?`-suffixed types.
+
+[cols="1m,1m,1m,5"]
+|===
+|Name|Type|Default|Description
+
+|compressionLevel
+|xref:../scalars.adoc#java_lang_String[String]?
+|
+a|
+
+|compressionLevel
+|xref:../scalars.adoc#java_lang_String[String]?
+|
+a|The compression level, 0 (less) through 9 (more); applies only to ZIP files.
+
+|maxFiles
+|xref:../scalars.adoc#java_lang_String[String]?
+|
+a|
+
+|maxFiles
+|xref:../scalars.adoc#java_lang_String[String]?
+|
+a|The maximum number of files that match the date portion of the pattern to keep.
+
+|stopCustomActionsOnError
+|xref:../scalars.adoc#boolean[boolean]?
+|
+a|
+
+|stopCustomActionsOnError
+|xref:../scalars.adoc#boolean[boolean]?
+|
+a|whether to stop executing asynchronous actions if an error occurs
+
+|tempCompressedFilePattern
+|xref:../scalars.adoc#java_lang_String[String]?
+|
+a|
+
+|===
+
+[#org_apache_logging_log4j_core_appender_rolling_DirectWriteRolloverStrategy-components]
+== Nested components
+
+Optional components are denoted by `?`-suffixed types.
+
+[cols="1m,1m,5"]
+|===
+|Tag|Type|Description
+
+|
+|xref:../log4j-core/org.apache.logging.log4j.core.appender.rolling.action.Action.adoc[Action]?
+a|
+
+|
+|xref:../log4j-core/org.apache.logging.log4j.core.appender.rolling.action.Action.adoc[Action]?
+a|custom actions to perform asynchronously after rollover
+
+|===

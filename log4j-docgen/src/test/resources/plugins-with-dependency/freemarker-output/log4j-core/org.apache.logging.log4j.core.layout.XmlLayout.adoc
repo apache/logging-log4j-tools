@@ -1,0 +1,159 @@
+////
+Licensed to the Apache Software Foundation (ASF) under one or more
+contributor license agreements. See the NOTICE file distributed with
+this work for additional information regarding copyright ownership.
+The ASF licenses this file to You under the Apache License, Version 2.0
+(the "License"); you may not use this file except in compliance with
+the License. You may obtain a copy of the License at
+
+    https://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+////
+[#org_apache_logging_log4j_core_layout_XmlLayout]
+= XmlLayout
+
+Class:: `org.apache.logging.log4j.core.layout.XmlLayout`
+Provider:: `org.apache.logging.log4j:log4j-core`
+
+Appends a series of `event` elements as defined in the log4j.
+dtd.
+
+== Additional Fields
+
+If you configure `complete="true"`, the appender outputs a well-formed XML document where the default namespace is the log4j namespace . By default, with `complete="false"`, you should include the output as an _external entity_ in a separate file to form a well-formed XML document.
+
+If `complete="false"`, the appender does not write the XML processing instruction and the root element.
+
+Appenders using this layout should have their `charset` set to `UTF-8` or `UTF-16`, otherwise events containing non-ASCII characters could result in corrupted log files.
+
+By default, the XML layout is not compact (compact = not "pretty") with `compact="false"`, which means the appender uses end-of-line characters and indents lines to format the XML.
+If `compact="true"`, then no end-of-line or indentation is used.
+Message content may contain, of course, end-of-lines.
+
+This property allows addition of custom fields into generated JSON.
+`<XmlLayout><KeyValuePair key="foo" value="bar"/></XmlLayout>` inserts `<foo>bar</foo>` directly into XML output.
+Supports Lookup expressions.
+
+[#org_apache_logging_log4j_core_layout_XmlLayout-XML-snippet]
+== XML snippet
+[source, xml]
+----
+<XmlLayout charset=""
+           compact=""
+           complete=""
+           endOfLine=""
+           eventEol=""
+           footer=""
+           header=""
+           includeNullDelimiter=""
+           includeStacktrace=""
+           includeTimeMillis=""
+           locationInfo=""
+           properties=""
+           stacktraceAsString="">
+    <a-Serializer-implementation/>
+    <KeyValuePair/><!-- multiple occurrences allowed -->
+</XmlLayout>
+----
+
+[#org_apache_logging_log4j_core_layout_XmlLayout-attributes]
+== Attributes
+
+Optional attributes are denoted by `?`-suffixed types.
+
+[cols="1m,1m,1m,5"]
+|===
+|Name|Type|Default|Description
+
+|charset
+|xref:../scalars.adoc#java_nio_charset_Charset[Charset]?
+|
+a|
+
+|compact
+|xref:../scalars.adoc#boolean[boolean]?
+|
+a|
+
+|complete
+|xref:../scalars.adoc#boolean[boolean]?
+|
+a|
+
+|endOfLine
+|xref:../scalars.adoc#java_lang_String[String]?
+|
+a|
+
+|eventEol
+|xref:../scalars.adoc#boolean[boolean]?
+|
+a|
+
+|footer
+|xref:../scalars.adoc#java_lang_String[String]?
+|
+a|
+
+|header
+|xref:../scalars.adoc#java_lang_String[String]?
+|
+a|
+
+|includeNullDelimiter
+|xref:../scalars.adoc#boolean[boolean]?
+|
+a|Whether to include NULL byte as delimiter after each event (optional, default to false).
+
+|includeStacktrace
+|xref:../scalars.adoc#boolean[boolean]?
+|
+a|If "true", includes the stacktrace of any Throwable in the generated JSON, defaults to "true".
+
+If "true", includes the stacktrace of any Throwable in the generated data, defaults to "true".
+
+|includeTimeMillis
+|xref:../scalars.adoc#boolean[boolean]?
+|
+a|Whether to include the timestamp (in addition to the Instant) (optional, default to false).
+
+|locationInfo
+|xref:../scalars.adoc#boolean[boolean]?
+|
+a|
+
+|properties
+|xref:../scalars.adoc#boolean[boolean]?
+|
+a|
+
+|stacktraceAsString
+|xref:../scalars.adoc#boolean[boolean]?
+|
+a|Whether to format the stacktrace as a string, and not a nested object (optional, defaults to false).
+
+|===
+
+[#org_apache_logging_log4j_core_layout_XmlLayout-components]
+== Nested components
+
+Optional components are denoted by `?`-suffixed types.
+
+[cols="1m,1m,5"]
+|===
+|Tag|Type|Description
+
+|
+|Serializer?
+a|
+
+|KeyValuePair
+|xref:../log4j-core/org.apache.logging.log4j.core.util.KeyValuePair.adoc[KeyValuePair]?
+a|Additional fields to set on each log event.
+
+|===

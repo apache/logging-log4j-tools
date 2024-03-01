@@ -62,9 +62,9 @@ public class DocumentationGeneratorTest {
                 new DocumentationTemplate(
                         "scalars.adoc.ftl", outputDir.resolve("scalars.adoc").toString()),
                 new DocumentationTemplate(
-                        "plugin.adoc.ftl", outputDir.resolve("%g/%a/%c.adoc").toString()),
+                        "plugin.adoc.ftl", outputDir.resolve("%a/%c.adoc").toString()),
                 new DocumentationTemplate(
-                        "interface.adoc.ftl", outputDir.resolve("%g/%a/%c.adoc").toString()));
+                        "interface.adoc.ftl", outputDir.resolve("%a/%c.adoc").toString()));
         DocumentationGenerator.generateDocumentation(generatorArgs);
 
         // Verify the output

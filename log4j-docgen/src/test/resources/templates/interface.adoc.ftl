@@ -36,5 +36,5 @@ ${type.description.text}
 
 <#list type.implementations as impl>
     <#assign implSourcedType = lookup[impl]/>
-* xref:../../${implSourcedType.groupId}/${implSourcedType.artifactId}/${impl}.adoc[${impl?contains('.')?then(impl?keep_after_last('.'), impl)}]
+* xref:../${implSourcedType.artifactId}/${impl}.adoc[${impl?contains('.')?then(impl?keep_after_last('.'), impl)}]
 </#list>

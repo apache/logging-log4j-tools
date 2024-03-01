@@ -1,0 +1,256 @@
+////
+Licensed to the Apache Software Foundation (ASF) under one or more
+contributor license agreements. See the NOTICE file distributed with
+this work for additional information regarding copyright ownership.
+The ASF licenses this file to You under the Apache License, Version 2.0
+(the "License"); you may not use this file except in compliance with
+the License. You may obtain a copy of the License at
+
+    https://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+////
+[#org_apache_logging_log4j_core_appender_SyslogAppender]
+= Syslog
+
+Class:: `org.apache.logging.log4j.core.appender.SyslogAppender`
+Provider:: `org.apache.logging.log4j:log4j-core`
+
+The Syslog Appender.
+
+[#org_apache_logging_log4j_core_appender_SyslogAppender-XML-snippet]
+== XML snippet
+[source, xml]
+----
+<Syslog advertise=""
+        appName=""
+        bufferedIo=""
+        bufferSize=""
+        charset=""
+        connectTimeoutMillis=""
+        enterpriseNumber=""
+        eventPrefix=""
+        exceptionPattern=""
+        facility=""
+        format=""
+        host=""
+        id=""
+        ignoreExceptions=""
+        immediateFail=""
+        immediateFlush=""
+        includeMdc=""
+        mdcExcludes=""
+        mdcId=""
+        mdcIncludes=""
+        mdcPrefix=""
+        mdcRequired=""
+        messageId=""
+        name=""
+        newLine=""
+        newLineEscape=""
+        port=""
+        protocol=""
+        reconnectDelayMillis="">
+    <a-Filter-implementation/>
+    <a-Layout-implementation/>
+    <property/><!-- multiple occurrences allowed -->
+    <LoggerFields/><!-- multiple occurrences allowed -->
+    <SocketOptions/>
+    <Ssl/>
+</Syslog>
+----
+
+[#org_apache_logging_log4j_core_appender_SyslogAppender-attributes]
+== Attributes
+
+Optional attributes are denoted by `?`-suffixed types.
+
+[cols="1m,1m,1m,5"]
+|===
+|Name|Type|Default|Description
+
+|advertise
+|xref:../scalars.adoc#boolean[boolean]?
+|
+a|
+
+|appName
+|xref:../scalars.adoc#java_lang_String[String]?
+|
+a|
+
+|bufferedIo
+|xref:../scalars.adoc#boolean[boolean]?
+|
+a|
+
+|bufferSize
+|xref:../scalars.adoc#int[int]?
+|
+a|
+
+|charset
+|xref:../scalars.adoc#java_nio_charset_Charset[Charset]?
+|
+a|
+
+|connectTimeoutMillis
+|xref:../scalars.adoc#int[int]?
+|
+a|
+
+|enterpriseNumber
+|xref:../scalars.adoc#java_lang_String[String]?
+|
+a|
+
+|eventPrefix
+|xref:../scalars.adoc#java_lang_String[String]?
+|
+a|
+
+|exceptionPattern
+|xref:../scalars.adoc#java_lang_String[String]?
+|
+a|
+
+|facility
+|xref:../scalars.adoc#org_apache_logging_log4j_core_net_Facility[Facility]?
+|
+a|
+
+|format
+|xref:../scalars.adoc#java_lang_String[String]?
+|
+a|
+
+|host
+|xref:../scalars.adoc#java_lang_String[String]?
+|
+a|
+
+|id
+|xref:../scalars.adoc#java_lang_String[String]?
+|
+a|
+
+|ignoreExceptions
+|xref:../scalars.adoc#boolean[boolean]?
+|
+a|
+
+|immediateFail
+|xref:../scalars.adoc#boolean[boolean]?
+|
+a|
+
+|immediateFlush
+|xref:../scalars.adoc#boolean[boolean]?
+|
+a|
+
+|includeMdc
+|xref:../scalars.adoc#boolean[boolean]?
+|
+a|
+
+|mdcExcludes
+|xref:../scalars.adoc#java_lang_String[String]?
+|
+a|
+
+|mdcId
+|xref:../scalars.adoc#java_lang_String[String]?
+|
+a|
+
+|mdcIncludes
+|xref:../scalars.adoc#java_lang_String[String]?
+|
+a|
+
+|mdcPrefix
+|xref:../scalars.adoc#java_lang_String[String]?
+|
+a|
+
+|mdcRequired
+|xref:../scalars.adoc#java_lang_String[String]?
+|
+a|
+
+|messageId
+|xref:../scalars.adoc#java_lang_String[String]?
+|
+a|
+
+|name
+|xref:../scalars.adoc#java_lang_String[String]
+|
+a|
+
+|newLine
+|xref:../scalars.adoc#boolean[boolean]?
+|
+a|
+
+|newLineEscape
+|xref:../scalars.adoc#java_lang_String[String]?
+|
+a|
+
+|port
+|xref:../scalars.adoc#int[int]?
+|
+a|
+
+|protocol
+|xref:../scalars.adoc#org_apache_logging_log4j_core_net_Protocol[Protocol]?
+|
+a|
+
+|reconnectDelayMillis
+|xref:../scalars.adoc#int[int]?
+|
+a|
+
+|===
+
+[#org_apache_logging_log4j_core_appender_SyslogAppender-components]
+== Nested components
+
+Optional components are denoted by `?`-suffixed types.
+
+[cols="1m,1m,5"]
+|===
+|Tag|Type|Description
+
+|property
+|xref:../log4j-core/org.apache.logging.log4j.core.config.Property.adoc[Property]?
+a|
+
+|
+|xref:../log4j-core/org.apache.logging.log4j.core.Filter.adoc[Filter]?
+a|
+
+|
+|xref:../log4j-core/org.apache.logging.log4j.core.Layout.adoc[Layout]?
+a|
+
+|LoggerFields
+|xref:../log4j-core/org.apache.logging.log4j.core.layout.LoggerFields.adoc[LoggerFields]?
+a|
+
+|SocketOptions
+|xref:../log4j-core/org.apache.logging.log4j.core.net.SocketOptions.adoc[SocketOptions]?
+a|
+
+|Ssl
+|xref:../log4j-core/org.apache.logging.log4j.core.net.ssl.SslConfiguration.adoc[SslConfiguration]?
+a|
+
+|===

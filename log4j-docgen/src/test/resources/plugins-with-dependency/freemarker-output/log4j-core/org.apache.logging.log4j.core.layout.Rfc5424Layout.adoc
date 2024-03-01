@@ -1,0 +1,155 @@
+////
+Licensed to the Apache Software Foundation (ASF) under one or more
+contributor license agreements. See the NOTICE file distributed with
+this work for additional information regarding copyright ownership.
+The ASF licenses this file to You under the Apache License, Version 2.0
+(the "License"); you may not use this file except in compliance with
+the License. You may obtain a copy of the License at
+
+    https://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+////
+[#org_apache_logging_log4j_core_layout_Rfc5424Layout]
+= Rfc5424Layout
+
+Class:: `org.apache.logging.log4j.core.layout.Rfc5424Layout`
+Provider:: `org.apache.logging.log4j:log4j-core`
+
+Formats a log event in accordance with RFC 5424.
+
+[#org_apache_logging_log4j_core_layout_Rfc5424Layout-XML-snippet]
+== XML snippet
+[source, xml]
+----
+<Rfc5424Layout appName=""
+               enterpriseNumber=""
+               eventPrefix=""
+               exceptionPattern=""
+               facility=""
+               id=""
+               includeMDC=""
+               mdcExcludes=""
+               mdcId=""
+               mdcIncludes=""
+               mdcPrefix=""
+               mdcRequired=""
+               messageId=""
+               newLine=""
+               newLineEscape=""
+               useTlsMessageFormat="">
+    <LoggerFields/><!-- multiple occurrences allowed -->
+</Rfc5424Layout>
+----
+
+[#org_apache_logging_log4j_core_layout_Rfc5424Layout-attributes]
+== Attributes
+
+Optional attributes are denoted by `?`-suffixed types.
+
+[cols="1m,1m,1m,5"]
+|===
+|Name|Type|Default|Description
+
+|appName
+|xref:../scalars.adoc#java_lang_String[String]?
+|
+a|The value to use as the APP-NAME in the RFC 5424 syslog record.
+
+|enterpriseNumber
+|xref:../scalars.adoc#int[int]?
+|
+a|The IANA enterprise number.
+
+|eventPrefix
+|xref:../scalars.adoc#java_lang_String[String]?
+|
+a|The prefix to add to event key names.
+
+|exceptionPattern
+|xref:../scalars.adoc#java_lang_String[String]?
+|
+a|The pattern for formatting exceptions.
+
+|facility
+|xref:../scalars.adoc#org_apache_logging_log4j_core_net_Facility[Facility]?
+|
+a|The Facility is used to try to classify the message.
+
+|id
+|xref:../scalars.adoc#java_lang_String[String]?
+|
+a|The default structured data id to use when formatting according to RFC 5424.
+
+|includeMDC
+|xref:../scalars.adoc#boolean[boolean]?
+|
+a|Indicates whether data from the ThreadContextMap will be included in the RFC 5424 Syslog record.
+Defaults to "true:.
+
+|mdcExcludes
+|xref:../scalars.adoc#java_lang_String[String]?
+|
+a|A comma separated list of MDC keys that should be excluded from the LogEvent.
+
+|mdcId
+|xref:../scalars.adoc#java_lang_String[String]?
+|
+a|The id to use for the MDC Structured Data Element.
+
+|mdcIncludes
+|xref:../scalars.adoc#java_lang_String[String]?
+|
+a|A comma separated list of MDC keys that should be included in the FlumeEvent.
+
+|mdcPrefix
+|xref:../scalars.adoc#java_lang_String[String]?
+|
+a|The prefix to add to MDC key names.
+
+|mdcRequired
+|xref:../scalars.adoc#java_lang_String[String]?
+|
+a|A comma separated list of MDC keys that must be present in the MDC.
+
+|messageId
+|xref:../scalars.adoc#java_lang_String[String]?
+|
+a|The default value to be used in the MSGID field of RFC 5424 syslog records.
+
+|newLine
+|xref:../scalars.adoc#boolean[boolean]?
+|
+a|If true, a newline will be appended to the end of the syslog record.
+The default is false.
+
+|newLineEscape
+|xref:../scalars.adoc#java_lang_String[String]?
+|
+a|String that should be used to replace newlines within the message text.
+
+|useTlsMessageFormat
+|xref:../scalars.adoc#boolean[boolean]?
+|
+a|If true the message will be formatted according to RFC 5425.
+
+|===
+
+[#org_apache_logging_log4j_core_layout_Rfc5424Layout-components]
+== Nested components
+
+Optional components are denoted by `?`-suffixed types.
+
+[cols="1m,1m,5"]
+|===
+|Tag|Type|Description
+
+|LoggerFields
+|xref:../log4j-core/org.apache.logging.log4j.core.layout.LoggerFields.adoc[LoggerFields]?
+a|Container for the KeyValuePairs containing the patterns
+
+|===
