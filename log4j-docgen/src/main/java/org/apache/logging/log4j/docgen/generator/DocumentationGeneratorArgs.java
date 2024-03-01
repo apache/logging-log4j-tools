@@ -31,7 +31,7 @@ public final class DocumentationGeneratorArgs {
 
     final Path templateDirectory;
 
-    final DocumentationTemplate scalarsTemplate;
+    final DocumentationTemplate indexTemplate;
 
     final DocumentationTemplate pluginTemplate;
 
@@ -41,13 +41,13 @@ public final class DocumentationGeneratorArgs {
             final Set<PluginSet> pluginSets,
             final Predicate<String> classNameFilter,
             final Path templateDirectory,
-            final DocumentationTemplate scalarsTemplate,
+            final DocumentationTemplate indexTemplate,
             final DocumentationTemplate pluginTemplate,
             final DocumentationTemplate interfaceTemplate) {
         this.pluginSets = requireNonNull(pluginSets, "pluginSets");
         this.classNameFilter = requireNonNull(classNameFilter, "classNameFilter");
         this.templateDirectory = requireNonNull(templateDirectory, "templateDirectory");
-        this.scalarsTemplate = requireNonNull(scalarsTemplate, "scalarsTemplate");
+        this.indexTemplate = requireNonNull(indexTemplate, "indexTemplate");
         this.pluginTemplate = requireNonNull(pluginTemplate, "pluginTemplate");
         this.interfaceTemplate = requireNonNull(interfaceTemplate, "interfaceTemplate");
     }

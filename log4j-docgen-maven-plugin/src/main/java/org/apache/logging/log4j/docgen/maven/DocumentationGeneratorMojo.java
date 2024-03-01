@@ -42,10 +42,10 @@ public class DocumentationGeneratorMojo extends AbstractGeneratorMojo {
     private File templateDirectory;
 
     /**
-     * The template that will be used to document scalar types.
+     * The template that will be used to document all types.
      */
     @Parameter(required = true)
-    private DocumentationTemplateMojo scalarsTemplate;
+    private DocumentationTemplateMojo indexTemplate;
 
     /**
      * The template that will be used to document plugins.
@@ -68,7 +68,7 @@ public class DocumentationGeneratorMojo extends AbstractGeneratorMojo {
                 pluginSets,
                 classNameFilter,
                 templateDirectory.toPath(),
-                toApiModel(scalarsTemplate),
+                toApiModel(indexTemplate),
                 toApiModel(pluginTemplate),
                 toApiModel(interfaceTemplate));
         DocumentationGenerator.generateDocumentation(generatorArgs);

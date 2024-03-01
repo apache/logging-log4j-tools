@@ -60,7 +60,7 @@ public class DocumentationGeneratorTest {
                 CLASS_NAME_MATCHER,
                 templateDirectory,
                 new DocumentationTemplate(
-                        "scalars.adoc.ftl", outputDir.resolve("scalars.adoc").toString()),
+                        "index.adoc.ftl", outputDir.resolve("index.adoc").toString()),
                 new DocumentationTemplate(
                         "plugin.adoc.ftl", outputDir.resolve("%a/%c.adoc").toString()),
                 new DocumentationTemplate(

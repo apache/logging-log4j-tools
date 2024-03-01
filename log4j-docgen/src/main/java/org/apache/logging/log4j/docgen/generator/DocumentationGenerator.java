@@ -23,13 +23,11 @@ import java.nio.file.Path;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
-import java.util.TreeSet;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import org.apache.logging.log4j.docgen.AbstractType;
 import org.apache.logging.log4j.docgen.PluginSet;
 import org.apache.logging.log4j.docgen.PluginType;
-import org.apache.logging.log4j.docgen.ScalarType;
 import org.apache.logging.log4j.docgen.Type;
 import org.jspecify.annotations.Nullable;
 
@@ -42,23 +40,18 @@ public final class DocumentationGenerator {
         final List<PluginSet> extendedSets = Stream.concat(BaseTypes.PLUGIN_SETS.stream(), args.pluginSets.stream())
                 .collect(Collectors.toList());
         final TypeLookup lookup = TypeLookup.of(extendedSets, args.classNameFilter);
-        final Collection<ArtifactSourcedType> scalarTypes = new TreeSet<>();
         lookup.forEach((className, sourcedType) -> {
             final Type type = sourcedType.type;
             if (type instanceof PluginType) {
-                documentAbstractType(sourcedType, lookup, args.templateDirectory, args.pluginTemplate);
+                renderType(sourcedType, lookup, args.templateDirectory, args.pluginTemplate);
             } else if (type instanceof AbstractType) {
-                documentAbstractType(sourcedType, lookup, args.templateDirectory, args.interfaceTemplate);
-            } else if (type instanceof ScalarType) {
-                scalarTypes.add(sourcedType);
-            } else {
-                throw new RuntimeException("unknown type: `" + type + "`");
+                renderType(sourcedType, lookup, args.templateDirectory, args.interfaceTemplate);
             }
         });
-        documentScalarTypes(scalarTypes, args.templateDirectory, args.scalarsTemplate);
+        renderIndex(lookup.values(), args.templateDirectory, args.indexTemplate);
     }
 
-    private static void documentAbstractType(
+    private static void renderType(
             final ArtifactSourcedType sourcedType,
             final TypeLookup lookup,
             final Path templateDirectory,
@@ -66,12 +59,11 @@ public final class DocumentationGenerator {
         final Map<String, Object> templateData = Map.of(
                 "sourcedType", sourcedType,
                 "lookup", lookup);
-        final Path targetPath = createAbstractTypeTargetPath(sourcedType, template.targetPath);
+        final Path targetPath = createTypeTargetPath(sourcedType, template.targetPath);
         render(templateDirectory, template.name, templateData, targetPath);
     }
 
-    private static Path createAbstractTypeTargetPath(
-            final ArtifactSourcedType sourcedType, final String targetPathPattern) {
+    private static Path createTypeTargetPath(final ArtifactSourcedType sourcedType, final String targetPathPattern) {
         final String groupId = or(sourcedType.groupId, "unknown-groupId");
         final String artifactId = or(sourcedType.artifactId, "unknown-artifactId");
         final String version = or(sourcedType.version, "unknown-version");
@@ -87,11 +79,11 @@ public final class DocumentationGenerator {
         return value != null ? value : fallback;
     }
 
-    private static void documentScalarTypes(
-            final Collection<ArtifactSourcedType> scalarTypes,
+    private static void renderIndex(
+            final Collection<ArtifactSourcedType> sourcedTypes,
             final Path templateDirectory,
             final DocumentationTemplate template) {
-        final Map<String, Object> templateData = Map.of("sourcedTypes", scalarTypes);
+        final Map<String, Object> templateData = Map.of("sourcedTypes", sourcedTypes);
         render(templateDirectory, template.name, templateData, Path.of(template.targetPath));
     }
 }

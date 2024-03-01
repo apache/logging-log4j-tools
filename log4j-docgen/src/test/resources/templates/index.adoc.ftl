@@ -17,29 +17,18 @@ limitations under the License.
 -->
 <#-- @ftlvariable name="sourcedTypes" type="org.apache.logging.log4j.docgen.generator.ArtifactSourcedType[]" -->
 <#include "license.adoc.ftl">
-[#type-converters]
-= Type converters
+[#index]
+= Index
+<#assign lastGroupId = ''/>
+<#assign lastArtifactId = ''/>
+<#list sourcedTypes?sort_by('groupId', 'artifactId', ['type', 'className']) as sourcedType>
+    <#if sourcedType.groupId != lastGroupId || sourcedType.artifactId != lastArtifactId>
 
-Type converter plugins are used to convert simple `String` values into other types.
-<#list sourcedTypes as sourcedType>
-<#assign scalar = sourcedType.type/>
-<#-- @ftlvariable name="scalar" type="org.apache.logging.log4j.docgen.model.ScalarType" -->
+[#${sourcedType.groupId?replace('.', '_')}-${sourcedType.artifactId?replace('.', '_')}]
+== `${sourcedType.groupId}:${sourcedType.artifactId}`
 
-[#${scalar.className?replace('.', '_')}]
-== `${scalar.className}`
-
-    <#if sourcedType.groupId?has_content && sourcedType.artifactId?has_content>
-Provider:: `${sourcedType.groupId}:${sourcedType.artifactId}`
     </#if>
-
-${(scalar.description.text)!}
-    <#if scalar.values?size != 0>
-
-[#${scalar.className?replace('.', '_')}-values]
-=== Possible values
-
-        <#list scalar.values as value>
-`${value.name}`:: ${(value.description.text)!}
-        </#list>
-    </#if>
+    <#assign lastGroupId = sourcedType.groupId/>
+    <#assign lastArtifactId = sourcedType.artifactId/>
+* xref:${sourcedType.artifactId}/${sourcedType.type.className}.adoc[`${sourcedType.type.className}`]
 </#list>
