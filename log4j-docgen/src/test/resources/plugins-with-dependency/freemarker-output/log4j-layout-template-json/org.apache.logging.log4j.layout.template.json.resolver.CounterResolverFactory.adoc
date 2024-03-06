@@ -14,11 +14,13 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 ////
+
 [#org_apache_logging_log4j_layout_template_json_resolver_CounterResolverFactory]
 = CounterResolverFactory
 
 Class:: `org.apache.logging.log4j.layout.template.json.resolver.CounterResolverFactory`
 Provider:: `org.apache.logging.log4j:log4j-layout-template-json`
+
 
 xref:CounterResolver.adoc[] factory.
 

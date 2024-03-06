@@ -14,11 +14,13 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 ////
+
 [#org_apache_logging_log4j_core_config_Configuration]
 = Configuration
 
 Class:: `org.apache.logging.log4j.core.config.Configuration`
 Provider:: `org.apache.logging.log4j:log4j-core`
+
 
 A Log4j configuration contains many components of which two are required: `Appenders` and `Loggers`.
 
@@ -51,7 +53,7 @@ Optional attributes are denoted by `?`-suffixed types.
 |Name|Type|Default|Description
 
 |dest
-|xref:../scalars.adoc#java_lang_String[String]?
+|String?
 |err
 a|Specifies the destination for status logger events.
 The possible values are:
@@ -63,39 +65,39 @@ The possible values are:
 If the provided value is invalid, then the default destination of standard out will be used.
 
 |monitorInterval
-|xref:../scalars.adoc#int[int]?
+|int?
 |0
 a|Number of seconds between polls for configuration changes
 
 |name
-|xref:../scalars.adoc#java_lang_String[String]
+|String
 |
 a|Name of the configuration
 
 |schema
-|xref:../scalars.adoc#java_lang_String[String]?
+|String?
 |
 a|The name of a classpath resource to use to validate the configuration
 
 |shutdownHook
-|xref:../scalars.adoc#java_lang_String[String]?
+|String?
 |
 a|Indicates if Log4j should automatically shut down when the JVM shuts down.
 Possible values are `enable` and `disable`.
 The shutdown hook is enabled by default, unless Log4j detects the presence of the Servlet API.
 
 |shutdownTimeout
-|xref:../scalars.adoc#int[int]?
+|int?
 |
 a|Timeout in milliseconds of the logger context shut down
 
 |status
-|xref:../scalars.adoc#org_apache_logging_log4j_Level[Level]?
+|xref:../log4j-core/org.apache.logging.log4j.Level.adoc[Level]?
 |ERROR
 a|Sets the level of the status logger
 
 |strict
-|xref:../scalars.adoc#boolean[boolean]?
+|boolean?
 |false
 a|If set to `true` the configuration file will be validated using an XML schema.
 

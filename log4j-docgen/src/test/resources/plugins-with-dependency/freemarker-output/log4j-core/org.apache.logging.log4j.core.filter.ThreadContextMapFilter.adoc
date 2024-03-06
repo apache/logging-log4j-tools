@@ -14,11 +14,13 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 ////
+
 [#org_apache_logging_log4j_core_filter_ThreadContextMapFilter]
 = ThreadContextMapFilter
 
 Class:: `org.apache.logging.log4j.core.filter.ThreadContextMapFilter`
 Provider:: `org.apache.logging.log4j:log4j-core`
+
 
 Filter based on a value in the Thread Context Map (MDC).
 
@@ -43,17 +45,17 @@ Optional attributes are denoted by `?`-suffixed types.
 |Name|Type|Default|Description
 
 |onMatch
-|xref:../scalars.adoc#org_apache_logging_log4j_core_Filter_Result[Result]?
+|xref:../log4j-core/org.apache.logging.log4j.core.Filter.Result.adoc[Result]?
 |
 a|
 
 |onMismatch
-|xref:../scalars.adoc#org_apache_logging_log4j_core_Filter_Result[Result]?
+|xref:../log4j-core/org.apache.logging.log4j.core.Filter.Result.adoc[Result]?
 |
 a|
 
 |operator
-|xref:../scalars.adoc#java_lang_String[String]?
+|String?
 |
 a|
 

@@ -14,11 +14,13 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 ////
+
 [#org_apache_logging_log4j_core_filter_AbstractFilter]
-= AbstractFilter
+= `org.apache.logging.log4j.core.filter.AbstractFilter`
 
 Class:: `org.apache.logging.log4j.core.filter.AbstractFilter`
 Provider:: `org.apache.logging.log4j:log4j-core`
+
 
 Users should extend this class to implement filters.
 
@@ -26,6 +28,7 @@ Filters can be either context wide or attached to an appender.
 A filter may choose to support being called only from the context or only from an appender in which case it will only implement the required method(s). The rest will default to return xref:org.apache.logging.log4j.core.Filter.Result.adoc[Result].
 
 Garbage-free note: the methods with unrolled varargs by default delegate to the xref:.adoc[]. Subclasses that want to be garbage-free should override these methods to implement the appropriate filtering without creating a vararg array.
+
 
 [#org_apache_logging_log4j_core_filter_AbstractFilter-implementations]
 == Known implementations

@@ -14,15 +14,18 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 ////
+
 [#org_apache_logging_log4j_core_appender_AbstractAppender]
-= AbstractAppender
+= `org.apache.logging.log4j.core.appender.AbstractAppender`
 
 Class:: `org.apache.logging.log4j.core.appender.AbstractAppender`
 Provider:: `org.apache.logging.log4j:log4j-core`
 
+
 Abstract base class for Appenders.
 
 Although Appenders do not have to extend this class, doing so will simplify their implementation.
+
 
 [#org_apache_logging_log4j_core_appender_AbstractAppender-implementations]
 == Known implementations

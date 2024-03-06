@@ -14,11 +14,13 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 ////
+
 [#org_apache_logging_log4j_core_net_SocketAddress]
 = SocketAddress
 
 Class:: `org.apache.logging.log4j.core.net.SocketAddress`
 Provider:: `org.apache.logging.log4j:log4j-core`
+
 
 Plugin to hold a hostname and port (socket address).
 
@@ -40,12 +42,12 @@ Optional attributes are denoted by `?`-suffixed types.
 |Name|Type|Default|Description
 
 |host
-|xref:../scalars.adoc#java_net_InetAddress[InetAddress]?
+|InetAddress?
 |
 a|
 
 |port
-|xref:../scalars.adoc#int[int]?
+|int?
 |
 a|
 

@@ -14,13 +14,16 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 ////
+
 [#org_apache_logging_log4j_core_filter_MapFilter]
-= MapFilter
+= `org.apache.logging.log4j.core.filter.MapFilter`
 
 Class:: `org.apache.logging.log4j.core.filter.MapFilter`
 Provider:: `org.apache.logging.log4j:log4j-core`
 
+
 A Filter that operates on a Map.
+
 
 [#org_apache_logging_log4j_core_filter_MapFilter-implementations]
 == Known implementations

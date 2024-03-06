@@ -14,11 +14,13 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 ////
+
 [#org_apache_logging_log4j_core_config_LoggerConfig]
 = Logger
 
 Class:: `org.apache.logging.log4j.core.config.LoggerConfig`
 Provider:: `org.apache.logging.log4j:log4j-core`
+
 
 Configures a particular logger
 
@@ -44,19 +46,19 @@ Optional attributes are denoted by `?`-suffixed types.
 |Name|Type|Default|Description
 
 |includeLocation
-|xref:../scalars.adoc#boolean[boolean]?
+|boolean?
 |
 a|When set to `false` location information will **not** be computed.
 
 The default value depends on the logger context implementation: it is `false` for `AsyncLoggerContext` and `true` for `LoggerContext`.
 
 |level
-|xref:../scalars.adoc#org_apache_logging_log4j_Level[Level]?
+|xref:../log4j-core/org.apache.logging.log4j.Level.adoc[Level]?
 |
 a|The level of the logger.
 
 |name
-|xref:../scalars.adoc#java_lang_String[String]
+|String
 |
 a|The name of the logger.
 

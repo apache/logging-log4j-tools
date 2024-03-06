@@ -62,9 +62,7 @@ public class DocumentationGeneratorTest {
                 new DocumentationTemplate(
                         "index.adoc.ftl", outputDir.resolve("index.adoc").toString()),
                 new DocumentationTemplate(
-                        "plugin.adoc.ftl", outputDir.resolve("%a/%c.adoc").toString()),
-                new DocumentationTemplate(
-                        "interface.adoc.ftl", outputDir.resolve("%a/%c.adoc").toString()));
+                        "type.adoc.ftl", outputDir.resolve("%a/%c.adoc").toString()));
         DocumentationGenerator.generateDocumentation(generatorArgs);
 
         // Verify the output

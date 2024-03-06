@@ -14,13 +14,16 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 ////
+
 [#org_apache_logging_log4j_core_appender_rewrite_RewritePolicy]
-= RewritePolicy
+= `org.apache.logging.log4j.core.appender.rewrite.RewritePolicy`
 
 Class:: `org.apache.logging.log4j.core.appender.rewrite.RewritePolicy`
 Provider:: `org.apache.logging.log4j:log4j-core`
 
+
 Interface to be implemented by components that support modifications to the LogEvent.
+
 
 [#org_apache_logging_log4j_core_appender_rewrite_RewritePolicy-implementations]
 == Known implementations

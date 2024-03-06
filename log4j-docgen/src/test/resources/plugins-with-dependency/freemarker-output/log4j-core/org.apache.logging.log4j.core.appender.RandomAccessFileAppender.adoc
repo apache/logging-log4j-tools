@@ -14,11 +14,13 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 ////
+
 [#org_apache_logging_log4j_core_appender_RandomAccessFileAppender]
 = RandomAccessFile
 
 Class:: `org.apache.logging.log4j.core.appender.RandomAccessFileAppender`
 Provider:: `org.apache.logging.log4j:log4j-core`
+
 
 File Appender.
 
@@ -51,47 +53,47 @@ Optional attributes are denoted by `?`-suffixed types.
 |Name|Type|Default|Description
 
 |advertise
-|xref:../scalars.adoc#boolean[boolean]?
+|boolean?
 |
 a|
 
 |advertiseURI
-|xref:../scalars.adoc#java_lang_String[String]?
+|String?
 |
 a|
 
 |append
-|xref:../scalars.adoc#boolean[boolean]?
+|boolean?
 |
 a|
 
 |bufferedIo
-|xref:../scalars.adoc#boolean[boolean]?
+|boolean?
 |
 a|
 
 |bufferSize
-|xref:../scalars.adoc#int[int]?
+|int?
 |
 a|
 
 |fileName
-|xref:../scalars.adoc#java_lang_String[String]?
+|String?
 |
 a|
 
 |ignoreExceptions
-|xref:../scalars.adoc#boolean[boolean]?
+|boolean?
 |
 a|
 
 |immediateFlush
-|xref:../scalars.adoc#boolean[boolean]?
+|boolean?
 |
 a|
 
 |name
-|xref:../scalars.adoc#java_lang_String[String]
+|String
 |
 a|
 

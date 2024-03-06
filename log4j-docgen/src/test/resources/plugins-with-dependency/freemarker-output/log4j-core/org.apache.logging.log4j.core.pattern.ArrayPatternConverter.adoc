@@ -14,13 +14,16 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 ////
+
 [#org_apache_logging_log4j_core_pattern_ArrayPatternConverter]
-= ArrayPatternConverter
+= `org.apache.logging.log4j.core.pattern.ArrayPatternConverter`
 
 Class:: `org.apache.logging.log4j.core.pattern.ArrayPatternConverter`
 Provider:: `org.apache.logging.log4j:log4j-core`
 
+
 xref:PatternConverter.adoc[]s implement this interface to accept an array of objects when formatting.
+
 
 [#org_apache_logging_log4j_core_pattern_ArrayPatternConverter-implementations]
 == Known implementations

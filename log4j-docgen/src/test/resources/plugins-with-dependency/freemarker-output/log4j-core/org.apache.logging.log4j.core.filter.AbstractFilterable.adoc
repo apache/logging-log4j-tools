@@ -14,13 +14,16 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 ////
+
 [#org_apache_logging_log4j_core_filter_AbstractFilterable]
-= AbstractFilterable
+= `org.apache.logging.log4j.core.filter.AbstractFilterable`
 
 Class:: `org.apache.logging.log4j.core.filter.AbstractFilterable`
 Provider:: `org.apache.logging.log4j:log4j-core`
 
+
 Enhances a Class by allowing it to contain Filters.
+
 
 [#org_apache_logging_log4j_core_filter_AbstractFilterable-implementations]
 == Known implementations

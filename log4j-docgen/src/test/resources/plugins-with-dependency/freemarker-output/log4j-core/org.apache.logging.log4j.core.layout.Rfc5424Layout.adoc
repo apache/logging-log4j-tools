@@ -14,11 +14,13 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 ////
+
 [#org_apache_logging_log4j_core_layout_Rfc5424Layout]
 = Rfc5424Layout
 
 Class:: `org.apache.logging.log4j.core.layout.Rfc5424Layout`
 Provider:: `org.apache.logging.log4j:log4j-core`
+
 
 Formats a log event in accordance with RFC 5424.
 
@@ -56,84 +58,84 @@ Optional attributes are denoted by `?`-suffixed types.
 |Name|Type|Default|Description
 
 |appName
-|xref:../scalars.adoc#java_lang_String[String]?
+|String?
 |
 a|The value to use as the APP-NAME in the RFC 5424 syslog record.
 
 |enterpriseNumber
-|xref:../scalars.adoc#int[int]?
+|int?
 |
 a|The IANA enterprise number.
 
 |eventPrefix
-|xref:../scalars.adoc#java_lang_String[String]?
+|String?
 |
 a|The prefix to add to event key names.
 
 |exceptionPattern
-|xref:../scalars.adoc#java_lang_String[String]?
+|String?
 |
 a|The pattern for formatting exceptions.
 
 |facility
-|xref:../scalars.adoc#org_apache_logging_log4j_core_net_Facility[Facility]?
+|xref:../log4j-core/org.apache.logging.log4j.core.net.Facility.adoc[Facility]?
 |
 a|The Facility is used to try to classify the message.
 
 |id
-|xref:../scalars.adoc#java_lang_String[String]?
+|String?
 |
 a|The default structured data id to use when formatting according to RFC 5424.
 
 |includeMDC
-|xref:../scalars.adoc#boolean[boolean]?
+|boolean?
 |
 a|Indicates whether data from the ThreadContextMap will be included in the RFC 5424 Syslog record.
 Defaults to "true:.
 
 |mdcExcludes
-|xref:../scalars.adoc#java_lang_String[String]?
+|String?
 |
 a|A comma separated list of MDC keys that should be excluded from the LogEvent.
 
 |mdcId
-|xref:../scalars.adoc#java_lang_String[String]?
+|String?
 |
 a|The id to use for the MDC Structured Data Element.
 
 |mdcIncludes
-|xref:../scalars.adoc#java_lang_String[String]?
+|String?
 |
 a|A comma separated list of MDC keys that should be included in the FlumeEvent.
 
 |mdcPrefix
-|xref:../scalars.adoc#java_lang_String[String]?
+|String?
 |
 a|The prefix to add to MDC key names.
 
 |mdcRequired
-|xref:../scalars.adoc#java_lang_String[String]?
+|String?
 |
 a|A comma separated list of MDC keys that must be present in the MDC.
 
 |messageId
-|xref:../scalars.adoc#java_lang_String[String]?
+|String?
 |
 a|The default value to be used in the MSGID field of RFC 5424 syslog records.
 
 |newLine
-|xref:../scalars.adoc#boolean[boolean]?
+|boolean?
 |
 a|If true, a newline will be appended to the end of the syslog record.
 The default is false.
 
 |newLineEscape
-|xref:../scalars.adoc#java_lang_String[String]?
+|String?
 |
 a|String that should be used to replace newlines within the message text.
 
 |useTlsMessageFormat
-|xref:../scalars.adoc#boolean[boolean]?
+|boolean?
 |
 a|If true the message will be formatted according to RFC 5425.
 

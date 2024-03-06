@@ -14,11 +14,13 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 ////
+
 [#org_apache_logging_log4j_core_async_JCToolsBlockingQueueFactory]
 = JCToolsBlockingQueue
 
 Class:: `org.apache.logging.log4j.core.async.JCToolsBlockingQueueFactory`
 Provider:: `org.apache.logging.log4j:log4j-core`
+
 
 Factory for creating instances of BlockingQueues backed by JCTools xref:MpscArrayQueue.adoc[].
 
@@ -39,7 +41,7 @@ Optional attributes are denoted by `?`-suffixed types.
 |Name|Type|Default|Description
 
 |WaitStrategy
-|xref:../scalars.adoc#org_apache_logging_log4j_core_async_JCToolsBlockingQueueFactory_WaitStrategy[WaitStrategy]?
+|xref:../log4j-core/org.apache.logging.log4j.core.async.JCToolsBlockingQueueFactory.WaitStrategy.adoc[WaitStrategy]?
 |
 a|
 

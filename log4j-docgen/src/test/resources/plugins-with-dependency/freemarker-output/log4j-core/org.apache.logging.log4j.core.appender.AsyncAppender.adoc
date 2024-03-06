@@ -14,11 +14,13 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 ////
+
 [#org_apache_logging_log4j_core_appender_AsyncAppender]
 = Async
 
 Class:: `org.apache.logging.log4j.core.appender.AsyncAppender`
 Provider:: `org.apache.logging.log4j:log4j-core`
+
 
 Appends to one or more Appenders asynchronously.
 
@@ -53,37 +55,37 @@ Optional attributes are denoted by `?`-suffixed types.
 |Name|Type|Default|Description
 
 |blocking
-|xref:../scalars.adoc#boolean[boolean]?
+|boolean?
 |
 a|
 
 |bufferSize
-|xref:../scalars.adoc#int[int]?
+|int?
 |
 a|
 
 |errorRef
-|xref:../scalars.adoc#java_lang_String[String]?
+|String?
 |
 a|
 
 |ignoreExceptions
-|xref:../scalars.adoc#boolean[boolean]?
+|boolean?
 |
 a|
 
 |includeLocation
-|xref:../scalars.adoc#boolean[boolean]?
+|boolean?
 |
 a|
 
 |name
-|xref:../scalars.adoc#java_lang_String[String]
+|String
 |
 a|
 
 |shutdownTimeout
-|xref:../scalars.adoc#long[long]?
+|long?
 |
 a|
 

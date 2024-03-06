@@ -14,11 +14,13 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 ////
+
 [#org_apache_logging_log4j_core_net_ssl_TrustStoreConfiguration]
 = TrustStore
 
 Class:: `org.apache.logging.log4j.core.net.ssl.TrustStoreConfiguration`
 Provider:: `org.apache.logging.log4j:log4j-core`
+
 
 Configuration of the TrustStore
 
@@ -44,33 +46,33 @@ Optional attributes are denoted by `?`-suffixed types.
 |Name|Type|Default|Description
 
 |location
-|xref:../scalars.adoc#java_lang_String[String]?
+|String?
 |
 a|The location of the KeyStore, a file path, URL or resource.
 
 |password
-|xref:../scalars.adoc#java_lang_String[String]?
+|String?
 |
 a|The password to access the KeyStore.
 
 |passwordEnvironmentVariable
-|xref:../scalars.adoc#java_lang_String[String]?
+|String?
 |
 a|
 
 |passwordFile
-|xref:../scalars.adoc#java_lang_String[String]?
+|String?
 |
 a|
 
 |trustManagerFactoryAlgorithm
-|xref:../scalars.adoc#java_lang_String[String]?
+|String?
 |
 a|The standard name of the requested trust management algorithm.
 See the Java Secure Socket Extension Reference Guide for information these names.
 
 |type
-|xref:../scalars.adoc#java_lang_String[String]?
+|String?
 |
 a|The KeyStore type, null defaults to `"JKS"`.
 

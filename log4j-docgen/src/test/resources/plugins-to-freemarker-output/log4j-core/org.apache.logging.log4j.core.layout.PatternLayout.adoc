@@ -14,11 +14,13 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 ////
+
 [#org_apache_logging_log4j_core_layout_PatternLayout]
 = PatternLayout
 
 Class:: `org.apache.logging.log4j.core.layout.PatternLayout`
 Provider:: `org.apache.logging.log4j:log4j-core`
+
 
 A flexible layout configurable with pattern string.
 
@@ -45,7 +47,7 @@ Optional attributes are denoted by `?`-suffixed types.
 |Name|Type|Default|Description
 
 |pattern
-|xref:../scalars.adoc#java_lang_String[String]?
+|String?
 |%m%n
 a|The pattern to use to format log events.
 

@@ -14,11 +14,13 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 ////
+
 [#org_apache_logging_log4j_core_lookup_StrLookup]
-= StrLookup
+= `org.apache.logging.log4j.core.lookup.StrLookup`
 
 Class:: `org.apache.logging.log4j.core.lookup.StrLookup`
 Provider:: `org.apache.logging.log4j:log4j-core`
+
 
 Lookup a String key to a String value.
 
@@ -29,6 +31,7 @@ This class comes complete with various factory methods.
 If these do not suffice, you can subclass and implement your own matcher.
 
 For example, it would be possible to implement a lookup that used the key as a primary key, and looked up the value on demand from the database
+
 
 [#org_apache_logging_log4j_core_lookup_StrLookup-implementations]
 == Known implementations

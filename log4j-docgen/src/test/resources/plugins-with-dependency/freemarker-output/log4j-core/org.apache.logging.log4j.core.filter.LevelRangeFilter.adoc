@@ -14,11 +14,13 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 ////
+
 [#org_apache_logging_log4j_core_filter_LevelRangeFilter]
 = LevelRangeFilter
 
 Class:: `org.apache.logging.log4j.core.filter.LevelRangeFilter`
 Provider:: `org.apache.logging.log4j:log4j-core`
+
 
 This filter returns the xref:.adoc[] result if the level of the xref:LogEvent.adoc[] is in the range of the configured xref:.adoc[] and xref:.adoc[] values, otherwise it returns the xref:.adoc[] result.
 
@@ -48,22 +50,22 @@ Optional attributes are denoted by `?`-suffixed types.
 |Name|Type|Default|Description
 
 |maxLevel
-|xref:../scalars.adoc#org_apache_logging_log4j_Level[Level]?
+|xref:../log4j-core/org.apache.logging.log4j.Level.adoc[Level]?
 |
 a|the maximum level threshold
 
 |minLevel
-|xref:../scalars.adoc#org_apache_logging_log4j_Level[Level]?
+|xref:../log4j-core/org.apache.logging.log4j.Level.adoc[Level]?
 |
 a|the minimum level threshold
 
 |onMatch
-|xref:../scalars.adoc#org_apache_logging_log4j_core_Filter_Result[Result]?
+|xref:../log4j-core/org.apache.logging.log4j.core.Filter.Result.adoc[Result]?
 |
 a|the result to return on a match
 
 |onMismatch
-|xref:../scalars.adoc#org_apache_logging_log4j_core_Filter_Result[Result]?
+|xref:../log4j-core/org.apache.logging.log4j.core.Filter.Result.adoc[Result]?
 |
 a|the result to return on a mismatch
 

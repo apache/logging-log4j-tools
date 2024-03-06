@@ -14,16 +14,19 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 ////
+
 [#org_apache_logging_log4j_core_pattern_AbstractPatternConverter]
-= AbstractPatternConverter
+= `org.apache.logging.log4j.core.pattern.AbstractPatternConverter`
 
 Class:: `org.apache.logging.log4j.core.pattern.AbstractPatternConverter`
 Provider:: `org.apache.logging.log4j:log4j-core`
+
 
 AbstractPatternConverter is an abstract class that provides the formatting functionality that derived classes need.
 
 Conversion specifiers in a conversion patterns are parsed to individual PatternConverters.
 Each of which is responsible for converting an object in a converter specific manner.
+
 
 [#org_apache_logging_log4j_core_pattern_AbstractPatternConverter-implementations]
 == Known implementations

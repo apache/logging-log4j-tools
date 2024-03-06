@@ -14,11 +14,13 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 ////
+
 [#org_apache_logging_log4j_core_appender_mom_kafka_KafkaAppender]
 = Kafka
 
 Class:: `org.apache.logging.log4j.core.appender.mom.kafka.KafkaAppender`
 Provider:: `org.apache.logging.log4j:log4j-core`
+
 
 Sends log events to an Apache Kafka topic.
 
@@ -49,37 +51,37 @@ Optional attributes are denoted by `?`-suffixed types.
 |Name|Type|Default|Description
 
 |ignoreExceptions
-|xref:../scalars.adoc#boolean[boolean]?
+|boolean?
 |
 a|
 
 |key
-|xref:../scalars.adoc#java_lang_String[String]?
+|String?
 |
 a|
 
 |name
-|xref:../scalars.adoc#java_lang_String[String]
+|String
 |
 a|
 
 |retryCount
-|xref:../scalars.adoc#int[int]?
+|int?
 |
 a|
 
 |sendEventTimestamp
-|xref:../scalars.adoc#boolean[boolean]?
+|boolean?
 |
 a|
 
 |syncSend
-|xref:../scalars.adoc#boolean[boolean]?
+|boolean?
 |
 a|
 
 |topic
-|xref:../scalars.adoc#java_lang_String[String]?
+|String?
 |
 a|
 

@@ -14,15 +14,18 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 ////
+
 [#org_apache_logging_log4j_core_appender_SocketAppender]
-= SocketAppender
+= `org.apache.logging.log4j.core.appender.SocketAppender`
 
 Class:: `org.apache.logging.log4j.core.appender.SocketAppender`
 Provider:: `org.apache.logging.log4j:log4j-core`
 
+
 An Appender that delivers events over socket connections.
 
 Supports both TCP and UDP.
+
 
 [#org_apache_logging_log4j_core_appender_SocketAppender-implementations]
 == Known implementations

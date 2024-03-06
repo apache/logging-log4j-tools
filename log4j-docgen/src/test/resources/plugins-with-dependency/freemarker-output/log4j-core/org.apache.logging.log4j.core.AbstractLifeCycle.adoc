@@ -14,15 +14,18 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 ////
+
 [#org_apache_logging_log4j_core_AbstractLifeCycle]
-= AbstractLifeCycle
+= `org.apache.logging.log4j.core.AbstractLifeCycle`
 
 Class:: `org.apache.logging.log4j.core.AbstractLifeCycle`
 Provider:: `org.apache.logging.log4j:log4j-core`
 
+
 A life cycle to be extended.
 
 Wraps a xref:LifeCycle.State.adoc[State].
+
 
 [#org_apache_logging_log4j_core_AbstractLifeCycle-implementations]
 == Known implementations

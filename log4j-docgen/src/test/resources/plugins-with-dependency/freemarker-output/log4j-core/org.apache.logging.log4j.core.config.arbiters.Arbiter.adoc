@@ -14,13 +14,16 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 ////
+
 [#org_apache_logging_log4j_core_config_arbiters_Arbiter]
-= Arbiter
+= `org.apache.logging.log4j.core.config.arbiters.Arbiter`
 
 Class:: `org.apache.logging.log4j.core.config.arbiters.Arbiter`
 Provider:: `org.apache.logging.log4j:log4j-core`
 
+
 Interface used to check for portions of the configuration that may be optionally included.
+
 
 [#org_apache_logging_log4j_core_config_arbiters_Arbiter-implementations]
 == Known implementations

@@ -14,13 +14,16 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 ////
+
 [#org_apache_logging_log4j_core_pattern_EqualsBaseReplacementConverter]
-= EqualsBaseReplacementConverter
+= `org.apache.logging.log4j.core.pattern.EqualsBaseReplacementConverter`
 
 Class:: `org.apache.logging.log4j.core.pattern.EqualsBaseReplacementConverter`
 Provider:: `org.apache.logging.log4j:log4j-core`
 
+
 Equals pattern converter.
+
 
 [#org_apache_logging_log4j_core_pattern_EqualsBaseReplacementConverter-implementations]
 == Known implementations

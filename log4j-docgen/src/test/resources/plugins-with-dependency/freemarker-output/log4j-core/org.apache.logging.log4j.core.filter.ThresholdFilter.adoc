@@ -14,11 +14,13 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 ////
+
 [#org_apache_logging_log4j_core_filter_ThresholdFilter]
 = ThresholdFilter
 
 Class:: `org.apache.logging.log4j.core.filter.ThresholdFilter`
 Provider:: `org.apache.logging.log4j:log4j-core`
+
 
 This filter returns the onMatch result if the level in the LogEvent is the same or more specific than the configured level and the onMismatch value otherwise.
 
@@ -44,17 +46,17 @@ Optional attributes are denoted by `?`-suffixed types.
 |Name|Type|Default|Description
 
 |level
-|xref:../scalars.adoc#org_apache_logging_log4j_Level[Level]?
+|xref:../log4j-core/org.apache.logging.log4j.Level.adoc[Level]?
 |
 a|The log Level.
 
 |onMatch
-|xref:../scalars.adoc#org_apache_logging_log4j_core_Filter_Result[Result]?
+|xref:../log4j-core/org.apache.logging.log4j.core.Filter.Result.adoc[Result]?
 |
 a|The action to take on a match.
 
 |onMismatch
-|xref:../scalars.adoc#org_apache_logging_log4j_core_Filter_Result[Result]?
+|xref:../log4j-core/org.apache.logging.log4j.core.Filter.Result.adoc[Result]?
 |
 a|The action to take on a mismatch.
 

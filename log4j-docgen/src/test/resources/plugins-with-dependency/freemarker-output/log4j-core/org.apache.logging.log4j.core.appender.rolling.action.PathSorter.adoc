@@ -14,13 +14,16 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 ////
+
 [#org_apache_logging_log4j_core_appender_rolling_action_PathSorter]
-= PathSorter
+= `org.apache.logging.log4j.core.appender.rolling.action.PathSorter`
 
 Class:: `org.apache.logging.log4j.core.appender.rolling.action.PathSorter`
 Provider:: `org.apache.logging.log4j:log4j-core`
 
+
 Defines the interface of classes that can sort Paths.
+
 
 [#org_apache_logging_log4j_core_appender_rolling_action_PathSorter-implementations]
 == Known implementations

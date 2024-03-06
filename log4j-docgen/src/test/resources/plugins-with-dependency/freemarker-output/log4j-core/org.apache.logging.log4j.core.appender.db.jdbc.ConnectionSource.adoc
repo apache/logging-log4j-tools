@@ -14,15 +14,18 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 ////
+
 [#org_apache_logging_log4j_core_appender_db_jdbc_ConnectionSource]
-= ConnectionSource
+= `org.apache.logging.log4j.core.appender.db.jdbc.ConnectionSource`
 
 Class:: `org.apache.logging.log4j.core.appender.db.jdbc.ConnectionSource`
 Provider:: `org.apache.logging.log4j:log4j-core`
 
+
 Configuration element for xref:JdbcAppender.adoc[].
 
 If you want to use the xref:JdbcAppender.adoc[] but none of the provided connection sources meet your needs, you can simply create your own connection source.
+
 
 [#org_apache_logging_log4j_core_appender_db_jdbc_ConnectionSource-implementations]
 == Known implementations

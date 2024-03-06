@@ -14,11 +14,13 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 ////
+
 [#org_apache_logging_log4j_core_filter_DenyAllFilter]
 = DenyAllFilter
 
 Class:: `org.apache.logging.log4j.core.filter.DenyAllFilter`
 Provider:: `org.apache.logging.log4j:log4j-core`
+
 
 This filter causes all logging events to be dropped.
 
@@ -40,7 +42,7 @@ Optional attributes are denoted by `?`-suffixed types.
 |Name|Type|Default|Description
 
 |onMatch
-|xref:../scalars.adoc#org_apache_logging_log4j_core_Filter_Result[Result]?
+|xref:../log4j-core/org.apache.logging.log4j.core.Filter.Result.adoc[Result]?
 |
 a|Sets the Result to return when the filter matches.
 
@@ -48,7 +50,7 @@ Defaults to Result.
 NEUTRAL.
 
 |onMismatch
-|xref:../scalars.adoc#org_apache_logging_log4j_core_Filter_Result[Result]?
+|xref:../log4j-core/org.apache.logging.log4j.core.Filter.Result.adoc[Result]?
 |
 a|Sets the Result to return when the filter does not match.
 

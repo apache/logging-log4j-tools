@@ -14,11 +14,13 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 ////
+
 [#org_apache_logging_log4j_core_layout_YamlLayout]
 = YamlLayout
 
 Class:: `org.apache.logging.log4j.core.layout.YamlLayout`
 Provider:: `org.apache.logging.log4j:log4j-core`
+
 
 Appends a series of YAML events as strings serialized as bytes.
 
@@ -62,69 +64,69 @@ Optional attributes are denoted by `?`-suffixed types.
 |Name|Type|Default|Description
 
 |charset
-|xref:../scalars.adoc#java_nio_charset_Charset[Charset]?
+|Charset?
 |
 a|
 
 |compact
-|xref:../scalars.adoc#boolean[boolean]?
+|boolean?
 |
 a|
 
 |complete
-|xref:../scalars.adoc#boolean[boolean]?
+|boolean?
 |
 a|
 
 |endOfLine
-|xref:../scalars.adoc#java_lang_String[String]?
+|String?
 |
 a|
 
 |eventEol
-|xref:../scalars.adoc#boolean[boolean]?
+|boolean?
 |
 a|
 
 |footer
-|xref:../scalars.adoc#java_lang_String[String]?
+|String?
 |
 a|
 
 |header
-|xref:../scalars.adoc#java_lang_String[String]?
+|String?
 |
 a|
 
 |includeNullDelimiter
-|xref:../scalars.adoc#boolean[boolean]?
+|boolean?
 |
 a|Whether to include NULL byte as delimiter after each event (optional, default to false).
 
 |includeStacktrace
-|xref:../scalars.adoc#boolean[boolean]?
+|boolean?
 |
 a|If "true", includes the stacktrace of any Throwable in the generated JSON, defaults to "true".
 
 If "true", includes the stacktrace of any Throwable in the generated data, defaults to "true".
 
 |includeTimeMillis
-|xref:../scalars.adoc#boolean[boolean]?
+|boolean?
 |
 a|Whether to include the timestamp (in addition to the Instant) (optional, default to false).
 
 |locationInfo
-|xref:../scalars.adoc#boolean[boolean]?
+|boolean?
 |
 a|
 
 |properties
-|xref:../scalars.adoc#boolean[boolean]?
+|boolean?
 |
 a|
 
 |stacktraceAsString
-|xref:../scalars.adoc#boolean[boolean]?
+|boolean?
 |
 a|Whether to format the stacktrace as a string, and not a nested object (optional, defaults to false).
 

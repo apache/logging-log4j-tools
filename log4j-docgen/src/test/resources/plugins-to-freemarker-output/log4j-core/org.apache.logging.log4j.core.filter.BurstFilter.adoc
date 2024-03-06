@@ -14,11 +14,13 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 ////
+
 [#org_apache_logging_log4j_core_filter_BurstFilter]
 = BurstFilter
 
 Class:: `org.apache.logging.log4j.core.filter.BurstFilter`
 Provider:: `org.apache.logging.log4j:log4j-core`
+
 
 The BurstFilter is a logging filter that regulates logging traffic.
 Use this filter when you want to control the mean rate and maximum burst of log statements that can be sent to an appender.
@@ -44,27 +46,27 @@ Optional attributes are denoted by `?`-suffixed types.
 |Name|Type|Default|Description
 
 |level
-|xref:../scalars.adoc#org_apache_logging_log4j_Level[Level]?
+|xref:../log4j-core/org.apache.logging.log4j.Level.adoc[Level]?
 |WARN
 a|Log events less specific than this level are filtered, while events with level equal or more specific always match.
 
 |maxBurst
-|xref:../scalars.adoc#long[long]?
+|long?
 |
 a|Sets the maximum number of events that can occur before events are filtered for exceeding the average rate.
 
 |onMatch
-|xref:../scalars.adoc#org_apache_logging_log4j_core_Filter_Result[Result]?
+|xref:../log4j-core/org.apache.logging.log4j.core.Filter.Result.adoc[Result]?
 |NEUTRAL
 a|Action to perform if the filter matches.
 
 |onMismatch
-|xref:../scalars.adoc#org_apache_logging_log4j_core_Filter_Result[Result]?
+|xref:../log4j-core/org.apache.logging.log4j.core.Filter.Result.adoc[Result]?
 |DENY
 a|Action to perform if the filter does not match.
 
 |rate
-|xref:../scalars.adoc#float[float]?
+|float?
 |10
 a|Sets the average number of events per second to allow.
 

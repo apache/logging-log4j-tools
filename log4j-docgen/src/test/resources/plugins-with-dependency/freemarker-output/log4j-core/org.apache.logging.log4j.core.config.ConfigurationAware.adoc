@@ -14,13 +14,16 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 ////
+
 [#org_apache_logging_log4j_core_config_ConfigurationAware]
-= ConfigurationAware
+= `org.apache.logging.log4j.core.config.ConfigurationAware`
 
 Class:: `org.apache.logging.log4j.core.config.ConfigurationAware`
 Provider:: `org.apache.logging.log4j:log4j-core`
 
+
 Indicates that a class requests the current Configuration to be injected.
+
 
 [#org_apache_logging_log4j_core_config_ConfigurationAware-implementations]
 == Known implementations

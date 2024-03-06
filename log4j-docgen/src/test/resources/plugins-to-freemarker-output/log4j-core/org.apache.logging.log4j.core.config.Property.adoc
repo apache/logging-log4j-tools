@@ -14,11 +14,13 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 ////
+
 [#org_apache_logging_log4j_core_config_Property]
 = Property
 
 Class:: `org.apache.logging.log4j.core.config.Property`
 Provider:: `org.apache.logging.log4j:log4j-core`
+
 
 Represents a key/value pair in the configuration.
 
@@ -40,12 +42,12 @@ Optional attributes are denoted by `?`-suffixed types.
 |Name|Type|Default|Description
 
 |name
-|xref:../scalars.adoc#java_lang_String[String]
+|String
 |
 a|Name of the property.
 
 |value
-|xref:../scalars.adoc#java_lang_String[String]?
+|String?
 |
 a|Value of the property.
 

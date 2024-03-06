@@ -14,15 +14,18 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 ////
+
 [#org_apache_logging_log4j_core_LifeCycle2]
-= LifeCycle2
+= `org.apache.logging.log4j.core.LifeCycle2`
 
 Class:: `org.apache.logging.log4j.core.LifeCycle2`
 Provider:: `org.apache.logging.log4j:log4j-core`
 
+
 Extends the LifeCycle interface.
 
 This interface should be merged with the super-interface in 3.0.
+
 
 [#org_apache_logging_log4j_core_LifeCycle2-implementations]
 == Known implementations

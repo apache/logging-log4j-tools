@@ -14,11 +14,13 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 ////
+
 [#org_apache_logging_log4j_core_appender_db_jdbc_DriverManagerConnectionSource]
 = DriverManager
 
 Class:: `org.apache.logging.log4j.core.appender.db.jdbc.DriverManagerConnectionSource`
 Provider:: `org.apache.logging.log4j:log4j-core`
+
 
 A xref:ConnectionSource.adoc[] that uses a JDBC connection string, a user name, and a password to call xref:DriverManager.adoc[].
 
@@ -47,22 +49,22 @@ Optional attributes are denoted by `?`-suffixed types.
 |Name|Type|Default|Description
 
 |connectionString
-|xref:../scalars.adoc#java_lang_String[String]
+|String
 |
 a|
 
 |driverClassName
-|xref:../scalars.adoc#java_lang_String[String]?
+|String?
 |
 a|
 
 |password
-|xref:../scalars.adoc#java_lang_String[String]?
+|String?
 |
 a|
 
 |userName
-|xref:../scalars.adoc#java_lang_String[String]?
+|String?
 |
 a|
 

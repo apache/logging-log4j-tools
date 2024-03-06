@@ -14,11 +14,13 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 ////
+
 [#org_apache_logging_log4j_core_net_ssl_SslConfiguration]
 = Ssl
 
 Class:: `org.apache.logging.log4j.core.net.ssl.SslConfiguration`
 Provider:: `org.apache.logging.log4j:log4j-core`
+
 
 SSL Configuration
 
@@ -42,7 +44,7 @@ Optional attributes are denoted by `?`-suffixed types.
 |Name|Type|Default|Description
 
 |protocol
-|xref:../scalars.adoc#java_lang_String[String]?
+|String?
 |
 a|The protocol, see http://docs.
 oracle.

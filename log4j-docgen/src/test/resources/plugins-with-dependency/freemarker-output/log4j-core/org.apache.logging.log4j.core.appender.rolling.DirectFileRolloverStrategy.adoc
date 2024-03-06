@@ -14,13 +14,16 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 ////
+
 [#org_apache_logging_log4j_core_appender_rolling_DirectFileRolloverStrategy]
-= DirectFileRolloverStrategy
+= `org.apache.logging.log4j.core.appender.rolling.DirectFileRolloverStrategy`
 
 Class:: `org.apache.logging.log4j.core.appender.rolling.DirectFileRolloverStrategy`
 Provider:: `org.apache.logging.log4j:log4j-core`
 
+
 Created by rgoers on 1/12/17.
+
 
 [#org_apache_logging_log4j_core_appender_rolling_DirectFileRolloverStrategy-implementations]
 == Known implementations

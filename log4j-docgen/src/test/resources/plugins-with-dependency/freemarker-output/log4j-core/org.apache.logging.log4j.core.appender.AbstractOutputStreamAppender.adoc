@@ -14,15 +14,18 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 ////
+
 [#org_apache_logging_log4j_core_appender_AbstractOutputStreamAppender]
-= AbstractOutputStreamAppender
+= `org.apache.logging.log4j.core.appender.AbstractOutputStreamAppender`
 
 Class:: `org.apache.logging.log4j.core.appender.AbstractOutputStreamAppender`
 Provider:: `org.apache.logging.log4j:log4j-core`
 
+
 Appends log events as bytes to a byte output stream.
 
 The stream encoding is defined in the layout.
+
 
 [#org_apache_logging_log4j_core_appender_AbstractOutputStreamAppender-implementations]
 == Known implementations

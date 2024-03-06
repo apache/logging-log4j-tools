@@ -14,11 +14,13 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 ////
+
 [#org_apache_logging_log4j_core_appender_rolling_action_IfFileName]
 = IfFileName
 
 Class:: `org.apache.logging.log4j.core.appender.rolling.action.IfFileName`
 Provider:: `org.apache.logging.log4j:log4j-core`
+
 
 PathCondition that accepts files for deletion if their relative path matches either a glob pattern or a regular expression.
 
@@ -47,12 +49,12 @@ Optional attributes are denoted by `?`-suffixed types.
 |Name|Type|Default|Description
 
 |glob
-|xref:../scalars.adoc#java_lang_String[String]?
+|String?
 |
 a|the baseDir-relative path pattern of the files to delete (may contain '*' and '?' wildcarts)
 
 |regex
-|xref:../scalars.adoc#java_lang_String[String]?
+|String?
 |
 a|the regular expression that matches the baseDir-relative path of the file(s) to delete
 

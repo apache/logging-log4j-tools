@@ -14,11 +14,13 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 ////
+
 [#org_apache_logging_log4j_core_LifeCycle]
-= LifeCycle
+= `org.apache.logging.log4j.core.LifeCycle`
 
 Class:: `org.apache.logging.log4j.core.LifeCycle`
 Provider:: `org.apache.logging.log4j:log4j-core`
+
 
 All proper Java frameworks implement some sort of object life cycle.
 
@@ -27,6 +29,7 @@ An object first starts in the xref:State.adoc[] state by default to indicate the
 From here, calling the xref:.adoc[] method will change this state to xref:State.adoc[]. After successfully being started, this state is changed to xref:State.adoc[]. When the xref:.adoc[] is called, this goes into the xref:State.adoc[] state.
 After successfully being stopped, this goes into the xref:State.adoc[] state.
 In most circumstances, implementation classes should store their xref:State.adoc[] in a `volatile` field or inside an xref:java.util.concurrent.atomic.AtomicReference.adoc[AtomicReference] dependent on synchronization and concurrency requirements.
+
 
 [#org_apache_logging_log4j_core_LifeCycle-implementations]
 == Known implementations

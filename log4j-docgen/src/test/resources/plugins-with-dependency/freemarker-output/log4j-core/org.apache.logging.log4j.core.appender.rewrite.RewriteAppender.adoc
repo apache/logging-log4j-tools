@@ -14,11 +14,13 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 ////
+
 [#org_apache_logging_log4j_core_appender_rewrite_RewriteAppender]
 = Rewrite
 
 Class:: `org.apache.logging.log4j.core.appender.rewrite.RewriteAppender`
 Provider:: `org.apache.logging.log4j:log4j-core`
+
 
 This Appender allows the logging event to be manipulated before it is processed by other Appenders.
 
@@ -44,12 +46,12 @@ Optional attributes are denoted by `?`-suffixed types.
 |Name|Type|Default|Description
 
 |ignoreExceptions
-|xref:../scalars.adoc#java_lang_String[String]?
+|String?
 |
 a|If `"true"` (default) exceptions encountered when appending events are logged; otherwise they are propagated to the caller.
 
 |name
-|xref:../scalars.adoc#java_lang_String[String]?
+|String?
 |
 a|The name of the Appender.
 

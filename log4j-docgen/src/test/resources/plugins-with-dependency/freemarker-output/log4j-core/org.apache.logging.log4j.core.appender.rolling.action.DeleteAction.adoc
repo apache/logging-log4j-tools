@@ -14,11 +14,13 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 ////
+
 [#org_apache_logging_log4j_core_appender_rolling_action_DeleteAction]
 = Delete
 
 Class:: `org.apache.logging.log4j.core.appender.rolling.action.DeleteAction`
 Provider:: `org.apache.logging.log4j:log4j-core`
+
 
 Rollover or scheduled action for deleting old log files that are accepted by the specified PathFilters.
 
@@ -46,25 +48,25 @@ Optional attributes are denoted by `?`-suffixed types.
 |Name|Type|Default|Description
 
 |basePath
-|xref:../scalars.adoc#java_lang_String[String]?
+|String?
 |
 a|base path from where to start scanning for files to delete.
 
 |followLinks
-|xref:../scalars.adoc#boolean[boolean]?
+|boolean?
 |
 a|whether to follow symbolic links.
 Default is false.
 
 |maxDepth
-|xref:../scalars.adoc#int[int]?
+|int?
 |
 a|The maxDepth parameter is the maximum number of levels of directories to visit.
 A value of 0 means that only the starting file is visited, unless denied by the security manager.
 A value of MAX_VALUE may be used to indicate that all levels should be visited.
 
 |testMode
-|xref:../scalars.adoc#boolean[boolean]?
+|boolean?
 |
 a|if true, files are not deleted but instead a message is printed to the status logger at INFO level.
 Users can use this to do a dry run to test if their configuration works as expected.

@@ -14,11 +14,13 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 ////
+
 [#org_apache_logging_log4j_core_appender_rolling_action_IfAccumulatedFileCount]
 = IfAccumulatedFileCount
 
 Class:: `org.apache.logging.log4j.core.appender.rolling.action.IfAccumulatedFileCount`
 Provider:: `org.apache.logging.log4j:log4j-core`
+
 
 PathCondition that accepts paths after some count threshold is exceeded during the file tree walk.
 
@@ -41,7 +43,7 @@ Optional attributes are denoted by `?`-suffixed types.
 |Name|Type|Default|Description
 
 |exceeds
-|xref:../scalars.adoc#int[int]?
+|int?
 |
 a|The threshold count from which files will be deleted.
 

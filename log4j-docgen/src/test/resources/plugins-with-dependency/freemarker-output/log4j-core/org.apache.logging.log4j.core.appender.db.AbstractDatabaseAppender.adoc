@@ -14,15 +14,18 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 ////
+
 [#org_apache_logging_log4j_core_appender_db_AbstractDatabaseAppender]
-= AbstractDatabaseAppender
+= `org.apache.logging.log4j.core.appender.db.AbstractDatabaseAppender`
 
 Class:: `org.apache.logging.log4j.core.appender.db.AbstractDatabaseAppender`
 Provider:: `org.apache.logging.log4j:log4j-core`
 
+
 An abstract Appender for writing events to a database of some type, be it relational or NoSQL.
 
 All database appenders should inherit from this base appender.
+
 
 [#org_apache_logging_log4j_core_appender_db_AbstractDatabaseAppender-implementations]
 == Known implementations

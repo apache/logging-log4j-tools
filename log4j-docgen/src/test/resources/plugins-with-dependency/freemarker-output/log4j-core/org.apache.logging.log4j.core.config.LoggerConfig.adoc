@@ -14,13 +14,16 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 ////
+
 [#org_apache_logging_log4j_core_config_LoggerConfig]
-= LoggerConfig
+= `org.apache.logging.log4j.core.config.LoggerConfig`
 
 Class:: `org.apache.logging.log4j.core.config.LoggerConfig`
 Provider:: `org.apache.logging.log4j:log4j-core`
 
+
 Logger object that is created via configuration.
+
 
 [#org_apache_logging_log4j_core_config_LoggerConfig-implementations]
 == Known implementations

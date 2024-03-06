@@ -14,11 +14,15 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 ////
+
 [#org_apache_logging_log4j_core_net_Advertiser]
-= Advertiser
+= `org.apache.logging.log4j.core.net.Advertiser`
 
 Class:: `org.apache.logging.log4j.core.net.Advertiser`
 Provider:: `org.apache.logging.log4j:log4j-core`
+
+
+
 
 
 [#org_apache_logging_log4j_core_net_Advertiser-implementations]

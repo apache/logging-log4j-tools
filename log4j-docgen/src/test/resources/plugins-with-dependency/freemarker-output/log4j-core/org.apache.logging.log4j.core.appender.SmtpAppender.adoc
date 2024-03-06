@@ -14,11 +14,13 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 ////
+
 [#org_apache_logging_log4j_core_appender_SmtpAppender]
 = SMTP
 
 Class:: `org.apache.logging.log4j.core.appender.SmtpAppender`
 Provider:: `org.apache.logging.log4j:log4j-core`
+
 
 Send an e-mail when a specific logging event occurs, typically on errors or fatal errors.
 
@@ -66,83 +68,83 @@ Optional attributes are denoted by `?`-suffixed types.
 |Name|Type|Default|Description
 
 |bcc
-|xref:../scalars.adoc#java_lang_String[String]?
+|String?
 |
 a|Comma-separated list of BCC email addresses.
 
 |bufferSize
-|xref:../scalars.adoc#int[int]?
+|int?
 |
 a|Number of log events to buffer before sending an email.
 
 Defaults to .
 
 |cc
-|xref:../scalars.adoc#java_lang_String[String]?
+|String?
 |
 a|Comma-separated list of CC email addresses.
 
 |from
-|xref:../scalars.adoc#java_lang_String[String]?
+|String?
 |
 a|Email address of the sender.
 
 |ignoreExceptions
-|xref:../scalars.adoc#boolean[boolean]?
+|boolean?
 |
 a|
 
 |name
-|xref:../scalars.adoc#java_lang_String[String]
+|String
 |
 a|
 
 |replyTo
-|xref:../scalars.adoc#java_lang_String[String]?
+|String?
 |
 a|Comma-separated list of Reply-To email addresses.
 
 |smtpDebug
-|xref:../scalars.adoc#boolean[boolean]?
+|boolean?
 |
 a|Enables or disables mail session debugging on STDOUT.
 
 Disabled by default.
 
 |smtpHost
-|xref:../scalars.adoc#java_lang_String[String]?
+|String?
 |
 a|Host name of SMTP server to send messages through.
 
 |smtpPassword
-|xref:../scalars.adoc#java_lang_String[String]?
+|String?
 |
 a|Password to authenticate with SMTP server.
 
 |smtpPort
-|xref:../scalars.adoc#int[int]?
+|int?
 |
 a|Port number of SMTP server to send messages through.
 
 |smtpProtocol
-|xref:../scalars.adoc#java_lang_String[String]?
+|String?
 |
 a|Transport protocol to use for SMTP such as "smtp" or "smtps".
 
 Defaults to "smtp".
 
 |smtpUsername
-|xref:../scalars.adoc#java_lang_String[String]?
+|String?
 |
 a|Username to authenticate with SMTP server.
 
 |subject
-|xref:../scalars.adoc#java_lang_String[String]?
+|String?
 |
 a|Subject template for the email messages.
 
 |to
-|xref:../scalars.adoc#java_lang_String[String]?
+|String?
 |
 a|Comma-separated list of recipient email addresses.
 

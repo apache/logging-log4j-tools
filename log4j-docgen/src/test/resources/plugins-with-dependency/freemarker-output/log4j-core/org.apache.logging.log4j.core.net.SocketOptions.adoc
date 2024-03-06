@@ -14,11 +14,13 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 ////
+
 [#org_apache_logging_log4j_core_net_SocketOptions]
 = SocketOptions
 
 Class:: `org.apache.logging.log4j.core.net.SocketOptions`
 Provider:: `org.apache.logging.log4j:log4j-core`
+
 
 Holds all socket options settable via xref:Socket.adoc[] methods.
 
@@ -50,70 +52,70 @@ Optional attributes are denoted by `?`-suffixed types.
 |Name|Type|Default|Description
 
 |keepAlive
-|xref:../scalars.adoc#java_lang_Boolean[Boolean]?
+|Boolean?
 |
 a|See xref:Socket.adoc[].
 
 See xref:Socket.adoc[].
 
 |oobInline
-|xref:../scalars.adoc#java_lang_Boolean[Boolean]?
+|Boolean?
 |
 a|See xref:Socket.adoc[].
 
 See xref:Socket.adoc[].
 
 |receiveBufferSize
-|xref:../scalars.adoc#java_lang_Integer[Integer]?
+|Integer?
 |
 a|See xref:Socket.adoc[].
 
 See xref:Socket.adoc[].
 
 |reuseAddress
-|xref:../scalars.adoc#java_lang_Boolean[Boolean]?
+|Boolean?
 |
 a|See xref:Socket.adoc[].
 
 See xref:Socket.adoc[].
 
 |rfc1349TrafficClass
-|xref:../scalars.adoc#org_apache_logging_log4j_core_net_Rfc1349TrafficClass[Rfc1349TrafficClass]?
+|xref:../log4j-core/org.apache.logging.log4j.core.net.Rfc1349TrafficClass.adoc[Rfc1349TrafficClass]?
 |
 a|See xref:Socket.adoc[].
 
 See xref:Socket.adoc[].
 
 |sendBufferSize
-|xref:../scalars.adoc#java_lang_Integer[Integer]?
+|Integer?
 |
 a|See xref:Socket.adoc[].
 
 See xref:Socket.adoc[].
 
 |soLinger
-|xref:../scalars.adoc#java_lang_Integer[Integer]?
+|Integer?
 |
 a|See xref:Socket.adoc[].
 
 See xref:Socket.adoc[].
 
 |soTimeout
-|xref:../scalars.adoc#java_lang_Integer[Integer]?
+|Integer?
 |
 a|See xref:Socket.adoc[].
 
 See xref:Socket.adoc[].
 
 |tcpNoDelay
-|xref:../scalars.adoc#java_lang_Boolean[Boolean]?
+|Boolean?
 |
 a|See xref:Socket.adoc[].
 
 See xref:Socket.adoc[].
 
 |trafficClass
-|xref:../scalars.adoc#java_lang_Integer[Integer]?
+|Integer?
 |
 a|See xref:Socket.adoc[].
 

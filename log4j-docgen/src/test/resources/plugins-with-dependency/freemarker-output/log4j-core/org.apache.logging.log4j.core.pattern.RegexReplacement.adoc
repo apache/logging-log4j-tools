@@ -14,11 +14,13 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 ////
+
 [#org_apache_logging_log4j_core_pattern_RegexReplacement]
 = replace
 
 Class:: `org.apache.logging.log4j.core.pattern.RegexReplacement`
 Provider:: `org.apache.logging.log4j:log4j-core`
+
 
 Replace tokens in the LogEvent message.
 
@@ -40,12 +42,12 @@ Optional attributes are denoted by `?`-suffixed types.
 |Name|Type|Default|Description
 
 |regex
-|xref:../scalars.adoc#java_util_regex_Pattern[Pattern]?
+|Pattern?
 |
 a|The regular expression to locate.
 
 |replacement
-|xref:../scalars.adoc#java_lang_String[String]?
+|String?
 |
 a|The replacement value.
 

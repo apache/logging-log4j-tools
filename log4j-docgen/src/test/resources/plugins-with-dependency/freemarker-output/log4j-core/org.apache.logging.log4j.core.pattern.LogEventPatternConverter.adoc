@@ -14,13 +14,16 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 ////
+
 [#org_apache_logging_log4j_core_pattern_LogEventPatternConverter]
-= LogEventPatternConverter
+= `org.apache.logging.log4j.core.pattern.LogEventPatternConverter`
 
 Class:: `org.apache.logging.log4j.core.pattern.LogEventPatternConverter`
 Provider:: `org.apache.logging.log4j:log4j-core`
 
+
 LoggingEventPatternConverter is a base class for pattern converters that can format information from instances of LoggingEvent.
+
 
 [#org_apache_logging_log4j_core_pattern_LogEventPatternConverter-implementations]
 == Known implementations

@@ -14,13 +14,16 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 ////
+
 [#org_apache_logging_log4j_core_layout_PatternSelector]
-= PatternSelector
+= `org.apache.logging.log4j.core.layout.PatternSelector`
 
 Class:: `org.apache.logging.log4j.core.layout.PatternSelector`
 Provider:: `org.apache.logging.log4j:log4j-core`
 
+
 Allows different patterns to be used with the PatternLayout based on some selection criteria.
+
 
 [#org_apache_logging_log4j_core_layout_PatternSelector-implementations]
 == Known implementations

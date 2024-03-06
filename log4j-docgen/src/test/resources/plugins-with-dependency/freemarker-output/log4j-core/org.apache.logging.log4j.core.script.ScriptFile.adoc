@@ -14,11 +14,13 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 ////
+
 [#org_apache_logging_log4j_core_script_ScriptFile]
 = ScriptFile
 
 Class:: `org.apache.logging.log4j.core.script.ScriptFile`
 Provider:: `org.apache.logging.log4j:log4j-core`
+
 
 Container for the language and body of a script file along with the file location.
 
@@ -43,27 +45,27 @@ Optional attributes are denoted by `?`-suffixed types.
 |Name|Type|Default|Description
 
 |charset
-|xref:../scalars.adoc#java_nio_charset_Charset[Charset]?
+|Charset?
 |
 a|
 
 |isWatched
-|xref:../scalars.adoc#java_lang_Boolean[Boolean]?
+|Boolean?
 |
 a|
 
 |language
-|xref:../scalars.adoc#java_lang_String[String]?
+|String?
 |
 a|
 
 |name
-|xref:../scalars.adoc#java_lang_String[String]?
+|String?
 |
 a|
 
 |path
-|xref:../scalars.adoc#java_lang_String[String]?
+|String?
 |
 a|
 

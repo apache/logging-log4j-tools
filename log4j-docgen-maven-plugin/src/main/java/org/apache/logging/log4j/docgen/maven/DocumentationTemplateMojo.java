@@ -27,7 +27,7 @@ public final class DocumentationTemplateMojo {
      * The name of the FreeMarker template.
      * <p>
      * This corresponds to the file path (relative to {@link DocumentationGeneratorMojo#templateDirectory the template directory}) of the FreeMarker template.
-     * For instance, {@code scalars.adoc.ftl}, {@code plugin.adoc.ftl}, and {@code interface.adoc.ftl} for scalar values, plugins, and interfaces, respectively.
+     * For instance, {@code index.adoc.ftl} and {@code type.adoc.ftl} for the index page and individual type-specific pages, respectively.
      * </p>
      */
     @Parameter(required = true)
@@ -48,8 +48,8 @@ public final class DocumentationTemplateMojo {
      * For instance,
      * </p>
      * <ul>
-     * <li>{@code scalars.adoc} for scalar values</li>
-     * <li>{@code %g/%a/%c.adoc} for interfaces and plugins</li>
+     * <li>{@code index.adoc} for the index page</li>
+     * <li>{@code %g/%a/%c.adoc} for individual type-specific pages</li>
      * </ul>
      */
     @Parameter(required = true)

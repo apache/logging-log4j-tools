@@ -14,15 +14,18 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 ////
+
 [#org_apache_logging_log4j_core_appender_rolling_TriggeringPolicy]
-= TriggeringPolicy
+= `org.apache.logging.log4j.core.appender.rolling.TriggeringPolicy`
 
 Class:: `org.apache.logging.log4j.core.appender.rolling.TriggeringPolicy`
 Provider:: `org.apache.logging.log4j:log4j-core`
 
+
 A `TriggeringPolicy` controls the conditions under which rollover occurs.
 
 Such conditions include time of day, file size, an external event, the log request or a combination thereof.
+
 
 [#org_apache_logging_log4j_core_appender_rolling_TriggeringPolicy-implementations]
 == Known implementations

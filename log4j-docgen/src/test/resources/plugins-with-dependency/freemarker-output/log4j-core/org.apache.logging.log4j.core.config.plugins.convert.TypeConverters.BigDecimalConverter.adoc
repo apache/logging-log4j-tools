@@ -14,11 +14,13 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 ////
+
 [#org_apache_logging_log4j_core_config_plugins_convert_TypeConverters_BigDecimalConverter]
 = BigDecimal
 
 Class:: `org.apache.logging.log4j.core.config.plugins.convert.TypeConverters.BigDecimalConverter`
 Provider:: `org.apache.logging.log4j:log4j-core`
+
 
 Parses a xref:String.adoc[] into a xref:BigDecimal.adoc[].
 

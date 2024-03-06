@@ -14,11 +14,13 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 ////
+
 [#org_apache_logging_log4j_core_pattern_MapPatternConverter]
 = MapPatternConverter
 
 Class:: `org.apache.logging.log4j.core.pattern.MapPatternConverter`
 Provider:: `org.apache.logging.log4j:log4j-core`
+
 
 Able to handle the contents of the LogEvent's MapMessage and either output the entire contents of the properties in a similar format to the java.
 util.

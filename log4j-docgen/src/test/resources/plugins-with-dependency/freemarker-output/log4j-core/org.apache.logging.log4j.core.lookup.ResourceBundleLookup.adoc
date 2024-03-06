@@ -14,11 +14,13 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 ////
+
 [#org_apache_logging_log4j_core_lookup_ResourceBundleLookup]
 = bundle
 
 Class:: `org.apache.logging.log4j.core.lookup.ResourceBundleLookup`
 Provider:: `org.apache.logging.log4j:log4j-core`
+
 
 Looks up keys from resource bundles.
 

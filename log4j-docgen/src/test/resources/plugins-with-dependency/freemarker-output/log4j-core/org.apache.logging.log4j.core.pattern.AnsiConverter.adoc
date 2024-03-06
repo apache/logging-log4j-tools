@@ -14,13 +14,16 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 ////
+
 [#org_apache_logging_log4j_core_pattern_AnsiConverter]
-= AnsiConverter
+= `org.apache.logging.log4j.core.pattern.AnsiConverter`
 
 Class:: `org.apache.logging.log4j.core.pattern.AnsiConverter`
 Provider:: `org.apache.logging.log4j:log4j-core`
 
+
 Marks classes that implement ANSI escape code conversions.
+
 
 [#org_apache_logging_log4j_core_pattern_AnsiConverter-implementations]
 == Known implementations

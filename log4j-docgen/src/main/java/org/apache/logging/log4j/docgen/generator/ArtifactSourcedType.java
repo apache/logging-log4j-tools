@@ -18,22 +18,11 @@ package org.apache.logging.log4j.docgen.generator;
 
 import static java.util.Objects.requireNonNull;
 
-import java.util.Comparator;
 import org.apache.logging.log4j.docgen.PluginSet;
 import org.apache.logging.log4j.docgen.Type;
 import org.jspecify.annotations.Nullable;
 
-public final class ArtifactSourcedType implements Comparable<ArtifactSourcedType> {
-
-    private static final Comparator<ArtifactSourcedType> COMPARATOR = Comparator.<ArtifactSourcedType, String>comparing(
-                    sourcedType -> sourcedType.type.getClassName())
-            .thenComparing(sourcedType -> na(sourcedType.groupId))
-            .thenComparing(sourcedType -> na(sourcedType.artifactId))
-            .thenComparing(sourcedType -> na(sourcedType.version));
-
-    private static String na(@Nullable final String value) {
-        return value != null ? value : "N/A";
-    }
+public final class ArtifactSourcedType {
 
     @Nullable
     public final String groupId;
@@ -59,11 +48,5 @@ public final class ArtifactSourcedType implements Comparable<ArtifactSourcedType
 
     static ArtifactSourcedType ofPluginSet(final PluginSet pluginSet, final Type type) {
         return new ArtifactSourcedType(pluginSet.getGroupId(), pluginSet.getArtifactId(), pluginSet.getVersion(), type);
-    }
-
-    @Override
-    @SuppressWarnings("NullableProblems")
-    public int compareTo(final ArtifactSourcedType sourcedType) {
-        return COMPARATOR.compare(this, sourcedType);
     }
 }

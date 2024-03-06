@@ -14,13 +14,16 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 ////
+
 [#org_apache_logging_log4j_core_appender_rolling_action_Action]
-= Action
+= `org.apache.logging.log4j.core.appender.rolling.action.Action`
 
 Class:: `org.apache.logging.log4j.core.appender.rolling.action.Action`
 Provider:: `org.apache.logging.log4j:log4j-core`
 
+
 The Action interface should be implemented by any class that performs file system actions for RollingFileAppenders after the close of the active log file.
+
 
 [#org_apache_logging_log4j_core_appender_rolling_action_Action-implementations]
 == Known implementations

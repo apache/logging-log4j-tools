@@ -14,13 +14,16 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 ////
+
 [#org_apache_logging_log4j_core_appender_rolling_RolloverStrategy]
-= RolloverStrategy
+= `org.apache.logging.log4j.core.appender.rolling.RolloverStrategy`
 
 Class:: `org.apache.logging.log4j.core.appender.rolling.RolloverStrategy`
 Provider:: `org.apache.logging.log4j:log4j-core`
 
+
 A `RollingPolicy` specifies the actions taken on a logging file rollover.
+
 
 [#org_apache_logging_log4j_core_appender_rolling_RolloverStrategy-implementations]
 == Known implementations

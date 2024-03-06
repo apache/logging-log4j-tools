@@ -14,11 +14,13 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 ////
+
 [#org_apache_logging_log4j_core_appender_mom_JmsAppender]
 = JMS
 
 Class:: `org.apache.logging.log4j.core.appender.mom.JmsAppender`
 Provider:: `org.apache.logging.log4j:log4j-core`
+
 
 Generic JMS Appender plugin for both queues and topics.
 
@@ -58,67 +60,67 @@ Optional attributes are denoted by `?`-suffixed types.
 |Name|Type|Default|Description
 
 |destinationBindingName
-|xref:../scalars.adoc#java_lang_String[String]
+|String
 |
 a|
 
 |factoryBindingName
-|xref:../scalars.adoc#java_lang_String[String]
+|String
 |
 a|
 
 |factoryName
-|xref:../scalars.adoc#java_lang_String[String]?
+|String?
 |
 a|
 
 |ignoreExceptions
-|xref:../scalars.adoc#boolean[boolean]?
+|boolean?
 |
 a|
 
 |immediateFail
-|xref:../scalars.adoc#boolean[boolean]?
+|boolean?
 |
 a|
 
 |name
-|xref:../scalars.adoc#java_lang_String[String]
+|String
 |
 a|
 
 |password
-|xref:../scalars.adoc#java_lang_String[String]?
+|String?
 |
 a|
 
 |providerUrl
-|xref:../scalars.adoc#java_lang_String[String]?
+|String?
 |
 a|
 
 |reconnectIntervalMillis
-|xref:../scalars.adoc#long[long]?
+|long?
 |
 a|
 
 |securityCredentials
-|xref:../scalars.adoc#java_lang_String[String]?
+|String?
 |
 a|
 
 |securityPrincipalName
-|xref:../scalars.adoc#java_lang_String[String]?
+|String?
 |
 a|
 
 |urlPkgPrefixes
-|xref:../scalars.adoc#java_lang_String[String]?
+|String?
 |
 a|
 
 |userName
-|xref:../scalars.adoc#java_lang_String[String]?
+|String?
 |
 a|
 

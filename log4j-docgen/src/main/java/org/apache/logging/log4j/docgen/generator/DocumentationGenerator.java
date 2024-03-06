@@ -20,15 +20,11 @@ import static java.util.Objects.requireNonNull;
 import static org.apache.logging.log4j.tools.internal.freemarker.util.FreeMarkerUtils.render;
 
 import java.nio.file.Path;
-import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
-import org.apache.logging.log4j.docgen.AbstractType;
 import org.apache.logging.log4j.docgen.PluginSet;
-import org.apache.logging.log4j.docgen.PluginType;
-import org.apache.logging.log4j.docgen.Type;
 import org.jspecify.annotations.Nullable;
 
 public final class DocumentationGenerator {
@@ -40,15 +36,9 @@ public final class DocumentationGenerator {
         final List<PluginSet> extendedSets = Stream.concat(BaseTypes.PLUGIN_SETS.stream(), args.pluginSets.stream())
                 .collect(Collectors.toList());
         final TypeLookup lookup = TypeLookup.of(extendedSets, args.classNameFilter);
-        lookup.forEach((className, sourcedType) -> {
-            final Type type = sourcedType.type;
-            if (type instanceof PluginType) {
-                renderType(sourcedType, lookup, args.templateDirectory, args.pluginTemplate);
-            } else if (type instanceof AbstractType) {
-                renderType(sourcedType, lookup, args.templateDirectory, args.interfaceTemplate);
-            }
-        });
-        renderIndex(lookup.values(), args.templateDirectory, args.indexTemplate);
+        lookup.values()
+                .forEach(sourcedType -> renderType(sourcedType, lookup, args.templateDirectory, args.typeTemplate));
+        renderIndex(lookup, args.templateDirectory, args.indexTemplate);
     }
 
     private static void renderType(
@@ -80,10 +70,8 @@ public final class DocumentationGenerator {
     }
 
     private static void renderIndex(
-            final Collection<ArtifactSourcedType> sourcedTypes,
-            final Path templateDirectory,
-            final DocumentationTemplate template) {
-        final Map<String, Object> templateData = Map.of("sourcedTypes", sourcedTypes);
+            final TypeLookup lookup, final Path templateDirectory, final DocumentationTemplate template) {
+        final Map<String, Object> templateData = Map.of("lookup", lookup);
         render(templateDirectory, template.name, templateData, Path.of(template.targetPath));
     }
 }

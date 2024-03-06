@@ -14,13 +14,16 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 ////
+
 [#org_apache_logging_log4j_core_Layout]
-= Layout
+= `org.apache.logging.log4j.core.Layout`
 
 Class:: `org.apache.logging.log4j.core.Layout`
 Provider:: `org.apache.logging.log4j:log4j-core`
 
+
 A layout is responsible for formatting a `LogEvent` as a string.
+
 
 [#org_apache_logging_log4j_core_Layout-implementations]
 == Known implementations

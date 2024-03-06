@@ -14,13 +14,16 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 ////
+
 [#org_apache_logging_log4j_core_impl_LocationAware]
-= LocationAware
+= `org.apache.logging.log4j.core.impl.LocationAware`
 
 Class:: `org.apache.logging.log4j.core.impl.LocationAware`
 Provider:: `org.apache.logging.log4j:log4j-core`
 
+
 Classes that use location information should implement this interface.
+
 
 [#org_apache_logging_log4j_core_impl_LocationAware-implementations]
 == Known implementations

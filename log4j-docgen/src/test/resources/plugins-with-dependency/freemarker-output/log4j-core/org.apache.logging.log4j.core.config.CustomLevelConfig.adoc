@@ -14,11 +14,13 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 ////
+
 [#org_apache_logging_log4j_core_config_CustomLevelConfig]
 = CustomLevel
 
 Class:: `org.apache.logging.log4j.core.config.CustomLevelConfig`
 Provider:: `org.apache.logging.log4j:log4j-core`
+
 
 Descriptor of a custom Level object that is created via configuration.
 
@@ -40,12 +42,12 @@ Optional attributes are denoted by `?`-suffixed types.
 |Name|Type|Default|Description
 
 |intLevel
-|xref:../scalars.adoc#int[int]?
+|int?
 |
 a|the intLevel that determines where this level resides relative to the built-in levels
 
 |name
-|xref:../scalars.adoc#java_lang_String[String]?
+|String?
 |
 a|name of the custom level.
 

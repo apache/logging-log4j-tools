@@ -14,11 +14,13 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 ////
+
 [#org_apache_logging_log4j_core_appender_mom_jeromq_JeroMqAppender]
 = JeroMQ
 
 Class:: `org.apache.logging.log4j.core.appender.mom.jeromq.JeroMqAppender`
 Provider:: `org.apache.logging.log4j:log4j-core`
+
 
 Sends log events to one or more ZeroMQ (JeroMQ) endpoints.
 
@@ -66,112 +68,112 @@ Optional attributes are denoted by `?`-suffixed types.
 |Name|Type|Default|Description
 
 |affinity
-|xref:../scalars.adoc#long[long]?
+|long?
 |
 a|
 
 |backlog
-|xref:../scalars.adoc#long[long]?
+|long?
 |
 a|
 
 |delayAttachOnConnect
-|xref:../scalars.adoc#boolean[boolean]?
+|boolean?
 |
 a|
 
 |identity
-|xref:../scalars.adoc#java_lang_String[String]?
+|String?
 |
 a|
 
 |ignoreExceptions
-|xref:../scalars.adoc#boolean[boolean]?
+|boolean?
 |
 a|
 
 |ipv4Only
-|xref:../scalars.adoc#boolean[boolean]?
+|boolean?
 |
 a|
 
 |linger
-|xref:../scalars.adoc#long[long]?
+|long?
 |
 a|
 
 |maxMsgSize
-|xref:../scalars.adoc#long[long]?
+|long?
 |
 a|
 
 |name
-|xref:../scalars.adoc#java_lang_String[String]
+|String
 |
 a|
 
 |rcvHwm
-|xref:../scalars.adoc#long[long]?
+|long?
 |
 a|
 
 |receiveBufferSize
-|xref:../scalars.adoc#long[long]?
+|long?
 |
 a|
 
 |receiveTimeOut
-|xref:../scalars.adoc#int[int]?
+|int?
 |
 a|
 
 |reconnectIVL
-|xref:../scalars.adoc#long[long]?
+|long?
 |
 a|
 
 |reconnectIVLMax
-|xref:../scalars.adoc#long[long]?
+|long?
 |
 a|
 
 |sendBufferSize
-|xref:../scalars.adoc#long[long]?
+|long?
 |
 a|
 
 |sendTimeOut
-|xref:../scalars.adoc#int[int]?
+|int?
 |
 a|
 
 |sndHwm
-|xref:../scalars.adoc#long[long]?
+|long?
 |
 a|
 
 |tcpKeepAlive
-|xref:../scalars.adoc#int[int]?
+|int?
 |
 a|
 
 |tcpKeepAliveCount
-|xref:../scalars.adoc#long[long]?
+|long?
 |
 a|
 
 |tcpKeepAliveIdle
-|xref:../scalars.adoc#long[long]?
+|long?
 |
 a|
 
 |tcpKeepAliveInterval
-|xref:../scalars.adoc#long[long]?
+|long?
 |
 a|
 
 |xpubVerbose
-|xref:../scalars.adoc#boolean[boolean]?
+|boolean?
 |
 a|
 

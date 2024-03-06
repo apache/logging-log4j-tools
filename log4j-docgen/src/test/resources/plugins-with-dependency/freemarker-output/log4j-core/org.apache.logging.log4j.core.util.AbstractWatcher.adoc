@@ -14,15 +14,18 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 ////
+
 [#org_apache_logging_log4j_core_util_AbstractWatcher]
-= AbstractWatcher
+= `org.apache.logging.log4j.core.util.AbstractWatcher`
 
 Class:: `org.apache.logging.log4j.core.util.AbstractWatcher`
 Provider:: `org.apache.logging.log4j:log4j-core`
 
+
 Watcher for configuration files.
 
 Causes a reconfiguration when a file changes.
+
 
 [#org_apache_logging_log4j_core_util_AbstractWatcher-implementations]
 == Known implementations

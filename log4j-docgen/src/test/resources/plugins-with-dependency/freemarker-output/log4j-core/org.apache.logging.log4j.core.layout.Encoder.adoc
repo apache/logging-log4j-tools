@@ -14,13 +14,16 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 ////
+
 [#org_apache_logging_log4j_core_layout_Encoder]
-= Encoder
+= `org.apache.logging.log4j.core.layout.Encoder`
 
 Class:: `org.apache.logging.log4j.core.layout.Encoder`
 Provider:: `org.apache.logging.log4j:log4j-core`
 
+
 Objects implementing the `Encoder` interface know how to convert an object to some binary representation and write the result to a `ByteBuffer`, ideally without creating temporary objects.
+
 
 [#org_apache_logging_log4j_core_layout_Encoder-implementations]
 == Known implementations

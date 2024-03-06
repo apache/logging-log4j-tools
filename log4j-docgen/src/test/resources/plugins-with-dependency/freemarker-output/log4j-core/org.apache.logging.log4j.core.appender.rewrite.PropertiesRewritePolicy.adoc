@@ -14,11 +14,13 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 ////
+
 [#org_apache_logging_log4j_core_appender_rewrite_PropertiesRewritePolicy]
 = PropertiesRewritePolicy
 
 Class:: `org.apache.logging.log4j.core.appender.rewrite.PropertiesRewritePolicy`
 Provider:: `org.apache.logging.log4j:log4j-core`
+
 
 This policy modifies events by replacing or possibly adding keys and values to the MapMessage.
 

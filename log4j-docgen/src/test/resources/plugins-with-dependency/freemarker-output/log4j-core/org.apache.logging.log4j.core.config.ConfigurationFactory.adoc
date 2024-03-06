@@ -14,11 +14,13 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 ////
+
 [#org_apache_logging_log4j_core_config_ConfigurationFactory]
-= ConfigurationFactory
+= `org.apache.logging.log4j.core.config.ConfigurationFactory`
 
 Class:: `org.apache.logging.log4j.core.config.ConfigurationFactory`
 Provider:: `org.apache.logging.log4j:log4j-core`
+
 
 Factory class for parsed xref:Configuration.adoc[] objects from a configuration file.
 
@@ -34,6 +36,7 @@ See xref:org.apache.logging.log4j.core.config.xml.XmlConfigurationFactory.adoc[X
 
 If the ConfigurationFactory that was added returns null on a call to getConfiguration then any other ConfigurationFactories found as plugins will be called in their respective order.
 DefaultConfiguration is always called last if no configuration has been returned.
+
 
 [#org_apache_logging_log4j_core_config_ConfigurationFactory-implementations]
 == Known implementations

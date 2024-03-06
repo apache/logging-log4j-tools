@@ -14,11 +14,13 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 ////
+
 [#org_apache_logging_log4j_core_appender_db_ColumnMapping]
 = ColumnMapping
 
 Class:: `org.apache.logging.log4j.core.appender.db.ColumnMapping`
 Provider:: `org.apache.logging.log4j:log4j-core`
+
 
 A configuration element for specifying a database column name mapping.
 
@@ -47,7 +49,7 @@ Optional attributes are denoted by `?`-suffixed types.
 |Name|Type|Default|Description
 
 |columnType
-|xref:../scalars.adoc#java_lang_Class[Class]
+|Class
 |
 a|Class to convert value to before storing in database.
 
@@ -56,7 +58,7 @@ If the type is compatible with xref:ThreadContextStack.adoc[], then the NDC will
 If the type is compatible with xref:Date.adoc[], then the event timestamp will be used.
 
 |literal
-|xref:../scalars.adoc#java_lang_String[String]?
+|String?
 |
 a|Literal value to use for populating a column.
 
@@ -64,12 +66,12 @@ This is generally useful for functions, stored procedures, etc.
 No escaping will be done on this value.
 
 |name
-|xref:../scalars.adoc#java_lang_String[String]
+|String
 |
 a|Column name.
 
 |parameter
-|xref:../scalars.adoc#java_lang_String[String]?
+|String?
 |
 a|Parameter value to use for populating a column, MUST contain a single parameter marker '?'.
 
@@ -77,21 +79,21 @@ This is generally useful for functions, stored procedures, etc.
 No escaping will be done on this value.
 
 |pattern
-|xref:../scalars.adoc#java_lang_String[String]?
+|String?
 |
 a|Pattern to use as a xref:PatternLayout.adoc[].
 
 Convenient shorthand for xref:.adoc[] with a PatternLayout.
 
 |source
-|xref:../scalars.adoc#java_lang_String[String]?
+|String?
 |
 a|Source name.
 
 Useful when combined with a xref:org.apache.logging.log4j.message.MapMessage.adoc[MapMessage] depending on the appender.
 
 |type
-|xref:../scalars.adoc#java_lang_Class[Class]?
+|Class?
 |
 a|
 

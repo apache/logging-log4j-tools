@@ -14,11 +14,13 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 ////
+
 [#org_apache_logging_log4j_core_Appender]
-= Appender
+= `org.apache.logging.log4j.core.Appender`
 
 Class:: `org.apache.logging.log4j.core.Appender`
 Provider:: `org.apache.logging.log4j:log4j-core`
+
 
 Appends xref:LogEvent.adoc[]s.
 
@@ -30,6 +32,7 @@ For instance, many Appenders can take advantage of the xref:org.apache.logging.l
 
 It is recommended that Appenders don't do any heavy lifting since there can be many instances of the class being used at any given time.
 When resources require locking (e.g., through xref:java.nio.channels.FileLock.adoc[FileLock]), it is important to isolate synchronized code to prevent concurrency issues.
+
 
 [#org_apache_logging_log4j_core_Appender-implementations]
 == Known implementations

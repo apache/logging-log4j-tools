@@ -14,11 +14,13 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 ////
+
 [#org_apache_logging_log4j_core_appender_HttpAppender]
 = Http
 
 Class:: `org.apache.logging.log4j.core.appender.HttpAppender`
 Provider:: `org.apache.logging.log4j:log4j-core`
+
 
 Sends log events over HTTP.
 
@@ -50,37 +52,37 @@ Optional attributes are denoted by `?`-suffixed types.
 |Name|Type|Default|Description
 
 |connectTimeoutMillis
-|xref:../scalars.adoc#int[int]?
+|int?
 |
 a|
 
 |ignoreExceptions
-|xref:../scalars.adoc#boolean[boolean]?
+|boolean?
 |
 a|
 
 |method
-|xref:../scalars.adoc#java_lang_String[String]?
+|String?
 |
 a|
 
 |name
-|xref:../scalars.adoc#java_lang_String[String]
+|String
 |
 a|
 
 |readTimeoutMillis
-|xref:../scalars.adoc#int[int]?
+|int?
 |
 a|
 
 |url
-|xref:../scalars.adoc#java_net_URL[URL]
+|URL
 |
 a|
 
 |verifyHostname
-|xref:../scalars.adoc#boolean[boolean]?
+|boolean?
 |
 a|
 

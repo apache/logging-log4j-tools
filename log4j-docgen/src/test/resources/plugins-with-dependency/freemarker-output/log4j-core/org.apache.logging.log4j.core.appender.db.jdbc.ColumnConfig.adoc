@@ -14,11 +14,13 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 ////
+
 [#org_apache_logging_log4j_core_appender_db_jdbc_ColumnConfig]
 = Column
 
 Class:: `org.apache.logging.log4j.core.appender.db.jdbc.ColumnConfig`
 Provider:: `org.apache.logging.log4j:log4j-core`
+
 
 A configuration element used to configure which event properties are logged to which columns in the database table.
 
@@ -44,34 +46,34 @@ Optional attributes are denoted by `?`-suffixed types.
 |Name|Type|Default|Description
 
 |isClob
-|xref:../scalars.adoc#boolean[boolean]?
+|boolean?
 |
 a|
 
 |isEventTimestamp
-|xref:../scalars.adoc#boolean[boolean]?
+|boolean?
 |
 a|
 
 |isUnicode
-|xref:../scalars.adoc#boolean[boolean]?
+|boolean?
 |
 a|
 
 |literal
-|xref:../scalars.adoc#java_lang_String[String]?
+|String?
 |
 a|The literal value to insert into the column as-is without any quoting or escaping.
 
 Mutually exclusive with `pattern! =null` and `eventTimestamp=true`.
 
 |name
-|xref:../scalars.adoc#java_lang_String[String]
+|String
 |
 a|The name of the database column as it exists within the database table.
 
 |pattern
-|xref:../scalars.adoc#java_lang_String[String]?
+|String?
 |
 a|The xref:PatternLayout.adoc[] pattern to insert in this column.
 

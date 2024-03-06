@@ -14,11 +14,13 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 ////
+
 [#org_apache_logging_log4j_core_layout_PatternMatch]
 = PatternMatch
 
 Class:: `org.apache.logging.log4j.core.layout.PatternMatch`
 Provider:: `org.apache.logging.log4j:log4j-core`
+
 
 PatternMatch configuration item.
 
@@ -40,12 +42,12 @@ Optional attributes are denoted by `?`-suffixed types.
 |Name|Type|Default|Description
 
 |key
-|xref:../scalars.adoc#java_lang_String[String]?
+|String?
 |
 a|
 
 |pattern
-|xref:../scalars.adoc#java_lang_String[String]?
+|String?
 |
 a|
 

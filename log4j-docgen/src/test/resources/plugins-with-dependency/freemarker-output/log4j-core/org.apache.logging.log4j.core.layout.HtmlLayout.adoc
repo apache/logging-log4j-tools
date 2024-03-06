@@ -14,11 +14,13 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 ////
+
 [#org_apache_logging_log4j_core_layout_HtmlLayout]
 = HtmlLayout
 
 Class:: `org.apache.logging.log4j.core.layout.HtmlLayout`
 Provider:: `org.apache.logging.log4j:log4j-core`
+
 
 Outputs events as rows in an HTML table on an HTML page.
 
@@ -54,76 +56,76 @@ Optional attributes are denoted by `?`-suffixed types.
 |Name|Type|Default|Description
 
 |charset
-|xref:../scalars.adoc#java_nio_charset_Charset[Charset]?
+|Charset?
 |
 a|The character set to use.
 If not specified, the default will be used.
 
 |charset
-|xref:../scalars.adoc#java_nio_charset_Charset[Charset]?
+|Charset?
 |
 a|
 
 |contentType
-|xref:../scalars.adoc#java_lang_String[String]?
+|String?
 |
 a|The content type.
 Defaults to "text/html".
 
 |contentType
-|xref:../scalars.adoc#java_lang_String[String]?
+|String?
 |
 a|
 
 |datePattern
-|xref:../scalars.adoc#java_lang_String[String]?
+|String?
 |
 a|
 
 |fontName
-|xref:../scalars.adoc#java_lang_String[String]?
+|String?
 |
 a|The font to use for the text.
 
 |fontName
-|xref:../scalars.adoc#java_lang_String[String]?
+|String?
 |
 a|
 
 |fontSize
-|xref:../scalars.adoc#java_lang_String[String]?
+|String?
 |
 a|The font size of the text.
 
 |fontSize
-|xref:../scalars.adoc#org_apache_logging_log4j_core_layout_HtmlLayout_FontSize[FontSize]?
+|xref:../log4j-core/org.apache.logging.log4j.core.layout.HtmlLayout.FontSize.adoc[FontSize]?
 |
 a|
 
 |locationInfo
-|xref:../scalars.adoc#boolean[boolean]?
+|boolean?
 |
 a|If "true", location information will be included.
 The default is false.
 
 |locationInfo
-|xref:../scalars.adoc#boolean[boolean]?
+|boolean?
 |
 a|
 
 |timezone
-|xref:../scalars.adoc#java_lang_String[String]?
+|String?
 |
 a|
 
 |title
-|xref:../scalars.adoc#java_lang_String[String]?
+|String?
 |
 a|The title to include in the file header.
 If none is specified the default title will be used.
 
 |title
-|xref:../scalars.adoc#java_lang_String[String]?
+|String?
 |
 a|
 

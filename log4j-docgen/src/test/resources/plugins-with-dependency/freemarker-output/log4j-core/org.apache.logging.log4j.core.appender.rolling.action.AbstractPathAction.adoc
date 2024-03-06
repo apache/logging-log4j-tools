@@ -14,13 +14,16 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 ////
+
 [#org_apache_logging_log4j_core_appender_rolling_action_AbstractPathAction]
-= AbstractPathAction
+= `org.apache.logging.log4j.core.appender.rolling.action.AbstractPathAction`
 
 Class:: `org.apache.logging.log4j.core.appender.rolling.action.AbstractPathAction`
 Provider:: `org.apache.logging.log4j:log4j-core`
 
+
 Abstract action for processing files that are accepted by the specified PathFilters.
+
 
 [#org_apache_logging_log4j_core_appender_rolling_action_AbstractPathAction-implementations]
 == Known implementations

@@ -14,11 +14,13 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 ////
+
 [#org_apache_logging_log4j_core_appender_db_jdbc_JdbcAppender]
 = JDBC
 
 Class:: `org.apache.logging.log4j.core.appender.db.jdbc.JdbcAppender`
 Provider:: `org.apache.logging.log4j:log4j-core`
+
 
 This Appender writes logging events to a relational database using standard JDBC mechanisms.
 
@@ -56,37 +58,37 @@ Optional attributes are denoted by `?`-suffixed types.
 |Name|Type|Default|Description
 
 |bufferSize
-|xref:../scalars.adoc#int[int]?
+|int?
 |
 a|If an integer greater than 0, this causes the appender to buffer log events and flush whenever the buffer reaches this size.
 
 |ignoreExceptions
-|xref:../scalars.adoc#boolean[boolean]?
+|boolean?
 |
 a|
 
 |immediateFail
-|xref:../scalars.adoc#boolean[boolean]?
+|boolean?
 |
 a|
 
 |name
-|xref:../scalars.adoc#java_lang_String[String]
+|String
 |
 a|
 
 |reconnectIntervalMillis
-|xref:../scalars.adoc#long[long]?
+|long?
 |
 a|
 
 |tableName
-|xref:../scalars.adoc#java_lang_String[String]
+|String
 |
 a|The name of the database table to insert log events into.
 
 |truncateStrings
-|xref:../scalars.adoc#boolean[boolean]?
+|boolean?
 |
 a|
 

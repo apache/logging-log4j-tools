@@ -14,11 +14,13 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 ////
+
 [#org_apache_logging_log4j_core_filter_RegexFilter]
 = RegexFilter
 
 Class:: `org.apache.logging.log4j.core.filter.RegexFilter`
 Provider:: `org.apache.logging.log4j:log4j-core`
+
 
 This filter returns the onMatch result if the message matches the regular expression.
 
@@ -48,22 +50,22 @@ Optional attributes are denoted by `?`-suffixed types.
 |Name|Type|Default|Description
 
 |onMatch
-|xref:../scalars.adoc#org_apache_logging_log4j_core_Filter_Result[Result]?
+|xref:../log4j-core/org.apache.logging.log4j.core.Filter.Result.adoc[Result]?
 |
 a|The action to perform when a match occurs.
 
 |onMismatch
-|xref:../scalars.adoc#org_apache_logging_log4j_core_Filter_Result[Result]?
+|xref:../log4j-core/org.apache.logging.log4j.core.Filter.Result.adoc[Result]?
 |
 a|The action to perform when a mismatch occurs.
 
 |regex
-|xref:../scalars.adoc#java_lang_String[String]?
+|String?
 |
 a|The regular expression to match.
 
 |useRawMsg
-|xref:../scalars.adoc#java_lang_Boolean[Boolean]?
+|Boolean?
 |
 a|If true, the raw message will be used, otherwise the formatted message will be used.
 

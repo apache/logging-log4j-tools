@@ -14,11 +14,13 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 ////
+
 [#org_apache_logging_log4j_core_filter_DynamicThresholdFilter]
 = DynamicThresholdFilter
 
 Class:: `org.apache.logging.log4j.core.filter.DynamicThresholdFilter`
 Provider:: `org.apache.logging.log4j:log4j-core`
+
 
 Compares against a log level that is associated with a context value.
 
@@ -46,22 +48,22 @@ Optional attributes are denoted by `?`-suffixed types.
 |Name|Type|Default|Description
 
 |defaultThreshold
-|xref:../scalars.adoc#org_apache_logging_log4j_Level[Level]?
+|xref:../log4j-core/org.apache.logging.log4j.Level.adoc[Level]?
 |
 a|The default Level.
 
 |key
-|xref:../scalars.adoc#java_lang_String[String]?
+|String?
 |
 a|The name of the key to compare.
 
 |onMatch
-|xref:../scalars.adoc#org_apache_logging_log4j_core_Filter_Result[Result]?
+|xref:../log4j-core/org.apache.logging.log4j.core.Filter.Result.adoc[Result]?
 |
 a|The action to perform if a match occurs.
 
 |onMismatch
-|xref:../scalars.adoc#org_apache_logging_log4j_core_Filter_Result[Result]?
+|xref:../log4j-core/org.apache.logging.log4j.core.Filter.Result.adoc[Result]?
 |
 a|The action to perform if no match occurs.
 

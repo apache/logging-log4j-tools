@@ -14,11 +14,13 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 ////
+
 [#org_apache_logging_log4j_core_filter_TimeFilter]
 = TimeFilter
 
 Class:: `org.apache.logging.log4j.core.filter.TimeFilter`
 Provider:: `org.apache.logging.log4j:log4j-core`
+
 
 Filters events that fall within a specified time period in each day.
 
@@ -43,27 +45,27 @@ Optional attributes are denoted by `?`-suffixed types.
 |Name|Type|Default|Description
 
 |end
-|xref:../scalars.adoc#java_lang_String[String]?
+|String?
 |
 a|The end time.
 
 |onMatch
-|xref:../scalars.adoc#org_apache_logging_log4j_core_Filter_Result[Result]?
+|xref:../log4j-core/org.apache.logging.log4j.core.Filter.Result.adoc[Result]?
 |
 a|Action to perform if the time matches.
 
 |onMismatch
-|xref:../scalars.adoc#org_apache_logging_log4j_core_Filter_Result[Result]?
+|xref:../log4j-core/org.apache.logging.log4j.core.Filter.Result.adoc[Result]?
 |
 a|Action to perform if the action does not match.
 
 |start
-|xref:../scalars.adoc#java_lang_String[String]?
+|String?
 |
 a|The start time.
 
 |timezone
-|xref:../scalars.adoc#java_lang_String[String]?
+|String?
 |
 a|timezone.
 

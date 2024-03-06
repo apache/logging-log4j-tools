@@ -14,11 +14,13 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 ////
+
 [#org_apache_logging_log4j_core_layout_CsvParameterLayout]
 = CsvParameterLayout
 
 Class:: `org.apache.logging.log4j.core.layout.CsvParameterLayout`
 Provider:: `org.apache.logging.log4j:log4j-core`
+
 
 A Comma-Separated Value (CSV) layout to log event parameters.
 
@@ -54,52 +56,52 @@ Optional attributes are denoted by `?`-suffixed types.
 |Name|Type|Default|Description
 
 |charset
-|xref:../scalars.adoc#java_nio_charset_Charset[Charset]?
+|Charset?
 |
 a|
 
 |delimiter
-|xref:../scalars.adoc#java_lang_Character[Character]?
+|Character?
 |
 a|
 
 |escape
-|xref:../scalars.adoc#java_lang_Character[Character]?
+|Character?
 |
 a|
 
 |footer
-|xref:../scalars.adoc#java_lang_String[String]?
+|String?
 |
 a|
 
 |format
-|xref:../scalars.adoc#java_lang_String[String]?
+|String?
 |
 a|
 
 |header
-|xref:../scalars.adoc#java_lang_String[String]?
+|String?
 |
 a|
 
 |nullString
-|xref:../scalars.adoc#java_lang_String[String]?
+|String?
 |
 a|
 
 |quote
-|xref:../scalars.adoc#java_lang_Character[Character]?
+|Character?
 |
 a|
 
 |quoteMode
-|xref:../scalars.adoc#org_apache_commons_csv_QuoteMode[QuoteMode]?
+|xref:../log4j-core/org.apache.commons.csv.QuoteMode.adoc[QuoteMode]?
 |
 a|
 
 |recordSeparator
-|xref:../scalars.adoc#java_lang_String[String]?
+|String?
 |
 a|
 

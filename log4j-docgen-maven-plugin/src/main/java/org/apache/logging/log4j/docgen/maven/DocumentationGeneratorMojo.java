@@ -48,16 +48,10 @@ public class DocumentationGeneratorMojo extends AbstractGeneratorMojo {
     private DocumentationTemplateMojo indexTemplate;
 
     /**
-     * The template that will be used to document plugins.
+     * The template that will be used to document types.
      */
     @Parameter(required = true)
-    private DocumentationTemplateMojo pluginTemplate;
-
-    /**
-     * The template that will be used to document interfaces.
-     */
-    @Parameter(required = true)
-    private DocumentationTemplateMojo interfaceTemplate;
+    private DocumentationTemplateMojo typeTemplate;
 
     @Override
     public void execute() {
@@ -69,8 +63,7 @@ public class DocumentationGeneratorMojo extends AbstractGeneratorMojo {
                 classNameFilter,
                 templateDirectory.toPath(),
                 toApiModel(indexTemplate),
-                toApiModel(pluginTemplate),
-                toApiModel(interfaceTemplate));
+                toApiModel(typeTemplate));
         DocumentationGenerator.generateDocumentation(generatorArgs);
     }
 

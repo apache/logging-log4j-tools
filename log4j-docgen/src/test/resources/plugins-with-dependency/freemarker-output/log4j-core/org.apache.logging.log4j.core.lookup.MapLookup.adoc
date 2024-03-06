@@ -14,13 +14,16 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 ////
+
 [#org_apache_logging_log4j_core_lookup_MapLookup]
-= MapLookup
+= `org.apache.logging.log4j.core.lookup.MapLookup`
 
 Class:: `org.apache.logging.log4j.core.lookup.MapLookup`
 Provider:: `org.apache.logging.log4j:log4j-core`
 
+
 A map-based lookup.
+
 
 [#org_apache_logging_log4j_core_lookup_MapLookup-implementations]
 == Known implementations

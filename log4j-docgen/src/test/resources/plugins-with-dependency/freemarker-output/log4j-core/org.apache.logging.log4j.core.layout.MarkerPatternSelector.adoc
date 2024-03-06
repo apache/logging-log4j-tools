@@ -14,11 +14,13 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 ////
+
 [#org_apache_logging_log4j_core_layout_MarkerPatternSelector]
 = MarkerPatternSelector
 
 Class:: `org.apache.logging.log4j.core.layout.MarkerPatternSelector`
 Provider:: `org.apache.logging.log4j:log4j-core`
+
 
 Selects the pattern to use based on the Marker in the LogEvent.
 
@@ -44,22 +46,22 @@ Optional attributes are denoted by `?`-suffixed types.
 |Name|Type|Default|Description
 
 |alwaysWriteExceptions
-|xref:../scalars.adoc#boolean[boolean]?
+|boolean?
 |
 a|
 
 |defaultPattern
-|xref:../scalars.adoc#java_lang_String[String]?
+|String?
 |
 a|
 
 |disableAnsi
-|xref:../scalars.adoc#boolean[boolean]?
+|boolean?
 |
 a|
 
 |noConsoleNoAnsi
-|xref:../scalars.adoc#boolean[boolean]?
+|boolean?
 |
 a|
 

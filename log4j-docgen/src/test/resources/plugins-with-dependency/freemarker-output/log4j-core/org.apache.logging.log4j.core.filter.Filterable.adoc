@@ -14,15 +14,18 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 ////
+
 [#org_apache_logging_log4j_core_filter_Filterable]
-= Filterable
+= `org.apache.logging.log4j.core.filter.Filterable`
 
 Class:: `org.apache.logging.log4j.core.filter.Filterable`
 Provider:: `org.apache.logging.log4j:log4j-core`
 
+
 Interface implemented by Classes that allow filtering to occur.
 
 Extends xref:LifeCycle.adoc[] since filters have a life cycle.
+
 
 [#org_apache_logging_log4j_core_filter_Filterable-implementations]
 == Known implementations

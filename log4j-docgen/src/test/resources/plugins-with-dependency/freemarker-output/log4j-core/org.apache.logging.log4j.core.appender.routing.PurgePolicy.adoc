@@ -14,13 +14,16 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 ////
+
 [#org_apache_logging_log4j_core_appender_routing_PurgePolicy]
-= PurgePolicy
+= `org.apache.logging.log4j.core.appender.routing.PurgePolicy`
 
 Class:: `org.apache.logging.log4j.core.appender.routing.PurgePolicy`
 Provider:: `org.apache.logging.log4j:log4j-core`
 
+
 Policy for purging routed appenders
+
 
 [#org_apache_logging_log4j_core_appender_routing_PurgePolicy-implementations]
 == Known implementations

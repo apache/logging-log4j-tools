@@ -14,15 +14,18 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 ////
+
 [#org_apache_logging_log4j_core_pattern_AbstractStyleNameConverter]
-= AbstractStyleNameConverter
+= `org.apache.logging.log4j.core.pattern.AbstractStyleNameConverter`
 
 Class:: `org.apache.logging.log4j.core.pattern.AbstractStyleNameConverter`
 Provider:: `org.apache.logging.log4j:log4j-core`
 
+
 Style pattern converter.
 
 Adds ANSI color styling to the result of the enclosed pattern.
+
 
 [#org_apache_logging_log4j_core_pattern_AbstractStyleNameConverter-implementations]
 == Known implementations

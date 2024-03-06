@@ -14,11 +14,13 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 ////
+
 [#org_apache_logging_log4j_core_layout_PatternLayout]
 = PatternLayout
 
 Class:: `org.apache.logging.log4j.core.layout.PatternLayout`
 Provider:: `org.apache.logging.log4j:log4j-core`
+
 
 A flexible layout configurable with pattern string.
 
@@ -63,69 +65,69 @@ Optional attributes are denoted by `?`-suffixed types.
 |Name|Type|Default|Description
 
 |alwaysWriteExceptions
-|xref:../scalars.adoc#boolean[boolean]?
+|boolean?
 |
 a|If `"true"` (default) exceptions are always written even if the pattern contains no exception tokens.
 
 |alwaysWriteExceptions
-|xref:../scalars.adoc#boolean[boolean]?
+|boolean?
 |
 a|
 
 |charset
-|xref:../scalars.adoc#java_nio_charset_Charset[Charset]?
+|Charset?
 |
 a|The character set.
 The platform default is used if not specified.
 
 |charset
-|xref:../scalars.adoc#java_nio_charset_Charset[Charset]?
+|Charset?
 |
 a|
 
 |disableAnsi
-|xref:../scalars.adoc#boolean[boolean]?
+|boolean?
 |
 a|
 
 |footer
-|xref:../scalars.adoc#java_lang_String[String]?
+|String?
 |
 a|The footer to place at the bottom of the document, once.
 
 |footer
-|xref:../scalars.adoc#java_lang_String[String]?
+|String?
 |
 a|
 
 |header
-|xref:../scalars.adoc#java_lang_String[String]?
+|String?
 |
 a|The footer to place at the top of the document, once.
 
 |header
-|xref:../scalars.adoc#java_lang_String[String]?
+|String?
 |
 a|
 
 |noConsoleNoAnsi
-|xref:../scalars.adoc#boolean[boolean]?
+|boolean?
 |
 a|If `"true"` (default is false) and xref:System.adoc[] is null, do not output ANSI escape codes
 
 |noConsoleNoAnsi
-|xref:../scalars.adoc#boolean[boolean]?
+|boolean?
 |
 a|
 
 |pattern
-|xref:../scalars.adoc#java_lang_String[String]?
+|String?
 |
 a|The pattern.
 If not specified, defaults to DEFAULT_CONVERSION_PATTERN.
 
 |pattern
-|xref:../scalars.adoc#java_lang_String[String]?
+|String?
 |
 a|
 

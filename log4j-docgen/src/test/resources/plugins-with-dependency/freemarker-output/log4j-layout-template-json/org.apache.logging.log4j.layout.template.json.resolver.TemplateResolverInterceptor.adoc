@@ -14,13 +14,16 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 ////
+
 [#org_apache_logging_log4j_layout_template_json_resolver_TemplateResolverInterceptor]
-= TemplateResolverInterceptor
+= `org.apache.logging.log4j.layout.template.json.resolver.TemplateResolverInterceptor`
 
 Class:: `org.apache.logging.log4j.layout.template.json.resolver.TemplateResolverInterceptor`
 Provider:: `org.apache.logging.log4j:log4j-layout-template-json`
 
+
 Main xref:TemplateResolver.adoc[] compilation interception interface.
+
 
 [#org_apache_logging_log4j_layout_template_json_resolver_TemplateResolverInterceptor-implementations]
 == Known implementations

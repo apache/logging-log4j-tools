@@ -14,13 +14,16 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 ////
+
 [#org_apache_logging_log4j_core_async_BlockingQueueFactory]
-= BlockingQueueFactory
+= `org.apache.logging.log4j.core.async.BlockingQueueFactory`
 
 Class:: `org.apache.logging.log4j.core.async.BlockingQueueFactory`
 Provider:: `org.apache.logging.log4j:log4j-core`
 
+
 Factory for creating instances of xref:BlockingQueue.adoc[].
+
 
 [#org_apache_logging_log4j_core_async_BlockingQueueFactory-implementations]
 == Known implementations

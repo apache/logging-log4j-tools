@@ -14,11 +14,13 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 ////
+
 [#org_apache_logging_log4j_core_appender_ConsoleAppender]
 = Console
 
 Class:: `org.apache.logging.log4j.core.appender.ConsoleAppender`
 Provider:: `org.apache.logging.log4j:log4j-core`
+
 
 Appends log events to `System. out` or `System. err` using a layout specified by the user.
 
@@ -57,42 +59,42 @@ Optional attributes are denoted by `?`-suffixed types.
 |Name|Type|Default|Description
 
 |bufferedIo
-|xref:../scalars.adoc#boolean[boolean]?
+|boolean?
 |
 a|
 
 |bufferSize
-|xref:../scalars.adoc#int[int]?
+|int?
 |
 a|
 
 |direct
-|xref:../scalars.adoc#boolean[boolean]?
+|boolean?
 |
 a|
 
 |follow
-|xref:../scalars.adoc#boolean[boolean]?
+|boolean?
 |
 a|
 
 |ignoreExceptions
-|xref:../scalars.adoc#boolean[boolean]?
+|boolean?
 |
 a|
 
 |immediateFlush
-|xref:../scalars.adoc#boolean[boolean]?
+|boolean?
 |
 a|
 
 |name
-|xref:../scalars.adoc#java_lang_String[String]
+|String
 |
 a|
 
 |target
-|xref:../scalars.adoc#org_apache_logging_log4j_core_appender_ConsoleAppender_Target[Target]
+|xref:../log4j-core/org.apache.logging.log4j.core.appender.ConsoleAppender.Target.adoc[Target]
 |
 a|
 

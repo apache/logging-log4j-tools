@@ -14,11 +14,13 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 ////
+
 [#org_apache_logging_log4j_core_layout_SyslogLayout]
 = SyslogLayout
 
 Class:: `org.apache.logging.log4j.core.layout.SyslogLayout`
 Provider:: `org.apache.logging.log4j:log4j-core`
+
 
 Formats a log event as a BSD Log record.
 
@@ -46,32 +48,32 @@ Optional attributes are denoted by `?`-suffixed types.
 |Name|Type|Default|Description
 
 |charset
-|xref:../scalars.adoc#java_nio_charset_Charset[Charset]?
+|Charset?
 |
 a|
 
 |facility
-|xref:../scalars.adoc#org_apache_logging_log4j_core_net_Facility[Facility]?
+|xref:../log4j-core/org.apache.logging.log4j.core.net.Facility.adoc[Facility]?
 |
 a|
 
 |footer
-|xref:../scalars.adoc#java_lang_String[String]?
+|String?
 |
 a|
 
 |header
-|xref:../scalars.adoc#java_lang_String[String]?
+|String?
 |
 a|
 
 |newLine
-|xref:../scalars.adoc#boolean[boolean]?
+|boolean?
 |
 a|
 
 |newLineEscape
-|xref:../scalars.adoc#java_lang_String[String]?
+|String?
 |
 a|
 

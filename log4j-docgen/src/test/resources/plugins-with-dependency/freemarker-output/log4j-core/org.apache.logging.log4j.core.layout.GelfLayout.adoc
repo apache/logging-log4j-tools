@@ -14,11 +14,13 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 ////
+
 [#org_apache_logging_log4j_core_layout_GelfLayout]
 = GelfLayout
 
 Class:: `org.apache.logging.log4j.core.layout.GelfLayout`
 Provider:: `org.apache.logging.log4j:log4j-core`
+
 
 Lays out events in the Graylog Extended Log Format (GELF) 1.1.
 
@@ -63,101 +65,101 @@ Optional attributes are denoted by `?`-suffixed types.
 |Name|Type|Default|Description
 
 |charset
-|xref:../scalars.adoc#java_nio_charset_Charset[Charset]?
+|Charset?
 |
 a|
 
 |compressionThreshold
-|xref:../scalars.adoc#int[int]?
+|int?
 |
 a|Compress if data is larger than this number of bytes (optional, defaults to 1024).
 
 |compressionType
-|xref:../scalars.adoc#org_apache_logging_log4j_core_layout_GelfLayout_CompressionType[CompressionType]?
+|xref:../log4j-core/org.apache.logging.log4j.core.layout.GelfLayout.CompressionType.adoc[CompressionType]?
 |
 a|Compression to use (optional, defaults to GZIP).
 
 |footer
-|xref:../scalars.adoc#java_lang_String[String]?
+|String?
 |
 a|
 
 |header
-|xref:../scalars.adoc#java_lang_String[String]?
+|String?
 |
 a|
 
 |host
-|xref:../scalars.adoc#java_lang_String[String]?
+|String?
 |
 a|The value of the `host` property (optional, defaults to local host name).
 
 |includeMapMessage
-|xref:../scalars.adoc#boolean[boolean]?
+|boolean?
 |
 a|Whether to include MapMessage fields as additional fields (optional, default to true).
 
 |includeNewLineDelimiter
-|xref:../scalars.adoc#boolean[boolean]?
+|boolean?
 |
 a|Whether to include newline (LF) as delimiter after each event (optional, default to false).
 
 |includeNullDelimiter
-|xref:../scalars.adoc#boolean[boolean]?
+|boolean?
 |
 a|Whether to include NULL byte as delimiter after each event (optional, default to false).
 
 Useful for Graylog GELF TCP input.
 
 |includeStacktrace
-|xref:../scalars.adoc#boolean[boolean]?
+|boolean?
 |
 a|Whether to include full stacktrace of logged Throwables (optional, default to true).
 
 If set to false, only the class name and message of the Throwable will be included.
 
 |includeThreadContext
-|xref:../scalars.adoc#boolean[boolean]?
+|boolean?
 |
 a|Whether to include thread context as additional fields (optional, default to true).
 
 |mapMessageExcludes
-|xref:../scalars.adoc#java_lang_String[String]?
+|String?
 |
 a|A comma separated list of MapMessage keys to exclude;
 
 |mapMessageIncludes
-|xref:../scalars.adoc#java_lang_String[String]?
+|String?
 |
 a|A comma separated list of thread context keys to include;
 
 |mapPrefix
-|xref:../scalars.adoc#java_lang_String[String]?
+|String?
 |
 a|The String to prefix the MapMessage attributes.
 
 |messagePattern
-|xref:../scalars.adoc#java_lang_String[String]?
+|String?
 |
 a|The pattern to use to format the message.
 
 |omitEmptyFields
-|xref:../scalars.adoc#boolean[boolean]?
+|boolean?
 |
 a|
 
 |threadContextExcludes
-|xref:../scalars.adoc#java_lang_String[String]?
+|String?
 |
 a|
 
 |threadContextIncludes
-|xref:../scalars.adoc#java_lang_String[String]?
+|String?
 |
 a|
 
 |threadContextPrefix
-|xref:../scalars.adoc#java_lang_String[String]?
+|String?
 |
 a|The String to prefix the ThreadContext attributes.
 

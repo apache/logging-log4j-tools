@@ -14,11 +14,13 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 ////
+
 [#org_apache_logging_log4j_core_Filter]
-= Filter
+= `org.apache.logging.log4j.core.Filter`
 
 Class:: `org.apache.logging.log4j.core.Filter`
 Provider:: `org.apache.logging.log4j:log4j-core`
+
 
 Interface that must be implemented to allow custom event filtering.
 
@@ -26,6 +28,7 @@ It is highly recommended that applications make use of the Filters provided with
 
 This interface supports "global" filters (i.e. - all events must pass through them first), attached to specific loggers and associated with Appenders.
 It is recommended that, where possible, Filter implementations create a generic filtering method that can be called from any of the filter methods.
+
 
 [#org_apache_logging_log4j_core_Filter-implementations]
 == Known implementations

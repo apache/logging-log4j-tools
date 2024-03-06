@@ -14,11 +14,13 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 ////
+
 [#org_apache_logging_log4j_core_async_DisruptorBlockingQueueFactory]
 = DisruptorBlockingQueue
 
 Class:: `org.apache.logging.log4j.core.async.DisruptorBlockingQueueFactory`
 Provider:: `org.apache.logging.log4j:log4j-core`
+
 
 Factory for creating instances of xref:DisruptorBlockingQueue.adoc[].
 
@@ -39,7 +41,7 @@ Optional attributes are denoted by `?`-suffixed types.
 |Name|Type|Default|Description
 
 |SpinPolicy
-|xref:../scalars.adoc#com_conversantmedia_util_concurrent_SpinPolicy[SpinPolicy]?
+|xref:../log4j-core/com.conversantmedia.util.concurrent.SpinPolicy.adoc[SpinPolicy]?
 |
 a|
 

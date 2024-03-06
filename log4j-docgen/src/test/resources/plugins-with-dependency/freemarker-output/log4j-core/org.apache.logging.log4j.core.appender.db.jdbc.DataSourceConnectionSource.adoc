@@ -14,11 +14,13 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 ////
+
 [#org_apache_logging_log4j_core_appender_db_jdbc_DataSourceConnectionSource]
 = DataSource
 
 Class:: `org.apache.logging.log4j.core.appender.db.jdbc.DataSourceConnectionSource`
 Provider:: `org.apache.logging.log4j:log4j-core`
+
 
 A xref:JdbcAppender.adoc[] connection source that uses a xref:DataSource.adoc[] to connect to the database.
 
@@ -39,7 +41,7 @@ Optional attributes are denoted by `?`-suffixed types.
 |Name|Type|Default|Description
 
 |jndiName
-|xref:../scalars.adoc#java_lang_String[String]?
+|String?
 |
 a|The full JNDI path where the data source is bound.
 Must start with java:/comp/env or environment-equivalent.
