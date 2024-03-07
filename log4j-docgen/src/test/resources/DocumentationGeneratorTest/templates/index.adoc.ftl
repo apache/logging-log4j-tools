@@ -16,7 +16,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 -->
 <#-- @ftlvariable name="lookup" type="org.apache.logging.log4j.docgen.generator.TypeLookup" -->
-<#include "license.adoc.ftl">
+<#include "license.adoc">
 
 [#index]
 = Index

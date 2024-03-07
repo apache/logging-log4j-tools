@@ -23,6 +23,7 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.io.UncheckedIOException;
 import java.nio.charset.Charset;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
@@ -52,6 +53,8 @@ class AsciiDocConverterTest {
 
     private static final String TEST_CLASS_RESOURCE_PATH =
             "src/test/resources/" + AsciiDocConverterTest.class.getSimpleName();
+
+    private static final Path LICENSE_PATH = Paths.get(TEST_CLASS_RESOURCE_PATH + "/license.adoc");
 
     private static final String TEST_CLASS_NAME = "JavadocExample";
 
@@ -123,6 +126,7 @@ class AsciiDocConverterTest {
                         final String asciiDoc = converter.toAsciiDoc(element);
                         assertThat(asciiDoc).isNotNull();
                         try (final OutputStream os = output.openOutputStream()) {
+                            Files.copy(LICENSE_PATH, os);
                             os.write(asciiDoc.getBytes(CHARSET));
                         }
                     }

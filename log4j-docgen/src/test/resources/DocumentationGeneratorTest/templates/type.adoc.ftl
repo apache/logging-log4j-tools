@@ -19,7 +19,7 @@
 <#assign type = sourcedType.type/>
 <#-- @ftlvariable name="type" type="org.apache.logging.log4j.docgen.Type" -->
 <#-- @ftlvariable name="lookup" type="org.apache.logging.log4j.docgen.generator.TypeLookup" -->
-<#include "license.adoc.ftl">
+<#include "license.adoc">
 
 [#${type.className?replace('.', '_')}]
 = ${type.name!('`' + type.className + '`')}
