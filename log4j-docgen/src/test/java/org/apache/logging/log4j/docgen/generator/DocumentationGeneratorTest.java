@@ -29,24 +29,26 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.CleanupMode;
 import org.junit.jupiter.api.io.TempDir;
 
-public class DocumentationGeneratorTest {
+class DocumentationGeneratorTest {
+
+    private static final String TEST_CLASS_RESOURCE_PATH =
+            "src/test/resources/" + DocumentationGeneratorTest.class.getSimpleName();
 
     private static final Predicate<String> CLASS_NAME_MATCHER = className -> !className.startsWith("java.");
 
     @Test
-    void simple_descriptor_should_work(@TempDir(cleanup = CleanupMode.ON_SUCCESS) final Path outputDir) {
-        final PluginSet pluginSet = readDescriptor("src/test/resources/example-plugins.xml");
-        final Path referenceOutputDir = Paths.get("src/test/resources/plugins-to-freemarker-output");
+    void simple_should_work(@TempDir(cleanup = CleanupMode.ON_SUCCESS) final Path outputDir) {
+        final PluginSet pluginSet = readDescriptor(TEST_CLASS_RESOURCE_PATH + "/simple/plugins.xml");
+        final Path referenceOutputDir = Paths.get(TEST_CLASS_RESOURCE_PATH + "/simple/freemarker-output");
         generateDocumentationAndVerifyOutput(outputDir, Set.of(pluginSet), referenceOutputDir);
     }
 
     @Test
-    void multiple_descriptors_should_be_able_to_link_each_other(
-            @TempDir(cleanup = CleanupMode.ON_SUCCESS) final Path outputDir) {
+    void complex_should_work(@TempDir(cleanup = CleanupMode.ON_SUCCESS) final Path outputDir) {
         final Set<PluginSet> pluginSets = readDescriptors(
-                "src/test/resources/plugins-with-dependency/descriptors/log4j-core-plugins.xml",
-                "src/test/resources/plugins-with-dependency/descriptors/log4j-layout-template-json-plugins.xml");
-        final Path referenceOutputDir = Paths.get("src/test/resources/plugins-with-dependency/freemarker-output");
+                TEST_CLASS_RESOURCE_PATH + "/complex/descriptors/log4j-core-plugins.xml",
+                TEST_CLASS_RESOURCE_PATH + "/complex/descriptors/log4j-layout-template-json-plugins.xml");
+        final Path referenceOutputDir = Paths.get(TEST_CLASS_RESOURCE_PATH + "/complex/freemarker-output");
         generateDocumentationAndVerifyOutput(outputDir, pluginSets, referenceOutputDir);
     }
 
@@ -54,7 +56,7 @@ public class DocumentationGeneratorTest {
             final Path outputDir, final Set<PluginSet> pluginSets, final Path referenceOutputDir) {
 
         // Generate the documentation
-        final Path templateDirectory = Paths.get("src/test/resources/templates");
+        final Path templateDirectory = Paths.get(TEST_CLASS_RESOURCE_PATH + "/templates");
         final DocumentationGeneratorArgs generatorArgs = new DocumentationGeneratorArgs(
                 pluginSets,
                 CLASS_NAME_MATCHER,

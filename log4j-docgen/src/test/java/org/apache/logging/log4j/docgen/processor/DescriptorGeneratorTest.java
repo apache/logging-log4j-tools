@@ -40,30 +40,33 @@ import org.junit.jupiter.api.io.CleanupMode;
 import org.junit.jupiter.api.io.TempDir;
 import org.xmlunit.assertj3.XmlAssert;
 
-public class DescriptorGeneratorTest {
+class DescriptorGeneratorTest {
+
+    private static final String TEST_CLASS_RESOURCE_PATH =
+            "src/test/resources/" + DescriptorGeneratorTest.class.getSimpleName();
 
     @Test
     void log4j2_plugins_should_be_extracted(@TempDir(cleanup = CleanupMode.ON_SUCCESS) final Path outputDir)
             throws Exception {
-        test(outputDir, Paths.get("src/test/resources/plugins-using-log4j2"));
+        test(outputDir, Paths.get(TEST_CLASS_RESOURCE_PATH + "/java-of-log4j2"));
     }
 
     @Test
     void log4j3_plugins_should_be_extracted(@TempDir(cleanup = CleanupMode.ON_SUCCESS) final Path outputDir)
             throws Exception {
-        test(outputDir, Paths.get("src/test/resources/plugins-using-log4j3"));
+        test(outputDir, Paths.get(TEST_CLASS_RESOURCE_PATH + "/java-of-log4j3"));
     }
 
     @Test
     void failure_source_should_be_reported(@TempDir(cleanup = CleanupMode.ON_SUCCESS) final Path outputDir) {
-        assertThatThrownBy(() -> test(outputDir, Paths.get("src/test/resources/javadoc-invalid-input")))
+        assertThatThrownBy(() -> test(outputDir, Paths.get(TEST_CLASS_RESOURCE_PATH + "/java-with-invalid-javadoc")))
                 .hasMessageContaining("failed to process element `example.JavadocExample`")
                 .hasRootCauseMessage("A <li> tag must be a child of a <ol> or <ul> tag.");
     }
 
     private static void test(final Path outputDir, final Path sourceDir) throws Exception {
         final Path modelloGeneratedSchema = Paths.get("target/generated-site/resources/xsd/plugins-0.1.0.xsd");
-        final Path expectedDescriptor = Paths.get("src/test/resources/generated-plugins.xml");
+        final Path expectedDescriptor = Paths.get(TEST_CLASS_RESOURCE_PATH + "/expected-plugins.xml");
         final Path actualDescriptor = generateDescriptor(outputDir, sourceDir);
         XmlAssert.assertThat(actualDescriptor)
                 .isValidAgainst(modelloGeneratedSchema)

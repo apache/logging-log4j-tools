@@ -30,13 +30,16 @@ import org.junit.jupiter.api.io.TempDir;
 import org.xmlunit.assertj3.XmlAssert;
 import org.xmlunit.builder.Input;
 
-public class SchemaGeneratorTest {
+class SchemaGeneratorTest {
+
+    private static final String TEST_CLASS_RESOURCE_PATH =
+            "src/test/resources/" + SchemaGeneratorTest.class.getSimpleName();
 
     @Test
     void schemaGeneration(@TempDir(cleanup = CleanupMode.ON_SUCCESS) final Path outputDir) throws Exception {
         final Source xmlSchema =
                 Input.fromURI("https://www.w3.org/2001/XMLSchema.xsd").build();
-        final Path expectedSchema = Paths.get("src/test/resources/generated-plugins.xsd");
+        final Path expectedSchema = Paths.get(TEST_CLASS_RESOURCE_PATH + "/expected-plugins.xsd");
         final Path actualSchema = generateSchema(outputDir);
         XmlAssert.assertThat(actualSchema)
                 .isValidAgainst(xmlSchema)
@@ -49,7 +52,7 @@ public class SchemaGeneratorTest {
     private static Path generateSchema(final Path outputDir) throws Exception {
 
         // Read sample plugins
-        final PluginSet pluginSet = readDescriptor("src/test/resources/example-plugins.xml");
+        final PluginSet pluginSet = readDescriptor(TEST_CLASS_RESOURCE_PATH + "/plugins.xml");
 
         // Generate the schema
         final Path schemaFile = outputDir.resolve("config.xsd");

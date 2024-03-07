@@ -23,7 +23,6 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.io.UncheckedIOException;
 import java.nio.charset.Charset;
-import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
@@ -49,9 +48,10 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.CleanupMode;
 import org.junit.jupiter.api.io.TempDir;
 
-public class AsciiDocConverterTest {
+class AsciiDocConverterTest {
 
-    private static final Path LICENSE_PATH = Paths.get("src/test/resources/templates/license.adoc.ftl");
+    private static final String TEST_CLASS_RESOURCE_PATH =
+            "src/test/resources/" + AsciiDocConverterTest.class.getSimpleName();
 
     private static final String TEST_CLASS_NAME = "JavadocExample";
 
@@ -66,7 +66,7 @@ public class AsciiDocConverterTest {
         final StandardJavaFileManager fileManager = tool.getStandardFileManager(null, Locale.ROOT, CHARSET);
 
         // Populate sources (aka. compilation units)
-        final Path sourcePath = Paths.get("src/test/resources/javadoc-input/example/" + TEST_CLASS_NAME + ".java");
+        final Path sourcePath = Paths.get(TEST_CLASS_RESOURCE_PATH + "/" + TEST_CLASS_NAME + ".java");
         final Iterable<? extends JavaFileObject> sources = fileManager.getJavaFileObjects(sourcePath);
 
         // Set the target path used by `Javadoc2AsciiDocDoclet` to dump the generated files
@@ -83,8 +83,7 @@ public class AsciiDocConverterTest {
         assertThat(diagnostics).noneMatch(diagnostic -> diagnostic.getKind() != Diagnostic.Kind.NOTE);
 
         // Verify the generated AsciiDoc
-        final Path expectedPath =
-                Paths.get("src/test/resources/javadoc-to-asciidoc-output/" + TEST_CLASS_NAME + ".adoc");
+        final Path expectedPath = Paths.get(TEST_CLASS_RESOURCE_PATH + "/" + TEST_CLASS_NAME + ".adoc");
         assertThat(outputDir.resolve(TEST_CLASS_NAME + ".adoc")).hasSameTextualContentAs(expectedPath, CHARSET);
     }
 
@@ -124,7 +123,6 @@ public class AsciiDocConverterTest {
                         final String asciiDoc = converter.toAsciiDoc(element);
                         assertThat(asciiDoc).isNotNull();
                         try (final OutputStream os = output.openOutputStream()) {
-                            Files.copy(LICENSE_PATH, os);
                             os.write(asciiDoc.getBytes(CHARSET));
                         }
                     }
