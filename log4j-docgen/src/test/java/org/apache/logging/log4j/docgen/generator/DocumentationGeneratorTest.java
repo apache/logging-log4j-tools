@@ -39,7 +39,7 @@ class DocumentationGeneratorTest {
     @Test
     void simple_should_work(@TempDir(cleanup = CleanupMode.ON_SUCCESS) final Path outputDir) {
         final PluginSet pluginSet = readDescriptor(TEST_CLASS_RESOURCE_PATH + "/simple/plugins.xml");
-        final Path referenceOutputDir = Paths.get(TEST_CLASS_RESOURCE_PATH + "/simple/freemarker-output");
+        final Path referenceOutputDir = Paths.get(TEST_CLASS_RESOURCE_PATH + "/simple/docs");
         generateDocumentationAndVerifyOutput(outputDir, Set.of(pluginSet), referenceOutputDir);
     }
 
@@ -48,7 +48,7 @@ class DocumentationGeneratorTest {
         final Set<PluginSet> pluginSets = readDescriptors(
                 TEST_CLASS_RESOURCE_PATH + "/complex/descriptors/log4j-core-plugins.xml",
                 TEST_CLASS_RESOURCE_PATH + "/complex/descriptors/log4j-layout-template-json-plugins.xml");
-        final Path referenceOutputDir = Paths.get(TEST_CLASS_RESOURCE_PATH + "/complex/freemarker-output");
+        final Path referenceOutputDir = Paths.get(TEST_CLASS_RESOURCE_PATH + "/complex/docs");
         generateDocumentationAndVerifyOutput(outputDir, pluginSets, referenceOutputDir);
     }
 
