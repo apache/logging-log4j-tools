@@ -19,6 +19,9 @@ package example;
 /**
  * Example of JavaDoc to AsciiDoc conversion
  * <p>
+ *     Link test: {@link String#value() isn't this awesome}?
+ * </p>
+ * <p>
  *     We run the {@code javadoc} tool on this class to test conversion of JavaDoc comments to AsciiDoc. This
  *     paragraph has two sentences.
  * </p>

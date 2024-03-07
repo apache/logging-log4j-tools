@@ -22,7 +22,7 @@ Class:: `org.apache.logging.log4j.core.pattern.ArrayPatternConverter`
 Provider:: `org.apache.logging.log4j:log4j-core`
 
 
-xref:PatternConverter.adoc[]s implement this interface to accept an array of objects when formatting.
+apiref:PatternConverter[]s implement this interface to accept an array of objects when formatting.
 
 
 [#org_apache_logging_log4j_core_pattern_ArrayPatternConverter-implementations]

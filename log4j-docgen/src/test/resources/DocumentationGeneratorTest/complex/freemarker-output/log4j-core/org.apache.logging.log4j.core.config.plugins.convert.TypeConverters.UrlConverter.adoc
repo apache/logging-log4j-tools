@@ -22,7 +22,7 @@ Class:: `org.apache.logging.log4j.core.config.plugins.convert.TypeConverters.Url
 Provider:: `org.apache.logging.log4j:log4j-core`
 
 
-Converts a xref:String.adoc[] into a xref:URL.adoc[].
+Converts a apiref:String[] into a apiref:URL[].
 
 [#org_apache_logging_log4j_core_config_plugins_convert_TypeConverters_UrlConverter-XML-snippet]
 == XML snippet

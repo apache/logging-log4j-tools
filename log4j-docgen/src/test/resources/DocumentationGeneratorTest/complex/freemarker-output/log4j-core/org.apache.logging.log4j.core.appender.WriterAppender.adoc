@@ -22,7 +22,7 @@ Class:: `org.apache.logging.log4j.core.appender.WriterAppender`
 Provider:: `org.apache.logging.log4j:log4j-core`
 
 
-Appends log events to a xref:Writer.adoc[].
+Appends log events to a apiref:Writer[].
 
 [#org_apache_logging_log4j_core_appender_WriterAppender-XML-snippet]
 == XML snippet

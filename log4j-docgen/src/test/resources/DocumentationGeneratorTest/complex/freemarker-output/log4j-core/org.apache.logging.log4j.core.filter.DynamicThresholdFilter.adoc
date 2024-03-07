@@ -24,7 +24,7 @@ Provider:: `org.apache.logging.log4j:log4j-core`
 
 Compares against a log level that is associated with a context value.
 
-By default the context is the xref:ThreadContext.adoc[], but users may xref:ContextDataInjectorFactory.adoc[] a custom xref:ContextDataInjector.adoc[] which obtains context data from some other source.
+By default the context is the apiref:ThreadContext[], but users may apiref:ContextDataInjectorFactory[] a custom xref:ContextDataInjector.adoc[] which obtains context data from some other source.
 
 [#org_apache_logging_log4j_core_filter_DynamicThresholdFilter-XML-snippet]
 == XML snippet

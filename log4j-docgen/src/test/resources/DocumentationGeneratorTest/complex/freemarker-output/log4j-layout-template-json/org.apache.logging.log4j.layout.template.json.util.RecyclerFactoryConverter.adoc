@@ -22,7 +22,7 @@ Class:: `org.apache.logging.log4j.layout.template.json.util.RecyclerFactoryConve
 Provider:: `org.apache.logging.log4j:log4j-layout-template-json`
 
 
-The default string (i.e., recycler factory spec) to xref:RecyclerFactory.adoc[] type converter.
+The default string (i.e., recycler factory spec) to apiref:RecyclerFactory[] type converter.
 
 [#org_apache_logging_log4j_layout_template_json_util_RecyclerFactoryConverter-XML-snippet]
 == XML snippet

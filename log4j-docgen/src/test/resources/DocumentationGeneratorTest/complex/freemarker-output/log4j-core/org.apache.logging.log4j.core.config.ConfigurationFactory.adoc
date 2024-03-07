@@ -22,7 +22,7 @@ Class:: `org.apache.logging.log4j.core.config.ConfigurationFactory`
 Provider:: `org.apache.logging.log4j:log4j-core`
 
 
-Factory class for parsed xref:Configuration.adoc[] objects from a configuration file.
+Factory class for parsed apiref:Configuration[] objects from a configuration file.
 
 ConfigurationFactory allows the configuration implementation to be dynamically chosen in 1 of 3 ways:
 
@@ -31,7 +31,7 @@ configurationFactory" can be set with the name of the ConfigurationFactory to be
 . xref:.adoc[] can be called with the instance of the ConfigurationFactory to be used.
 This must be called before any other calls to Log4j.
 . A ConfigurationFactory implementation can be added to the classpath and configured as a plugin in the xref:.adoc[] category.
-The xref:Order.adoc[] annotation should be used to configure the factory to be the first one inspected.
+The apiref:Order[] annotation should be used to configure the factory to be the first one inspected.
 See xref:org.apache.logging.log4j.core.config.xml.XmlConfigurationFactory.adoc[XmlConfigurationFactory] for an example.
 
 If the ConfigurationFactory that was added returns null on a call to getConfiguration then any other ConfigurationFactories found as plugins will be called in their respective order.

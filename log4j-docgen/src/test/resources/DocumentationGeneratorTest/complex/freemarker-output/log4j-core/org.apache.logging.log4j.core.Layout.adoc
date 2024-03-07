@@ -22,16 +22,16 @@ Class:: `org.apache.logging.log4j.core.Layout`
 Provider:: `org.apache.logging.log4j:log4j-core`
 
 
-Lays out a xref:LogEvent.adoc[] in different formats.
+Lays out a apiref:LogEvent[] in different formats.
 
 The formats are:
 
 * `byte[]`
-* an implementer of xref:Serializable.adoc[], like `byte[]`
-* xref:String.adoc[]
-* xref:LogEvent.adoc[]
+* an implementer of apiref:Serializable[], like `byte[]`
+* apiref:String[]
+* apiref:LogEvent[]
 
-Since 2.6, Layouts can xref:Encoder.adoc[] a `LogEvent` directly to a xref:ByteBufferDestination.adoc[] without creating temporary intermediary objects.
+Since 2.6, Layouts can apiref:Encoder[] a `LogEvent` directly to a apiref:ByteBufferDestination[] without creating temporary intermediary objects.
 
 
 [#org_apache_logging_log4j_core_Layout-implementations]

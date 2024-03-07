@@ -82,6 +82,6 @@ Optional components are denoted by `?`-suffixed types.
 
 |
 |String?
-a|An array of Strings where each String is a xref:Pattern.adoc[] compilation flag.
+a|An array of Strings where each String is a apiref:Pattern[] compilation flag.
 
 |===

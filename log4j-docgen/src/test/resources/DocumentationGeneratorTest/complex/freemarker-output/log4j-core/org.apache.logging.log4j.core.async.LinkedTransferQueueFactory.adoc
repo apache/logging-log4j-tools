@@ -22,7 +22,7 @@ Class:: `org.apache.logging.log4j.core.async.LinkedTransferQueueFactory`
 Provider:: `org.apache.logging.log4j:log4j-core`
 
 
-Factory for creating instances of xref:LinkedTransferQueue.adoc[].
+Factory for creating instances of apiref:LinkedTransferQueue[].
 
 [#org_apache_logging_log4j_core_async_LinkedTransferQueueFactory-XML-snippet]
 == XML snippet

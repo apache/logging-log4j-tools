@@ -16,6 +16,8 @@ limitations under the License.
 ////
 Example of JavaDoc to AsciiDoc conversion
 
+Link test: apiref:String#value()[isn't this awesome]?
+
 We run the `javadoc` tool on this class to test conversion of JavaDoc comments to AsciiDoc.
 This paragraph has two sentences.
 

@@ -24,7 +24,7 @@ Provider:: `org.apache.logging.log4j:log4j-core`
 
 Interface implemented by Classes that allow filtering to occur.
 
-Extends xref:LifeCycle.adoc[] since filters have a life cycle.
+Extends apiref:LifeCycle[] since filters have a life cycle.
 
 
 [#org_apache_logging_log4j_core_filter_Filterable-implementations]

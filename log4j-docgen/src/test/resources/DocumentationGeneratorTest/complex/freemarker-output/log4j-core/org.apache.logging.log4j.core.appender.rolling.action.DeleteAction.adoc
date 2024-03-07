@@ -89,7 +89,7 @@ a|an array of path conditions (if more than one, they all need to accept a path 
 
 |
 |xref:../log4j-core/org.apache.logging.log4j.core.appender.rolling.action.PathSorter.adoc[PathSorter]?
-a|a plugin implementing the xref:PathSorter.adoc[] interface
+a|a plugin implementing the apiref:PathSorter[] interface
 
 |ScriptCondition
 |xref:../log4j-core/org.apache.logging.log4j.core.appender.rolling.action.ScriptCondition.adoc[ScriptCondition]?

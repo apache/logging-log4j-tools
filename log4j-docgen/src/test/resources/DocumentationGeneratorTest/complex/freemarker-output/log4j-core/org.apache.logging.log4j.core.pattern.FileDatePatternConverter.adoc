@@ -22,7 +22,7 @@ Class:: `org.apache.logging.log4j.core.pattern.FileDatePatternConverter`
 Provider:: `org.apache.logging.log4j:log4j-core`
 
 
-Formats a date by delegating to xref:DatePatternConverter.adoc[].
+Formats a date by delegating to apiref:DatePatternConverter[].
 
 The default date pattern for a %d specifier in a file name is different than the %d pattern in pattern layout.
 

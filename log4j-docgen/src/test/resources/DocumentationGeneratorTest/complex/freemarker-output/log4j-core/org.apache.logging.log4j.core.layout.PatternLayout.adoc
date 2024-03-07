@@ -24,7 +24,7 @@ Provider:: `org.apache.logging.log4j:log4j-core`
 
 A flexible layout configurable with pattern string.
 
-The goal of this class is to xref:org.apache.logging.log4j.core.Layout.adoc[Layout] a xref:LogEvent.adoc[] and return the results.
+The goal of this class is to xref:org.apache.logging.log4j.core.Layout.adoc[Layout] a apiref:LogEvent[] and return the results.
 The format of the result depends on the _conversion pattern_.
 
 The conversion pattern is closely related to the conversion pattern of the printf function in C. A conversion pattern is composed of literal text and format control expressions called _conversion specifiers_.
@@ -113,7 +113,7 @@ a|
 |noConsoleNoAnsi
 |boolean?
 |
-a|If `"true"` (default is false) and xref:System.adoc[] is null, do not output ANSI escape codes
+a|If `"true"` (default is false) and apiref:System[] is null, do not output ANSI escape codes
 
 |noConsoleNoAnsi
 |boolean?

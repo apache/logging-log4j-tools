@@ -22,7 +22,7 @@ Class:: `org.apache.logging.log4j.core.config.plugins.convert.TypeConverters.Str
 Provider:: `org.apache.logging.log4j:log4j-core`
 
 
-Returns the given xref:String.adoc[], no conversion takes place.
+Returns the given apiref:String[], no conversion takes place.
 
 [#org_apache_logging_log4j_core_config_plugins_convert_TypeConverters_StringConverter-XML-snippet]
 == XML snippet

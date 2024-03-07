@@ -22,13 +22,13 @@ Class:: `org.apache.logging.log4j.core.config.plugins.convert.TypeConverters.Byt
 Provider:: `org.apache.logging.log4j:log4j-core`
 
 
-Converts a xref:String.adoc[] into a `byte[]`.
+Converts a apiref:String[] into a `byte[]`.
 
 The supported formats are:
 
 * 0x0123456789ABCDEF
 * Base64:ABase64String
-* String using xref:Charset.adoc[] [TODO Should this be UTF-8 instead?
+* String using apiref:Charset[] [TODO Should this be UTF-8 instead?
 ]
 
 [#org_apache_logging_log4j_core_config_plugins_convert_TypeConverters_ByteArrayConverter-XML-snippet]

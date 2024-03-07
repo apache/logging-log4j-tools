@@ -120,8 +120,8 @@ It has the following characteristics:
 
 It also implements:
 
-* xref:Appender.adoc[],
-* xref:BaseAppender.adoc[]</description>
+* apiref:Appender[],
+* apiref:BaseAppender[]</description>
         </plugin>
         <plugin name="MyLayout" className="example.MyOldLayout">
             <supertypes>
@@ -160,7 +160,7 @@ It also implements:
                     <description>A `short` attribute.</description>
                 </attribute>
                 <attribute name="stringAttr" required="true">
-                    <description>A xref:String.adoc[] attribute.</description>
+                    <description>A apiref:String[] attribute.</description>
                 </attribute>
             </attributes>
             <elements>

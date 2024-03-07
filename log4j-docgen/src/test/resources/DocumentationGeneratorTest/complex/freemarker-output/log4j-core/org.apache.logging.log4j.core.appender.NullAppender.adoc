@@ -24,7 +24,7 @@ Provider:: `org.apache.logging.log4j:log4j-core`
 
 An Appender that ignores log events.
 
-Use for compatibility with version 1.2 and handy for composing a xref:ScriptAppenderSelector.adoc[].
+Use for compatibility with version 1.2 and handy for composing a apiref:ScriptAppenderSelector[].
 
 [#org_apache_logging_log4j_core_appender_NullAppender-XML-snippet]
 == XML snippet

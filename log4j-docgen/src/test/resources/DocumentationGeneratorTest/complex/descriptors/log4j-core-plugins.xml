@@ -561,7 +561,7 @@ Hopefully it is obvious that the Appenders must be configured to not suppress ex
       </attributes>
       <description>An Appender that ignores log events.
 
-Use for compatibility with version 1.2 and handy for composing a xref:ScriptAppenderSelector.adoc[].</description>
+Use for compatibility with version 1.2 and handy for composing a apiref:ScriptAppenderSelector[].</description>
     </plugin>
     <plugin name="OutputStream" className="org.apache.logging.log4j.core.appender.OutputStreamAppender">
       <supertypes>
@@ -784,12 +784,12 @@ Defaults to "smtp".</description>
         <element type="org.apache.logging.log4j.core.Filter">
           <description>Specifies the filter used for this appender.
 
-By default, uses a xref:ThresholdFilter.adoc[] with a level of ERROR.</description>
+By default, uses a apiref:ThresholdFilter[] with a level of ERROR.</description>
         </element>
         <element type="org.apache.logging.log4j.core.Layout">
           <description>Specifies the layout used for the email message body.
 
-By default, this uses the xref:HtmlLayout.adoc[].</description>
+By default, this uses the apiref:HtmlLayout[].</description>
         </element>
         <element multiplicity="*" type="org.apache.logging.log4j.core.config.Property"></element>
         <element type="org.apache.logging.log4j.core.net.ssl.SslConfiguration">
@@ -921,7 +921,7 @@ Supports both TCP and UDP.</description>
         <element type="org.apache.logging.log4j.core.Layout"></element>
         <element multiplicity="*" type="org.apache.logging.log4j.core.config.Property"></element>
       </elements>
-      <description>Appends log events to a xref:Writer.adoc[].</description>
+      <description>Appends log events to a apiref:Writer[].</description>
     </plugin>
     <plugin name="ColumnMapping" className="org.apache.logging.log4j.core.appender.db.ColumnMapping">
       <supertypes>
@@ -931,9 +931,9 @@ Supports both TCP and UDP.</description>
         <attribute name="columnType" type="java.lang.Class" required="true">
           <description>Class to convert value to before storing in database.
 
-If the type is compatible with xref:ThreadContextMap.adoc[] or xref:ReadOnlyStringMap.adoc[], then the MDC will be used.
-If the type is compatible with xref:ThreadContextStack.adoc[], then the NDC will be used.
-If the type is compatible with xref:Date.adoc[], then the event timestamp will be used.</description>
+If the type is compatible with apiref:ThreadContextMap[] or apiref:ReadOnlyStringMap[], then the MDC will be used.
+If the type is compatible with apiref:ThreadContextStack[], then the NDC will be used.
+If the type is compatible with apiref:Date[], then the event timestamp will be used.</description>
         </attribute>
         <attribute name="literal">
           <description>Literal value to use for populating a column.
@@ -951,7 +951,7 @@ This is generally useful for functions, stored procedures, etc.
 No escaping will be done on this value.</description>
         </attribute>
         <attribute name="pattern">
-          <description>Pattern to use as a xref:PatternLayout.adoc[].
+          <description>Pattern to use as a apiref:PatternLayout[].
 
 Convenient shorthand for xref:.adoc[] with a PatternLayout.</description>
         </attribute>
@@ -966,7 +966,7 @@ Useful when combined with a xref:org.apache.logging.log4j.message.MapMessage.ado
         <element type="org.apache.logging.log4j.core.StringLayout">
           <description>Layout of value to write to database (before type conversion).
 
-Not applicable if xref:.adoc[] is a xref:ReadOnlyStringMap.adoc[], xref:ThreadContextMap.adoc[], or xref:ThreadContextStack.adoc[].</description>
+Not applicable if xref:.adoc[] is a apiref:ReadOnlyStringMap[], apiref:ThreadContextMap[], or xref:ThreadContextStack.adoc[].</description>
         </element>
       </elements>
       <description>A configuration element for specifying a database column name mapping.</description>
@@ -988,7 +988,7 @@ Mutually exclusive with `pattern! =null` and `eventTimestamp=true`.</description
           <description>The name of the database column as it exists within the database table.</description>
         </attribute>
         <attribute name="pattern">
-          <description>The xref:PatternLayout.adoc[] pattern to insert in this column.
+          <description>The apiref:PatternLayout[] pattern to insert in this column.
 
 Mutually exclusive with `literal! =null` and `eventTimestamp=true`</description>
         </attribute>
@@ -1010,7 +1010,7 @@ Mutually exclusive with `literal! =null` and `eventTimestamp=true`</description>
 Must start with java:/comp/env or environment-equivalent.</description>
         </attribute>
       </attributes>
-      <description>A xref:JdbcAppender.adoc[] connection source that uses a xref:DataSource.adoc[] to connect to the database.</description>
+      <description>A apiref:JdbcAppender[] connection source that uses a apiref:DataSource[] to connect to the database.</description>
     </plugin>
     <plugin name="DriverManager" className="org.apache.logging.log4j.core.appender.db.jdbc.DriverManagerConnectionSource">
       <supertypes>
@@ -1031,7 +1031,7 @@ Must start with java:/comp/env or environment-equivalent.</description>
       <elements>
         <element multiplicity="*" type="org.apache.logging.log4j.core.config.Property"></element>
       </elements>
-      <description>A xref:ConnectionSource.adoc[] that uses a JDBC connection string, a user name, and a password to call xref:DriverManager.adoc[].
+      <description>A apiref:ConnectionSource[] that uses a JDBC connection string, a user name, and a password to call apiref:DriverManager[].
 
 This plugin does not provide any connection pooling unless it is available through the connection string and driver itself.
 This handy to get you off the ground without having to deal with JNDI.</description>
@@ -1047,14 +1047,14 @@ This handy to get you off the ground without having to deal with JNDI.</descript
       </supertypes>
       <attributes>
         <attribute name="class">
-          <description>The name of a public class that contains a static method capable of returning either a xref:DataSource.adoc[] or a xref:Connection.adoc[].</description>
+          <description>The name of a public class that contains a static method capable of returning either a apiref:DataSource[] or a apiref:Connection[].</description>
         </attribute>
         <attribute name="method">
           <description>The name of the public static method on the aforementioned class that returns the data source or connection.
-If this method returns a xref:Connection.adoc[], it should return a new connection every call.</description>
+If this method returns a apiref:Connection[], it should return a new connection every call.</description>
         </attribute>
       </attributes>
-      <description>A xref:JdbcAppender.adoc[] connection source that uses a public static factory method to obtain a xref:Connection.adoc[] or xref:DataSource.adoc[].</description>
+      <description>A apiref:JdbcAppender[] connection source that uses a public static factory method to obtain a apiref:Connection[] or xref:DataSource.adoc[].</description>
     </plugin>
     <plugin name="JDBC" className="org.apache.logging.log4j.core.appender.db.jdbc.JdbcAppender">
       <supertypes>
@@ -1096,8 +1096,8 @@ If this method returns a xref:Connection.adoc[], it should return a new connecti
       </elements>
       <description>This Appender writes logging events to a relational database using standard JDBC mechanisms.
 
-It takes a list of xref:ColumnConfig.adoc[]s and/or xref:ColumnMapping.adoc[]s with which it determines how to save the event data into the appropriate columns in the table.
-ColumnMapping is new as of Log4j 2.8 and supports xref:TypeConverter.adoc[] and persistence using xref:PreparedStatement.adoc[]. A xref:ConnectionSource.adoc[] plugin instance instructs the appender (and xref:JdbcDatabaseManager.adoc[]) how to connect to the database.
+It takes a list of apiref:ColumnConfig[]s and/or apiref:ColumnMapping[]s with which it determines how to save the event data into the appropriate columns in the table.
+ColumnMapping is new as of Log4j 2.8 and supports apiref:TypeConverter[] and persistence using apiref:PreparedStatement[]. A xref:ConnectionSource.adoc[] plugin instance instructs the appender (and xref:JdbcDatabaseManager.adoc[]) how to connect to the database.
 This appender can be reconfigured at run time.</description>
     </plugin>
     <plugin name="JMS" className="org.apache.logging.log4j.core.appender.mom.JmsAppender">
@@ -1241,7 +1241,7 @@ Requires the JeroMQ jar (LGPL as of 0.3.5)</description>
       </elements>
       <description>This Appender writes logging events to a NoSQL database using a configured NoSQL provider.
 
-It requires implementations of xref:NoSqlObject.adoc[], xref:NoSqlConnection.adoc[], and xref:NoSqlProvider.adoc[] to "know" how to write events to the chosen NoSQL database.
+It requires implementations of apiref:NoSqlObject[], apiref:NoSqlConnection[], and xref:NoSqlProvider.adoc[] to "know" how to write events to the chosen NoSQL database.
 
 For examples on how to write your own NoSQL provider, see the simple source code for the MongoDB and CouchDB providers.</description>
     </plugin>
@@ -1535,7 +1535,7 @@ Default is false.</description>
           <description>an array of path conditions (if more than one, they all need to accept a path before it is deleted).</description>
         </element>
         <element type="org.apache.logging.log4j.core.appender.rolling.action.PathSorter">
-          <description>a plugin implementing the xref:PathSorter.adoc[] interface</description>
+          <description>a plugin implementing the apiref:PathSorter[] interface</description>
         </element>
         <element type="org.apache.logging.log4j.core.appender.rolling.action.ScriptCondition"></element>
       </elements>
@@ -1621,8 +1621,8 @@ Corresponds to logical "OR".</description>
 
 If both a regular expression and a glob pattern are specified the glob pattern is used and the regular expression is ignored.
 
-The regular expression is a pattern as defined by the xref:Pattern.adoc[] class.
-A glob is a simplified pattern expression described in xref:FileSystem.adoc[].</description>
+The regular expression is a pattern as defined by the apiref:Pattern[] class.
+A glob is a simplified pattern expression described in apiref:FileSystem[].</description>
     </plugin>
     <plugin name="IfLastModified" className="org.apache.logging.log4j.core.appender.rolling.action.IfLastModified">
       <supertypes>
@@ -1666,7 +1666,7 @@ Must be a valid Duration.</description>
           <description>if true, most recently modified paths should come first.</description>
         </attribute>
       </attributes>
-      <description>xref:PathSorter.adoc[] that sorts path by their LastModified attribute.</description>
+      <description>apiref:PathSorter[] that sorts path by their LastModified attribute.</description>
     </plugin>
     <plugin name="PosixViewAttribute" className="org.apache.logging.log4j.core.appender.rolling.action.PosixViewAttributeAction">
       <supertypes>
@@ -1698,21 +1698,21 @@ Allow to define file permissions, user and group for log files on POSIX supporte
       <elements>
         <element type="org.apache.logging.log4j.core.script.AbstractScript">
           <description>The script to run.
-This may be a xref:org.apache.logging.log4j.core.script.Script.adoc[Script], a xref:ScriptFile.adoc[] or a xref:ScriptRef.adoc[]. The script must return a `List&lt;PathWithAttributes&gt;`. When the script is executed, it is provided the following bindings:
+This may be a xref:org.apache.logging.log4j.core.script.Script.adoc[Script], a apiref:ScriptFile[] or a apiref:ScriptRef[]. The script must return a `List&lt;PathWithAttributes&gt;`. When the script is executed, it is provided the following bindings:
 
-* basePath - the directory from where the xref:DeleteAction.adoc[] action started scanning for files to delete.
+* basePath - the directory from where the apiref:DeleteAction[] action started scanning for files to delete.
 Can be used to relativize the paths in the pathList.
 * pathList - a `java. util. List` containing xref:org.apache.logging.log4j.core.appender.rolling.action.PathWithAttributes.adoc[PathWithAttributes] objects.
 (The script is free to modify and return this list.
 )
 * substitutor - a xref:org.apache.logging.log4j.core.lookup.StrSubstitutor.adoc[StrSubstitutor] that can be used to look up variables embedded in the base dir or other properties
-* statusLogger - the xref:StatusLogger.adoc[] that can be used to log events during script execution
+* statusLogger - the apiref:StatusLogger[] that can be used to log events during script execution
 * any properties declared in the configuration</description>
         </element>
       </elements>
-      <description>A condition of the xref:DeleteAction.adoc[] where a user-provided script selects the files to delete from a provided list.
+      <description>A condition of the apiref:DeleteAction[] where a user-provided script selects the files to delete from a provided list.
 
-The specified script may be a xref:org.apache.logging.log4j.core.script.Script.adoc[Script], a xref:ScriptFile.adoc[] or a xref:ScriptRef.adoc[].</description>
+The specified script may be a xref:org.apache.logging.log4j.core.script.Script.adoc[Script], a apiref:ScriptFile[] or a apiref:ScriptRef[].</description>
     </plugin>
     <plugin name="IdlePurgePolicy" className="org.apache.logging.log4j.core.appender.routing.IdlePurgePolicy">
       <supertypes>
@@ -1798,7 +1798,7 @@ The pattern should contain one or more substitution patterns of the form "$${[ke
         <supertype>java.lang.Object</supertype>
         <supertype>org.apache.logging.log4j.core.async.BlockingQueueFactory</supertype>
       </supertypes>
-      <description>Factory for creating instances of xref:ArrayBlockingQueue.adoc[].</description>
+      <description>Factory for creating instances of apiref:ArrayBlockingQueue[].</description>
     </plugin>
     <plugin name="asyncLogger" className="org.apache.logging.log4j.core.async.AsyncLoggerConfig">
       <supertypes>
@@ -1881,7 +1881,7 @@ This means that even with immediateFlush=false, there will never be any items le
       <attributes>
         <attribute name="SpinPolicy" type="com.conversantmedia.util.concurrent.SpinPolicy"></attribute>
       </attributes>
-      <description>Factory for creating instances of xref:DisruptorBlockingQueue.adoc[].</description>
+      <description>Factory for creating instances of apiref:DisruptorBlockingQueue[].</description>
     </plugin>
     <plugin name="JCToolsBlockingQueue" className="org.apache.logging.log4j.core.async.JCToolsBlockingQueueFactory">
       <supertypes>
@@ -1891,14 +1891,14 @@ This means that even with immediateFlush=false, there will never be any items le
       <attributes>
         <attribute name="WaitStrategy" type="org.apache.logging.log4j.core.async.JCToolsBlockingQueueFactory.WaitStrategy"></attribute>
       </attributes>
-      <description>Factory for creating instances of BlockingQueues backed by JCTools xref:MpscArrayQueue.adoc[].</description>
+      <description>Factory for creating instances of BlockingQueues backed by JCTools apiref:MpscArrayQueue[].</description>
     </plugin>
     <plugin name="LinkedTransferQueue" className="org.apache.logging.log4j.core.async.LinkedTransferQueueFactory">
       <supertypes>
         <supertype>java.lang.Object</supertype>
         <supertype>org.apache.logging.log4j.core.async.BlockingQueueFactory</supertype>
       </supertypes>
-      <description>Factory for creating instances of xref:LinkedTransferQueue.adoc[].</description>
+      <description>Factory for creating instances of apiref:LinkedTransferQueue[].</description>
     </plugin>
     <plugin name="AppenderRef" className="org.apache.logging.log4j.core.config.AppenderRef">
       <supertypes>
@@ -2135,34 +2135,34 @@ This means that even with immediateFlush=false, there will never be any items le
         <supertype>java.lang.Object</supertype>
         <supertype>org.apache.logging.log4j.core.config.plugins.convert.TypeConverter</supertype>
       </supertypes>
-      <description>Parses a xref:String.adoc[] into a xref:BigDecimal.adoc[].</description>
+      <description>Parses a apiref:String[] into a apiref:BigDecimal[].</description>
     </plugin>
     <plugin name="BigInteger" namespace="TypeConverter" className="org.apache.logging.log4j.core.config.plugins.convert.TypeConverters.BigIntegerConverter">
       <supertypes>
         <supertype>java.lang.Object</supertype>
         <supertype>org.apache.logging.log4j.core.config.plugins.convert.TypeConverter</supertype>
       </supertypes>
-      <description>Parses a xref:String.adoc[] into a xref:BigInteger.adoc[].</description>
+      <description>Parses a apiref:String[] into a apiref:BigInteger[].</description>
     </plugin>
     <plugin name="Boolean" namespace="TypeConverter" className="org.apache.logging.log4j.core.config.plugins.convert.TypeConverters.BooleanConverter">
       <supertypes>
         <supertype>java.lang.Object</supertype>
         <supertype>org.apache.logging.log4j.core.config.plugins.convert.TypeConverter</supertype>
       </supertypes>
-      <description>Converts a xref:String.adoc[] into a xref:Boolean.adoc[].</description>
+      <description>Converts a apiref:String[] into a apiref:Boolean[].</description>
     </plugin>
     <plugin name="ByteArray" namespace="TypeConverter" className="org.apache.logging.log4j.core.config.plugins.convert.TypeConverters.ByteArrayConverter">
       <supertypes>
         <supertype>java.lang.Object</supertype>
         <supertype>org.apache.logging.log4j.core.config.plugins.convert.TypeConverter</supertype>
       </supertypes>
-      <description>Converts a xref:String.adoc[] into a `byte[]`.
+      <description>Converts a apiref:String[] into a `byte[]`.
 
 The supported formats are:
 
 * 0x0123456789ABCDEF
 * Base64:ABase64String
-* String using xref:Charset.adoc[] [TODO Should this be UTF-8 instead?
+* String using apiref:Charset[] [TODO Should this be UTF-8 instead?
 ]</description>
     </plugin>
     <plugin name="Byte" namespace="TypeConverter" className="org.apache.logging.log4j.core.config.plugins.convert.TypeConverters.ByteConverter">
@@ -2170,35 +2170,35 @@ The supported formats are:
         <supertype>java.lang.Object</supertype>
         <supertype>org.apache.logging.log4j.core.config.plugins.convert.TypeConverter</supertype>
       </supertypes>
-      <description>Converts a xref:String.adoc[] into a xref:Byte.adoc[].</description>
+      <description>Converts a apiref:String[] into a apiref:Byte[].</description>
     </plugin>
     <plugin name="CharacterArray" namespace="TypeConverter" className="org.apache.logging.log4j.core.config.plugins.convert.TypeConverters.CharArrayConverter">
       <supertypes>
         <supertype>java.lang.Object</supertype>
         <supertype>org.apache.logging.log4j.core.config.plugins.convert.TypeConverter</supertype>
       </supertypes>
-      <description>Converts a xref:String.adoc[] into a `char[]`.</description>
+      <description>Converts a apiref:String[] into a `char[]`.</description>
     </plugin>
     <plugin name="Character" namespace="TypeConverter" className="org.apache.logging.log4j.core.config.plugins.convert.TypeConverters.CharacterConverter">
       <supertypes>
         <supertype>java.lang.Object</supertype>
         <supertype>org.apache.logging.log4j.core.config.plugins.convert.TypeConverter</supertype>
       </supertypes>
-      <description>Converts a xref:String.adoc[] into a xref:Character.adoc[].</description>
+      <description>Converts a apiref:String[] into a apiref:Character[].</description>
     </plugin>
     <plugin name="Charset" namespace="TypeConverter" className="org.apache.logging.log4j.core.config.plugins.convert.TypeConverters.CharsetConverter">
       <supertypes>
         <supertype>java.lang.Object</supertype>
         <supertype>org.apache.logging.log4j.core.config.plugins.convert.TypeConverter</supertype>
       </supertypes>
-      <description>Converts a xref:String.adoc[] into a xref:Charset.adoc[].</description>
+      <description>Converts a apiref:String[] into a apiref:Charset[].</description>
     </plugin>
     <plugin name="Class" namespace="TypeConverter" className="org.apache.logging.log4j.core.config.plugins.convert.TypeConverters.ClassConverter">
       <supertypes>
         <supertype>java.lang.Object</supertype>
         <supertype>org.apache.logging.log4j.core.config.plugins.convert.TypeConverter</supertype>
       </supertypes>
-      <description>Converts a xref:String.adoc[] into a xref:Class.adoc[].</description>
+      <description>Converts a apiref:String[] into a apiref:Class[].</description>
     </plugin>
     <plugin name="CronExpression" namespace="TypeConverter" className="org.apache.logging.log4j.core.config.plugins.convert.TypeConverters.CronExpressionConverter">
       <supertypes>
@@ -2211,49 +2211,49 @@ The supported formats are:
         <supertype>java.lang.Object</supertype>
         <supertype>org.apache.logging.log4j.core.config.plugins.convert.TypeConverter</supertype>
       </supertypes>
-      <description>Converts a xref:String.adoc[] into a xref:Double.adoc[].</description>
+      <description>Converts a apiref:String[] into a apiref:Double[].</description>
     </plugin>
     <plugin name="Duration" namespace="TypeConverter" className="org.apache.logging.log4j.core.config.plugins.convert.TypeConverters.DurationConverter">
       <supertypes>
         <supertype>java.lang.Object</supertype>
         <supertype>org.apache.logging.log4j.core.config.plugins.convert.TypeConverter</supertype>
       </supertypes>
-      <description>Converts a xref:String.adoc[] into a xref:Duration.adoc[].</description>
+      <description>Converts a apiref:String[] into a apiref:Duration[].</description>
     </plugin>
     <plugin name="File" namespace="TypeConverter" className="org.apache.logging.log4j.core.config.plugins.convert.TypeConverters.FileConverter">
       <supertypes>
         <supertype>java.lang.Object</supertype>
         <supertype>org.apache.logging.log4j.core.config.plugins.convert.TypeConverter</supertype>
       </supertypes>
-      <description>Converts a xref:String.adoc[] into a xref:File.adoc[].</description>
+      <description>Converts a apiref:String[] into a apiref:File[].</description>
     </plugin>
     <plugin name="Float" namespace="TypeConverter" className="org.apache.logging.log4j.core.config.plugins.convert.TypeConverters.FloatConverter">
       <supertypes>
         <supertype>java.lang.Object</supertype>
         <supertype>org.apache.logging.log4j.core.config.plugins.convert.TypeConverter</supertype>
       </supertypes>
-      <description>Converts a xref:String.adoc[] into a xref:Float.adoc[].</description>
+      <description>Converts a apiref:String[] into a apiref:Float[].</description>
     </plugin>
     <plugin name="InetAddress" namespace="TypeConverter" className="org.apache.logging.log4j.core.config.plugins.convert.TypeConverters.InetAddressConverter">
       <supertypes>
         <supertype>java.lang.Object</supertype>
         <supertype>org.apache.logging.log4j.core.config.plugins.convert.TypeConverter</supertype>
       </supertypes>
-      <description>Converts a xref:String.adoc[] into an xref:InetAddress.adoc[].</description>
+      <description>Converts a apiref:String[] into an apiref:InetAddress[].</description>
     </plugin>
     <plugin name="Integer" namespace="TypeConverter" className="org.apache.logging.log4j.core.config.plugins.convert.TypeConverters.IntegerConverter">
       <supertypes>
         <supertype>java.lang.Object</supertype>
         <supertype>org.apache.logging.log4j.core.config.plugins.convert.TypeConverter</supertype>
       </supertypes>
-      <description>Converts a xref:String.adoc[] into a xref:Integer.adoc[].</description>
+      <description>Converts a apiref:String[] into a apiref:Integer[].</description>
     </plugin>
     <plugin name="Level" namespace="TypeConverter" className="org.apache.logging.log4j.core.config.plugins.convert.TypeConverters.LevelConverter">
       <supertypes>
         <supertype>java.lang.Object</supertype>
         <supertype>org.apache.logging.log4j.core.config.plugins.convert.TypeConverter</supertype>
       </supertypes>
-      <description>Converts a xref:String.adoc[] into a Log4j xref:Level.adoc[].
+      <description>Converts a apiref:String[] into a Log4j apiref:Level[].
 
 Returns `null` for invalid level names.</description>
     </plugin>
@@ -2262,63 +2262,63 @@ Returns `null` for invalid level names.</description>
         <supertype>java.lang.Object</supertype>
         <supertype>org.apache.logging.log4j.core.config.plugins.convert.TypeConverter</supertype>
       </supertypes>
-      <description>Converts a xref:String.adoc[] into a xref:Long.adoc[].</description>
+      <description>Converts a apiref:String[] into a apiref:Long[].</description>
     </plugin>
     <plugin name="Path" namespace="TypeConverter" className="org.apache.logging.log4j.core.config.plugins.convert.TypeConverters.PathConverter">
       <supertypes>
         <supertype>java.lang.Object</supertype>
         <supertype>org.apache.logging.log4j.core.config.plugins.convert.TypeConverter</supertype>
       </supertypes>
-      <description>Converts a xref:String.adoc[] into a xref:Path.adoc[].</description>
+      <description>Converts a apiref:String[] into a apiref:Path[].</description>
     </plugin>
     <plugin name="Pattern" namespace="TypeConverter" className="org.apache.logging.log4j.core.config.plugins.convert.TypeConverters.PatternConverter">
       <supertypes>
         <supertype>java.lang.Object</supertype>
         <supertype>org.apache.logging.log4j.core.config.plugins.convert.TypeConverter</supertype>
       </supertypes>
-      <description>Converts a xref:String.adoc[] into a xref:Pattern.adoc[].</description>
+      <description>Converts a apiref:String[] into a apiref:Pattern[].</description>
     </plugin>
     <plugin name="SecurityProvider" namespace="TypeConverter" className="org.apache.logging.log4j.core.config.plugins.convert.TypeConverters.SecurityProviderConverter">
       <supertypes>
         <supertype>java.lang.Object</supertype>
         <supertype>org.apache.logging.log4j.core.config.plugins.convert.TypeConverter</supertype>
       </supertypes>
-      <description>Converts a xref:String.adoc[] into a xref:Provider.adoc[].</description>
+      <description>Converts a apiref:String[] into a apiref:Provider[].</description>
     </plugin>
     <plugin name="Short" namespace="TypeConverter" className="org.apache.logging.log4j.core.config.plugins.convert.TypeConverters.ShortConverter">
       <supertypes>
         <supertype>java.lang.Object</supertype>
         <supertype>org.apache.logging.log4j.core.config.plugins.convert.TypeConverter</supertype>
       </supertypes>
-      <description>Converts a xref:String.adoc[] into a xref:Short.adoc[].</description>
+      <description>Converts a apiref:String[] into a apiref:Short[].</description>
     </plugin>
     <plugin name="String" namespace="TypeConverter" className="org.apache.logging.log4j.core.config.plugins.convert.TypeConverters.StringConverter">
       <supertypes>
         <supertype>java.lang.Object</supertype>
         <supertype>org.apache.logging.log4j.core.config.plugins.convert.TypeConverter</supertype>
       </supertypes>
-      <description>Returns the given xref:String.adoc[], no conversion takes place.</description>
+      <description>Returns the given apiref:String[], no conversion takes place.</description>
     </plugin>
     <plugin name="URI" namespace="TypeConverter" className="org.apache.logging.log4j.core.config.plugins.convert.TypeConverters.UriConverter">
       <supertypes>
         <supertype>java.lang.Object</supertype>
         <supertype>org.apache.logging.log4j.core.config.plugins.convert.TypeConverter</supertype>
       </supertypes>
-      <description>Converts a xref:String.adoc[] into a xref:URI.adoc[].</description>
+      <description>Converts a apiref:String[] into a apiref:URI[].</description>
     </plugin>
     <plugin name="URL" namespace="TypeConverter" className="org.apache.logging.log4j.core.config.plugins.convert.TypeConverters.UrlConverter">
       <supertypes>
         <supertype>java.lang.Object</supertype>
         <supertype>org.apache.logging.log4j.core.config.plugins.convert.TypeConverter</supertype>
       </supertypes>
-      <description>Converts a xref:String.adoc[] into a xref:URL.adoc[].</description>
+      <description>Converts a apiref:String[] into a apiref:URL[].</description>
     </plugin>
     <plugin name="UUID" namespace="TypeConverter" className="org.apache.logging.log4j.core.config.plugins.convert.TypeConverters.UuidConverter">
       <supertypes>
         <supertype>java.lang.Object</supertype>
         <supertype>org.apache.logging.log4j.core.config.plugins.convert.TypeConverter</supertype>
       </supertypes>
-      <description>Converts a xref:String.adoc[] into a xref:UUID.adoc[].</description>
+      <description>Converts a apiref:String[] into a apiref:UUID[].</description>
     </plugin>
     <plugin name="PropertiesConfigurationFactory" namespace="ConfigurationFactory" className="org.apache.logging.log4j.core.config.properties.PropertiesConfigurationFactory">
       <supertypes>
@@ -2454,7 +2454,7 @@ DENY.</description>
       </elements>
       <description>Compares against a log level that is associated with a context value.
 
-By default the context is the xref:ThreadContext.adoc[], but users may xref:ContextDataInjectorFactory.adoc[] a custom xref:ContextDataInjector.adoc[] which obtains context data from some other source.</description>
+By default the context is the apiref:ThreadContext[], but users may apiref:ContextDataInjectorFactory[] a custom xref:ContextDataInjector.adoc[] which obtains context data from some other source.</description>
     </plugin>
     <plugin name="LevelMatchFilter" className="org.apache.logging.log4j.core.filter.LevelMatchFilter">
       <supertypes>
@@ -2507,13 +2507,13 @@ DENY.</description>
           <description>the result to return on a mismatch</description>
         </attribute>
       </attributes>
-      <description>This filter returns the xref:.adoc[] result if the level of the xref:LogEvent.adoc[] is in the range of the configured xref:.adoc[] and xref:.adoc[] values, otherwise it returns the xref:.adoc[] result.
+      <description>This filter returns the xref:.adoc[] result if the level of the apiref:LogEvent[] is in the range of the configured xref:.adoc[] and xref:.adoc[] values, otherwise it returns the xref:.adoc[] result.
 
-The default values for xref:.adoc[] and xref:.adoc[] are set to xref:Level.adoc[] and xref:Level.adoc[], respectively.
-The default values for xref:.adoc[] and xref:.adoc[] are set to xref:Result.adoc[] and xref:Result.adoc[], respectively.
+The default values for xref:.adoc[] and xref:.adoc[] are set to apiref:Level[] and apiref:Level[], respectively.
+The default values for xref:.adoc[] and xref:.adoc[] are set to apiref:Result[] and apiref:Result[], respectively.
 
-The levels get compared by their associated integral values; xref:Level.adoc[] has an integral value of 0, xref:Level.adoc[] 100, xref:Level.adoc[] 200, and so on.
-For example, if the filter is configured with xref:.adoc[] set to xref:Level.adoc[], the filter will return xref:.adoc[] result for xref:LogEvent.adoc[]s of level with higher integral values; xref:Level.adoc[], xref:Level.adoc[], etc.</description>
+The levels get compared by their associated integral values; apiref:Level[] has an integral value of 0, apiref:Level[] 100, xref:Level.adoc[] 200, and so on.
+For example, if the filter is configured with xref:.adoc[] set to apiref:Level[], the filter will return xref:.adoc[] result for apiref:LogEvent[]s of level with higher integral values; xref:Level.adoc[], xref:Level.adoc[], etc.</description>
     </plugin>
     <plugin name="MapFilter" className="org.apache.logging.log4j.core.filter.MapFilter">
       <supertypes>
@@ -2637,7 +2637,7 @@ DENY.</description>
       </attributes>
       <elements>
         <element multiplicity="*" type="java.lang.String">
-          <description>An array of Strings where each String is a xref:Pattern.adoc[] compilation flag.</description>
+          <description>An array of Strings where each String is a apiref:Pattern[] compilation flag.</description>
         </element>
       </elements>
       <description>This filter returns the onMatch result if the message matches the regular expression.
@@ -3107,7 +3107,7 @@ Supports Lookup expressions.</description>
         <supertype>org.apache.logging.log4j.core.layout.AbstractLayout</supertype>
         <supertype>org.apache.logging.log4j.core.layout.Encoder</supertype>
       </supertypes>
-      <description>Formats a xref:LogEvent.adoc[] in its xref:Message.adoc[] form.
+      <description>Formats a apiref:LogEvent[] in its apiref:Message[] form.
 
 Useful in combination with a JMS Appender to map a Log4j xref:org.apache.logging.log4j.message.MapMessage.adoc[MapMessage] or xref:org.apache.logging.log4j.message.StringMapMessage.adoc[StringMapMessage] to a JMS xref:javax.jms.MapMessage.adoc[MapMessage].</description>
     </plugin>
@@ -3136,7 +3136,7 @@ The platform default is used if not specified.</description>
           <description>The footer to place at the top of the document, once.</description>
         </attribute>
         <attribute name="noConsoleNoAnsi" type="boolean">
-          <description>If `"true"` (default is false) and xref:System.adoc[] is null, do not output ANSI escape codes</description>
+          <description>If `"true"` (default is false) and apiref:System[] is null, do not output ANSI escape codes</description>
         </attribute>
         <attribute name="pattern">
           <description>The pattern.
@@ -3162,7 +3162,7 @@ If not specified, defaults to DEFAULT_CONVERSION_PATTERN.</description>
       </elements>
       <description>A flexible layout configurable with pattern string.
 
-The goal of this class is to xref:org.apache.logging.log4j.core.Layout.adoc[Layout] a xref:LogEvent.adoc[] and return the results.
+The goal of this class is to xref:org.apache.logging.log4j.core.Layout.adoc[Layout] a apiref:LogEvent[] and return the results.
 The format of the result depends on the _conversion pattern_.
 
 The conversion pattern is closely related to the conversion pattern of the printf function in C. A conversion pattern is composed of literal text and format control expressions called _conversion specifiers_.
@@ -3276,7 +3276,7 @@ If no key is returned or there is no match the default pattern will be used.</de
         <supertype>org.apache.logging.log4j.core.layout.AbstractLayout</supertype>
         <supertype>org.apache.logging.log4j.core.layout.Encoder</supertype>
       </supertypes>
-      <description>Formats a xref:LogEvent.adoc[] in its Java serialized form.</description>
+      <description>Formats a apiref:LogEvent[] in its Java serialized form.</description>
     </plugin>
     <plugin name="SyslogLayout" className="org.apache.logging.log4j.core.layout.SyslogLayout">
       <supertypes>
@@ -3421,7 +3421,7 @@ Supports Lookup expressions.</description>
       </supertypes>
       <description>Looks up keys from the context.
 
-By default this is the xref:ThreadContext.adoc[], but users may xref:ContextDataInjectorFactory.adoc[] a custom xref:ContextDataInjector.adoc[] which obtains context data from some other source.</description>
+By default this is the apiref:ThreadContext[], but users may apiref:ContextDataInjectorFactory[] a custom xref:ContextDataInjector.adoc[] which obtains context data from some other source.</description>
     </plugin>
     <plugin name="date" namespace="Lookup" className="org.apache.logging.log4j.core.lookup.DateLookup">
       <supertypes>
@@ -3578,64 +3578,64 @@ Entries with names or values larger than 255 bytes will be removed prior to adve
       </supertypes>
       <attributes>
         <attribute name="keepAlive" type="java.lang.Boolean">
-          <description>See xref:Socket.adoc[].
+          <description>See apiref:Socket[].
 
-See xref:Socket.adoc[].</description>
+See apiref:Socket[].</description>
         </attribute>
         <attribute name="oobInline" type="java.lang.Boolean">
-          <description>See xref:Socket.adoc[].
+          <description>See apiref:Socket[].
 
-See xref:Socket.adoc[].</description>
+See apiref:Socket[].</description>
         </attribute>
         <attribute name="receiveBufferSize" type="java.lang.Integer">
-          <description>See xref:Socket.adoc[].
+          <description>See apiref:Socket[].
 
-See xref:Socket.adoc[].</description>
+See apiref:Socket[].</description>
         </attribute>
         <attribute name="reuseAddress" type="java.lang.Boolean">
-          <description>See xref:Socket.adoc[].
+          <description>See apiref:Socket[].
 
-See xref:Socket.adoc[].</description>
+See apiref:Socket[].</description>
         </attribute>
         <attribute name="rfc1349TrafficClass" type="org.apache.logging.log4j.core.net.Rfc1349TrafficClass">
-          <description>See xref:Socket.adoc[].
+          <description>See apiref:Socket[].
 
-See xref:Socket.adoc[].</description>
+See apiref:Socket[].</description>
         </attribute>
         <attribute name="sendBufferSize" type="java.lang.Integer">
-          <description>See xref:Socket.adoc[].
+          <description>See apiref:Socket[].
 
-See xref:Socket.adoc[].</description>
+See apiref:Socket[].</description>
         </attribute>
         <attribute name="soLinger" type="java.lang.Integer">
-          <description>See xref:Socket.adoc[].
+          <description>See apiref:Socket[].
 
-See xref:Socket.adoc[].</description>
+See apiref:Socket[].</description>
         </attribute>
         <attribute name="soTimeout" type="java.lang.Integer">
-          <description>See xref:Socket.adoc[].
+          <description>See apiref:Socket[].
 
-See xref:Socket.adoc[].</description>
+See apiref:Socket[].</description>
         </attribute>
         <attribute name="tcpNoDelay" type="java.lang.Boolean">
-          <description>See xref:Socket.adoc[].
+          <description>See apiref:Socket[].
 
-See xref:Socket.adoc[].</description>
+See apiref:Socket[].</description>
         </attribute>
         <attribute name="trafficClass" type="java.lang.Integer">
-          <description>See xref:Socket.adoc[].
+          <description>See apiref:Socket[].
 
-See xref:Socket.adoc[].</description>
+See apiref:Socket[].</description>
         </attribute>
       </attributes>
       <elements>
         <element type="org.apache.logging.log4j.core.net.SocketPerformancePreferences">
-          <description>See xref:Socket.adoc[].
+          <description>See apiref:Socket[].
 
-See xref:Socket.adoc[].</description>
+See apiref:Socket[].</description>
         </element>
       </elements>
-      <description>Holds all socket options settable via xref:Socket.adoc[] methods.</description>
+      <description>Holds all socket options settable via apiref:Socket[] methods.</description>
     </plugin>
     <plugin name="SocketPerformancePreferences" className="org.apache.logging.log4j.core.net.SocketPerformancePreferences">
       <supertypes>
@@ -3648,9 +3648,9 @@ See xref:Socket.adoc[].</description>
         <attribute name="connectionTime" type="int" required="true"></attribute>
         <attribute name="latency" type="int" required="true"></attribute>
       </attributes>
-      <description>Holds all socket options settable via xref:Socket.adoc[].
+      <description>Holds all socket options settable via apiref:Socket[].
 
-The xref:Socket.adoc[] API may not be implemented by a JRE.</description>
+The apiref:Socket[] API may not be implemented by a JRE.</description>
     </plugin>
     <plugin name="KeyStore" className="org.apache.logging.log4j.core.net.ssl.KeyStoreConfiguration">
       <supertypes>
@@ -3897,7 +3897,7 @@ The extended stack trace will also include the location of where the class was l
       <supertypes>
         <supertype>java.lang.Object</supertype>
       </supertypes>
-      <description>Formats a date by delegating to xref:DatePatternConverter.adoc[].
+      <description>Formats a date by delegating to apiref:DatePatternConverter[].
 
 The default date pattern for a %d specifier in a file name is different than the %d pattern in pattern layout.</description>
     </plugin>
@@ -3961,7 +3961,7 @@ The available predefined styles are:
 * `Logback`
 
 You can use whitespace around the comma and equal sign.
-The names in values MUST come from the xref:AnsiEscape.adoc[] enum, case is normalized to upper-case internally.
+The names in values MUST come from the apiref:AnsiEscape[] enum, case is normalized to upper-case internally.
 
 To disable ANSI output unconditionally, specify an additional option `disableAnsi=true`, or to disable ANSI output if no console is detected, specify option `noConsoleNoAnsi=true` e.g..
 
@@ -4309,12 +4309,12 @@ To disable ANSI output unconditionally, specify an additional option `disableAns
 Wraps a xref:LifeCycle.State.adoc[State].</description>
     </abstractType>
     <abstractType className="org.apache.logging.log4j.core.Appender">
-      <description>Appends xref:LogEvent.adoc[]s.
+      <description>Appends apiref:LogEvent[]s.
 
-An Appender can contain a xref:Layout.adoc[] if applicable as well as an xref:ErrorHandler.adoc[]. Typical Appender implementations coordinate with an implementation of xref:org.apache.logging.log4j.core.appender.AbstractManager.adoc[AbstractManager] to handle external resources such as streams, connections, and other shared state.
+An Appender can contain a apiref:Layout[] if applicable as well as an apiref:ErrorHandler[]. Typical Appender implementations coordinate with an implementation of xref:org.apache.logging.log4j.core.appender.AbstractManager.adoc[AbstractManager] to handle external resources such as streams, connections, and other shared state.
 As Appenders are plugins, concrete implementations need to be annotated with xref:org.apache.logging.log4j.core.config.plugins.Plugin.adoc[Plugin] and need to provide a static factory method annotated with xref:org.apache.logging.log4j.core.config.plugins.PluginFactory.adoc[PluginFactory].
 
-Most core plugins are written using a related Manager class that handle the actual task of serializing a xref:LogEvent.adoc[] to some output location.
+Most core plugins are written using a related Manager class that handle the actual task of serializing a apiref:LogEvent[] to some output location.
 For instance, many Appenders can take advantage of the xref:org.apache.logging.log4j.core.appender.OutputStreamManager.adoc[OutputStreamManager] class.
 
 It is recommended that Appenders don't do any heavy lifting since there can be many instances of the class being used at any given time.
@@ -4329,25 +4329,25 @@ This interface supports "global" filters (i.e. - all events must pass through th
 It is recommended that, where possible, Filter implementations create a generic filtering method that can be called from any of the filter methods.</description>
     </abstractType>
     <abstractType className="org.apache.logging.log4j.core.Layout">
-      <description>Lays out a xref:LogEvent.adoc[] in different formats.
+      <description>Lays out a apiref:LogEvent[] in different formats.
 
 The formats are:
 
 * `byte[]`
-* an implementer of xref:Serializable.adoc[], like `byte[]`
-* xref:String.adoc[]
-* xref:LogEvent.adoc[]
+* an implementer of apiref:Serializable[], like `byte[]`
+* apiref:String[]
+* apiref:LogEvent[]
 
-Since 2.6, Layouts can xref:Encoder.adoc[] a `LogEvent` directly to a xref:ByteBufferDestination.adoc[] without creating temporary intermediary objects.</description>
+Since 2.6, Layouts can apiref:Encoder[] a `LogEvent` directly to a apiref:ByteBufferDestination[] without creating temporary intermediary objects.</description>
     </abstractType>
     <abstractType className="org.apache.logging.log4j.core.LifeCycle">
       <description>All proper Java frameworks implement some sort of object life cycle.
 
 In Log4j, the main interface for handling the life cycle context of an object is this one.
-An object first starts in the xref:State.adoc[] state by default to indicate the class has been loaded.
-From here, calling the xref:.adoc[] method will change this state to xref:State.adoc[]. After successfully being started, this state is changed to xref:State.adoc[]. When the xref:.adoc[] is called, this goes into the xref:State.adoc[] state.
-After successfully being stopped, this goes into the xref:State.adoc[] state.
-In most circumstances, implementation classes should store their xref:State.adoc[] in a `volatile` field or inside an xref:java.util.concurrent.atomic.AtomicReference.adoc[AtomicReference] dependent on synchronization and concurrency requirements.</description>
+An object first starts in the apiref:State[] state by default to indicate the class has been loaded.
+From here, calling the xref:.adoc[] method will change this state to apiref:State[]. After successfully being started, this state is changed to apiref:State[]. When the xref:.adoc[] is called, this goes into the xref:State.adoc[] state.
+After successfully being stopped, this goes into the apiref:State[] state.
+In most circumstances, implementation classes should store their apiref:State[] in a `volatile` field or inside an xref:java.util.concurrent.atomic.AtomicReference.adoc[AtomicReference] dependent on synchronization and concurrency requirements.</description>
     </abstractType>
     <abstractType className="org.apache.logging.log4j.core.LifeCycle2">
       <description>Extends the LifeCycle interface.
@@ -4355,7 +4355,7 @@ In most circumstances, implementation classes should store their xref:State.adoc
 This interface should be merged with the super-interface in 3.0.</description>
     </abstractType>
     <abstractType className="org.apache.logging.log4j.core.StringLayout">
-      <description>Instantiates the xref:Layout.adoc[] type for String-based layouts.</description>
+      <description>Instantiates the apiref:Layout[] type for String-based layouts.</description>
     </abstractType>
     <abstractType className="org.apache.logging.log4j.core.appender.AbstractAppender">
       <description>Abstract base class for Appenders.
@@ -4382,22 +4382,22 @@ All database appenders should inherit from this base appender.</description>
     </abstractType>
     <abstractType className="org.apache.logging.log4j.core.appender.db.jdbc.AbstractConnectionSource"></abstractType>
     <abstractType className="org.apache.logging.log4j.core.appender.db.jdbc.AbstractDriverManagerConnectionSource">
-      <description>A xref:ConnectionSource.adoc[] that uses a JDBC connection string, a user name, and a password to call xref:DriverManager.adoc[].
+      <description>A apiref:ConnectionSource[] that uses a JDBC connection string, a user name, and a password to call apiref:DriverManager[].
 
 This plugin does not provide any connection pooling unless it is available through the connection string and driver itself.
 This handy to get you off the ground without having to deal with JNDI.</description>
     </abstractType>
     <abstractType className="org.apache.logging.log4j.core.appender.db.jdbc.ConnectionSource">
-      <description>Configuration element for xref:JdbcAppender.adoc[].
+      <description>Configuration element for apiref:JdbcAppender[].
 
-If you want to use the xref:JdbcAppender.adoc[] but none of the provided connection sources meet your needs, you can simply create your own connection source.</description>
+If you want to use the apiref:JdbcAppender[] but none of the provided connection sources meet your needs, you can simply create your own connection source.</description>
     </abstractType>
     <abstractType className="org.apache.logging.log4j.core.appender.rewrite.RewritePolicy">
       <description>Interface to be implemented by components that support modifications to the LogEvent.</description>
     </abstractType>
     <abstractType className="org.apache.logging.log4j.core.appender.rolling.AbstractRolloverStrategy"></abstractType>
     <abstractType className="org.apache.logging.log4j.core.appender.rolling.AbstractTriggeringPolicy">
-      <description>Abstract convenience class for triggering policies that extend xref:AbstractLifeCycle.adoc[] and implement xref:TriggeringPolicy.adoc[].</description>
+      <description>Abstract convenience class for triggering policies that extend apiref:AbstractLifeCycle[] and implement apiref:TriggeringPolicy[].</description>
     </abstractType>
     <abstractType className="org.apache.logging.log4j.core.appender.rolling.DirectFileRolloverStrategy">
       <description>Created by rgoers on 1/12/17.</description>
@@ -4429,13 +4429,13 @@ Such conditions include time of day, file size, an external event, the log reque
       <description>Policy for purging routed appenders</description>
     </abstractType>
     <abstractType className="org.apache.logging.log4j.core.async.BlockingQueueFactory">
-      <description>Factory for creating instances of xref:BlockingQueue.adoc[].</description>
+      <description>Factory for creating instances of apiref:BlockingQueue[].</description>
     </abstractType>
     <abstractType className="org.apache.logging.log4j.core.config.ConfigurationAware">
       <description>Indicates that a class requests the current Configuration to be injected.</description>
     </abstractType>
     <abstractType className="org.apache.logging.log4j.core.config.ConfigurationFactory">
-      <description>Factory class for parsed xref:Configuration.adoc[] objects from a configuration file.
+      <description>Factory class for parsed apiref:Configuration[] objects from a configuration file.
 
 ConfigurationFactory allows the configuration implementation to be dynamically chosen in 1 of 3 ways:
 
@@ -4444,7 +4444,7 @@ configurationFactory" can be set with the name of the ConfigurationFactory to be
 . xref:.adoc[] can be called with the instance of the ConfigurationFactory to be used.
 This must be called before any other calls to Log4j.
 . A ConfigurationFactory implementation can be added to the classpath and configured as a plugin in the xref:.adoc[] category.
-The xref:Order.adoc[] annotation should be used to configure the factory to be the first one inspected.
+The apiref:Order[] annotation should be used to configure the factory to be the first one inspected.
 See xref:org.apache.logging.log4j.core.config.xml.XmlConfigurationFactory.adoc[XmlConfigurationFactory] for an example.
 
 If the ConfigurationFactory that was added returns null on a call to getConfiguration then any other ConfigurationFactories found as plugins will be called in their respective order.
@@ -4476,7 +4476,7 @@ Garbage-free note: the methods with unrolled varargs by default delegate to the 
     <abstractType className="org.apache.logging.log4j.core.filter.Filterable">
       <description>Interface implemented by Classes that allow filtering to occur.
 
-Extends xref:LifeCycle.adoc[] since filters have a life cycle.</description>
+Extends apiref:LifeCycle[] since filters have a life cycle.</description>
     </abstractType>
     <abstractType className="org.apache.logging.log4j.core.filter.MapFilter">
       <description>A Filter that operates on a Map.</description>
@@ -4546,7 +4546,7 @@ Adds ANSI color styling to the result of the enclosed pattern.</description>
       <description>Marks classes that implement ANSI escape code conversions.</description>
     </abstractType>
     <abstractType className="org.apache.logging.log4j.core.pattern.ArrayPatternConverter">
-      <description>xref:PatternConverter.adoc[]s implement this interface to accept an array of objects when formatting.</description>
+      <description>apiref:PatternConverter[]s implement this interface to accept an array of objects when formatting.</description>
     </abstractType>
     <abstractType className="org.apache.logging.log4j.core.pattern.EqualsBaseReplacementConverter">
       <description>Equals pattern converter.</description>

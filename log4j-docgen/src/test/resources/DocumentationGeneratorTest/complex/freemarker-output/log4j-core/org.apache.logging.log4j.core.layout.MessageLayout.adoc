@@ -22,7 +22,7 @@ Class:: `org.apache.logging.log4j.core.layout.MessageLayout`
 Provider:: `org.apache.logging.log4j:log4j-core`
 
 
-Formats a xref:LogEvent.adoc[] in its xref:Message.adoc[] form.
+Formats a apiref:LogEvent[] in its apiref:Message[] form.
 
 Useful in combination with a JMS Appender to map a Log4j xref:org.apache.logging.log4j.message.MapMessage.adoc[MapMessage] or xref:org.apache.logging.log4j.message.StringMapMessage.adoc[StringMapMessage] to a JMS xref:javax.jms.MapMessage.adoc[MapMessage].
 

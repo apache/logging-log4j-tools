@@ -24,7 +24,7 @@ Provider:: `org.apache.logging.log4j:log4j-core`
 
 Looks up keys from the context.
 
-By default this is the xref:ThreadContext.adoc[], but users may xref:ContextDataInjectorFactory.adoc[] a custom xref:ContextDataInjector.adoc[] which obtains context data from some other source.
+By default this is the apiref:ThreadContext[], but users may apiref:ContextDataInjectorFactory[] a custom xref:ContextDataInjector.adoc[] which obtains context data from some other source.
 
 [#org_apache_logging_log4j_core_lookup_ContextMapLookup-XML-snippet]
 == XML snippet

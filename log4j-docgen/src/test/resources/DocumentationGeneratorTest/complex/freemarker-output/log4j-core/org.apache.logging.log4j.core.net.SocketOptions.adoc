@@ -22,7 +22,7 @@ Class:: `org.apache.logging.log4j.core.net.SocketOptions`
 Provider:: `org.apache.logging.log4j:log4j-core`
 
 
-Holds all socket options settable via xref:Socket.adoc[] methods.
+Holds all socket options settable via apiref:Socket[] methods.
 
 [#org_apache_logging_log4j_core_net_SocketOptions-XML-snippet]
 == XML snippet
@@ -54,72 +54,72 @@ Optional attributes are denoted by `?`-suffixed types.
 |keepAlive
 |Boolean?
 |
-a|See xref:Socket.adoc[].
+a|See apiref:Socket[].
 
-See xref:Socket.adoc[].
+See apiref:Socket[].
 
 |oobInline
 |Boolean?
 |
-a|See xref:Socket.adoc[].
+a|See apiref:Socket[].
 
-See xref:Socket.adoc[].
+See apiref:Socket[].
 
 |receiveBufferSize
 |Integer?
 |
-a|See xref:Socket.adoc[].
+a|See apiref:Socket[].
 
-See xref:Socket.adoc[].
+See apiref:Socket[].
 
 |reuseAddress
 |Boolean?
 |
-a|See xref:Socket.adoc[].
+a|See apiref:Socket[].
 
-See xref:Socket.adoc[].
+See apiref:Socket[].
 
 |rfc1349TrafficClass
 |xref:../log4j-core/org.apache.logging.log4j.core.net.Rfc1349TrafficClass.adoc[Rfc1349TrafficClass]?
 |
-a|See xref:Socket.adoc[].
+a|See apiref:Socket[].
 
-See xref:Socket.adoc[].
+See apiref:Socket[].
 
 |sendBufferSize
 |Integer?
 |
-a|See xref:Socket.adoc[].
+a|See apiref:Socket[].
 
-See xref:Socket.adoc[].
+See apiref:Socket[].
 
 |soLinger
 |Integer?
 |
-a|See xref:Socket.adoc[].
+a|See apiref:Socket[].
 
-See xref:Socket.adoc[].
+See apiref:Socket[].
 
 |soTimeout
 |Integer?
 |
-a|See xref:Socket.adoc[].
+a|See apiref:Socket[].
 
-See xref:Socket.adoc[].
+See apiref:Socket[].
 
 |tcpNoDelay
 |Boolean?
 |
-a|See xref:Socket.adoc[].
+a|See apiref:Socket[].
 
-See xref:Socket.adoc[].
+See apiref:Socket[].
 
 |trafficClass
 |Integer?
 |
-a|See xref:Socket.adoc[].
+a|See apiref:Socket[].
 
-See xref:Socket.adoc[].
+See apiref:Socket[].
 
 |===
 
@@ -134,8 +134,8 @@ Optional components are denoted by `?`-suffixed types.
 
 |SocketPerformancePreferences
 |xref:../log4j-core/org.apache.logging.log4j.core.net.SocketPerformancePreferences.adoc[SocketPerformancePreferences]?
-a|See xref:Socket.adoc[].
+a|See apiref:Socket[].
 
-See xref:Socket.adoc[].
+See apiref:Socket[].
 
 |===

@@ -22,7 +22,7 @@ Class:: `org.apache.logging.log4j.core.config.plugins.convert.TypeConverters.Lev
 Provider:: `org.apache.logging.log4j:log4j-core`
 
 
-Converts a xref:String.adoc[] into a Log4j xref:Level.adoc[].
+Converts a apiref:String[] into a Log4j apiref:Level[].
 
 Returns `null` for invalid level names.
 

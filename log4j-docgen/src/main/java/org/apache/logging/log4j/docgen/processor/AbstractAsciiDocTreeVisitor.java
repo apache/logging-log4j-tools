@@ -17,7 +17,6 @@
 package org.apache.logging.log4j.docgen.processor;
 
 import static org.apache.commons.lang3.StringUtils.isEmpty;
-import static org.apache.commons.lang3.StringUtils.substringBefore;
 
 import com.sun.source.doctree.DocTree;
 import com.sun.source.doctree.EndElementTree;
@@ -29,6 +28,7 @@ import com.sun.source.doctree.TextTree;
 import com.sun.source.util.SimpleDocTreeVisitor;
 import java.util.ArrayList;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.docgen.processor.internal.BlockImpl;
 import org.apache.logging.log4j.docgen.processor.internal.CellImpl;
@@ -225,14 +225,33 @@ abstract class AbstractAsciiDocTreeVisitor extends SimpleDocTreeVisitor<Void, As
 
     @Override
     public Void visitLink(final LinkTree node, final AsciiDocData data) {
-        final String className = substringBefore(node.getReference().getSignature(), '#');
-        final String simpleName = StringUtils.substringAfterLast(className, '.');
-        data.appendAdjustingSpace(" xref:")
-                .append(className)
-                .append(".adoc[")
-                .append(simpleName)
+        final String referenceSignature = node.getReference().getSignature();
+        final String referenceLabel = linkLabelToAsciiDoc(node);
+        data.appendAdjustingSpace(" apiref:")
+                .append(referenceSignature)
+                .append("[")
+                .append(referenceLabel)
                 .append("]");
         return super.visitLink(node, data);
+    }
+
+    private static String linkLabelToAsciiDoc(final LinkTree node) {
+        int[] labelTokenIndex = {0};
+        return node.getLabel().stream()
+                .map(labelToken -> {
+                    if (!(labelToken instanceof TextTree)) {
+                        final String message = String.format(
+                                "Non-text labels in links are not allowed! "
+                                        + "That is, `{@link foo.bar.Baz awesome thing}` is allowed, whereas {@link foo.bar.Baz {@code doh}}` is not. "
+                                        + "While visiting link `%s`, label token at index %d found to be of unexpected type: `%s`",
+                                node, labelTokenIndex[0], labelToken.getClass().getCanonicalName());
+                        throw new IllegalArgumentException(message);
+                    }
+                    labelTokenIndex[0]++;
+                    final TextTree textLabel = (TextTree) labelToken;
+                    return textLabel.getBody();
+                })
+                .collect(Collectors.joining(" "));
     }
 
     @Override

@@ -22,12 +22,12 @@ Class:: `org.apache.logging.log4j.core.Appender`
 Provider:: `org.apache.logging.log4j:log4j-core`
 
 
-Appends xref:LogEvent.adoc[]s.
+Appends apiref:LogEvent[]s.
 
-An Appender can contain a xref:Layout.adoc[] if applicable as well as an xref:ErrorHandler.adoc[]. Typical Appender implementations coordinate with an implementation of xref:org.apache.logging.log4j.core.appender.AbstractManager.adoc[AbstractManager] to handle external resources such as streams, connections, and other shared state.
+An Appender can contain a apiref:Layout[] if applicable as well as an apiref:ErrorHandler[]. Typical Appender implementations coordinate with an implementation of xref:org.apache.logging.log4j.core.appender.AbstractManager.adoc[AbstractManager] to handle external resources such as streams, connections, and other shared state.
 As Appenders are plugins, concrete implementations need to be annotated with xref:org.apache.logging.log4j.core.config.plugins.Plugin.adoc[Plugin] and need to provide a static factory method annotated with xref:org.apache.logging.log4j.core.config.plugins.PluginFactory.adoc[PluginFactory].
 
-Most core plugins are written using a related Manager class that handle the actual task of serializing a xref:LogEvent.adoc[] to some output location.
+Most core plugins are written using a related Manager class that handle the actual task of serializing a apiref:LogEvent[] to some output location.
 For instance, many Appenders can take advantage of the xref:org.apache.logging.log4j.core.appender.OutputStreamManager.adoc[OutputStreamManager] class.
 
 It is recommended that Appenders don't do any heavy lifting since there can be many instances of the class being used at any given time.

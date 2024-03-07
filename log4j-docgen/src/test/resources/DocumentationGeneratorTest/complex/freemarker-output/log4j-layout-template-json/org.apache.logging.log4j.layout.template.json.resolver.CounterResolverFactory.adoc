@@ -22,7 +22,7 @@ Class:: `org.apache.logging.log4j.layout.template.json.resolver.CounterResolverF
 Provider:: `org.apache.logging.log4j:log4j-layout-template-json`
 
 
-xref:CounterResolver.adoc[] factory.
+apiref:CounterResolver[] factory.
 
 [#org_apache_logging_log4j_layout_template_json_resolver_CounterResolverFactory-XML-snippet]
 == XML snippet

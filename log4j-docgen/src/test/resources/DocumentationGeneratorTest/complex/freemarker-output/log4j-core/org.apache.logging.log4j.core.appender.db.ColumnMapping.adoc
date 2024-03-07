@@ -53,9 +53,9 @@ Optional attributes are denoted by `?`-suffixed types.
 |
 a|Class to convert value to before storing in database.
 
-If the type is compatible with xref:ThreadContextMap.adoc[] or xref:ReadOnlyStringMap.adoc[], then the MDC will be used.
-If the type is compatible with xref:ThreadContextStack.adoc[], then the NDC will be used.
-If the type is compatible with xref:Date.adoc[], then the event timestamp will be used.
+If the type is compatible with apiref:ThreadContextMap[] or apiref:ReadOnlyStringMap[], then the MDC will be used.
+If the type is compatible with apiref:ThreadContextStack[], then the NDC will be used.
+If the type is compatible with apiref:Date[], then the event timestamp will be used.
 
 |literal
 |String?
@@ -81,7 +81,7 @@ No escaping will be done on this value.
 |pattern
 |String?
 |
-a|Pattern to use as a xref:PatternLayout.adoc[].
+a|Pattern to use as a apiref:PatternLayout[].
 
 Convenient shorthand for xref:.adoc[] with a PatternLayout.
 
@@ -112,6 +112,6 @@ Optional components are denoted by `?`-suffixed types.
 |xref:../log4j-core/org.apache.logging.log4j.core.StringLayout.adoc[StringLayout]?
 a|Layout of value to write to database (before type conversion).
 
-Not applicable if xref:.adoc[] is a xref:ReadOnlyStringMap.adoc[], xref:ThreadContextMap.adoc[], or xref:ThreadContextStack.adoc[].
+Not applicable if xref:.adoc[] is a apiref:ReadOnlyStringMap[], apiref:ThreadContextMap[], or xref:ThreadContextStack.adoc[].
 
 |===

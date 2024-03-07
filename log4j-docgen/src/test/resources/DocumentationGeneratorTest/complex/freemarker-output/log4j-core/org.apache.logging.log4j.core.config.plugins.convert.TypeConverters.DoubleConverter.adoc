@@ -22,7 +22,7 @@ Class:: `org.apache.logging.log4j.core.config.plugins.convert.TypeConverters.Dou
 Provider:: `org.apache.logging.log4j:log4j-core`
 
 
-Converts a xref:String.adoc[] into a xref:Double.adoc[].
+Converts a apiref:String[] into a apiref:Double[].
 
 [#org_apache_logging_log4j_core_config_plugins_convert_TypeConverters_DoubleConverter-XML-snippet]
 == XML snippet

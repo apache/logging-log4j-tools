@@ -22,13 +22,13 @@ Class:: `org.apache.logging.log4j.core.filter.LevelRangeFilter`
 Provider:: `org.apache.logging.log4j:log4j-core`
 
 
-This filter returns the xref:.adoc[] result if the level of the xref:LogEvent.adoc[] is in the range of the configured xref:.adoc[] and xref:.adoc[] values, otherwise it returns the xref:.adoc[] result.
+This filter returns the xref:.adoc[] result if the level of the apiref:LogEvent[] is in the range of the configured xref:.adoc[] and xref:.adoc[] values, otherwise it returns the xref:.adoc[] result.
 
-The default values for xref:.adoc[] and xref:.adoc[] are set to xref:Level.adoc[] and xref:Level.adoc[], respectively.
-The default values for xref:.adoc[] and xref:.adoc[] are set to xref:Result.adoc[] and xref:Result.adoc[], respectively.
+The default values for xref:.adoc[] and xref:.adoc[] are set to apiref:Level[] and apiref:Level[], respectively.
+The default values for xref:.adoc[] and xref:.adoc[] are set to apiref:Result[] and apiref:Result[], respectively.
 
-The levels get compared by their associated integral values; xref:Level.adoc[] has an integral value of 0, xref:Level.adoc[] 100, xref:Level.adoc[] 200, and so on.
-For example, if the filter is configured with xref:.adoc[] set to xref:Level.adoc[], the filter will return xref:.adoc[] result for xref:LogEvent.adoc[]s of level with higher integral values; xref:Level.adoc[], xref:Level.adoc[], etc.
+The levels get compared by their associated integral values; apiref:Level[] has an integral value of 0, apiref:Level[] 100, xref:Level.adoc[] 200, and so on.
+For example, if the filter is configured with xref:.adoc[] set to apiref:Level[], the filter will return xref:.adoc[] result for apiref:LogEvent[]s of level with higher integral values; xref:Level.adoc[], xref:Level.adoc[], etc.
 
 [#org_apache_logging_log4j_core_filter_LevelRangeFilter-XML-snippet]
 == XML snippet
