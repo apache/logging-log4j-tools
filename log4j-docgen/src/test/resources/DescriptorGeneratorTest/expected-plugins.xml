@@ -27,7 +27,7 @@
         <scalar className="example.MyEnum">
             <values>
                 <value name="A">
-                    <description>Makes things go boom!</description>
+                    <description>Makes things go boom using apiref:javax.lang.model.type.NoType[an imported type]!</description>
                 </value>
                 <value name="B">
                     <description>A second choice.</description>

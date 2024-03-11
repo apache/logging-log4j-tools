@@ -16,10 +16,13 @@
  */
 package example;
 
+import javax.tools.Diagnostic;
+
 /**
  * Example of JavaDoc to AsciiDoc conversion
  * <p>
- *     Link test: {@link String#value() isn't this awesome}?
+ *     Link test: {@link String#value() value method}.
+ *     Imported link test: {@link Diagnostic}
  * </p>
  * <p>
  *     We run the {@code javadoc} tool on this class to test conversion of JavaDoc comments to AsciiDoc. This

@@ -15,13 +15,14 @@
  * limitations under the License.
  */
 package example;
+import javax.lang.model.type.NoType;
 
 /**
  * A very important enum.
  */
 public enum MyEnum {
     /**
-     * Makes things go boom!
+     * Makes things go boom using {@link NoType an imported type}!
      */
     A,
     /**

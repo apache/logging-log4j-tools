@@ -22,6 +22,7 @@ import com.sun.source.doctree.DocTreeVisitor;
 import com.sun.source.doctree.ParamTree;
 import com.sun.source.util.DocTrees;
 import javax.lang.model.element.Element;
+import org.jspecify.annotations.Nullable;
 
 /**
  * Converts a {@link DocCommentTree} into AsciiDoc text.
@@ -38,19 +39,19 @@ final class AsciiDocConverter {
         this.paramTreeVisitor = new ParamTreeVisitor();
     }
 
-    public String toAsciiDoc(final Element element) {
+    @Nullable
+    public String toAsciiDoc(final Element element, final ElementImports imports) {
         final DocCommentTree tree = docTrees.getDocCommentTree(element);
-        return tree != null ? toAsciiDoc(tree) : null;
-    }
-
-    public String toAsciiDoc(final DocCommentTree tree) {
-        final AsciiDocData data = new AsciiDocData();
+        if (tree == null) {
+            return null;
+        }
+        final AsciiDocData data = new AsciiDocData(imports);
         tree.accept(docCommentTreeVisitor, data);
         return data.getDocument().convert();
     }
 
-    public String toAsciiDoc(final ParamTree tree) {
-        final AsciiDocData data = new AsciiDocData();
+    public String toAsciiDoc(final ParamTree tree, final ElementImports imports) {
+        final AsciiDocData data = new AsciiDocData(imports);
         tree.accept(paramTreeVisitor, data);
         return data.getDocument().convert();
     }

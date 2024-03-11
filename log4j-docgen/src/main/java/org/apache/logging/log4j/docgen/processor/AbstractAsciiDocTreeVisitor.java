@@ -23,6 +23,7 @@ import com.sun.source.doctree.EndElementTree;
 import com.sun.source.doctree.EntityTree;
 import com.sun.source.doctree.LinkTree;
 import com.sun.source.doctree.LiteralTree;
+import com.sun.source.doctree.ReferenceTree;
 import com.sun.source.doctree.StartElementTree;
 import com.sun.source.doctree.TextTree;
 import com.sun.source.util.SimpleDocTreeVisitor;
@@ -45,6 +46,7 @@ import org.asciidoctor.ast.Row;
 import org.asciidoctor.ast.Section;
 import org.asciidoctor.ast.StructuralNode;
 import org.asciidoctor.ast.Table;
+import org.jspecify.annotations.Nullable;
 
 abstract class AbstractAsciiDocTreeVisitor extends SimpleDocTreeVisitor<Void, AsciiDocData> {
 
@@ -117,12 +119,8 @@ abstract class AbstractAsciiDocTreeVisitor extends SimpleDocTreeVisitor<Void, As
                 data.getCurrentParagraph().setContext(BlockImpl.LISTING_CONTEXT);
                 break;
             case "code":
-                data.newTextSpan();
-                break;
             case "em":
             case "i":
-                data.newTextSpan();
-                break;
             case "strong":
             case "b":
                 data.newTextSpan();
@@ -225,7 +223,7 @@ abstract class AbstractAsciiDocTreeVisitor extends SimpleDocTreeVisitor<Void, As
 
     @Override
     public Void visitLink(final LinkTree node, final AsciiDocData data) {
-        final String referenceSignature = node.getReference().getSignature();
+        final String referenceSignature = getReferenceSignature(node.getReference(), data);
         final String referenceLabel = linkLabelToAsciiDoc(node);
         data.appendAdjustingSpace(" apiref:")
                 .append(referenceSignature)
@@ -233,6 +231,12 @@ abstract class AbstractAsciiDocTreeVisitor extends SimpleDocTreeVisitor<Void, As
                 .append(referenceLabel)
                 .append("]");
         return super.visitLink(node, data);
+    }
+
+    private static String getReferenceSignature(final ReferenceTree referenceTree, final AsciiDocData data) {
+        final String referenceSignature = referenceTree.getSignature();
+        @Nullable final String qualifiedClassName = data.imports.get(referenceSignature);
+        return qualifiedClassName != null ? qualifiedClassName : referenceSignature;
     }
 
     private static String linkLabelToAsciiDoc(final LinkTree node) {

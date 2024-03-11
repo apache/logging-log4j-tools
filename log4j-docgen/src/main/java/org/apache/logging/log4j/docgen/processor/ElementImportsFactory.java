@@ -14,28 +14,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package example;
-import javax.lang.model.type.NoType;
+package org.apache.logging.log4j.docgen.processor;
 
-/**
- * A very important enum.
- */
-public enum MyEnum {
-    /**
-     * Makes things go boom using {@link NoType an imported type}!
-     */
-    A,
-    /**
-     * A second choice.
-     */
-    B,
-    /**
-     * Value C.
-     */
-    C,
-    /**
-     * Value D.
-     */
-    D,
-    WITHOUT_DESCRIPTION;
+import javax.lang.model.element.Element;
+
+@FunctionalInterface
+interface ElementImportsFactory {
+
+    ElementImports ofElement(Element element);
 }

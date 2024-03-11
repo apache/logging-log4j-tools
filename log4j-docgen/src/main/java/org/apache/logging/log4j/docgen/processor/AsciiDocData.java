@@ -37,6 +37,7 @@ final class AsciiDocData {
     private static final char SPACE_CHAR = ' ';
     private static final char CODE_CHAR = '`';
 
+    final ElementImports imports;
     private final Document document;
     private int currentSectionLevel;
     private StructuralNode currentNode;
@@ -44,12 +45,13 @@ final class AsciiDocData {
     private final Deque<Block> paragraphs = new ArrayDeque<>();
     private final Deque<StringBuilder> lines = new ArrayDeque<>();
 
-    public AsciiDocData() {
-        document = new DocumentImpl();
-        currentSectionLevel = 1;
-        currentNode = document;
-        paragraphs.push(new BlockImpl(currentNode));
-        lines.push(new StringBuilder());
+    public AsciiDocData(final ElementImports imports) {
+        this.imports = imports;
+        this.document = new DocumentImpl();
+        this.currentSectionLevel = 1;
+        this.currentNode = document;
+        this.paragraphs.push(new BlockImpl(currentNode));
+        this.lines.push(new StringBuilder());
     }
 
     public void newLine() {
