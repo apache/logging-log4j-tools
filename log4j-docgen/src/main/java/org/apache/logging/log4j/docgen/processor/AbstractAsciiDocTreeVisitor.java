@@ -234,9 +234,30 @@ abstract class AbstractAsciiDocTreeVisitor extends SimpleDocTreeVisitor<Void, As
     }
 
     private static String getReferenceSignature(final ReferenceTree referenceTree, final AsciiDocData data) {
+
+        // If it is of type `{@link #foo}`
         final String referenceSignature = referenceTree.getSignature();
-        @Nullable final String qualifiedClassName = data.imports.get(referenceSignature);
-        return qualifiedClassName != null ? qualifiedClassName : referenceSignature;
+        if (referenceSignature.startsWith("#")) {
+            return data.qualifiedClassName + referenceSignature;
+        }
+
+        // If it is of type {@link Foo#bar}`
+        final int methodSplitterIndex = referenceSignature.indexOf('#');
+        if (methodSplitterIndex > 0) {
+            final String classNamePart = referenceSignature.substring(0, methodSplitterIndex);
+            @Nullable final String qualifiedClassName = data.imports.get(classNamePart);
+            if (qualifiedClassName == null) {
+                return referenceSignature;
+            }
+            final String methodPart = referenceSignature.substring(methodSplitterIndex);
+            return qualifiedClassName + methodPart;
+        }
+
+        // Otherwise
+        else {
+            @Nullable final String qualifiedClassName = data.imports.get(referenceSignature);
+            return qualifiedClassName != null ? qualifiedClassName : referenceSignature;
+        }
     }
 
     private static String linkLabelToAsciiDoc(final LinkTree node) {

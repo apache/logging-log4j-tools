@@ -16,7 +16,11 @@ limitations under the License.
 ////
 Example of JavaDoc to AsciiDoc conversion
 
-Link test: apiref:String#value()[value method]. Imported link test: apiref:javax.tools.Diagnostic[]
+Reference to method in the default namespace: apiref:String#value()[value method]
+
+Reference to imported class: apiref:javax.tools.Diagnostic[]
+
+Reference to method without providing a class: apiref:example.JavadocExample#equals(Object)[]
 
 We run the `javadoc` tool on this class to test conversion of JavaDoc comments to AsciiDoc.
 This paragraph has two sentences.

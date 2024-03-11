@@ -125,7 +125,7 @@ class AsciiDocConverterTest {
                                 StandardLocation.CLASS_OUTPUT, "", TEST_CLASS_NAME + ".adoc", null);
                         final ElementImports imports = ElementImports.factory(environment.getDocTrees())
                                 .ofElement(element);
-                        final String asciiDoc = converter.toAsciiDoc(element, imports);
+                        final String asciiDoc = converter.toAsciiDoc(element, imports, "example." + TEST_CLASS_NAME);
                         assertThat(asciiDoc).isNotNull();
                         try (final OutputStream os = output.openOutputStream()) {
                             Files.copy(LICENSE_PATH, os);

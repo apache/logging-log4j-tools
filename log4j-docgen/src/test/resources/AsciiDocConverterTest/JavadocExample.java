@@ -20,10 +20,9 @@ import javax.tools.Diagnostic;
 
 /**
  * Example of JavaDoc to AsciiDoc conversion
- * <p>
- *     Link test: {@link String#value() value method}.
- *     Imported link test: {@link Diagnostic}
- * </p>
+ * <p>Reference to method in the default namespace: {@link String#value() value method}</p>
+ * <p>Reference to imported class: {@link Diagnostic}</p>
+ * <p>Reference to method without providing a class: {@link #equals(Object)}</p>
  * <p>
  *     We run the {@code javadoc} tool on this class to test conversion of JavaDoc comments to AsciiDoc. This
  *     paragraph has two sentences.

@@ -40,18 +40,18 @@ final class AsciiDocConverter {
     }
 
     @Nullable
-    public String toAsciiDoc(final Element element, final ElementImports imports) {
+    public String toAsciiDoc(final Element element, final ElementImports imports, final String qualifiedClassName) {
         final DocCommentTree tree = docTrees.getDocCommentTree(element);
         if (tree == null) {
             return null;
         }
-        final AsciiDocData data = new AsciiDocData(imports);
+        final AsciiDocData data = new AsciiDocData(imports, qualifiedClassName);
         tree.accept(docCommentTreeVisitor, data);
         return data.getDocument().convert();
     }
 
-    public String toAsciiDoc(final ParamTree tree, final ElementImports imports) {
-        final AsciiDocData data = new AsciiDocData(imports);
+    public String toAsciiDoc(final ParamTree tree, final ElementImports imports, final String qualifiedClassName) {
+        final AsciiDocData data = new AsciiDocData(imports, qualifiedClassName);
         tree.accept(paramTreeVisitor, data);
         return data.getDocument().convert();
     }

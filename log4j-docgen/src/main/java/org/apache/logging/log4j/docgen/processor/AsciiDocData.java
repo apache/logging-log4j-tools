@@ -38,6 +38,7 @@ final class AsciiDocData {
     private static final char CODE_CHAR = '`';
 
     final ElementImports imports;
+    final String qualifiedClassName;
     private final Document document;
     private int currentSectionLevel;
     private StructuralNode currentNode;
@@ -45,8 +46,9 @@ final class AsciiDocData {
     private final Deque<Block> paragraphs = new ArrayDeque<>();
     private final Deque<StringBuilder> lines = new ArrayDeque<>();
 
-    public AsciiDocData(final ElementImports imports) {
+    public AsciiDocData(final ElementImports imports, final String qualifiedClassName) {
         this.imports = imports;
+        this.qualifiedClassName = qualifiedClassName;
         this.document = new DocumentImpl();
         this.currentSectionLevel = 1;
         this.currentNode = document;
