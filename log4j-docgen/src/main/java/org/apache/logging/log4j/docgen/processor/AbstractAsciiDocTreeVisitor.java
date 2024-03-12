@@ -241,23 +241,36 @@ abstract class AbstractAsciiDocTreeVisitor extends SimpleDocTreeVisitor<Void, As
             return data.qualifiedClassName + referenceSignature;
         }
 
-        // If it is of type {@link Foo#bar}`
+        // Determine class and method parts of the reference signature
         final int methodSplitterIndex = referenceSignature.indexOf('#');
+        final String classSignature;
+        final String methodSignature;
         if (methodSplitterIndex > 0) {
-            final String classNamePart = referenceSignature.substring(0, methodSplitterIndex);
-            @Nullable final String qualifiedClassName = data.imports.get(classNamePart);
-            if (qualifiedClassName == null) {
-                return referenceSignature;
-            }
-            final String methodPart = referenceSignature.substring(methodSplitterIndex);
-            return qualifiedClassName + methodPart;
+            classSignature = referenceSignature.substring(0, methodSplitterIndex);
+            methodSignature = referenceSignature.substring(methodSplitterIndex);
+        } else {
+            classSignature = referenceSignature;
+            methodSignature = "";
         }
 
-        // Otherwise
-        else {
-            @Nullable final String qualifiedClassName = data.imports.get(referenceSignature);
-            return qualifiedClassName != null ? qualifiedClassName : referenceSignature;
+        // If it is an imported class
+        @Nullable final String importedClassFqcn = data.imports.get(classSignature);
+        if (importedClassFqcn != null) {
+            return importedClassFqcn + methodSignature;
         }
+
+        // If it is a `java.lang` class
+        try {
+            final String qualifiedClassName = "java.lang." + classSignature;
+            Class.forName(qualifiedClassName);
+            return qualifiedClassName + methodSignature;
+        } catch (final ClassNotFoundException ignored) {
+            // Do nothing
+        }
+
+        // Otherwise it is a package-local class
+        final String packageName = data.qualifiedClassName.substring(0, data.qualifiedClassName.lastIndexOf('.'));
+        return packageName + '.' + classSignature + methodSignature;
     }
 
     private static String linkLabelToAsciiDoc(final LinkTree node) {

@@ -289,7 +289,11 @@ public class DescriptorGenerator extends AbstractProcessor {
         }
     }
 
-    private void populateType(final QualifiedNameable element, final ElementImports imports, final String qualifiedClassName, final Type docgenType) {
+    private void populateType(
+            final QualifiedNameable element,
+            final ElementImports imports,
+            final String qualifiedClassName,
+            final Type docgenType) {
         // Class name
         docgenType.setClassName(element.getQualifiedName().toString());
         // Description
@@ -315,7 +319,8 @@ public class DescriptorGenerator extends AbstractProcessor {
         }
     }
 
-    private Map<String, String> getParameterDescriptions(final Element element, final ElementImports imports, final String qualifiedClassName) {
+    private Map<String, String> getParameterDescriptions(
+            final Element element, final ElementImports imports, final String qualifiedClassName) {
         final Map<String, String> descriptions = new HashMap<>();
         final DocCommentTree docCommentTree = docTrees.getDocCommentTree(element);
         if (docCommentTree != null) {
@@ -332,7 +337,8 @@ public class DescriptorGenerator extends AbstractProcessor {
                         @Override
                         public Void visitParam(final ParamTree paramTree, final Map<String, String> descriptions) {
                             final String name = paramTree.getName().getName().toString();
-                            descriptions.put(name, defaultString(converter.toAsciiDoc(paramTree, imports, qualifiedClassName)));
+                            descriptions.put(
+                                    name, defaultString(converter.toAsciiDoc(paramTree, imports, qualifiedClassName)));
                             return null;
                         }
                     },
@@ -351,13 +357,15 @@ public class DescriptorGenerator extends AbstractProcessor {
         for (final Element member : element.getEnclosedElements()) {
             if (annotations.hasFactoryAnnotation(member) && member instanceof ExecutableElement) {
                 final ExecutableElement executable = (ExecutableElement) member;
-                final Map<String, String> descriptions = getParameterDescriptions(executable, imports, qualifiedClassName);
+                final Map<String, String> descriptions =
+                        getParameterDescriptions(executable, imports, qualifiedClassName);
                 final List<? extends VariableElement> parameters = executable.getParameters();
                 if (parameters.isEmpty()) {
                     // We have a builder
                     final TypeElement returnType = getReturnType(executable);
                     if (returnType != null) {
-                        populateConfigurationProperties(imports, qualifiedClassName, getAllMembers(returnType), descriptions, pluginType);
+                        populateConfigurationProperties(
+                                imports, qualifiedClassName, getAllMembers(returnType), descriptions, pluginType);
                     } else {
                         messager.printMessage(
                                 Diagnostic.Kind.WARNING,
@@ -414,7 +422,10 @@ public class DescriptorGenerator extends AbstractProcessor {
 
     @Nullable
     private Description createDescription(
-            final Element element, ElementImports imports, final String qualifiedClassName, final @Nullable String fallbackDescriptionText) {
+            final Element element,
+            ElementImports imports,
+            final String qualifiedClassName,
+            final @Nullable String fallbackDescriptionText) {
         @Nullable String descriptionText = converter.toAsciiDoc(element, imports, qualifiedClassName);
         if (StringUtils.isBlank(descriptionText)) {
             if (StringUtils.isBlank(fallbackDescriptionText)) {
@@ -430,7 +441,11 @@ public class DescriptorGenerator extends AbstractProcessor {
     }
 
     private PluginAttribute createPluginAttribute(
-            final Element element, final ElementImports imports, final String qualifiedClassName, final String description, final String specifiedName) {
+            final Element element,
+            final ElementImports imports,
+            final String qualifiedClassName,
+            final String description,
+            final String specifiedName) {
         final PluginAttribute attribute = new PluginAttribute();
         // Name
         attribute.setName(specifiedName.isEmpty() ? getAttributeOrPropertyName(element) : specifiedName);
@@ -457,7 +472,10 @@ public class DescriptorGenerator extends AbstractProcessor {
     }
 
     private PluginElement createPluginElement(
-            final Element element, final ElementImports imports, final String qualifiedClassName, final String description) {
+            final Element element,
+            final ElementImports imports,
+            final String qualifiedClassName,
+            final String description) {
         final PluginElement pluginElement = new PluginElement();
         // Type and multiplicity
         final TypeMirror elementType = getMemberType(element);

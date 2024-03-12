@@ -16,7 +16,7 @@ limitations under the License.
 ////
 Example of JavaDoc to AsciiDoc conversion
 
-Reference to method in the default namespace: apiref:String#value()[value method]
+Reference to method in the default namespace: apiref:java.lang.String#value()[value method]
 
 Reference to imported class: apiref:javax.tools.Diagnostic[]
 
