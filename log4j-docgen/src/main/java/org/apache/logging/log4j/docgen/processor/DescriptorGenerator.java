@@ -355,7 +355,9 @@ public class DescriptorGenerator extends AbstractProcessor {
         registerSupertypes(element).forEach(pluginType::addSupertype);
         // Plugin factory
         for (final Element member : element.getEnclosedElements()) {
-            if (annotations.hasFactoryAnnotation(member) && member instanceof ExecutableElement) {
+            if (member instanceof ExecutableElement
+                    && !annotations.hasDeprecatedAnnotation(member)
+                    && annotations.hasFactoryAnnotation(member)) {
                 final ExecutableElement executable = (ExecutableElement) member;
                 final Map<String, String> descriptions =
                         getParameterDescriptions(executable, imports, qualifiedClassName);

@@ -69,6 +69,8 @@ final class Annotations {
     private final Name name;
     private final Name value;
 
+    private final DeclaredType deprecatedAnnotation;
+
     private final TypeElement[] pluginAnnotationElements;
     // Contain the namespace of the plugin
     private final DeclaredType namespaceAnnotation;
@@ -88,6 +90,9 @@ final class Annotations {
         this.category = elements.getName("category");
         this.name = elements.getName("name");
         this.value = elements.getName("value");
+
+        this.deprecatedAnnotation =
+                (DeclaredType) elements.getTypeElement("java.lang.Deprecated").asType();
 
         final Collection<TypeElement> pluginAnnotations = new ArrayList<>();
         final TypeElement pluginV2Annotation = elements.getTypeElement(PLUGIN_V2_ANNOTATION_NAME);
@@ -128,6 +133,13 @@ final class Annotations {
 
     public Optional<String> getPluginSpecifiedNamespace(final AnnotatedConstruct element) {
         return getAnnotationValue(element, pluginV2Annotation, category, namespaceAnnotation, value);
+    }
+
+    public boolean hasDeprecatedAnnotation(final Element element) {
+        return elements.getAllAnnotationMirrors(element).stream().anyMatch(annotationMirror -> {
+            final DeclaredType annotationType = annotationMirror.getAnnotationType();
+            return types.isSameType(annotationType, deprecatedAnnotation);
+        });
     }
 
     public boolean hasFactoryAnnotation(final Element element) {

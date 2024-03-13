@@ -20,9 +20,11 @@ import java.util.List;
 import java.util.Set;
 import javax.lang.model.element.TypeElement;
 import org.apache.logging.log4j.core.config.plugins.Plugin;
+import org.apache.logging.log4j.core.config.plugins.PluginAttribute;
 import org.apache.logging.log4j.core.config.plugins.PluginBuilderAttribute;
 import org.apache.logging.log4j.core.config.plugins.PluginBuilderFactory;
 import org.apache.logging.log4j.core.config.plugins.PluginElement;
+import org.apache.logging.log4j.core.config.plugins.PluginFactory;
 import org.apache.logging.log4j.core.config.plugins.validation.constraints.Required;
 
 /**
@@ -178,6 +180,22 @@ public final class MyAppender extends AbstractAppender implements Appender {
     @PluginBuilderFactory
     public static Builder newBuilder() {
         return new Builder();
+    }
+
+    /**
+     * This method is only here to test that this <em>deprecated</em> factory will be ignored.
+     *
+     * @param boolAttr A {@code boolean} attribute.
+     * @param byteAttr A {@code byte} attribute.
+     * @param charAttr A {@code char} attribute.
+     */
+    @Deprecated
+    @PluginFactory
+    public static MyOldLayout newLayout(
+            final @PluginAttribute(value = "boolAttr", defaultBoolean = false) boolean boolAttr,
+            final @PluginAttribute(value = "byteAttr", defaultByte = 'L') byte byteAttr,
+            final @PluginAttribute(value = "charAttr", defaultChar = 'L') char charAttr) {
+        return null;
     }
 
     public static interface Appender2 {}
