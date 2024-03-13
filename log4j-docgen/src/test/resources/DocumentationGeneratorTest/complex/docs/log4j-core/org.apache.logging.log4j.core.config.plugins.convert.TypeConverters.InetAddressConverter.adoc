@@ -22,7 +22,7 @@ Class:: `org.apache.logging.log4j.core.config.plugins.convert.TypeConverters.Ine
 Provider:: `org.apache.logging.log4j:log4j-core`
 
 
-Converts a apiref:String[] into an apiref:InetAddress[].
+Converts a apiref:java.lang.String[] into an apiref:java.net.InetAddress[].
 
 [#org_apache_logging_log4j_core_config_plugins_convert_TypeConverters_InetAddressConverter-XML-snippet]
 == XML snippet

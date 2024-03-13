@@ -18,7 +18,7 @@
 <pluginSet xmlns="https://logging.apache.org/xml/ns" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://logging.apache.org/xml/ns https://logging.apache.org/xml/ns/log4j-plugins-0.1.0.xsd" version="0.1.0">
   <groupId>org.apache.logging.log4j</groupId>
   <artifactId>log4j-layout-template-json</artifactId>
-  <version>2.23.0</version>
+  <version>2.23.1</version>
   <description>Apache Log4j Layout for producing JSON output that is structured according to a user-provided template.</description>
   <scalars>
     <scalar className="java.nio.charset.Charset"></scalar>
@@ -74,7 +74,7 @@
         <supertype>org.apache.logging.log4j.layout.template.json.resolver.EventResolverFactory</supertype>
         <supertype>org.apache.logging.log4j.layout.template.json.resolver.TemplateResolverFactory</supertype>
       </supertypes>
-      <description>apiref:CaseConverterResolver[] factory.</description>
+      <description>apiref:org.apache.logging.log4j.layout.template.json.resolver.CaseConverterResolver[] factory.</description>
     </plugin>
     <plugin name="CounterResolverFactory" namespace="JsonTemplateResolverFactory" className="org.apache.logging.log4j.layout.template.json.resolver.CounterResolverFactory">
       <supertypes>
@@ -82,7 +82,7 @@
         <supertype>org.apache.logging.log4j.layout.template.json.resolver.EventResolverFactory</supertype>
         <supertype>org.apache.logging.log4j.layout.template.json.resolver.TemplateResolverFactory</supertype>
       </supertypes>
-      <description>apiref:CounterResolver[] factory.</description>
+      <description>apiref:org.apache.logging.log4j.layout.template.json.resolver.CounterResolver[] factory.</description>
     </plugin>
     <plugin name="EndOfBatchResolverFactory" namespace="JsonTemplateResolverFactory" className="org.apache.logging.log4j.layout.template.json.resolver.EndOfBatchResolverFactory">
       <supertypes>
@@ -90,7 +90,7 @@
         <supertype>org.apache.logging.log4j.layout.template.json.resolver.EventResolverFactory</supertype>
         <supertype>org.apache.logging.log4j.layout.template.json.resolver.TemplateResolverFactory</supertype>
       </supertypes>
-      <description>apiref:EndOfBatchResolver[] factory.</description>
+      <description>apiref:org.apache.logging.log4j.layout.template.json.resolver.EndOfBatchResolver[] factory.</description>
     </plugin>
     <plugin name="EventAdditionalFieldInterceptor" namespace="JsonTemplateResolverInterceptor" className="org.apache.logging.log4j.layout.template.json.resolver.EventAdditionalFieldInterceptor">
       <supertypes>
@@ -98,7 +98,7 @@
         <supertype>org.apache.logging.log4j.layout.template.json.resolver.EventResolverInterceptor</supertype>
         <supertype>org.apache.logging.log4j.layout.template.json.resolver.TemplateResolverInterceptor</supertype>
       </supertypes>
-      <description>Interceptor to add apiref:EventTemplateAdditionalField[] after event template read.</description>
+      <description>Interceptor to add apiref:org.apache.logging.log4j.layout.template.json.JsonTemplateLayout.EventTemplateAdditionalField[additional fields] after event template read.</description>
     </plugin>
     <plugin name="EventRootObjectKeyInterceptor" namespace="JsonTemplateResolverInterceptor" className="org.apache.logging.log4j.layout.template.json.resolver.EventRootObjectKeyInterceptor">
       <supertypes>
@@ -114,7 +114,7 @@
         <supertype>org.apache.logging.log4j.layout.template.json.resolver.EventResolverFactory</supertype>
         <supertype>org.apache.logging.log4j.layout.template.json.resolver.TemplateResolverFactory</supertype>
       </supertypes>
-      <description>apiref:ExceptionResolver[] factory.</description>
+      <description>apiref:org.apache.logging.log4j.layout.template.json.resolver.ExceptionResolver[] factory.</description>
     </plugin>
     <plugin name="ExceptionRootCauseResolverFactory" namespace="JsonTemplateResolverFactory" className="org.apache.logging.log4j.layout.template.json.resolver.ExceptionRootCauseResolverFactory">
       <supertypes>
@@ -122,7 +122,7 @@
         <supertype>org.apache.logging.log4j.layout.template.json.resolver.EventResolverFactory</supertype>
         <supertype>org.apache.logging.log4j.layout.template.json.resolver.TemplateResolverFactory</supertype>
       </supertypes>
-      <description>apiref:ExceptionRootCauseResolver[] factory.</description>
+      <description>apiref:org.apache.logging.log4j.layout.template.json.resolver.ExceptionRootCauseResolver[] factory.</description>
     </plugin>
     <plugin name="LevelResolverFactory" namespace="JsonTemplateResolverFactory" className="org.apache.logging.log4j.layout.template.json.resolver.LevelResolverFactory">
       <supertypes>
@@ -130,7 +130,7 @@
         <supertype>org.apache.logging.log4j.layout.template.json.resolver.EventResolverFactory</supertype>
         <supertype>org.apache.logging.log4j.layout.template.json.resolver.TemplateResolverFactory</supertype>
       </supertypes>
-      <description>apiref:LevelResolver[] factory.</description>
+      <description>apiref:org.apache.logging.log4j.layout.template.json.resolver.LevelResolver[] factory.</description>
     </plugin>
     <plugin name="LoggerResolverFactory" namespace="JsonTemplateResolverFactory" className="org.apache.logging.log4j.layout.template.json.resolver.LoggerResolverFactory">
       <supertypes>
@@ -138,7 +138,7 @@
         <supertype>org.apache.logging.log4j.layout.template.json.resolver.EventResolverFactory</supertype>
         <supertype>org.apache.logging.log4j.layout.template.json.resolver.TemplateResolverFactory</supertype>
       </supertypes>
-      <description>apiref:LoggerResolver[] factory.</description>
+      <description>apiref:org.apache.logging.log4j.layout.template.json.resolver.LoggerResolver[] factory.</description>
     </plugin>
     <plugin name="MainMapResolverFactory" namespace="JsonTemplateResolverFactory" className="org.apache.logging.log4j.layout.template.json.resolver.MainMapResolverFactory">
       <supertypes>
@@ -146,7 +146,7 @@
         <supertype>org.apache.logging.log4j.layout.template.json.resolver.EventResolverFactory</supertype>
         <supertype>org.apache.logging.log4j.layout.template.json.resolver.TemplateResolverFactory</supertype>
       </supertypes>
-      <description>apiref:MainMapResolver[] factory.</description>
+      <description>apiref:org.apache.logging.log4j.layout.template.json.resolver.MainMapResolver[] factory.</description>
     </plugin>
     <plugin name="MapResolverFactory" namespace="JsonTemplateResolverFactory" className="org.apache.logging.log4j.layout.template.json.resolver.MapResolverFactory">
       <supertypes>
@@ -154,7 +154,7 @@
         <supertype>org.apache.logging.log4j.layout.template.json.resolver.EventResolverFactory</supertype>
         <supertype>org.apache.logging.log4j.layout.template.json.resolver.TemplateResolverFactory</supertype>
       </supertypes>
-      <description>apiref:MapResolver[] factory.</description>
+      <description>apiref:org.apache.logging.log4j.layout.template.json.resolver.MapResolver[] factory.</description>
     </plugin>
     <plugin name="MarkerResolverFactory" namespace="JsonTemplateResolverFactory" className="org.apache.logging.log4j.layout.template.json.resolver.MarkerResolverFactory">
       <supertypes>
@@ -162,7 +162,7 @@
         <supertype>org.apache.logging.log4j.layout.template.json.resolver.EventResolverFactory</supertype>
         <supertype>org.apache.logging.log4j.layout.template.json.resolver.TemplateResolverFactory</supertype>
       </supertypes>
-      <description>apiref:MarkerResolver[] factory.</description>
+      <description>apiref:org.apache.logging.log4j.layout.template.json.resolver.MarkerResolver[] factory.</description>
     </plugin>
     <plugin name="MessageParameterResolverFactory" namespace="JsonTemplateResolverFactory" className="org.apache.logging.log4j.layout.template.json.resolver.MessageParameterResolverFactory">
       <supertypes>
@@ -170,7 +170,7 @@
         <supertype>org.apache.logging.log4j.layout.template.json.resolver.EventResolverFactory</supertype>
         <supertype>org.apache.logging.log4j.layout.template.json.resolver.TemplateResolverFactory</supertype>
       </supertypes>
-      <description>apiref:MessageParameterResolver[] factory.</description>
+      <description>apiref:org.apache.logging.log4j.layout.template.json.resolver.MessageParameterResolver[] factory.</description>
     </plugin>
     <plugin name="MessageResolverFactory" namespace="JsonTemplateResolverFactory" className="org.apache.logging.log4j.layout.template.json.resolver.MessageResolverFactory">
       <supertypes>
@@ -178,7 +178,7 @@
         <supertype>org.apache.logging.log4j.layout.template.json.resolver.EventResolverFactory</supertype>
         <supertype>org.apache.logging.log4j.layout.template.json.resolver.TemplateResolverFactory</supertype>
       </supertypes>
-      <description>A apiref:MessageResolver[] factory.</description>
+      <description>A apiref:org.apache.logging.log4j.layout.template.json.resolver.MessageResolver[] factory.</description>
     </plugin>
     <plugin name="PatternResolverFactory" namespace="JsonTemplateResolverFactory" className="org.apache.logging.log4j.layout.template.json.resolver.PatternResolverFactory">
       <supertypes>
@@ -186,7 +186,7 @@
         <supertype>org.apache.logging.log4j.layout.template.json.resolver.EventResolverFactory</supertype>
         <supertype>org.apache.logging.log4j.layout.template.json.resolver.TemplateResolverFactory</supertype>
       </supertypes>
-      <description>apiref:PatternResolver[] factory.</description>
+      <description>apiref:org.apache.logging.log4j.layout.template.json.resolver.PatternResolver[] factory.</description>
     </plugin>
     <plugin name="SourceResolverFactory" namespace="JsonTemplateResolverFactory" className="org.apache.logging.log4j.layout.template.json.resolver.SourceResolverFactory">
       <supertypes>
@@ -194,7 +194,7 @@
         <supertype>org.apache.logging.log4j.layout.template.json.resolver.EventResolverFactory</supertype>
         <supertype>org.apache.logging.log4j.layout.template.json.resolver.TemplateResolverFactory</supertype>
       </supertypes>
-      <description>apiref:SourceResolver[] factory.</description>
+      <description>apiref:org.apache.logging.log4j.layout.template.json.resolver.SourceResolver[] factory.</description>
     </plugin>
     <plugin name="ThreadContextDataResolverFactory" namespace="JsonTemplateResolverFactory" className="org.apache.logging.log4j.layout.template.json.resolver.ThreadContextDataResolverFactory">
       <supertypes>
@@ -202,7 +202,7 @@
         <supertype>org.apache.logging.log4j.layout.template.json.resolver.EventResolverFactory</supertype>
         <supertype>org.apache.logging.log4j.layout.template.json.resolver.TemplateResolverFactory</supertype>
       </supertypes>
-      <description>apiref:ThreadContextDataResolver[] factory.</description>
+      <description>apiref:org.apache.logging.log4j.layout.template.json.resolver.ThreadContextDataResolver[] factory.</description>
     </plugin>
     <plugin name="ThreadContextStackResolverFactory" namespace="JsonTemplateResolverFactory" className="org.apache.logging.log4j.layout.template.json.resolver.ThreadContextStackResolverFactory">
       <supertypes>
@@ -210,7 +210,7 @@
         <supertype>org.apache.logging.log4j.layout.template.json.resolver.EventResolverFactory</supertype>
         <supertype>org.apache.logging.log4j.layout.template.json.resolver.TemplateResolverFactory</supertype>
       </supertypes>
-      <description>apiref:ThreadContextStackResolver[] factory.</description>
+      <description>apiref:org.apache.logging.log4j.layout.template.json.resolver.ThreadContextStackResolver[] factory.</description>
     </plugin>
     <plugin name="ThreadResolverFactory" namespace="JsonTemplateResolverFactory" className="org.apache.logging.log4j.layout.template.json.resolver.ThreadResolverFactory">
       <supertypes>
@@ -218,7 +218,7 @@
         <supertype>org.apache.logging.log4j.layout.template.json.resolver.EventResolverFactory</supertype>
         <supertype>org.apache.logging.log4j.layout.template.json.resolver.TemplateResolverFactory</supertype>
       </supertypes>
-      <description>apiref:ThreadResolver[] factory.</description>
+      <description>apiref:org.apache.logging.log4j.layout.template.json.resolver.ThreadResolver[] factory.</description>
     </plugin>
     <plugin name="TimestampResolverFactory" namespace="JsonTemplateResolverFactory" className="org.apache.logging.log4j.layout.template.json.resolver.TimestampResolverFactory">
       <supertypes>
@@ -226,14 +226,14 @@
         <supertype>org.apache.logging.log4j.layout.template.json.resolver.EventResolverFactory</supertype>
         <supertype>org.apache.logging.log4j.layout.template.json.resolver.TemplateResolverFactory</supertype>
       </supertypes>
-      <description>apiref:TimestampResolver[] factory.</description>
+      <description>apiref:org.apache.logging.log4j.layout.template.json.resolver.TimestampResolver[] factory.</description>
     </plugin>
     <plugin name="RecyclerFactoryConverter" namespace="TypeConverter" className="org.apache.logging.log4j.layout.template.json.util.RecyclerFactoryConverter">
       <supertypes>
         <supertype>java.lang.Object</supertype>
         <supertype>org.apache.logging.log4j.core.config.plugins.convert.TypeConverter</supertype>
       </supertypes>
-      <description>The default string (i.e., recycler factory spec) to apiref:RecyclerFactory[] type converter.</description>
+      <description>The default string (i.e., recycler factory spec) to apiref:org.apache.logging.log4j.layout.template.json.util.RecyclerFactory[] type converter.</description>
     </plugin>
   </plugins>
   <abstractTypes>
@@ -243,16 +243,16 @@
     <abstractType className="org.apache.logging.log4j.core.impl.LocationAware"></abstractType>
     <abstractType className="org.apache.logging.log4j.core.layout.Encoder"></abstractType>
     <abstractType className="org.apache.logging.log4j.layout.template.json.resolver.EventResolverFactory">
-      <description>apiref:TemplateResolverFactory[] specialized for apiref:LogEvent[]s.</description>
+      <description>apiref:org.apache.logging.log4j.layout.template.json.resolver.TemplateResolverFactory[] specialized for apiref:org.apache.logging.log4j.core.LogEvent[]s.</description>
     </abstractType>
     <abstractType className="org.apache.logging.log4j.layout.template.json.resolver.EventResolverInterceptor">
-      <description>apiref:TemplateResolverInterceptor[] specialized for apiref:LogEvent[]s.</description>
+      <description>apiref:org.apache.logging.log4j.layout.template.json.resolver.TemplateResolverInterceptor[] specialized for apiref:org.apache.logging.log4j.core.LogEvent[]s.</description>
     </abstractType>
     <abstractType className="org.apache.logging.log4j.layout.template.json.resolver.TemplateResolverFactory">
-      <description>apiref:TemplateResolver[] factory.</description>
+      <description>apiref:org.apache.logging.log4j.layout.template.json.resolver.TemplateResolver[] factory.</description>
     </abstractType>
     <abstractType className="org.apache.logging.log4j.layout.template.json.resolver.TemplateResolverInterceptor">
-      <description>Main apiref:TemplateResolver[] compilation interception interface.</description>
+      <description>Main apiref:org.apache.logging.log4j.layout.template.json.resolver.TemplateResolver[] compilation interception interface.</description>
     </abstractType>
   </abstractTypes>
 </pluginSet>

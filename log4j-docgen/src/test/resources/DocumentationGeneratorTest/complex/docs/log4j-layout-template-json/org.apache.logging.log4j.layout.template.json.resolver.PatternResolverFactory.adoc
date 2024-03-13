@@ -22,7 +22,7 @@ Class:: `org.apache.logging.log4j.layout.template.json.resolver.PatternResolverF
 Provider:: `org.apache.logging.log4j:log4j-layout-template-json`
 
 
-apiref:PatternResolver[] factory.
+apiref:org.apache.logging.log4j.layout.template.json.resolver.PatternResolver[] factory.
 
 [#org_apache_logging_log4j_layout_template_json_resolver_PatternResolverFactory-XML-snippet]
 == XML snippet

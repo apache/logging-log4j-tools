@@ -22,9 +22,9 @@ Class:: `org.apache.logging.log4j.core.net.SocketPerformancePreferences`
 Provider:: `org.apache.logging.log4j:log4j-core`
 
 
-Holds all socket options settable via apiref:Socket[].
+Holds all socket options settable via apiref:java.net.Socket#setPerformancePreferences(int, int, int)[].
 
-The apiref:Socket[] API may not be implemented by a JRE.
+The apiref:java.net.Socket#setPerformancePreferences(int, int, int)[] API may not be implemented by a JRE.
 
 [#org_apache_logging_log4j_core_net_SocketPerformancePreferences-XML-snippet]
 == XML snippet

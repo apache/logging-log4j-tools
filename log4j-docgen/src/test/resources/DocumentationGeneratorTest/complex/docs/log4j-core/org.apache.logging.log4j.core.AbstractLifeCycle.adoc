@@ -24,7 +24,7 @@ Provider:: `org.apache.logging.log4j:log4j-core`
 
 A life cycle to be extended.
 
-Wraps a xref:LifeCycle.State.adoc[State].
+Wraps a apiref:org.apache.logging.log4j.core.LifeCycle.State[].
 
 
 [#org_apache_logging_log4j_core_AbstractLifeCycle-implementations]

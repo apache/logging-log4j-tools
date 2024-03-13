@@ -22,7 +22,7 @@ Class:: `org.apache.logging.log4j.layout.template.json.resolver.TimestampResolve
 Provider:: `org.apache.logging.log4j:log4j-layout-template-json`
 
 
-apiref:TimestampResolver[] factory.
+apiref:org.apache.logging.log4j.layout.template.json.resolver.TimestampResolver[] factory.
 
 [#org_apache_logging_log4j_layout_template_json_resolver_TimestampResolverFactory-XML-snippet]
 == XML snippet

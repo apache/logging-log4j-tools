@@ -53,9 +53,9 @@ Optional attributes are denoted by `?`-suffixed types.
 |
 a|Class to convert value to before storing in database.
 
-If the type is compatible with apiref:ThreadContextMap[] or apiref:ReadOnlyStringMap[], then the MDC will be used.
-If the type is compatible with apiref:ThreadContextStack[], then the NDC will be used.
-If the type is compatible with apiref:Date[], then the event timestamp will be used.
+If the type is compatible with apiref:org.apache.logging.log4j.spi.ThreadContextMap[] or apiref:org.apache.logging.log4j.util.ReadOnlyStringMap[], then the MDC will be used.
+If the type is compatible with apiref:org.apache.logging.log4j.spi.ThreadContextStack[], then the NDC will be used.
+If the type is compatible with apiref:java.util.Date[], then the event timestamp will be used.
 
 |literal
 |String?
@@ -81,16 +81,16 @@ No escaping will be done on this value.
 |pattern
 |String?
 |
-a|Pattern to use as a apiref:PatternLayout[].
+a|Pattern to use as a apiref:org.apache.logging.log4j.core.layout.PatternLayout[].
 
-Convenient shorthand for xref:.adoc[] with a PatternLayout.
+Convenient shorthand for apiref:org.apache.logging.log4j.core.appender.db.ColumnMapping#setLayout(StringLayout)[] with a PatternLayout.
 
 |source
 |String?
 |
 a|Source name.
 
-Useful when combined with a xref:org.apache.logging.log4j.message.MapMessage.adoc[MapMessage] depending on the appender.
+Useful when combined with a apiref:org.apache.logging.log4j.core.appender.db.org.apache.logging.log4j.message.MapMessage[] depending on the appender.
 
 |type
 |Class?
@@ -112,6 +112,6 @@ Optional components are denoted by `?`-suffixed types.
 |xref:../log4j-core/org.apache.logging.log4j.core.StringLayout.adoc[StringLayout]?
 a|Layout of value to write to database (before type conversion).
 
-Not applicable if xref:.adoc[] is a apiref:ReadOnlyStringMap[], apiref:ThreadContextMap[], or xref:ThreadContextStack.adoc[].
+Not applicable if apiref:org.apache.logging.log4j.core.appender.db.ColumnMapping#setType(Class)[] is a apiref:org.apache.logging.log4j.util.ReadOnlyStringMap[], apiref:org.apache.logging.log4j.spi.ThreadContextMap[], or apiref:org.apache.logging.log4j.spi.ThreadContextStack[].
 
 |===

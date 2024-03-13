@@ -22,7 +22,7 @@ Class:: `org.apache.logging.log4j.core.lookup.StructuredDataLookup`
 Provider:: `org.apache.logging.log4j:log4j-core`
 
 
-Looks up keys from xref:org.apache.logging.log4j.message.StructuredDataMessage.adoc[StructuredDataMessage] log messages.
+Looks up keys from apiref:org.apache.logging.log4j.core.lookup.org.apache.logging.log4j.message.StructuredDataMessage[] log messages.
 
 [#org_apache_logging_log4j_core_lookup_StructuredDataLookup-XML-snippet]
 == XML snippet

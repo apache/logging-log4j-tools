@@ -22,7 +22,7 @@ Class:: `org.apache.logging.log4j.core.config.plugins.convert.TypeConverters.Dur
 Provider:: `org.apache.logging.log4j:log4j-core`
 
 
-Converts a apiref:String[] into a apiref:Duration[].
+Converts a apiref:java.lang.String[] into a apiref:org.apache.logging.log4j.core.appender.rolling.action.Duration[].
 
 [#org_apache_logging_log4j_core_config_plugins_convert_TypeConverters_DurationConverter-XML-snippet]
 == XML snippet

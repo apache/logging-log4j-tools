@@ -75,7 +75,7 @@ a|The name of the database column as it exists within the database table.
 |pattern
 |String?
 |
-a|The apiref:PatternLayout[] pattern to insert in this column.
+a|The apiref:org.apache.logging.log4j.core.layout.PatternLayout[] pattern to insert in this column.
 
 Mutually exclusive with `literal! =null` and `eventTimestamp=true`
 

@@ -24,7 +24,7 @@ Provider:: `org.apache.logging.log4j:log4j-core`
 
 A map-based lookup for main arguments.
 
-See xref:.adoc[].
+See apiref:org.apache.logging.log4j.core.lookup.MainMapLookup#setMainArguments(String[])[].
 
 [#org_apache_logging_log4j_core_lookup_MainMapLookup-XML-snippet]
 == XML snippet

@@ -46,17 +46,11 @@ Given that this rollover algorithm requires as many file renaming operations as 
 [source, xml]
 ----
 <DefaultRolloverStrategy compressionLevel=""
-                         compressionLevel=""
-                         fileIndex=""
                          fileIndex=""
                          max=""
-                         max=""
                          min=""
-                         min=""
-                         stopCustomActionsOnError=""
                          stopCustomActionsOnError=""
                          tempCompressedFilePattern="">
-    <a-Action-implementation/><!-- multiple occurrences allowed -->
     <a-Action-implementation/><!-- multiple occurrences allowed -->
 </DefaultRolloverStrategy>
 ----
@@ -75,23 +69,7 @@ Optional attributes are denoted by `?`-suffixed types.
 |
 a|
 
-|compressionLevel
-|String?
-|
-a|The compression level, 0 (less) through 9 (more); applies only to ZIP files.
-
 |fileIndex
-|String?
-|
-a|
-
-|fileIndex
-|String?
-|
-a|If set to "max" (the default), files with a higher index will be newer than files with a smaller index.
-If set to "min", file renaming and the counter will follow the Fixed Window strategy.
-
-|max
 |String?
 |
 a|
@@ -99,27 +77,17 @@ a|
 |max
 |String?
 |
-a|The maximum number of files to keep.
+a|
 
 |min
 |String?
 |
 a|
 
-|min
-|String?
-|
-a|The minimum number of files to keep.
-
 |stopCustomActionsOnError
 |boolean?
 |
 a|
-
-|stopCustomActionsOnError
-|boolean?
-|
-a|whether to stop executing asynchronous actions if an error occurs
 
 |tempCompressedFilePattern
 |String?
@@ -140,9 +108,5 @@ Optional components are denoted by `?`-suffixed types.
 |
 |xref:../log4j-core/org.apache.logging.log4j.core.appender.rolling.action.Action.adoc[Action]?
 a|
-
-|
-|xref:../log4j-core/org.apache.logging.log4j.core.appender.rolling.action.Action.adoc[Action]?
-a|custom actions to perform asynchronously after rollover
 
 |===

@@ -25,10 +25,10 @@ Provider:: `org.apache.logging.log4j:log4j-core`
 All proper Java frameworks implement some sort of object life cycle.
 
 In Log4j, the main interface for handling the life cycle context of an object is this one.
-An object first starts in the apiref:State[] state by default to indicate the class has been loaded.
-From here, calling the xref:.adoc[] method will change this state to apiref:State[]. After successfully being started, this state is changed to apiref:State[]. When the xref:.adoc[] is called, this goes into the xref:State.adoc[] state.
-After successfully being stopped, this goes into the apiref:State[] state.
-In most circumstances, implementation classes should store their apiref:State[] in a `volatile` field or inside an xref:java.util.concurrent.atomic.AtomicReference.adoc[AtomicReference] dependent on synchronization and concurrency requirements.
+An object first starts in the apiref:org.apache.logging.log4j.core.State#INITIALIZED[] state by default to indicate the class has been loaded.
+From here, calling the apiref:org.apache.logging.log4j.core.LifeCycle#start()[] method will change this state to apiref:org.apache.logging.log4j.core.State#STARTING[]. After successfully being started, this state is changed to apiref:org.apache.logging.log4j.core.State#STARTED[]. When the apiref:org.apache.logging.log4j.core.LifeCycle#stop()[] is called, this goes into the apiref:org.apache.logging.log4j.core.State#STOPPING[] state.
+After successfully being stopped, this goes into the apiref:org.apache.logging.log4j.core.State#STOPPED[] state.
+In most circumstances, implementation classes should store their apiref:org.apache.logging.log4j.core.State[] in a `volatile` field or inside an apiref:org.apache.logging.log4j.core.java.util.concurrent.atomic.AtomicReference[] dependent on synchronization and concurrency requirements.
 
 
 [#org_apache_logging_log4j_core_LifeCycle-implementations]

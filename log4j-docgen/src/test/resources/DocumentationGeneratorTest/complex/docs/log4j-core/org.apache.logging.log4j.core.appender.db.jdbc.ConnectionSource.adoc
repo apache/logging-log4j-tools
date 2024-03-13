@@ -22,9 +22,9 @@ Class:: `org.apache.logging.log4j.core.appender.db.jdbc.ConnectionSource`
 Provider:: `org.apache.logging.log4j:log4j-core`
 
 
-Configuration element for apiref:JdbcAppender[].
+Configuration element for apiref:org.apache.logging.log4j.core.appender.db.jdbc.JdbcAppender[].
 
-If you want to use the apiref:JdbcAppender[] but none of the provided connection sources meet your needs, you can simply create your own connection source.
+If you want to use the apiref:org.apache.logging.log4j.core.appender.db.jdbc.JdbcAppender[] but none of the provided connection sources meet your needs, you can simply create your own connection source.
 
 
 [#org_apache_logging_log4j_core_appender_db_jdbc_ConnectionSource-implementations]

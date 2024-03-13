@@ -22,7 +22,7 @@ Class:: `org.apache.logging.log4j.core.appender.db.jdbc.FactoryMethodConnectionS
 Provider:: `org.apache.logging.log4j:log4j-core`
 
 
-A apiref:JdbcAppender[] connection source that uses a public static factory method to obtain a apiref:Connection[] or xref:DataSource.adoc[].
+A apiref:org.apache.logging.log4j.core.appender.db.jdbc.JdbcAppender[] connection source that uses a public static factory method to obtain a apiref:java.sql.Connection[] or apiref:javax.sql.DataSource[].
 
 [#org_apache_logging_log4j_core_appender_db_jdbc_FactoryMethodConnectionSource-XML-snippet]
 == XML snippet
@@ -44,12 +44,12 @@ Optional attributes are denoted by `?`-suffixed types.
 |class
 |String?
 |
-a|The name of a public class that contains a static method capable of returning either a apiref:DataSource[] or a apiref:Connection[].
+a|The name of a public class that contains a static method capable of returning either a apiref:javax.sql.DataSource[] or a apiref:java.sql.Connection[].
 
 |method
 |String?
 |
 a|The name of the public static method on the aforementioned class that returns the data source or connection.
-If this method returns a apiref:Connection[], it should return a new connection every call.
+If this method returns a apiref:java.sql.Connection[], it should return a new connection every call.
 
 |===

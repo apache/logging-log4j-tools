@@ -24,8 +24,8 @@ Provider:: `org.apache.logging.log4j:log4j-core`
 
 This Appender writes logging events to a relational database using standard JDBC mechanisms.
 
-It takes a list of apiref:ColumnConfig[]s and/or apiref:ColumnMapping[]s with which it determines how to save the event data into the appropriate columns in the table.
-ColumnMapping is new as of Log4j 2.8 and supports apiref:TypeConverter[] and persistence using apiref:PreparedStatement[]. A xref:ConnectionSource.adoc[] plugin instance instructs the appender (and xref:JdbcDatabaseManager.adoc[]) how to connect to the database.
+It takes a list of apiref:org.apache.logging.log4j.core.appender.db.jdbc.ColumnConfig[]s and/or apiref:org.apache.logging.log4j.core.appender.db.ColumnMapping[]s with which it determines how to save the event data into the appropriate columns in the table.
+ColumnMapping is new as of Log4j 2.8 and supports apiref:org.apache.logging.log4j.core.config.plugins.convert.TypeConverter[type conversion] and persistence using apiref:java.sql.PreparedStatement#setObject(int, Object)[]. A apiref:org.apache.logging.log4j.core.appender.db.jdbc.ConnectionSource[] plugin instance instructs the appender (and apiref:org.apache.logging.log4j.core.appender.db.jdbc.JdbcDatabaseManager[]) how to connect to the database.
 This appender can be reconfigured at run time.
 
 [#org_apache_logging_log4j_core_appender_db_jdbc_JdbcAppender-XML-snippet]

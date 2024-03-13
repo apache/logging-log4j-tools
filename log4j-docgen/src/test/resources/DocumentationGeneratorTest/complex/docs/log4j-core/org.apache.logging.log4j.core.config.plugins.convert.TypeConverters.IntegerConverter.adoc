@@ -22,7 +22,7 @@ Class:: `org.apache.logging.log4j.core.config.plugins.convert.TypeConverters.Int
 Provider:: `org.apache.logging.log4j:log4j-core`
 
 
-Converts a apiref:String[] into a apiref:Integer[].
+Converts a apiref:java.lang.String[] into a apiref:java.lang.Integer[].
 
 [#org_apache_logging_log4j_core_config_plugins_convert_TypeConverters_IntegerConverter-XML-snippet]
 == XML snippet

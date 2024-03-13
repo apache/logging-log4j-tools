@@ -115,9 +115,9 @@ a|Whether to include NULL byte as delimiter after each event (optional, default 
 |includeStacktrace
 |boolean?
 |
-a|If "true", includes the stacktrace of any Throwable in the generated JSON, defaults to "true".
+a|If "true", includes the stacktrace of any Throwable in the generated data, defaults to "true".
 
-If "true", includes the stacktrace of any Throwable in the generated data, defaults to "true".
+If "true", includes the stacktrace of any Throwable in the generated JSON, defaults to "true".
 
 |includeTimeMillis
 |boolean?

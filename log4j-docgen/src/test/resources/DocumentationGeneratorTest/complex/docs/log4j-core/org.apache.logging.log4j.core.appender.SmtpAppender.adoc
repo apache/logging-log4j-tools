@@ -167,13 +167,13 @@ a|
 |xref:../log4j-core/org.apache.logging.log4j.core.Filter.adoc[Filter]?
 a|Specifies the filter used for this appender.
 
-By default, uses a apiref:ThresholdFilter[] with a level of ERROR.
+By default, uses a apiref:org.apache.logging.log4j.core.filter.ThresholdFilter[] with a level of ERROR.
 
 |
 |xref:../log4j-core/org.apache.logging.log4j.core.Layout.adoc[Layout]?
 a|Specifies the layout used for the email message body.
 
-By default, this uses the apiref:HtmlLayout[].
+By default, this uses the apiref:org.apache.logging.log4j.core.layout.HtmlLayout#createDefaultLayout()[default HTML layout].
 
 |Ssl
 |xref:../log4j-core/org.apache.logging.log4j.core.net.ssl.SslConfiguration.adoc[SslConfiguration]?

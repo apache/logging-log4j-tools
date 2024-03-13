@@ -22,7 +22,7 @@ Class:: `org.apache.logging.log4j.layout.template.json.resolver.MarkerResolverFa
 Provider:: `org.apache.logging.log4j:log4j-layout-template-json`
 
 
-apiref:MarkerResolver[] factory.
+apiref:org.apache.logging.log4j.layout.template.json.resolver.MarkerResolver[] factory.
 
 [#org_apache_logging_log4j_layout_template_json_resolver_MarkerResolverFactory-XML-snippet]
 == XML snippet

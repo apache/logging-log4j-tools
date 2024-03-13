@@ -55,7 +55,7 @@ The available predefined styles are:
 * `Logback`
 
 You can use whitespace around the comma and equal sign.
-The names in values MUST come from the apiref:AnsiEscape[] enum, case is normalized to upper-case internally.
+The names in values MUST come from the apiref:org.apache.logging.log4j.core.pattern.AnsiEscape[] enum, case is normalized to upper-case internally.
 
 To disable ANSI output unconditionally, specify an additional option `disableAnsi=true`, or to disable ANSI output if no console is detected, specify option `noConsoleNoAnsi=true` e.g..
 

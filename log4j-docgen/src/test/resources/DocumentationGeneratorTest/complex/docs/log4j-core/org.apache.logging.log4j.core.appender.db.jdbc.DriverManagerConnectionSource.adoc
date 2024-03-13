@@ -22,7 +22,7 @@ Class:: `org.apache.logging.log4j.core.appender.db.jdbc.DriverManagerConnectionS
 Provider:: `org.apache.logging.log4j:log4j-core`
 
 
-A apiref:ConnectionSource[] that uses a JDBC connection string, a user name, and a password to call apiref:DriverManager[].
+A apiref:org.apache.logging.log4j.core.appender.db.jdbc.ConnectionSource[] that uses a JDBC connection string, a user name, and a password to call apiref:java.sql.DriverManager#getConnection(String, String, String)[].
 
 This plugin does not provide any connection pooling unless it is available through the connection string and driver itself.
 This handy to get you off the ground without having to deal with JNDI.

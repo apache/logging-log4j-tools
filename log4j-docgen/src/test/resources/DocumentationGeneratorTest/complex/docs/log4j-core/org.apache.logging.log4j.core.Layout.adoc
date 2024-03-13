@@ -22,16 +22,16 @@ Class:: `org.apache.logging.log4j.core.Layout`
 Provider:: `org.apache.logging.log4j:log4j-core`
 
 
-Lays out a apiref:LogEvent[] in different formats.
+Lays out a apiref:org.apache.logging.log4j.core.LogEvent[] in different formats.
 
 The formats are:
 
 * `byte[]`
-* an implementer of apiref:Serializable[], like `byte[]`
-* apiref:String[]
-* apiref:LogEvent[]
+* an implementer of apiref:java.io.Serializable[], like `byte[]`
+* apiref:java.lang.String[]
+* apiref:org.apache.logging.log4j.core.LogEvent[]
 
-Since 2.6, Layouts can apiref:Encoder[] a `LogEvent` directly to a apiref:ByteBufferDestination[] without creating temporary intermediary objects.
+Since 2.6, Layouts can apiref:org.apache.logging.log4j.core.layout.Encoder#encode(Object, ByteBufferDestination)[encode] a `LogEvent` directly to a apiref:org.apache.logging.log4j.core.layout.ByteBufferDestination[] without creating temporary intermediary objects.
 
 
 [#org_apache_logging_log4j_core_Layout-implementations]

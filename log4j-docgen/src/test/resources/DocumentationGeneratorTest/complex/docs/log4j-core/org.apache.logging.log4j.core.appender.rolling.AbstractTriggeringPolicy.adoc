@@ -22,7 +22,7 @@ Class:: `org.apache.logging.log4j.core.appender.rolling.AbstractTriggeringPolicy
 Provider:: `org.apache.logging.log4j:log4j-core`
 
 
-Abstract convenience class for triggering policies that extend apiref:AbstractLifeCycle[] and implement apiref:TriggeringPolicy[].
+Abstract convenience class for triggering policies that extend apiref:org.apache.logging.log4j.core.AbstractLifeCycle[] and implement apiref:org.apache.logging.log4j.core.appender.rolling.TriggeringPolicy[].
 
 
 [#org_apache_logging_log4j_core_appender_rolling_AbstractTriggeringPolicy-implementations]

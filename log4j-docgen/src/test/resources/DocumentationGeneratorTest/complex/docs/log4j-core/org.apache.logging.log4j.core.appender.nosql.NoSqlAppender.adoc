@@ -24,7 +24,7 @@ Provider:: `org.apache.logging.log4j:log4j-core`
 
 This Appender writes logging events to a NoSQL database using a configured NoSQL provider.
 
-It requires implementations of apiref:NoSqlObject[], apiref:NoSqlConnection[], and xref:NoSqlProvider.adoc[] to "know" how to write events to the chosen NoSQL database.
+It requires implementations of apiref:org.apache.logging.log4j.core.appender.nosql.NoSqlObject[], apiref:org.apache.logging.log4j.core.appender.nosql.NoSqlConnection[], and apiref:org.apache.logging.log4j.core.appender.nosql.NoSqlProvider[] to "know" how to write events to the chosen NoSQL database.
 
 For examples on how to write your own NoSQL provider, see the simple source code for the MongoDB and CouchDB providers.
 

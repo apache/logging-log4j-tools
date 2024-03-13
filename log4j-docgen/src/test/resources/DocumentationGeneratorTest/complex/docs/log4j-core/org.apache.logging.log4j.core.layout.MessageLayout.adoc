@@ -22,9 +22,9 @@ Class:: `org.apache.logging.log4j.core.layout.MessageLayout`
 Provider:: `org.apache.logging.log4j:log4j-core`
 
 
-Formats a apiref:LogEvent[] in its apiref:Message[] form.
+Formats a apiref:org.apache.logging.log4j.core.LogEvent[] in its apiref:org.apache.logging.log4j.message.Message[] form.
 
-Useful in combination with a JMS Appender to map a Log4j xref:org.apache.logging.log4j.message.MapMessage.adoc[MapMessage] or xref:org.apache.logging.log4j.message.StringMapMessage.adoc[StringMapMessage] to a JMS xref:javax.jms.MapMessage.adoc[MapMessage].
+Useful in combination with a JMS Appender to map a Log4j apiref:org.apache.logging.log4j.core.layout.org.apache.logging.log4j.message.MapMessage[] or apiref:org.apache.logging.log4j.core.layout.org.apache.logging.log4j.message.StringMapMessage[] to a JMS apiref:org.apache.logging.log4j.core.layout.javax.jms.MapMessage[].
 
 [#org_apache_logging_log4j_core_layout_MessageLayout-XML-snippet]
 == XML snippet

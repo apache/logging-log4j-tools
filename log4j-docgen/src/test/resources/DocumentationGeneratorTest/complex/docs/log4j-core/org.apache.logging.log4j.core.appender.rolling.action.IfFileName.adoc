@@ -26,8 +26,8 @@ PathCondition that accepts files for deletion if their relative path matches eit
 
 If both a regular expression and a glob pattern are specified the glob pattern is used and the regular expression is ignored.
 
-The regular expression is a pattern as defined by the apiref:Pattern[] class.
-A glob is a simplified pattern expression described in apiref:FileSystem[].
+The regular expression is a pattern as defined by the apiref:java.util.regex.Pattern[] class.
+A glob is a simplified pattern expression described in apiref:java.nio.file.FileSystem#getPathMatcher(String)[].
 
 [#org_apache_logging_log4j_core_appender_rolling_action_IfFileName-XML-snippet]
 == XML snippet

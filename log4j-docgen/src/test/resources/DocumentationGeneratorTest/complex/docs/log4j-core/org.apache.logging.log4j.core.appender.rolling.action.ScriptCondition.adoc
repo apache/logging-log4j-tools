@@ -22,9 +22,9 @@ Class:: `org.apache.logging.log4j.core.appender.rolling.action.ScriptCondition`
 Provider:: `org.apache.logging.log4j:log4j-core`
 
 
-A condition of the apiref:DeleteAction[] where a user-provided script selects the files to delete from a provided list.
+A condition of the apiref:org.apache.logging.log4j.core.appender.rolling.action.DeleteAction[] where a user-provided script selects the files to delete from a provided list.
 
-The specified script may be a xref:org.apache.logging.log4j.core.script.Script.adoc[Script], a apiref:ScriptFile[] or a apiref:ScriptRef[].
+The specified script may be a apiref:org.apache.logging.log4j.core.appender.rolling.action.org.apache.logging.log4j.core.script.Script[], a apiref:org.apache.logging.log4j.core.script.ScriptFile[] or a apiref:org.apache.logging.log4j.core.script.ScriptRef[].
 
 [#org_apache_logging_log4j_core_appender_rolling_action_ScriptCondition-XML-snippet]
 == XML snippet
@@ -45,15 +45,15 @@ Optional components are denoted by `?`-suffixed types.
 |
 |xref:../log4j-core/org.apache.logging.log4j.core.script.AbstractScript.adoc[AbstractScript]?
 a|The script to run.
-This may be a xref:org.apache.logging.log4j.core.script.Script.adoc[Script], a apiref:ScriptFile[] or a apiref:ScriptRef[]. The script must return a `List<PathWithAttributes>`. When the script is executed, it is provided the following bindings:
+This may be a apiref:org.apache.logging.log4j.core.appender.rolling.action.org.apache.logging.log4j.core.script.Script[], a apiref:org.apache.logging.log4j.core.script.ScriptFile[] or a apiref:org.apache.logging.log4j.core.script.ScriptRef[]. The script must return a `List<PathWithAttributes>`. When the script is executed, it is provided the following bindings:
 
-* basePath - the directory from where the apiref:DeleteAction[] action started scanning for files to delete.
+* basePath - the directory from where the apiref:org.apache.logging.log4j.core.appender.rolling.action.DeleteAction[Delete] action started scanning for files to delete.
 Can be used to relativize the paths in the pathList.
-* pathList - a `java. util. List` containing xref:org.apache.logging.log4j.core.appender.rolling.action.PathWithAttributes.adoc[PathWithAttributes] objects.
+* pathList - a `java. util. List` containing apiref:org.apache.logging.log4j.core.appender.rolling.action.org.apache.logging.log4j.core.appender.rolling.action.PathWithAttributes[] objects.
 (The script is free to modify and return this list.
 )
-* substitutor - a xref:org.apache.logging.log4j.core.lookup.StrSubstitutor.adoc[StrSubstitutor] that can be used to look up variables embedded in the base dir or other properties
-* statusLogger - the apiref:StatusLogger[] that can be used to log events during script execution
+* substitutor - a apiref:org.apache.logging.log4j.core.appender.rolling.action.org.apache.logging.log4j.core.lookup.StrSubstitutor[] that can be used to look up variables embedded in the base dir or other properties
+* statusLogger - the apiref:org.apache.logging.log4j.status.StatusLogger[] that can be used to log events during script execution
 * any properties declared in the configuration
 
 |===

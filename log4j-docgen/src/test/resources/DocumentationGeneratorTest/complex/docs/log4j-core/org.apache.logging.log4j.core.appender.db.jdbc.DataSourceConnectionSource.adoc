@@ -22,7 +22,7 @@ Class:: `org.apache.logging.log4j.core.appender.db.jdbc.DataSourceConnectionSour
 Provider:: `org.apache.logging.log4j:log4j-core`
 
 
-A apiref:JdbcAppender[] connection source that uses a apiref:DataSource[] to connect to the database.
+A apiref:org.apache.logging.log4j.core.appender.db.jdbc.JdbcAppender[] connection source that uses a apiref:javax.sql.DataSource[] to connect to the database.
 
 [#org_apache_logging_log4j_core_appender_db_jdbc_DataSourceConnectionSource-XML-snippet]
 == XML snippet

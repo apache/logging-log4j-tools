@@ -22,7 +22,7 @@ Class:: `org.apache.logging.log4j.core.async.ArrayBlockingQueueFactory`
 Provider:: `org.apache.logging.log4j:log4j-core`
 
 
-Factory for creating instances of apiref:ArrayBlockingQueue[].
+Factory for creating instances of apiref:java.util.concurrent.ArrayBlockingQueue[].
 
 [#org_apache_logging_log4j_core_async_ArrayBlockingQueueFactory-XML-snippet]
 == XML snippet

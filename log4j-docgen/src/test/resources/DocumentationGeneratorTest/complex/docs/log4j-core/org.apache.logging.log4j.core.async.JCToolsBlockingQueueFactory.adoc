@@ -22,7 +22,7 @@ Class:: `org.apache.logging.log4j.core.async.JCToolsBlockingQueueFactory`
 Provider:: `org.apache.logging.log4j:log4j-core`
 
 
-Factory for creating instances of BlockingQueues backed by JCTools apiref:MpscArrayQueue[].
+Factory for creating instances of BlockingQueues backed by JCTools apiref:org.jctools.queues.MpscArrayQueue[].
 
 [#org_apache_logging_log4j_core_async_JCToolsBlockingQueueFactory-XML-snippet]
 == XML snippet

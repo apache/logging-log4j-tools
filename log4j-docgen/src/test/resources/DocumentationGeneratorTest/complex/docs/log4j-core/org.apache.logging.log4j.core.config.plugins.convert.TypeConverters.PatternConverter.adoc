@@ -22,7 +22,7 @@ Class:: `org.apache.logging.log4j.core.config.plugins.convert.TypeConverters.Pat
 Provider:: `org.apache.logging.log4j:log4j-core`
 
 
-Converts a apiref:String[] into a apiref:Pattern[].
+Converts a apiref:java.lang.String[] into a apiref:java.util.regex.Pattern[].
 
 [#org_apache_logging_log4j_core_config_plugins_convert_TypeConverters_PatternConverter-XML-snippet]
 == XML snippet

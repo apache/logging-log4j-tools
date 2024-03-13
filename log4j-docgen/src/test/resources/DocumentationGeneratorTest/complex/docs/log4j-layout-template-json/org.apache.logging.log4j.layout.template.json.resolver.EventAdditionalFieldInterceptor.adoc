@@ -22,7 +22,7 @@ Class:: `org.apache.logging.log4j.layout.template.json.resolver.EventAdditionalF
 Provider:: `org.apache.logging.log4j:log4j-layout-template-json`
 
 
-Interceptor to add apiref:EventTemplateAdditionalField[] after event template read.
+Interceptor to add apiref:org.apache.logging.log4j.layout.template.json.JsonTemplateLayout.EventTemplateAdditionalField[additional fields] after event template read.
 
 [#org_apache_logging_log4j_layout_template_json_resolver_EventAdditionalFieldInterceptor-XML-snippet]
 == XML snippet

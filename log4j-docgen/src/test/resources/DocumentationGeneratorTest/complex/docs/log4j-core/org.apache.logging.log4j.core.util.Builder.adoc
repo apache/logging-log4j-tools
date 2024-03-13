@@ -26,7 +26,7 @@ A type of builder that can be used to configure and create a instances using a J
 
 These builders are primarily useful for internal code and unit tests, but they can technically be used as a verbose alternative to configuration files.
 
-When creating _plugin_ builders, it is customary to create the builder class as a public static inner class called `Builder`. For instance, the builder class for xref:org.apache.logging.log4j.core.layout.PatternLayout.adoc[PatternLayout] would be `PatternLayout. Builder`.
+When creating _plugin_ builders, it is customary to create the builder class as a public static inner class called `Builder`. For instance, the builder class for apiref:org.apache.logging.log4j.core.util.org.apache.logging.log4j.core.layout.PatternLayout[PatternLayout] would be `PatternLayout. Builder`.
 
 
 [#org_apache_logging_log4j_core_util_Builder-implementations]

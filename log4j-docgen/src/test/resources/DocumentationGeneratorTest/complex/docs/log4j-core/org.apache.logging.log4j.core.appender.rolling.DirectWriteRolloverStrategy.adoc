@@ -33,13 +33,9 @@ The DirectWriteRolloverStrategy uses similar logic as DefaultRolloverStrategy to
 [source, xml]
 ----
 <DirectWriteRolloverStrategy compressionLevel=""
-                             compressionLevel=""
                              maxFiles=""
-                             maxFiles=""
-                             stopCustomActionsOnError=""
                              stopCustomActionsOnError=""
                              tempCompressedFilePattern="">
-    <a-Action-implementation/><!-- multiple occurrences allowed -->
     <a-Action-implementation/><!-- multiple occurrences allowed -->
 </DirectWriteRolloverStrategy>
 ----
@@ -58,30 +54,15 @@ Optional attributes are denoted by `?`-suffixed types.
 |
 a|
 
-|compressionLevel
-|String?
-|
-a|The compression level, 0 (less) through 9 (more); applies only to ZIP files.
-
 |maxFiles
 |String?
-|
-a|
-
-|maxFiles
-|String?
-|
-a|The maximum number of files that match the date portion of the pattern to keep.
-
-|stopCustomActionsOnError
-|boolean?
 |
 a|
 
 |stopCustomActionsOnError
 |boolean?
 |
-a|whether to stop executing asynchronous actions if an error occurs
+a|
 
 |tempCompressedFilePattern
 |String?
@@ -102,9 +83,5 @@ Optional components are denoted by `?`-suffixed types.
 |
 |xref:../log4j-core/org.apache.logging.log4j.core.appender.rolling.action.Action.adoc[Action]?
 a|
-
-|
-|xref:../log4j-core/org.apache.logging.log4j.core.appender.rolling.action.Action.adoc[Action]?
-a|custom actions to perform asynchronously after rollover
 
 |===

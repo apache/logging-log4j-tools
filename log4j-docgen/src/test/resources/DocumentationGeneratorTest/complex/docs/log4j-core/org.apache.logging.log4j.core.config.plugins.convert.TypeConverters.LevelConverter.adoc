@@ -22,7 +22,7 @@ Class:: `org.apache.logging.log4j.core.config.plugins.convert.TypeConverters.Lev
 Provider:: `org.apache.logging.log4j:log4j-core`
 
 
-Converts a apiref:String[] into a Log4j apiref:Level[].
+Converts a apiref:java.lang.String[] into a Log4j apiref:org.apache.logging.log4j.Level[].
 
 Returns `null` for invalid level names.
 
