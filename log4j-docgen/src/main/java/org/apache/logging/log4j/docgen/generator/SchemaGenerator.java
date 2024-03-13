@@ -43,6 +43,8 @@ import org.apache.logging.log4j.docgen.PluginType;
 import org.apache.logging.log4j.docgen.ScalarType;
 import org.apache.logging.log4j.docgen.ScalarValue;
 import org.apache.logging.log4j.docgen.Type;
+import org.apache.logging.log4j.docgen.generator.internal.ArtifactSourcedType;
+import org.apache.logging.log4j.docgen.generator.internal.TypeLookup;
 import org.jspecify.annotations.Nullable;
 
 @Singleton

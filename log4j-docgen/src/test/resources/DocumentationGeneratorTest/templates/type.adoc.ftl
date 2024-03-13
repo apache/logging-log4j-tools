@@ -18,7 +18,7 @@
 <#-- @ftlvariable name="sourcedType" type="org.apache.logging.log4j.docgen.model.ArtifactSourcedType" -->
 <#assign type = sourcedType.type/>
 <#-- @ftlvariable name="type" type="org.apache.logging.log4j.docgen.Type" -->
-<#-- @ftlvariable name="lookup" type="org.apache.logging.log4j.docgen.generator.TypeLookup" -->
+<#-- @ftlvariable name="lookup" type="org.apache.logging.log4j.docgen.generator.internal.TypeLookup" -->
 <#include "license.adoc">
 
 [#${type.className?replace('.', '_')}]

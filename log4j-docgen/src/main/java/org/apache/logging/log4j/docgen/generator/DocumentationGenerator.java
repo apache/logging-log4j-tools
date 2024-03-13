@@ -25,6 +25,8 @@ import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import org.apache.logging.log4j.docgen.PluginSet;
+import org.apache.logging.log4j.docgen.generator.internal.ArtifactSourcedType;
+import org.apache.logging.log4j.docgen.generator.internal.TypeLookup;
 import org.jspecify.annotations.Nullable;
 
 public final class DocumentationGenerator {

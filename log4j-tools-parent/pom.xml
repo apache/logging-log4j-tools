@@ -37,6 +37,7 @@
   <properties>
 
     <!-- Dependency versions -->
+    <asciidoctorj.version>3.0.0-alpha.2</asciidoctorj.version>
     <assertj.version>3.25.3</assertj.version>
     <commons-io.version>2.15.1</commons-io.version>
     <commons-lang3.version>3.14.0</commons-lang3.version>
@@ -67,6 +68,18 @@
         <groupId>org.apache.logging.log4j</groupId>
         <artifactId>log4j-tools-internal-test-util</artifactId>
         <version>${project.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>org.asciidoctor</groupId>
+        <artifactId>asciidoctorj</artifactId>
+        <version>${asciidoctorj.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>org.asciidoctor</groupId>
+        <artifactId>asciidoctorj-api</artifactId>
+        <version>${asciidoctorj.version}</version>
       </dependency>
 
       <dependency>

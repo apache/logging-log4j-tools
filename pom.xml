@@ -87,6 +87,7 @@
     <module>log4j-changelog</module>
     <module>log4j-changelog-maven-plugin</module>
     <module>log4j-docgen</module>
+    <module>log4j-docgen-asciidoctor-extension</module>
     <module>log4j-docgen-maven-plugin</module>
 
   </modules>

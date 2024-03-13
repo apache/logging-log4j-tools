@@ -15,13 +15,13 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 -->
-<#-- @ftlvariable name="lookup" type="org.apache.logging.log4j.docgen.generator.TypeLookup" -->
+<#-- @ftlvariable name="lookup" type="org.apache.logging.log4j.docgen.generator.internal.TypeLookup" -->
 <#include "license.adoc">
 
 [#index]
 = Index
 <#assign sourcedTypes = lookup?values/>
-<#-- @ftlvariable name="sourcedTypes" type="org.apache.logging.log4j.docgen.generator.ArtifactSourcedType[]" -->
+<#-- @ftlvariable name="sourcedTypes" type="org.apache.logging.log4j.docgen.generator.internal.ArtifactSourcedType[]" -->
 <#assign lastGroupId = ''/>
 <#assign lastArtifactId = ''/>
 <#list sourcedTypes?sort_by('groupId', 'artifactId', ['type', 'className']) as sourcedType>

@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.logging.log4j.docgen.generator;
+package org.apache.logging.log4j.docgen.generator.internal;
 
 import java.util.Iterator;
 import java.util.Set;
@@ -25,11 +25,12 @@ import org.apache.logging.log4j.docgen.PluginSet;
 import org.apache.logging.log4j.docgen.PluginType;
 import org.jspecify.annotations.Nullable;
 
-final class TypeLookup extends TreeMap<String, ArtifactSourcedType> {
+public final class TypeLookup extends TreeMap<String, ArtifactSourcedType> {
 
     private static final long serialVersionUID = 1L;
 
-    static TypeLookup of(final Iterable<? extends PluginSet> pluginSets, final Predicate<String> classNameFilter) {
+    public static TypeLookup of(
+            final Iterable<? extends PluginSet> pluginSets, final Predicate<String> classNameFilter) {
         return new TypeLookup(pluginSets, classNameFilter);
     }
 

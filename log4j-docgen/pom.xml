@@ -35,7 +35,6 @@
     <bnd.baseline.fail.on.missing>false</bnd.baseline.fail.on.missing>
 
     <!-- Dependency versions -->
-    <asciidoctorj-api.version>3.0.0-alpha.2</asciidoctorj-api.version>
     <!-- We explicitly test against Log4j 2 -->
     <log4j-core.version>2.23.1</log4j-core.version>
     <log4j-plugins.version>3.0.0-beta2</log4j-plugins.version>
@@ -65,7 +64,6 @@
     <dependency>
       <groupId>org.asciidoctor</groupId>
       <artifactId>asciidoctorj-api</artifactId>
-      <version>${asciidoctorj-api.version}</version>
     </dependency>
 
     <dependency>
