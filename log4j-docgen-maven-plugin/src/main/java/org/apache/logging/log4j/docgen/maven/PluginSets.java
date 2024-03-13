@@ -41,7 +41,7 @@ final class PluginSets {
         }
 
         // Collect paths
-        final Set<Path> foundDescriptorPaths = new LinkedHashSet<>();
+        final Set<Path> foundDescriptorPaths = /* order matters: */ new LinkedHashSet<>();
         Arrays.stream(effectiveDescriptorFiles).map(File::toPath).forEach(foundDescriptorPaths::add);
         Arrays.stream(effectiveDescriptorFileMatchers).forEach(matcher -> matcher.findPaths(foundDescriptorPaths::add));
 
@@ -56,6 +56,6 @@ final class PluginSets {
                         throw new RuntimeException(message, error);
                     }
                 })
-                .collect(Collectors.toSet());
+                .collect(Collectors.toCollection(/* order matters: */ LinkedHashSet::new));
     }
 }
