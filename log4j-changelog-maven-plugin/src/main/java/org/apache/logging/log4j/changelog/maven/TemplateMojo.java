@@ -44,5 +44,5 @@ public final class TemplateMojo {
      * Indicates if export should fail when the source cannot be found.
      */
     @Parameter(defaultValue = "false")
-    boolean failIfNotFound;
+    boolean failIfNotFound = false;
 }

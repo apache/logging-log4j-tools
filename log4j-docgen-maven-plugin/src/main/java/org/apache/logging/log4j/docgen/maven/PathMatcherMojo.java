@@ -47,7 +47,7 @@ public final class PathMatcherMojo {
      * Indicates if dot-prefixed paths found in {@link #baseDirectory} should be excluded.
      */
     @Parameter(defaultValue = "true")
-    private boolean dotFilesExcluded;
+    private boolean dotFilesExcluded = true;
 
     /**
      * The path patterns (e.g., <code>glob:**&#47;*.xml</code>) that will be used to filter paths found in {@link #baseDirectory}.
