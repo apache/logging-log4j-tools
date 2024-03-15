@@ -102,7 +102,7 @@ A sample _release entry_ file is shared below.
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="
              https://logging.apache.org/xml/ns
-             https://logging.apache.org/xml/ns/log4j-changelog-1.0.0.xsd"
+             https://logging.apache.org/xml/ns/log4j-changelog-0.xsd
          date="2022-09-09"
          version="2.19.0"/>
 ----
@@ -129,7 +129,7 @@ A sample _changelog entry_ file is shared below.
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:schemaLocation="
            https://logging.apache.org/xml/ns
-           https://logging.apache.org/xml/ns/log4j-changelog-1.0.0.xsd"
+           https://logging.apache.org/xml/ns/log4j-changelog-0.xsd
        type="fixed">
   <issue id="LOG4J2-3556" link="https://issues.apache.org/jira/browse/LOG4J2-3556"/>
   <description format="asciidoc">

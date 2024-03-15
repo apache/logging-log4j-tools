@@ -17,7 +17,7 @@
   -->
 <entry xmlns="https://logging.apache.org/xml/ns"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xsi:schemaLocation="https://logging.apache.org/xml/ns https://logging.apache.org/xml/ns/log4j-changelog-1.0.0.xsd"
+       xsi:schemaLocation="https://logging.apache.org/xml/ns https://logging.apache.org/xml/ns/log4j-changelog-0.xsd"
        type="changed">
   <issue id="LOG4J2-3572" link="https://issues.apache.org/jira/browse/LOG4J2-3572"/>
   <description format="asciidoc">Add `getExplicitLevel` method to `LoggerConfig`</description>

@@ -17,7 +17,7 @@
   -->
 <entry xmlns="https://logging.apache.org/xml/ns"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xsi:schemaLocation="https://logging.apache.org/xml/ns https://logging.apache.org/xml/ns/log4j-changelog-1.0.0.xsd"
+       xsi:schemaLocation="https://logging.apache.org/xml/ns https://logging.apache.org/xml/ns/log4j-changelog-0.xsd"
        type="removed">
   <issue id="LOG4J2-3405" link="https://issues.apache.org/jira/browse/LOG4J2-3405"/>
   <description format="asciidoc">Document that the Spring Boot Lookup requires the `log4j-spring-boot` dependency</description>

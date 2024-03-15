@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <entry xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns="https://logging.apache.org/xml/ns"
-       xsi:schemaLocation="https://logging.apache.org/xml/ns https://logging.apache.org/xml/ns/log4j-changelog-1.0.0.xsd"
+       xsi:schemaLocation="https://logging.apache.org/xml/ns https://logging.apache.org/xml/ns/log4j-changelog-0.xsd"
        type="added">
   <description format="asciidoc">
-    Add a `log4j-docgen` module with a common XML model to document sets of Log4j plugins.
+    Add the `log4j-docgen` et al. with a common XML model to document Log4j plugins
   </description>
 </entry>

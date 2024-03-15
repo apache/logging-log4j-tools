@@ -19,7 +19,7 @@
         targetNamespace="https://logging.apache.org/xml/ns"
         xmlns:cl="https://logging.apache.org/xml/ns"
         elementFormDefault="qualified"
-        version="1.0.0">
+        version="0.2.0">
 
   <element name="release">
     <complexType>
