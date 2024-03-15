@@ -176,7 +176,9 @@ It also implements:
     </plugins>
     <abstractTypes>
         <abstractType className="example.AbstractAppender">
-            <description>An example of base abstract class.</description>
+            <description>An example of base abstract class.
+
+Example apiref:example.Appender[link with a FQCN].</description>
         </abstractType>
         <abstractType className="example.Appender">
             <description>Extended interface that also allows to do `baz`.</description>

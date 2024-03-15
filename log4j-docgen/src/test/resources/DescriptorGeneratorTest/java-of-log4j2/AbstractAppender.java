@@ -18,6 +18,7 @@ package example;
 
 /**
  * An example of base abstract class.
+ * Example {@link example.Appender link with a FQCN}.
  */
 public abstract class AbstractAppender implements BaseAppender {
 }

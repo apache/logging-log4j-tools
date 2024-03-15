@@ -270,7 +270,8 @@ abstract class AbstractAsciiDocTreeVisitor extends SimpleDocTreeVisitor<Void, As
 
         // Otherwise it is a package-local class
         final String packageName = data.qualifiedClassName.substring(0, data.qualifiedClassName.lastIndexOf('.'));
-        return packageName + '.' + classSignature + methodSignature;
+        final boolean alreadyQualified = classSignature.startsWith(packageName);
+        return alreadyQualified ? referenceSignature : packageName + '.' + classSignature + methodSignature;
     }
 
     private static String linkLabelToAsciiDoc(final LinkTree node) {
