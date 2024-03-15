@@ -247,7 +247,7 @@ abstract class AbstractAsciiDocTreeVisitor extends SimpleDocTreeVisitor<Void, As
         final String methodSignature;
         if (methodSplitterIndex > 0) {
             classSignature = referenceSignature.substring(0, methodSplitterIndex);
-            methodSignature = referenceSignature.substring(methodSplitterIndex);
+            methodSignature = referenceSignature.substring(methodSplitterIndex).replaceAll(" +", "");
         } else {
             classSignature = referenceSignature;
             methodSignature = "";
