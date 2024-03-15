@@ -107,7 +107,8 @@ class DescriptorGeneratorTest {
                         "-A" + DescriptorGenerator.GROUP_ID_OPTION_KEY + "=com.example.groupId",
                         "-A" + DescriptorGenerator.ARTIFACT_ID_OPTION_KEY + "=example-artifactId",
                         "-A" + DescriptorGenerator.VERSION_OPTION_KEY + "=1.2.3",
-                        "-A" + DescriptorGenerator.DESCRIPTION_OPTION_KEY + "=example description"),
+                        "-A" + DescriptorGenerator.DESCRIPTION_OPTION_KEY + "=example description",
+                        "-A" + DescriptorGenerator.TYPE_FILTER_EXCLUDE_PATTERN_OPTION_KEY + "=^java\\..+"),
                 null,
                 sources);
         task.call();

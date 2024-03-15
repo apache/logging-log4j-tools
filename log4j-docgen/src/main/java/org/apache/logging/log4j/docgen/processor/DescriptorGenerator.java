@@ -38,6 +38,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
+import java.util.function.Predicate;
+import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import javax.annotation.processing.AbstractProcessor;
@@ -89,7 +91,9 @@ import org.jspecify.annotations.Nullable;
     DescriptorGenerator.GROUP_ID_OPTION_KEY,
     DescriptorGenerator.ARTIFACT_ID_OPTION_KEY,
     DescriptorGenerator.VERSION_OPTION_KEY,
-    DescriptorGenerator.DESCRIPTION_OPTION_KEY
+    DescriptorGenerator.DESCRIPTION_OPTION_KEY,
+    DescriptorGenerator.TYPE_FILTER_INCLUDE_PATTERN_OPTION_KEY,
+    DescriptorGenerator.TYPE_FILTER_EXCLUDE_PATTERN_OPTION_KEY
 })
 @NullMarked
 public class DescriptorGenerator extends AbstractProcessor {
@@ -103,6 +107,10 @@ public class DescriptorGenerator extends AbstractProcessor {
     static final String VERSION_OPTION_KEY = "log4j.docgen.version";
 
     static final String DESCRIPTION_OPTION_KEY = "log4j.docgen.description";
+
+    static final String TYPE_FILTER_INCLUDE_PATTERN_OPTION_KEY = "log4j.docgen.typeFilter.includePattern";
+
+    static final String TYPE_FILTER_EXCLUDE_PATTERN_OPTION_KEY = "log4j.docgen.typeFilter.excludePattern";
 
     private static final String MULTIPLICITY_UNBOUNDED = "*";
 
@@ -122,11 +130,18 @@ public class DescriptorGenerator extends AbstractProcessor {
             "java.lang.Double",
             "java.lang.String");
 
+    /**
+     * A regular expression that never matches.
+     */
+    private static final String IMPOSSIBLE_REGEX = "(?!.*)";
+
     // Abstract types to process
     private final Collection<TypeElement> abstractTypesToDocument = new HashSet<>();
 
     // Scalar types to process
     private final Collection<TypeElement> scalarTypesToDocument = new HashSet<>();
+
+    private Predicate<String> classNameFilter;
 
     private PluginSet pluginSet;
 
@@ -155,6 +170,7 @@ public class DescriptorGenerator extends AbstractProcessor {
     @Override
     public synchronized void init(final ProcessingEnvironment processingEnv) {
         super.init(processingEnv);
+        classNameFilter = createClassNameFilter(processingEnv);
         pluginSet = createPluginSet(processingEnv);
         descriptorFilePath = Path.of(requireOption(processingEnv, DESCRIPTOR_FILE_PATH_OPTION_KEY));
         docTrees = DocTrees.instance(processingEnv);
@@ -167,6 +183,27 @@ public class DescriptorGenerator extends AbstractProcessor {
         annotations = new Annotations(elements, types);
         collectionType = getDeclaredType(processingEnv, "java.util.Collection");
         enumType = getDeclaredType(processingEnv, "java.lang.Enum");
+    }
+
+    private Predicate<String> createClassNameFilter(final ProcessingEnvironment processingEnv) {
+        final Pattern includePattern = getPatternOption(processingEnv, TYPE_FILTER_INCLUDE_PATTERN_OPTION_KEY, ".*");
+        final Pattern excludePattern =
+                getPatternOption(processingEnv, TYPE_FILTER_EXCLUDE_PATTERN_OPTION_KEY, IMPOSSIBLE_REGEX);
+        return className -> includePattern.matcher(className).matches()
+                && !excludePattern.matcher(className).matches();
+    }
+
+    private static Pattern getPatternOption(
+            final ProcessingEnvironment processingEnv, final String key, final String defaultValue) {
+        @Nullable final String regex = getOption(processingEnv, key);
+        final String effectiveRegex = regex != null ? regex : defaultValue;
+        try {
+            return Pattern.compile(effectiveRegex);
+        } catch (final Exception error) {
+            final String message =
+                    String.format("failed compiling the regex pattern `%s` provided in option `%s`", regex, key);
+            throw new IllegalArgumentException(message, error);
+        }
     }
 
     private static PluginSet createPluginSet(final ProcessingEnvironment processingEnv) {
@@ -254,7 +291,8 @@ public class DescriptorGenerator extends AbstractProcessor {
             final ElementImports imports = importsFactory.ofElement(element);
             final String qualifiedClassName = getClassName(element.asType());
             populateType(element, imports, qualifiedClassName, abstractType);
-            if (!abstractType.getClassName().startsWith("java.")) {
+            final boolean filtered = classNameFilter.test(abstractType.getClassName());
+            if (filtered) {
                 pluginSet.addAbstractType(abstractType);
             }
         } catch (final Exception error) {

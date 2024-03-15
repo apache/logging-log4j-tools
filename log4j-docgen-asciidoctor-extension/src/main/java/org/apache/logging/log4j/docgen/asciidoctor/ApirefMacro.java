@@ -52,6 +52,11 @@ public final class ApirefMacro extends InlineMacroProcessor {
 
     private static final Logger LOGGER = Logger.getLogger(ApirefMacro.class.getName());
 
+    /**
+     * A regular expression that never matches.
+     */
+    private static final String IMPOSSIBLE_REGEX = "(?!.*)";
+
     private TypeLookup lookup;
 
     private String typeTemplateTarget;
@@ -118,7 +123,7 @@ public final class ApirefMacro extends InlineMacroProcessor {
         final Pattern includePattern =
                 getPatternAttribute(documentAttributes, attributeName("type-filter-include-pattern"), ".*");
         final Pattern excludePattern =
-                getPatternAttribute(documentAttributes, attributeName("type-filter-exclude-pattern"), "(?!.*)");
+                getPatternAttribute(documentAttributes, attributeName("type-filter-exclude-pattern"), IMPOSSIBLE_REGEX);
         LOGGER.log(
                 Level.FINE,
                 "Creating type lookup using `%s` and `%s` patterns for inclusion and exclusion, respectively...",
