@@ -88,7 +88,7 @@ public final class ApirefMacro extends InlineMacroProcessor {
 
         // Otherwise we don't know the link
         final String effectiveLabel = label != null ? label : target;
-        return createPhraseNode(parent, "quoted", effectiveLabel, attributes);
+        return createPhraseNode(parent, "quoted", "<code>" + effectiveLabel + "</code>", attributes);
     }
 
     private String createTypeTemplateTargetPath(final ArtifactSourcedType sourcedType) {
