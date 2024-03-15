@@ -61,6 +61,8 @@ public final class ApirefMacro extends InlineMacroProcessor {
 
     private String typeTemplateTarget;
 
+    private boolean packageNameStripped;
+
     private boolean initialized = false;
 
     @Override
@@ -87,7 +89,10 @@ public final class ApirefMacro extends InlineMacroProcessor {
         }
 
         // Otherwise we don't know the link
-        final String effectiveLabel = label != null ? label : target;
+        if (label != null) {
+            return createPhraseNode(parent, "quoted", "<em>" + label + "</em>", attributes);
+        }
+        final String effectiveLabel = packageNameStripped ? target.replaceFirst("^([a-z][a-z0-9_]*\\.)*", "") : target;
         return createPhraseNode(parent, "quoted", "<code>" + effectiveLabel + "</code>", attributes);
     }
 
@@ -112,6 +117,7 @@ public final class ApirefMacro extends InlineMacroProcessor {
             lookup = createTypeLookup(node);
             final Map<String, Object> documentAttributes = node.getDocument().getAttributes();
             typeTemplateTarget = getStringAttribute(documentAttributes, attributeName("type-template-target"), null);
+            packageNameStripped = getBooleanAttribute(documentAttributes, attributeName("package-name-stripped"));
             initialized = true;
             LOGGER.fine("Initialized.");
         }
@@ -174,6 +180,14 @@ public final class ApirefMacro extends InlineMacroProcessor {
                     String.format("failed compiling the regex pattern `%s` provided in attribute `%s`", regex, key);
             throw new IllegalArgumentException(message, error);
         }
+    }
+
+    private static boolean getBooleanAttribute(final Map<String, Object> documentAttributes, final String key) {
+        // Boolean document attributes get transformed from `pom.xml` in an unexpected way:
+        // 1. `<foo>true</foo>` gets translated to an empty string in the `documentAttributes`
+        // 2. `<foo>false</foo>` doesn't even get into the `documentAttributes`
+        // Hence, we only check for the existence of the key
+        return documentAttributes.containsKey(key);
     }
 
     private static String getStringAttribute(
