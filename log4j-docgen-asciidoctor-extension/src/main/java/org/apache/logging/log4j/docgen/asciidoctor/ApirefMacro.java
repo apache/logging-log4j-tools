@@ -117,7 +117,8 @@ public final class ApirefMacro extends InlineMacroProcessor {
             lookup = createTypeLookup(node);
             final Map<String, Object> documentAttributes = node.getDocument().getAttributes();
             typeTemplateTarget = getStringAttribute(documentAttributes, attributeName("type-template-target"), null);
-            packageNameStripped = isBooleanAttributeProvided(documentAttributes, attributeName("package-name-stripped"));
+            packageNameStripped =
+                    isBooleanAttributeProvided(documentAttributes, attributeName("package-name-stripped"));
             initialized = true;
             LOGGER.fine("Initialized.");
         }
@@ -145,7 +146,8 @@ public final class ApirefMacro extends InlineMacroProcessor {
         final String directory = getStringAttribute(documentAttributes, attributeName("descriptor-directory"), null);
         final String pathMatcher =
                 getStringAttribute(documentAttributes, attributeName("descriptor-path-matcher"), "glob:**/*.xml");
-        final boolean dotFilesIncluded = isBooleanAttributeProvided(documentAttributes, attributeName("descriptor-dot-files-included"));
+        final boolean dotFilesIncluded =
+                isBooleanAttributeProvided(documentAttributes, attributeName("descriptor-dot-files-included"));
         LOGGER.log(
                 Level.FINE,
                 "Loading descriptors matching `{}` pattern in `{}`... (Dot files will be {})",
