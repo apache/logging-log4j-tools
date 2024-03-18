@@ -83,7 +83,8 @@
     <!-- the parent POM must come first: -->
     <module>log4j-tools-parent</module>
 
-    <!-- Modules here must have a corresponding entry in `dependencyManagement > dependencies` block below! -->
+    <!-- Modules (which are not Maven plugins!) here must have a corresponding entry in either `dependencyManagement > dependencies` block below!
+         Maven plugins are an exception to this, since they are not used as a `dependency`. -->
     <module>log4j-changelog</module>
     <module>log4j-changelog-maven-plugin</module>
     <module>log4j-docgen</module>
@@ -146,13 +147,13 @@
 
       <dependency>
         <groupId>org.apache.logging.log4j</groupId>
-        <artifactId>log4j-changelog-maven-plugin</artifactId>
+        <artifactId>log4j-docgen</artifactId>
         <version>${project.version}</version>
       </dependency>
 
       <dependency>
         <groupId>org.apache.logging.log4j</groupId>
-        <artifactId>log4j-docgen</artifactId>
+        <artifactId>log4j-docgen-asciidoctor-extension</artifactId>
         <version>${project.version}</version>
       </dependency>
 
