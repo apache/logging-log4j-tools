@@ -33,10 +33,13 @@
     3. Commit both `.release-notes.adoc.ftl` and the generated `7.8.0.adoc`
 ////
 
-[#release-notes-0-x-x]
-=== 0.x.x
+[#release-notes-${release.version?replace("[^a-zA-Z0-9]", "-", "r")}]
+=== ${release.version}
 
+<#if release.date?has_content>Release date:: ${release.date}</#if>
 
+This release delivers the first version of Log4j Docgen (Documentation Generator).
+It is a set of tools to auto-generate the Log4j plugin documentation (to be integrated into the website) and the Log4j configuration XSD file (for assisting the configuration of the Log4j runtime, i.e., `log4j2.xml`) from the Log4j source code.
+See the project website for details.
 
-This minor release contains various bug fixes and improvements.
-
+<#include "../.changelog.adoc.ftl">
