@@ -51,12 +51,12 @@ See the project website for details.
 [#release-notes-0-8-0-changed]
 ==== Changed
 
-* Move `log4j-changelog` XML namespace and schema location to `https://logging.apache.org/xml/ns` and `https://logging.apache.org/xml/ns/log4j-changelog-0.xsd`, respectively
+* Move Log4j Changelog XML namespace and schema location to `https://logging.apache.org/xml/ns` and `https://logging.apache.org/xml/ns/log4j-changelog-0.xsd`, respectively
 
 [#release-notes-0-8-0-removed]
 ==== Removed
 
-* Remove `author` from `log4j-changelog`.
+* Remove `author` from Log4j Changelog.
 +
 It was yet another bit to maintain and created role-related (who did what) problems.
 Many modern software projects use a VCS (e.g., Git) and support services (e.g., GitHub) which make it trivial to trace back the origin of a change using commit and issue IDs.

@@ -3,7 +3,7 @@
        xmlns="https://logging.apache.org/xml/ns"
        xsi:schemaLocation="https://logging.apache.org/xml/ns https://logging.apache.org/xml/ns/log4j-changelog-0.xsd"
        type="removed">
-  <description format="asciidoc">Remove `author` from `log4j-changelog`.
+  <description format="asciidoc">Remove `author` from Log4j Changelog.
 +
 It was yet another bit to maintain and created role-related (who did what) problems.
 Many modern software projects use a VCS (e.g., Git) and support services (e.g., GitHub) which make it trivial to trace back the origin of a change using commit and issue IDs.</description>

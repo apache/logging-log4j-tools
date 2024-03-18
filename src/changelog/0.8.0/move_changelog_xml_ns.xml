@@ -4,6 +4,6 @@
        xsi:schemaLocation="https://logging.apache.org/xml/ns https://logging.apache.org/xml/ns/log4j-changelog-0.xsd"
        type="changed">
   <description format="asciidoc">
-    Move `log4j-changelog` XML namespace and schema location to `https://logging.apache.org/xml/ns` and `https://logging.apache.org/xml/ns/log4j-changelog-0.xsd`, respectively
+    Move Log4j Changelog XML namespace and schema location to `https://logging.apache.org/xml/ns` and `https://logging.apache.org/xml/ns/log4j-changelog-0.xsd`, respectively
   </description>
 </entry>

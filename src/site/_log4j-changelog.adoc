@@ -16,7 +16,7 @@ limitations under the License.
 ////
 
 [#log4j-changelog]
-== `log4j-changelog`
+== Log4j Changelog
 
 This project contains tools to maintain changelogs.
 It is designed for Apache Log4j, but can be used for any Java project.

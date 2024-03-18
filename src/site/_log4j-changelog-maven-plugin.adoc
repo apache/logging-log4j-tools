@@ -16,9 +16,9 @@ limitations under the License.
 ////
 
 [#log4j-changelog-maven-plugin]
-== `log4j-changelog-maven-plugin`
+== Log4j Changelog Maven Plugin
 
-This project ships a Maven plugin providing access to the `ChangelogExporter` and `ChangelogReleaser` of xref:#log4j-changelog[`log4j-changelog`].
+This project ships a Maven plugin providing access to the `ChangelogExporter` and `ChangelogReleaser` of xref:#log4j-changelog[Log4j Changelog].
 
 [#log4j-changelog-maven-plugin-dependencies]
 === Dependencies
@@ -48,7 +48,7 @@ xref:#log4j-changelog-index-template[Index templates]::
 These templates are rendered with the release information of all releases.
 These are generally used to generate the index page referencing to release notes of each release.
 
-See xref:#log4j-changelog-export[the `log4j-changelog` documentation] for further details.
+See xref:#log4j-changelog-export[the Log4j Changelog documentation] for further details.
 
 You can use the `export` goal as follows:
 
