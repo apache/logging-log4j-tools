@@ -117,7 +117,7 @@ public final class ApirefMacro extends InlineMacroProcessor {
             lookup = createTypeLookup(node);
             final Map<String, Object> documentAttributes = node.getDocument().getAttributes();
             typeTemplateTarget = getStringAttribute(documentAttributes, attributeName("type-template-target"), null);
-            packageNameStripped = getBooleanAttribute(documentAttributes, attributeName("package-name-stripped"));
+            packageNameStripped = isBooleanAttributeProvided(documentAttributes, attributeName("package-name-stripped"));
             initialized = true;
             LOGGER.fine("Initialized.");
         }
@@ -145,14 +145,12 @@ public final class ApirefMacro extends InlineMacroProcessor {
         final String directory = getStringAttribute(documentAttributes, attributeName("descriptor-directory"), null);
         final String pathMatcher =
                 getStringAttribute(documentAttributes, attributeName("descriptor-path-matcher"), "glob:**/*.xml");
-        final String dotFilesExcludedString =
-                getStringAttribute(documentAttributes, attributeName("descriptor-dot-files-excluded"), "true");
-        final boolean dotFilesExcluded = Boolean.parseBoolean(dotFilesExcludedString);
+        final boolean dotFilesIncluded = isBooleanAttributeProvided(documentAttributes, attributeName("descriptor-dot-files-included"));
         LOGGER.log(
                 Level.FINE,
                 "Loading descriptors matching `{}` pattern in `{}`... (Dot files will be {})",
-                new Object[] {pathMatcher, directory, dotFilesExcluded ? "ignored." : "included!"});
-        final Set<PluginSet> pluginSets = loadDescriptors(directory, pathMatcher, dotFilesExcluded);
+                new Object[] {pathMatcher, directory, dotFilesIncluded ? "included!" : "ignored."});
+        final Set<PluginSet> pluginSets = loadDescriptors(directory, pathMatcher, dotFilesIncluded);
         LOGGER.log(Level.FINE, "Loaded {} descriptors in total.", pluginSets.size());
         return pluginSets;
     }
@@ -182,7 +180,7 @@ public final class ApirefMacro extends InlineMacroProcessor {
         }
     }
 
-    private static boolean getBooleanAttribute(final Map<String, Object> documentAttributes, final String key) {
+    private static boolean isBooleanAttributeProvided(final Map<String, Object> documentAttributes, final String key) {
         // Boolean document attributes get transformed from `pom.xml` in an unexpected way:
         // 1. `<foo>true</foo>` gets translated to an empty string in the `documentAttributes`
         // 2. `<foo>false</foo>` doesn't even get into the `documentAttributes`
@@ -206,7 +204,7 @@ public final class ApirefMacro extends InlineMacroProcessor {
     }
 
     private Set<PluginSet> loadDescriptors(
-            final String directory, final String pathPattern, final boolean dotFilesExcluded) {
+            final String directory, final String pathPattern, final boolean dotFilesIncluded) {
         final Set<PluginSet> pluginSets = new LinkedHashSet<>();
         final PluginBundleStaxReader pluginSetReader = new PluginBundleStaxReader();
         final PathMatcher pathMatcher = FileSystems.getDefault().getPathMatcher(pathPattern);
@@ -220,7 +218,7 @@ public final class ApirefMacro extends InlineMacroProcessor {
 
                 // Skip dot files
                 final boolean dotFile =
-                        dotFilesExcluded && path.getFileName().toString().startsWith(".");
+                        !dotFilesIncluded && path.getFileName().toString().startsWith(".");
                 if (dotFile) {
                     return;
                 }
