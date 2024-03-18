@@ -26,6 +26,12 @@ include::_log4j-changelog.adoc[]
 
 include::_log4j-changelog-maven-plugin.adoc[]
 
+include::_log4j-docgen.adoc[]
+
+include::_log4j-docgen-maven-plugin.adoc[]
+
+include::_log4j-docgen-asciidoctor-extension.adoc[]
+
 [#development]
 == Development
 
