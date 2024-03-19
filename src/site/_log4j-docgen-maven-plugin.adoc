@@ -92,6 +92,7 @@ The `generate-schema` goal generates an XSD derived from the types loaded using 
     </excludes>
   </typeFilter>
 
+  <schemaVersion>${project.version}</schemaVersion>
   <schemaFile>${project.build.directory}/generated-site/resources/config.xsd</schemaFile>
 
 </configuration>
