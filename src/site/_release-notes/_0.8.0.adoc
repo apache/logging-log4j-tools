@@ -36,7 +36,7 @@
 [#release-notes-0-8-0]
 === 0.8.0
 
-Release date:: 2024-03-18
+Release date:: 2024-03-19
 
 This release delivers the first version of Log4j Docgen (Documentation Generator).
 It is a set of tools to auto-generate the Log4j plugin documentation (to be integrated into the website) and the Log4j configuration XSD file (for assisting the configuration of the Log4j runtime, i.e., `log4j2.xml`) from the Log4j source code.
