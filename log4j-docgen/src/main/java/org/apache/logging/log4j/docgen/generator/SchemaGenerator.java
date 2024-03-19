@@ -57,8 +57,6 @@ public final class SchemaGenerator {
 
     private static final String XSD_NAMESPACE = XMLConstants.W3C_XML_SCHEMA_NS_URI;
 
-    private static final String VERSION = new PluginSet().getSchemaVersion();
-
     private static final String MULTIPLICITY_UNBOUNDED = "*";
 
     private static final String CHARSET_NAME = "UTF-8";
@@ -79,7 +77,7 @@ public final class SchemaGenerator {
             try (final OutputStream schemaPathOutputStream = Files.newOutputStream(args.schemaFile)) {
                 final XMLStreamWriter writer = factory.createXMLStreamWriter(schemaPathOutputStream, CHARSET_NAME);
                 try {
-                    writeSchema(lookup, writer);
+                    writeSchema(args.schemaVersion, lookup, writer);
                 } finally {
                     writer.close();
                 }
@@ -89,7 +87,8 @@ public final class SchemaGenerator {
         }
     }
 
-    private static void writeSchema(final TypeLookup lookup, final XMLStreamWriter writer) throws XMLStreamException {
+    private static void writeSchema(final String version, final TypeLookup lookup, final XMLStreamWriter writer)
+            throws XMLStreamException {
         writer.writeStartDocument(CHARSET_NAME, "1.0");
         writer.setDefaultNamespace(XSD_NAMESPACE);
         writer.writeStartElement(XSD_NAMESPACE, "schema");
@@ -97,7 +96,7 @@ public final class SchemaGenerator {
         writer.writeNamespace(LOG4J_PREFIX, LOG4J_NAMESPACE);
         writer.writeAttribute("elementFormDefault", "qualified");
         writer.writeAttribute("targetNamespace", LOG4J_NAMESPACE);
-        writer.writeAttribute("version", VERSION);
+        writer.writeAttribute("version", version);
 
         // The root element
         writer.writeEmptyElement(XSD_NAMESPACE, "element");

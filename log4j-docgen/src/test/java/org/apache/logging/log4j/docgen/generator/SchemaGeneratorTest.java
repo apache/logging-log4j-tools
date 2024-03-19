@@ -57,7 +57,7 @@ class SchemaGeneratorTest {
         // Generate the schema
         final Path schemaFile = outputDir.resolve("config.xsd");
         final SchemaGeneratorArgs generatorArgs =
-                new SchemaGeneratorArgs(Set.of(pluginSet), ignored -> true, schemaFile);
+                new SchemaGeneratorArgs(Set.of(pluginSet), ignored -> true, "1.2.3", schemaFile);
         SchemaGenerator.generateSchema(generatorArgs);
 
         // Return the generated XSD file path

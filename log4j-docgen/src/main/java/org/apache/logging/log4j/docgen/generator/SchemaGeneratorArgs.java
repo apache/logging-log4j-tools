@@ -29,12 +29,18 @@ public final class SchemaGeneratorArgs {
 
     final Predicate<String> classNameFilter;
 
+    final String schemaVersion;
+
     final Path schemaFile;
 
     public SchemaGeneratorArgs(
-            final Set<PluginSet> pluginSets, final Predicate<String> classNameFilter, final Path schemaFile) {
+            final Set<PluginSet> pluginSets,
+            final Predicate<String> classNameFilter,
+            final String schemaVersion,
+            final Path schemaFile) {
         this.pluginSets = requireNonNull(pluginSets, "pluginSets");
         this.classNameFilter = requireNonNull(classNameFilter, "classNameFilter");
+        this.schemaVersion = requireNonNull(schemaVersion, "schemaVersion");
         this.schemaFile = requireNonNull(schemaFile, "schemaFile");
     }
 }

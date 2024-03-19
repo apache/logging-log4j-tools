@@ -37,6 +37,12 @@ import org.apache.maven.plugins.annotations.Parameter;
 public class SchemaGeneratorMojo extends AbstractGeneratorMojo {
 
     /**
+     * The version of the XSD
+     */
+    @Parameter(property = "log4j.docgen.schemaVersion", required = true)
+    private String schemaVersion;
+
+    /**
      * The path of the XSD file to write to
      */
     @Parameter(property = "log4j.docgen.schemaFile", required = true)
@@ -49,7 +55,7 @@ public class SchemaGeneratorMojo extends AbstractGeneratorMojo {
         final Predicate<String> classNameFilter = typeFilter != null ? typeFilter.createPredicate() : ignored -> true;
         try {
             final SchemaGeneratorArgs generatorArgs =
-                    new SchemaGeneratorArgs(pluginSets, classNameFilter, schemaFile.toPath());
+                    new SchemaGeneratorArgs(pluginSets, classNameFilter, schemaVersion, schemaFile.toPath());
             SchemaGenerator.generateSchema(generatorArgs);
         } catch (final XMLStreamException error) {
             final String message = String.format("failed generating the schema file `%s`", schemaFile);
