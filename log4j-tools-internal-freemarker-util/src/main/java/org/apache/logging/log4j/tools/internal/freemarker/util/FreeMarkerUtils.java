@@ -26,7 +26,10 @@ import freemarker.template.TemplateExceptionHandler;
 import freemarker.template.Version;
 import java.io.BufferedWriter;
 import java.io.IOException;
+import java.io.StringReader;
+import java.io.StringWriter;
 import java.io.UncheckedIOException;
+import java.io.Writer;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
@@ -39,12 +42,13 @@ public final class FreeMarkerUtils {
 
     private static final String CHARSET_NAME = CHARSET.name();
 
+    private static final Version CONFIGURATION_VERSION = Configuration.VERSION_2_3_29;
+
     private FreeMarkerUtils() {}
 
     @SuppressFBWarnings("DMI_HARDCODED_ABSOLUTE_FILENAME")
     private static Configuration createConfiguration(final Path templateDirectory) {
-        final Version configurationVersion = Configuration.VERSION_2_3_29;
-        final Configuration configuration = new Configuration(configurationVersion);
+        final Configuration configuration = new Configuration(CONFIGURATION_VERSION);
         configuration.setDefaultEncoding(CHARSET_NAME);
         configuration.setTemplateExceptionHandler(TemplateExceptionHandler.RETHROW_HANDLER);
         try {
@@ -52,7 +56,7 @@ public final class FreeMarkerUtils {
         } catch (final IOException error) {
             throw new UncheckedIOException(error);
         }
-        final DefaultObjectWrapperBuilder objectWrapperBuilder = new DefaultObjectWrapperBuilder(configurationVersion);
+        final DefaultObjectWrapperBuilder objectWrapperBuilder = new DefaultObjectWrapperBuilder(CONFIGURATION_VERSION);
         objectWrapperBuilder.setExposeFields(true);
         final DefaultObjectWrapper objectWrapper = objectWrapperBuilder.build();
         configuration.setObjectWrapper(objectWrapper);
@@ -80,6 +84,25 @@ public final class FreeMarkerUtils {
             final String message = String.format(
                     "failed rendering template `%s` in directory `%s` to file `%s`",
                     templateName, templateDirectory, outputFile);
+            throw new RuntimeException(message, error);
+        }
+    }
+
+    @SuppressFBWarnings("TEMPLATE_INJECTION_FREEMARKER")
+    public static String renderString(final String templateString, final Object templateData) {
+        final Configuration configuration = new Configuration(CONFIGURATION_VERSION);
+        final DefaultObjectWrapperBuilder objectWrapperBuilder = new DefaultObjectWrapperBuilder(CONFIGURATION_VERSION);
+        objectWrapperBuilder.setExposeFields(true);
+        final DefaultObjectWrapper objectWrapper = objectWrapperBuilder.build();
+        configuration.setObjectWrapper(objectWrapper);
+        try {
+            final Template template =
+                    new Template("ephemeralInlineTemplate", new StringReader(templateString), configuration);
+            final Writer templateWriter = new StringWriter();
+            template.process(templateData, templateWriter);
+            return templateWriter.toString();
+        } catch (final Exception error) {
+            final String message = String.format("failed rendering template `%s`", templateString);
             throw new RuntimeException(message, error);
         }
     }

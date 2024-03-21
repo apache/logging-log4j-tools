@@ -31,7 +31,9 @@ class ApirefMacroTest {
 
     private final AttributesBuilder attributesBuilder = Attributes.builder()
             .attribute("log4j-docgen-descriptor-directory", "src/test/resources/" + TEST_NAME + "/plugins.xml")
-            .attribute("log4j-docgen-type-template-target", "%g/%a/%c.html");
+            .attribute(
+                    "log4j-docgen-type-target-template",
+                    "#${sourcedType.groupId?replace('.', '-')}_${sourcedType.artifactId?replace('.', '-')}_${sourcedType.type.className?replace('.', '-')}");
 
     @Test
     void unlabeled_unknown_class() {
@@ -53,7 +55,7 @@ class ApirefMacroTest {
     void unlabeled_known_class() {
         assertConversion(
                 "apiref:example.MyAppender[]",
-                "<a href=\"com.example.groupId/example-artifactId/example.MyAppender.html\">MyAppender</a>");
+                "<a href=\"#com-example-groupId_example-artifactId_example-MyAppender\">MyAppender</a>");
     }
 
     @Test
@@ -66,7 +68,7 @@ class ApirefMacroTest {
     void labeled_known_class() {
         assertConversion(
                 "apiref:example.MyAppender[foo]",
-                "<a href=\"com.example.groupId/example-artifactId/example.MyAppender.html\">foo</a>");
+                "<a href=\"#com-example-groupId_example-artifactId_example-MyAppender\">foo</a>");
     }
 
     private void assertConversion(final String asciiDoc, final String expectedOutput) {

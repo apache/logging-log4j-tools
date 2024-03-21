@@ -50,14 +50,13 @@ That is, if `true`, `apiref:some.unknown.Class[]` will be converted to `<code>Cl
 Note that this only applies to types where the label is not provided.
 This flag is disabled by default.
 
-`log4j-docgen-type-template-target`::
-The target file path of individual types documented, e.g., `../../%g/%a/%c.html`.
-Certain directives are subject to substitution:
-
-* `%a` – artifact ID, if the type is provided with an artifact origin; `unknown-artifactId`, otherwise
-* `%c` – class name
-* `%g` – group ID, if the type is provided with an artifact origin; `unknown-groupId`, otherwise
-* `%v` – version, if the type is provided with an artifact origin; `unknown-version`, otherwise
+`log4j-docgen-type-target-template`::
+The FreeMarker template to produce the link target for individual types documented, for instance:
++
+[source]
+----
+#${sourcedType.groupId?replace('.', '-')}_${sourcedType.artifactId?replace('.', '-')}_${sourcedType.type.className?replace('.', '-')
+----
 
 +
 This attribute is *required*.

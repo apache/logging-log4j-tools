@@ -16,6 +16,8 @@
  */
 package org.apache.logging.log4j.docgen.asciidoctor;
 
+import static java.util.Collections.singletonMap;
+
 import java.io.IOException;
 import java.io.UncheckedIOException;
 import java.nio.file.FileSystems;
@@ -36,6 +38,7 @@ import org.apache.logging.log4j.docgen.PluginSet;
 import org.apache.logging.log4j.docgen.generator.internal.ArtifactSourcedType;
 import org.apache.logging.log4j.docgen.generator.internal.TypeLookup;
 import org.apache.logging.log4j.docgen.io.stax.PluginBundleStaxReader;
+import org.apache.logging.log4j.tools.internal.freemarker.util.FreeMarkerUtils;
 import org.asciidoctor.ast.PhraseNode;
 import org.asciidoctor.ast.StructuralNode;
 import org.asciidoctor.extension.Format;
@@ -59,7 +62,7 @@ public final class ApirefMacro extends InlineMacroProcessor {
 
     private TypeLookup lookup;
 
-    private String typeTemplateTarget;
+    private String typeTargetTemplate;
 
     private boolean packageNameStripped;
 
@@ -97,14 +100,8 @@ public final class ApirefMacro extends InlineMacroProcessor {
     }
 
     private String createTypeTemplateTargetPath(final ArtifactSourcedType sourcedType) {
-        final String groupId = or(sourcedType.groupId, "unknown-groupId");
-        final String artifactId = or(sourcedType.artifactId, "unknown-artifactId");
-        final String version = or(sourcedType.version, "unknown-version");
-        return typeTemplateTarget
-                .replaceAll("%g", groupId)
-                .replaceAll("%a", artifactId)
-                .replaceAll("%v", version)
-                .replaceAll("%c", sourcedType.type.getClassName());
+        final Map<String, ArtifactSourcedType> templateData = singletonMap("sourcedType", sourcedType);
+        return FreeMarkerUtils.renderString(typeTargetTemplate, templateData);
     }
 
     private static String or(@Nullable final String value, final String fallback) {
@@ -116,7 +113,7 @@ public final class ApirefMacro extends InlineMacroProcessor {
             LOGGER.fine("Initializing...");
             lookup = createTypeLookup(node);
             final Map<String, Object> documentAttributes = node.getDocument().getAttributes();
-            typeTemplateTarget = getStringAttribute(documentAttributes, attributeName("type-template-target"), null);
+            typeTargetTemplate = getStringAttribute(documentAttributes, attributeName("type-target-template"), null);
             packageNameStripped =
                     isBooleanAttributeProvided(documentAttributes, attributeName("package-name-stripped"));
             initialized = true;
