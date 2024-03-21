@@ -1394,6 +1394,7 @@ By generating the documentation from the source code, this discrepancy gets remo
     <span class="tag">&lt;/excludes&gt;</span>
   <span class="tag">&lt;/typeFilter&gt;</span>
 
+  <span class="tag">&lt;schemaVersion&gt;</span>${project.version}<span class="tag">&lt;/schemaVersion&gt;</span>
   <span class="tag">&lt;schemaFile&gt;</span>${project.build.directory}/generated-site/resources/config.xsd<span class="tag">&lt;/schemaFile&gt;</span>
 
 <span class="tag">&lt;/configuration&gt;</span></code></pre>
@@ -1449,25 +1450,13 @@ That is, if <code>true</code>, <code>apiref:some.unknown.Class[]</code> will be 
 Note that this only applies to types where the label is not provided.
 This flag is disabled by default.</p>
 </dd>
-<dt class="hdlist1"><code>log4j-docgen-type-template-target</code></dt>
+<dt class="hdlist1"><code>log4j-docgen-type-target-template</code></dt>
 <dd>
-<p>The target file path of individual types documented, e.g., <code>../../%g/%a/%c.html</code>.
-Certain directives are subject to substitution:</p>
-<div class="ulist">
-<ul>
-<li>
-<p><code>%a</code> – artifact ID, if the type is provided with an artifact origin; <code>unknown-artifactId</code>, otherwise</p>
-</li>
-<li>
-<p><code>%c</code> – class name</p>
-</li>
-<li>
-<p><code>%g</code> – group ID, if the type is provided with an artifact origin; <code>unknown-groupId</code>, otherwise</p>
-</li>
-<li>
-<p><code>%v</code> – version, if the type is provided with an artifact origin; <code>unknown-version</code>, otherwise</p>
-</li>
-</ul>
+<p>The FreeMarker template to produce the link target for individual types documented, for instance:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code>#${sourcedType.groupId?replace('.', '-')}_${sourcedType.artifactId?replace('.', '-')}_${sourcedType.type.className?replace('.', '-')</code></pre>
+</div>
 </div>
 <div class="paragraph">
 <p>This attribute is <strong>required</strong>.</p>
@@ -1589,7 +1578,7 @@ See <a href="https://logging.apache.org/log4j/2.x/security.html">the Log4j Secur
 <dl>
 <dt class="hdlist1">Release date</dt>
 <dd>
-<p>2024-03-18</p>
+<p>2024-03-21</p>
 </dd>
 </dl>
 </div>
@@ -2013,7 +2002,7 @@ See the License for the specific language governing permissions and limitations 
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2024-03-18 20:40:37 UTC
+Last updated 2024-03-21 15:27:38 UTC
 </div>
 </div>
 </body>
