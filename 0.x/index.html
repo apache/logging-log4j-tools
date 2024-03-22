@@ -532,7 +532,7 @@ table.CodeRay td.code{padding:0 0 0 .75em}
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
-<li><a href="#log4j-changelog"><code>log4j-changelog</code></a>
+<li><a href="#log4j-changelog">Log4j Changelog</a>
 <ul class="sectlevel2">
 <li><a href="#log4j-changelog-dependencies">Dependencies</a></li>
 <li><a href="#log4j-changelog-what-is-a-changelog">What is a changelog?</a></li>
@@ -544,13 +544,29 @@ table.CodeRay td.code{padding:0 0 0 .75em}
 <li><a href="#log4j-changelog-qa">Q&amp;A</a></li>
 </ul>
 </li>
-<li><a href="#log4j-changelog-maven-plugin"><code>log4j-changelog-maven-plugin</code></a>
+<li><a href="#log4j-changelog-maven-plugin">Log4j Changelog Maven Plugin</a>
 <ul class="sectlevel2">
 <li><a href="#log4j-changelog-maven-plugin-dependencies">Dependencies</a></li>
 <li><a href="#log4j-changelog-maven-plugin-export">Exporting changelogs</a></li>
 <li><a href="#log4j-changelog-maven-plugin-release">Populating a release changelog directory</a></li>
 </ul>
 </li>
+<li><a href="#log4j-docgen">Log4j Docgen</a>
+<ul class="sectlevel2">
+<li><a href="#log4j-docgen-dependencies">Dependencies</a></li>
+<li><a href="#log4j-docgen-descriptor-generator">Descriptor generator</a></li>
+<li><a href="#log4j-docgen-documentation-generator">Documentation generator</a></li>
+<li><a href="#log4j-docgen-schema-generator">Schema generator</a></li>
+</ul>
+</li>
+<li><a href="#log4j-docgen-maven-plugin">Log4j Docgen Maven Plugin</a>
+<ul class="sectlevel2">
+<li><a href="#log4j-docgen-maven-plugin-dependencies">Dependencies</a></li>
+<li><a href="#log4j-docgen-maven-plugin-generate-documentation">Generate documentation</a></li>
+<li><a href="#log4j-docgen-maven-plugin-generate-schema">Generate schema</a></li>
+</ul>
+</li>
+<li><a href="#log4j-docgen-asciidoctor-extension">Log4j Docgen AsciiDoctor extension</a></li>
 <li><a href="#development">Development</a></li>
 <li><a href="#distribution">Distribution</a>
 <ul class="sectlevel2">
@@ -562,6 +578,7 @@ table.CodeRay td.code{padding:0 0 0 .75em}
 <li><a href="#security">Security</a></li>
 <li><a href="#release-notes">Release Notes</a>
 <ul class="sectlevel2">
+<li><a href="#release-notes-0-8-0">0.8.0</a></li>
 <li><a href="#release-notes-0-7-0">0.7.0</a></li>
 <li><a href="#release-notes-0-6-0">0.6.0</a></li>
 <li><a href="#release-notes-0-5-0">0.5.0</a></li>
@@ -585,7 +602,7 @@ table.CodeRay td.code{padding:0 0 0 .75em}
 </div>
 </div>
 <div class="sect1">
-<h2 id="log4j-changelog"><code>log4j-changelog</code></h2>
+<h2 id="log4j-changelog">Log4j Changelog</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>This project contains tools to maintain changelogs.
@@ -601,7 +618,7 @@ It is designed for Apache Log4j, but can be used for any Java project.</p>
 <pre class="CodeRay highlight"><code data-lang="xml"><span class="tag">&lt;dependency&gt;</span>
   <span class="tag">&lt;groupId&gt;</span>org.apache.logging.log4j<span class="tag">&lt;/groupId&gt;</span>
   <span class="tag">&lt;artifactId&gt;</span>log4j-changelog<span class="tag">&lt;/artifactId&gt;</span>
-  <span class="tag">&lt;version&gt;</span>0.7.0<span class="tag">&lt;/version&gt;</span>
+  <span class="tag">&lt;version&gt;</span>0.8.0<span class="tag">&lt;/version&gt;</span>
 <span class="tag">&lt;/dependency&gt;</span></code></pre>
 </div>
 </div>
@@ -693,12 +710,12 @@ A sample <em>release entry</em> file is shared below.</p>
 <div class="title"><code>src/changelog/2.19.0/release.xml</code> file contents</div>
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="xml"><span class="preprocessor">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span>
-<span class="tag">&lt;release</span> <span class="attribute-name">xmlns</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">http://logging.apache.org/log4j/changelog</span><span class="delimiter">&quot;</span></span>
+<span class="tag">&lt;release</span> <span class="attribute-name">xmlns</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">https://logging.apache.org/xml/ns</span><span class="delimiter">&quot;</span></span>
          <span class="attribute-name">xmlns:xsi</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">http://www.w3.org/2001/XMLSchema-instance</span><span class="delimiter">&quot;</span></span>
          <span class="attribute-name">xsi:schemaLocation</span>=<span class="string"><span class="delimiter">&quot;</span>
-             <span class="content">http://logging.apache.org/log4j/changelog</span>
-             <span class="content">https://logging.apache.org/log4j/changelog-0.1.3.xsd</span><span class="delimiter">&quot;</span></span>
-         <span class="attribute-name">date</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">2022-09-09</span><span class="delimiter">&quot;</span></span>
+             <span class="content">https://logging.apache.org/xml/ns</span>
+             <span class="content">https://logging.apache.org/xml/ns/log4j-changelog-0.xsd</span>
+         <span class="content">date=</span><span class="delimiter">&quot;</span></span><span class="attribute-name">2022-09-09</span><span class="error">&quot;</span>
          <span class="attribute-name">version</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">2.19.0</span><span class="delimiter">&quot;</span></span><span class="tag">/&gt;</span></code></pre>
 </div>
 </div>
@@ -732,15 +749,13 @@ Consider the following examples:</p>
 <div class="listingblock">
 <div class="title"><code>src/changelog/2.19.0/LOG4J2-3556_JsonTemplateLayout_stack_trace_truncation_fix.xml</code> file contents</div>
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="xml"><span class="tag">&lt;entry</span> <span class="attribute-name">xmlns</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">http://logging.apache.org/log4j/changelog</span><span class="delimiter">&quot;</span></span>
+<pre class="CodeRay highlight"><code data-lang="xml"><span class="tag">&lt;entry</span> <span class="attribute-name">xmlns</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">https://logging.apache.org/xml/ns</span><span class="delimiter">&quot;</span></span>
        <span class="attribute-name">xmlns:xsi</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">http://www.w3.org/2001/XMLSchema-instance</span><span class="delimiter">&quot;</span></span>
        <span class="attribute-name">xsi:schemaLocation</span>=<span class="string"><span class="delimiter">&quot;</span>
-           <span class="content">http://logging.apache.org/log4j/changelog</span>
-           <span class="content">https://logging.apache.org/log4j/changelog-0.1.3.xsd</span><span class="delimiter">&quot;</span></span>
-       <span class="attribute-name">type</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">fixed</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span>
+           <span class="content">https://logging.apache.org/xml/ns</span>
+           <span class="content">https://logging.apache.org/xml/ns/log4j-changelog-0.xsd</span>
+       <span class="content">type=</span><span class="delimiter">&quot;</span></span><span class="attribute-name">fixed</span><span class="error">&quot;</span><span class="tag">&gt;</span>
   <span class="tag">&lt;issue</span> <span class="attribute-name">id</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">LOG4J2-3556</span><span class="delimiter">&quot;</span></span> <span class="attribute-name">link</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">https://issues.apache.org/jira/browse/LOG4J2-3556</span><span class="delimiter">&quot;</span></span><span class="tag">/&gt;</span>
-  <span class="tag">&lt;author</span> <span class="attribute-name">id</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">github:vy</span><span class="delimiter">&quot;</span></span><span class="tag">/&gt;</span>
-  <span class="tag">&lt;author</span> <span class="attribute-name">name</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">Arthur Gavlyukovskiy</span><span class="delimiter">&quot;</span></span><span class="tag">/&gt;</span>
   <span class="tag">&lt;description</span> <span class="attribute-name">format</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">asciidoc</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span>
     Make `JsonTemplateLayout` stack trace truncation operate for each label block
   <span class="tag">&lt;/description&gt;</span>
@@ -782,25 +797,6 @@ Consider the following examples:</p>
 </li>
 <li>
 <p><code>issue</code> element is optional, can occur multiple times, and, if present, must contain <code>id</code> and <code>link</code> attributes</p>
-</li>
-<li>
-<p><code>author</code> element is optional, can occur multiple times, and, if present, must have at least one of <code>id</code> or <code>name</code> attributes</p>
-<div class="admonitionblock warning">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-warning" title="Warning"></i>
-</td>
-<td class="content">
-<div class="paragraph">
-<p>The usage of <code>author</code> is mostly discouraged.
-It is yet another bit to maintain and creates role-related (who did what) problems.
-Many modern software projects are developed using a VCS (e.g., Git) and supporting services (e.g., GitHub) which make it trivial to trace back the origin of a change using commit and issue IDs.</p>
-</div>
-</td>
-</tr>
-</table>
-</div>
 </li>
 <li>
 <p>There must be a single <code>description</code> element with non-blank content and <code>format</code> attribute</p>
@@ -867,8 +863,7 @@ This release primarily contains bug fixes and minor enhancements.
 
 &lt;#list entries as entry&gt;
 * ${entry.description.text?replace(&quot;\\s+&quot;, &quot; &quot;, &quot;r&quot;)}
-(for &lt;#list entry.issues as issue&gt;${issue.link}[${issue.id}]&lt;#if issue?has_next&gt;, &lt;/#if&gt;&lt;/#list&gt;
-by &lt;#list entry.authors as author&gt;&lt;#if author.name?has_content&gt;${author.name}&lt;#else&gt;`${author.id}`&lt;/#if&gt;&lt;#if author?has_next&gt;, &lt;/#if&gt;&lt;/#list&gt;)
+(&lt;#list entry.issues as issue&gt;${issue.link}[${issue.id}]&lt;#if issue?has_next&gt;, &lt;/#if&gt;&lt;/#list&gt;)
 &lt;/#list&gt;
 &lt;/#list&gt;
 &lt;/#if&gt;</code></pre>
@@ -1016,10 +1011,10 @@ This allows one to run <code>ChangelogReleaser</code> multiple times, e.g., to i
 </div>
 </div>
 <div class="sect1">
-<h2 id="log4j-changelog-maven-plugin"><code>log4j-changelog-maven-plugin</code></h2>
+<h2 id="log4j-changelog-maven-plugin">Log4j Changelog Maven Plugin</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>This project ships a Maven plugin providing access to the <code>ChangelogExporter</code> and <code>ChangelogReleaser</code> of <a href="#log4j-changelog"><code>log4j-changelog</code></a>.</p>
+<p>This project ships a Maven plugin providing access to the <code>ChangelogExporter</code> and <code>ChangelogReleaser</code> of <a href="#log4j-changelog">Log4j Changelog</a>.</p>
 </div>
 <div class="sect2">
 <h3 id="log4j-changelog-maven-plugin-dependencies">Dependencies</h3>
@@ -1031,7 +1026,7 @@ This allows one to run <code>ChangelogReleaser</code> multiple times, e.g., to i
 <pre class="CodeRay highlight"><code data-lang="xml"><span class="tag">&lt;plugin&gt;</span>
   <span class="tag">&lt;groupId&gt;</span>org.apache.logging.log4j<span class="tag">&lt;/groupId&gt;</span>
   <span class="tag">&lt;artifactId&gt;</span>log4j-changelog-maven-plugin<span class="tag">&lt;/artifactId&gt;</span>
-  <span class="tag">&lt;version&gt;</span>0.7.0<span class="tag">&lt;/version&gt;</span>
+  <span class="tag">&lt;version&gt;</span>0.8.0<span class="tag">&lt;/version&gt;</span>
 <span class="tag">&lt;/plugin&gt;</span></code></pre>
 </div>
 </div>
@@ -1057,7 +1052,7 @@ These are generally used to generate the index page referencing to release notes
 </dl>
 </div>
 <div class="paragraph">
-<p>See <a href="#log4j-changelog-export">the <code>log4j-changelog</code> documentation</a> for further details.</p>
+<p>See <a href="#log4j-changelog-export">the Log4j Changelog documentation</a> for further details.</p>
 </div>
 <div class="paragraph">
 <p>You can use the <code>export</code> goal as follows:</p>
@@ -1069,7 +1064,7 @@ These are generally used to generate the index page referencing to release notes
 <span class="tag">&lt;plugin&gt;</span>
   <span class="tag">&lt;groupId&gt;</span>org.apache.logging.log4j<span class="tag">&lt;/groupId&gt;</span>
   <span class="tag">&lt;artifactId&gt;</span>log4j-changelog-maven-plugin<span class="tag">&lt;/artifactId&gt;</span>
-  <span class="tag">&lt;version&gt;</span>0.7.0<span class="tag">&lt;/version&gt;</span>
+  <span class="tag">&lt;version&gt;</span>0.8.0<span class="tag">&lt;/version&gt;</span>
   <span class="tag">&lt;inherited&gt;</span>false<span class="tag">&lt;/inherited&gt;</span>
   <span class="tag">&lt;configuration&gt;</span>
     <span class="tag">&lt;indexTemplates&gt;</span>
@@ -1193,6 +1188,296 @@ It defaults to <code>^(?&lt;major&gt;0|[1-9]\d*)\.(?&lt;minor&gt;0|[1-9]\d*)\.(?
 </div>
 </div>
 <div class="sect1">
+<h2 id="log4j-docgen">Log4j Docgen</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Log4j Docgen (Documentation Generation) bundles utility classes to generate documentation from Log4j plugins.
+Given almost all Log4j functionality (layouts, appenders, etc.) is implemented in the form of plugins, this project aims the following goals:</p>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">Avoid the need to maintain documentation in multiple places</dt>
+<dd>
+<p>For instance, Log4j JSON Template Layout is composed of several plugins with sufficient Javadoc explaining their behaviour.
+Next to this we also maintain a big <code>json-template-layout.adoc</code> page for the website, again, documenting each component.
+By generating documentation from the source code, developers can precisely capture the behaviour of their components only in the very code itself that they change.</p>
+</dd>
+<dt class="hdlist1">Accurately capture the component configuration</dt>
+<dd>
+<p>It is pretty common that source code changes are not reflected to documentation.
+By generating the documentation from the source code, this discrepancy gets removed.</p>
+</dd>
+</dl>
+</div>
+<div class="sect2">
+<h3 id="log4j-docgen-dependencies">Dependencies</h3>
+<div class="paragraph">
+<p>You need to have the <code>org.apache.logging.log4j:log4j-docgen</code> dependency in your classpath:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="xml"><span class="tag">&lt;plugin&gt;</span>
+  <span class="tag">&lt;groupId&gt;</span>org.apache.logging.log4j<span class="tag">&lt;/groupId&gt;</span>
+  <span class="tag">&lt;artifactId&gt;</span>log4j-docgen<span class="tag">&lt;/artifactId&gt;</span>
+  <span class="tag">&lt;version&gt;</span>0.8.0<span class="tag">&lt;/version&gt;</span>
+<span class="tag">&lt;/plugin&gt;</span></code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="log4j-docgen-descriptor-generator">Descriptor generator</h3>
+<div class="paragraph">
+<p><code>DescriptorGenerator</code> is an annotation processor that generates an XML file capturing all the metadata needed to document a plugin:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>types</strong> – types it extends from, types it uses in its configuration, etc.</p>
+</li>
+<li>
+<p><strong>configuration</strong> – extracts the necessary set of elements, attributes, etc. from builder classes, <code>@PluginFactory</code>-annotated methods, etc.</p>
+</li>
+<li>
+<p><strong>documentation</strong> – extracts the Javadoc of each field and type, and converts it to AsciiDoc</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Users are recommended to integrate this annotation processor into their build:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="xml"><span class="tag">&lt;plugin&gt;</span>
+  <span class="tag">&lt;groupId&gt;</span>org.apache.maven.plugins<span class="tag">&lt;/groupId&gt;</span>
+  <span class="tag">&lt;artifactId&gt;</span>maven-compiler-plugin<span class="tag">&lt;/artifactId&gt;</span>
+  <span class="tag">&lt;configuration&gt;</span>
+    <span class="tag">&lt;annotationProcessorPaths</span> <span class="attribute-name">combine.children</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">append</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span>
+      <span class="comment">&lt;!-- Include `org.apache.logging.log4j.docgen.processor.DescriptorGenerator` that generates `log4j-plugins.xml`.
+           `DescriptorGenerator` must precede `PluginProcessor`, since the latter *claims* the `@Plugin`.
+           Once claimed, `javac` doesn't pass those sources to other processors. --&gt;</span>
+      <span class="tag">&lt;path&gt;</span>
+        <span class="tag">&lt;groupId&gt;</span>org.apache.logging.log4j<span class="tag">&lt;/groupId&gt;</span>
+        <span class="tag">&lt;artifactId&gt;</span>log4j-docgen<span class="tag">&lt;/artifactId&gt;</span>
+        <span class="tag">&lt;version&gt;</span>0.8.0<span class="tag">&lt;/version&gt;</span>
+      <span class="tag">&lt;/path&gt;</span>
+      <span class="comment">&lt;!-- `org.apache.logging.log4j.core.config.plugins.processor.PluginProcessor` for generating `META-INF/org/apache/.../Log4j2Plugins.dat`: --&gt;</span>
+      <span class="tag">&lt;path&gt;</span>
+        <span class="tag">&lt;groupId&gt;</span>org.apache.logging.log4j<span class="tag">&lt;/groupId&gt;</span>
+        <span class="tag">&lt;artifactId&gt;</span>log4j-core<span class="tag">&lt;/artifactId&gt;</span>
+        <span class="tag">&lt;version&gt;</span>${project.version}<span class="tag">&lt;/version&gt;</span>
+      <span class="tag">&lt;/path&gt;</span>
+    <span class="tag">&lt;/annotationProcessorPaths&gt;</span>
+    <span class="tag">&lt;compilerArgs</span> <span class="attribute-name">combine.children</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">append</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span>
+      <span class="comment">&lt;!-- Provide `org.apache.logging.log4j.docgen.processor.DescriptorGenerator` arguments: --&gt;</span>
+      <span class="tag">&lt;arg&gt;</span>-Alog4j.docgen.descriptorFilePath=${project.build.directory}/${project.artifactId}-plugins.xml<span class="tag">&lt;/arg&gt;</span>
+      <span class="tag">&lt;arg&gt;</span>-Alog4j.docgen.groupId=${project.groupId}<span class="tag">&lt;/arg&gt;</span>
+      <span class="tag">&lt;arg&gt;</span>-Alog4j.docgen.artifactId=${project.artifactId}<span class="tag">&lt;/arg&gt;</span>
+      <span class="tag">&lt;arg&gt;</span>-Alog4j.docgen.version=${project.version}<span class="tag">&lt;/arg&gt;</span>
+      <span class="tag">&lt;arg&gt;</span>-Alog4j.docgen.description=${project.description}<span class="tag">&lt;/arg&gt;</span>
+      <span class="tag">&lt;arg&gt;</span>-Alog4j.docgen.typeFilter.excludePattern=^java\..+<span class="tag">&lt;/arg&gt;</span>
+    <span class="tag">&lt;/compilerArgs&gt;</span>
+  <span class="tag">&lt;/configuration&gt;</span>
+<span class="tag">&lt;/plugin&gt;</span></code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="log4j-docgen-documentation-generator">Documentation generator</h3>
+<div class="paragraph">
+<p><code>DocumentationGenerator</code> receives</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>plugin descriptors (generated by the <code>DescriptorGenerator</code>)</p>
+</li>
+<li>
+<p>FreeMarker templates (to render the type hierarchy and each individual type)</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>as input arguments, and produces an AsciiDoc-formatted documentation that one can integrate into the website of a project.</p>
+</div>
+<div class="paragraph">
+<p>Users are recommended to use <a href="#log4j-docgen-maven-plugin-generate-documentation">the <code>generate-documentation</code> goal of the <code>log4j-docgen-maven-plugin</code></a> instead.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="log4j-docgen-schema-generator">Schema generator</h3>
+<div class="paragraph">
+<p><code>SchemaGenerator</code> receives plugin descriptors (generated by the <code>DescriptorGenerator</code>) as input, and produces an XSD describing the structure defined by the descriptors.</p>
+</div>
+<div class="paragraph">
+<p>Users are recommended to use <a href="#log4j-docgen-maven-plugin-generate-schema">the <code>generate-schema</code> goal of the <code>log4j-docgen-maven-plugin</code></a> instead.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="log4j-docgen-maven-plugin">Log4j Docgen Maven Plugin</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Log4j Docgen Maven Plugin allows you to easily run Log4j Docgen <a href="#log4j-docgen-documentation-generator">documentation generator</a> and <a href="#log4j-docgen-schema-generator">schema generator</a> from your <code>pom.xml</code>.</p>
+</div>
+<div class="sect2">
+<h3 id="log4j-docgen-maven-plugin-dependencies">Dependencies</h3>
+<div class="paragraph">
+<p>You need to have the <code>org.apache.logging.log4j:log4j-docgen-maven-plugin</code> dependency in your classpath:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="xml"><span class="tag">&lt;plugin&gt;</span>
+  <span class="tag">&lt;groupId&gt;</span>org.apache.logging.log4j<span class="tag">&lt;/groupId&gt;</span>
+  <span class="tag">&lt;artifactId&gt;</span>log4j-docgen-maven-plugin<span class="tag">&lt;/artifactId&gt;</span>
+  <span class="tag">&lt;version&gt;</span>0.8.0<span class="tag">&lt;/version&gt;</span>
+<span class="tag">&lt;/plugin&gt;</span></code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="log4j-docgen-maven-plugin-generate-documentation">Generate documentation</h3>
+<div class="paragraph">
+<p>The <code>generate-documentation</code> goal generates an AsciiDoc-formatted documentation using FreeMarker templates that are fed with the types loaded from given descriptors:</p>
+</div>
+<div class="listingblock">
+<div class="title">An example <code>log4j-docgen:generate-documentation</code> configuration</div>
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="xml"><span class="tag">&lt;configuration&gt;</span>
+
+  <span class="tag">&lt;descriptorFileMatchers&gt;</span>
+    <span class="tag">&lt;descriptorFileMatcher&gt;</span>
+      <span class="tag">&lt;baseDirectory&gt;</span>${project.build.directory}/plugin-descriptors<span class="tag">&lt;/baseDirectory&gt;</span>
+    <span class="tag">&lt;/descriptorFileMatcher&gt;</span>
+  <span class="tag">&lt;/descriptorFileMatchers&gt;</span>
+
+  <span class="tag">&lt;typeFilter&gt;</span>
+    <span class="tag">&lt;excludes&gt;</span>
+      <span class="tag">&lt;exclude&gt;</span>^java\..+<span class="tag">&lt;/exclude&gt;</span>
+    <span class="tag">&lt;/excludes&gt;</span>
+  <span class="tag">&lt;/typeFilter&gt;</span>
+
+  <span class="tag">&lt;templateDirectory&gt;</span>${project.basedir}/src/docgen-templates<span class="tag">&lt;/templateDirectory&gt;</span>
+  <span class="tag">&lt;indexTemplate&gt;</span>
+    <span class="tag">&lt;source&gt;</span>index.adoc.ftl<span class="tag">&lt;/source&gt;</span>
+    <span class="tag">&lt;target&gt;</span>${project.build.directory}/generated-site/asciidoc/plugin-reference/index.adoc<span class="tag">&lt;/target&gt;</span>
+  <span class="tag">&lt;/indexTemplate&gt;</span>
+  <span class="tag">&lt;typeTemplate&gt;</span>
+    <span class="tag">&lt;source&gt;</span>type.adoc.ftl<span class="tag">&lt;/source&gt;</span>
+    <span class="comment">&lt;!-- `target` must be in sync. with the `log4j-docgen-type-template-target` configuration of `log4j-docgen-asciidoctor-extension`! --&gt;</span>
+    <span class="tag">&lt;target&gt;</span>${project.build.directory}/generated-site/asciidoc/plugin-reference/%g/%a/%c.adoc<span class="tag">&lt;/target&gt;</span>
+  <span class="tag">&lt;/typeTemplate&gt;</span>
+
+<span class="tag">&lt;/configuration&gt;</span></code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="log4j-docgen-maven-plugin-generate-schema">Generate schema</h3>
+<div class="paragraph">
+<p>The <code>generate-schema</code> goal generates an XSD derived from the types loaded using given descriptors:</p>
+</div>
+<div class="listingblock">
+<div class="title">An example <code>log4j-docgen:generate-schema</code> configuration</div>
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="xml"><span class="tag">&lt;configuration&gt;</span>
+
+  <span class="tag">&lt;descriptorFileMatchers&gt;</span>
+    <span class="tag">&lt;descriptorFileMatcher&gt;</span>
+      <span class="tag">&lt;baseDirectory&gt;</span>${project.build.directory}/plugin-descriptors<span class="tag">&lt;/baseDirectory&gt;</span>
+    <span class="tag">&lt;/descriptorFileMatcher&gt;</span>
+  <span class="tag">&lt;/descriptorFileMatchers&gt;</span>
+
+  <span class="tag">&lt;typeFilter&gt;</span>
+    <span class="tag">&lt;excludes&gt;</span>
+      <span class="tag">&lt;exclude&gt;</span>^java\..+<span class="tag">&lt;/exclude&gt;</span>
+    <span class="tag">&lt;/excludes&gt;</span>
+  <span class="tag">&lt;/typeFilter&gt;</span>
+
+  <span class="tag">&lt;schemaFile&gt;</span>${project.build.directory}/generated-site/resources/config.xsd<span class="tag">&lt;/schemaFile&gt;</span>
+
+<span class="tag">&lt;/configuration&gt;</span></code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="log4j-docgen-asciidoctor-extension">Log4j Docgen AsciiDoctor extension</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>While <a href="#log4j-docgen-descriptor-generator">the descriptor generator</a> converts Javadoc to AsciiDoc, it cannot resolve links.
+That is, it cannot blindly replace a <code>{@link example.MyAppender foo}</code> Javadoc snippet with a <code>xref:MyAppender.adoc[foo]</code> AsciiDoc snippet instead.
+This is because, the mapping of types to AsciiDoc files are not available to the descriptor generator, but <a href="#log4j-docgen-documentation-generator">the documentation generator</a>.
+That is, the descriptor generator doesn&#8217;t know if the type will be mapped to <code>&lt;className&gt;.adoc</code> or <code>&lt;artifactId&gt;/&lt;className&gt;.adoc</code>.
+As a matter of fact, it should not need to know this either: descriptors capture immutable metadata, whereas documentation file structure can always change.
+To work around this, we convert <code>{@link example.MyAppender foo}</code> to <code>apiref:example.MyAppender[foo]</code> and provide an <code>apiref</code> inline AsciiDoc macro to resolve these while generating the documentation.</p>
+</div>
+<div class="paragraph">
+<p><code>DocgenExtension</code> AsciiDoctor extension provides the <code>apiref</code> inline macro which can be configured using the below shared AsciiDoctor document attributes:</p>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1"><code>log4j-docgen-descriptor-dot-files-included</code></dt>
+<dd>
+<p>Indicates if dot files (i.e., <code>.</code>-prefix file names) will be accepted in <a href="#log4j-docgen-asciidoctor-extension-attribute-descriptor-path-matcher">[log4j-docgen-asciidoctor-extension-attribute-descriptor-path-matcher]</a>.
+This attribute defaults to <code>false</code>.</p>
+</dd>
+</dl>
+</div>
+<div id="log4j-docgen-asciidoctor-extension-attribute-descriptor-path-matcher" class="dlist">
+<dl>
+<dt class="hdlist1"><code>log4j-docgen-descriptor-path-matcher</code></dt>
+<dd>
+<p>The <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/nio/file/FileSystem.html#getPathMatcher(java.lang.String)">path pattern</a> (e.g., <code>glob:*<strong>/</strong>.xml</code>) to locate files produced by <a href="#log4j-docgen-descriptor-generator">the descriptor generator</a>.
+This attribute is <strong>required</strong>.</p>
+</dd>
+<dt class="hdlist1"><code>log4j-docgen-type-filter-exclude-pattern</code></dt>
+<dd>
+<p>The regular expression to match against the types loaded from descriptors and determine if a type will be <em>excluded</em> to generate links.
+This argument defaults to not exclude anything.</p>
+</dd>
+<dt class="hdlist1"><code>log4j-docgen-type-filter-include-pattern</code></dt>
+<dd>
+<p>The regular expression to match against the types loaded from descriptors and determine if a type will be <em>included</em> to generate links.
+This argument defaults to <code>.*</code>, that is, all loaded types will be used to generate links.</p>
+</dd>
+<dt class="hdlist1"><code>log4j-docgen-package-name-stripped</code></dt>
+<dd>
+<p>Indicates if the package name will be stripped for unknown types.
+That is, if <code>true</code>, <code>apiref:some.unknown.Class[]</code> will be converted to <code>&lt;code&gt;Class&lt;/code&gt;</code>; <code>&lt;code&gt;some.unknown.Class&lt;/code&gt;</code>, otherwise.
+Note that this only applies to types where the label is not provided.
+This flag is disabled by default.</p>
+</dd>
+<dt class="hdlist1"><code>log4j-docgen-type-template-target</code></dt>
+<dd>
+<p>The target file path of individual types documented, e.g., <code>../../%g/%a/%c.html</code>.
+Certain directives are subject to substitution:</p>
+<div class="ulist">
+<ul>
+<li>
+<p><code>%a</code> – artifact ID, if the type is provided with an artifact origin; <code>unknown-artifactId</code>, otherwise</p>
+</li>
+<li>
+<p><code>%c</code> – class name</p>
+</li>
+<li>
+<p><code>%g</code> – group ID, if the type is provided with an artifact origin; <code>unknown-groupId</code>, otherwise</p>
+</li>
+<li>
+<p><code>%v</code> – version, if the type is provided with an artifact origin; <code>unknown-version</code>, otherwise</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>This attribute is <strong>required</strong>.</p>
+</div>
+</dd>
+</dl>
+</div>
+</div>
+</div>
+<div class="sect1">
 <h2 id="development">Development</h2>
 <div class="sectionbody">
 <div class="paragraph">
@@ -1248,7 +1533,7 @@ python -m http.server -d target/site</code></pre>
 <p>To use this with Maven, add the dependency listed below to your <code>pom.xml</code> file.
 Note that the <code>&lt;dependencyManagement&gt;</code> nesting and the <code>&lt;scope&gt;import&lt;/scope&gt;</code> instruction.
 This will <em>import</em> all modules bundled with the associated Log4j release to your <code>dependencyManagement</code>.
-As a result, you don&#8217;t have to specify versions of the imported modules (<code>log4j-changelog</code>, etc.) while using them as a <code>&lt;dependency&gt;</code>.</p>
+As a result, you don&#8217;t have to specify versions of the imported modules (<code>log4j-changelog</code>, <code>log4j-docgen</code>, etc.) while using them as a <code>&lt;dependency&gt;</code>.</p>
 </div>
 <div class="listingblock">
 <div class="title"><code>pom.xml</code> snippet importing <code>log4j-tools-bom</code></div>
@@ -1258,7 +1543,7 @@ As a result, you don&#8217;t have to specify versions of the imported modules (<
     &lt;dependency&gt;
       &lt;groupId&gt;org.apache.logging.log4j&lt;/groupId&gt;
       &lt;artifactId&gt;log4j-tools-bom&lt;/artifactId&gt;
-      &lt;version&gt;0.7.0&lt;/version&gt;
+      &lt;version&gt;0.8.0&lt;/version&gt;
       &lt;scope&gt;import&lt;/scope&gt;
       &lt;type&gt;pom&lt;/type&gt;
     &lt;/dependency&gt;
@@ -1299,6 +1584,87 @@ See <a href="https://logging.apache.org/log4j/2.x/security.html">the Log4j Secur
 <h2 id="release-notes">Release Notes</h2>
 <div class="sectionbody">
 <div class="sect2">
+<h3 id="release-notes-0-8-0">0.8.0</h3>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">Release date</dt>
+<dd>
+<p>2024-03-18</p>
+</dd>
+</dl>
+</div>
+<div class="paragraph">
+<p>This release delivers the first version of Log4j Docgen (Documentation Generator).
+It is a set of tools to auto-generate the Log4j plugin documentation (to be integrated into the website) and the Log4j configuration XSD file (for assisting the configuration of the Log4j runtime, i.e., <code>log4j2.xml</code>) from the Log4j source code.
+See the project website for details.</p>
+</div>
+<div class="sect3">
+<h4 id="release-notes-0-8-0-added">Added</h4>
+<div class="ulist">
+<ul>
+<li>
+<p>Add the <code>log4j-docgen</code> et al. containing a universal XML model to document Log4j plugins</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="release-notes-0-8-0-changed">Changed</h4>
+<div class="ulist">
+<ul>
+<li>
+<p>Move Log4j Changelog XML namespace and schema location to <code><a href="https://logging.apache.org/xml/ns" class="bare">https://logging.apache.org/xml/ns</a></code> and <code><a href="https://logging.apache.org/xml/ns/log4j-changelog-0.xsd" class="bare">https://logging.apache.org/xml/ns/log4j-changelog-0.xsd</a></code>, respectively</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="release-notes-0-8-0-removed">Removed</h4>
+<div class="ulist">
+<ul>
+<li>
+<p>Remove <code>author</code> from Log4j Changelog.</p>
+<div class="paragraph">
+<p>It was yet another bit to maintain and created role-related (who did what) problems.
+Many modern software projects use a VCS (e.g., Git) and support services (e.g., GitHub) which make it trivial to trace back the origin of a change using commit and issue IDs.</p>
+</div>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="release-notes-0-8-0-updated">Updated</h4>
+<div class="ulist">
+<ul>
+<li>
+<p>Update <code>org.apache.logging:logging-parent</code> to version <code>10.6.0</code></p>
+</li>
+<li>
+<p>Update <code>jakarta.inject:jakarta.inject-api</code> to version <code>2.0.1</code> (<a href="https://github.com/apache/logging-log4j-tools/pull/94">94</a>)</p>
+</li>
+<li>
+<p>Update <code>org.apache.logging.log4j:log4j-core</code> to version <code>2.23.1</code> (<a href="https://github.com/apache/logging-log4j-tools/pull/108">108</a>)</p>
+</li>
+<li>
+<p>Update <code>org.apache.logging.log4j:log4j-plugins</code> to version <code>3.0.0-beta2</code> (<a href="https://github.com/apache/logging-log4j-tools/pull/107">107</a>)</p>
+</li>
+<li>
+<p>Update <code>org.apache.maven.plugin-tools:maven-plugin-annotations</code> to version <code>3.11.0</code> (<a href="https://github.com/apache/logging-log4j-tools/pull/98">98</a>)</p>
+</li>
+<li>
+<p>Update <code>org.assertj:assertj-core</code> to version <code>3.25.3</code> (<a href="https://github.com/apache/logging-log4j-tools/pull/104">104</a>)</p>
+</li>
+<li>
+<p>Update <code>org.codehaus.modello:modello-maven-plugin</code> to version <code>2.3.0</code> (<a href="https://github.com/apache/logging-log4j-tools/pull/105">105</a>)</p>
+</li>
+<li>
+<p>Update <code>org.junit:junit-bom</code> to version <code>5.10.2</code> (<a href="https://github.com/apache/logging-log4j-tools/pull/103">103</a>)</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect2">
 <h3 id="release-notes-0-7-0">0.7.0</h3>
 <div class="dlist">
 <dl>
@@ -1322,19 +1688,6 @@ See <a href="https://logging.apache.org/log4j/2.x/security.html">the Log4j Secur
 </div>
 </div>
 <div class="sect3">
-<h4 id="release-notes-0-7-0-changed">Changed</h4>
-<div class="ulist">
-<ul>
-<li>
-<p>Update <code>commons-io:commons-io</code> to version <code>2.15.1</code> (<a href="https://github.com/apache/logging-log4j-tools/pull/86">86</a>)</p>
-</li>
-<li>
-<p>Update <code>org.apache.maven.plugin-tools:maven-plugin-annotations</code> to version <code>3.10.2</code> (<a href="https://github.com/apache/logging-log4j-tools/pull/87">87</a>)</p>
-</li>
-</ul>
-</div>
-</div>
-<div class="sect3">
 <h4 id="release-notes-0-7-0-fixed">Fixed</h4>
 <div class="ulist">
 <ul>
@@ -1346,6 +1699,19 @@ See <a href="https://logging.apache.org/log4j/2.x/security.html">the Log4j Secur
 </li>
 <li>
 <p>Fix parsing of patch versions in <code>log4j-changelog:release</code> goal (<a href="https://github.com/apache/logging-log4j-tools/issues/89">89</a>)</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="release-notes-0-7-0-updated">Updated</h4>
+<div class="ulist">
+<ul>
+<li>
+<p>Update <code>commons-io:commons-io</code> to version <code>2.15.1</code> (<a href="https://github.com/apache/logging-log4j-tools/pull/86">86</a>)</p>
+</li>
+<li>
+<p>Update <code>org.apache.maven.plugin-tools:maven-plugin-annotations</code> to version <code>3.10.2</code> (<a href="https://github.com/apache/logging-log4j-tools/pull/87">87</a>)</p>
 </li>
 </ul>
 </div>
@@ -1375,21 +1741,22 @@ See <a href="https://logging.apache.org/log4j/2.x/security.html">the Log4j Secur
 </div>
 </div>
 <div class="sect3">
-<h4 id="release-notes-0-6-0-changed">Changed</h4>
+<h4 id="release-notes-0-6-0-fixed">Fixed</h4>
 <div class="ulist">
 <ul>
 <li>
-<p>Update <code>org.apache.logging:logging-parent</code> to version <code>10.4.0</code></p>
+<p><code>log4j-tools-bom</code> was broken due to removed <code>parent</code> during flattening.
+This is automatically fixed by the recent <code>logging-parent</code> version <code>10.4.0</code> update.</p>
 </li>
 </ul>
 </div>
 </div>
 <div class="sect3">
-<h4 id="release-notes-0-6-0-fixed">Fixed</h4>
+<h4 id="release-notes-0-6-0-updated">Updated</h4>
 <div class="ulist">
 <ul>
 <li>
-<p><code>log4j-tools-bom</code> was broken due to removed <code>parent</code> during flattening. This is automatically fixed by the recent <code>logging-parent</code> version <code>10.4.0</code> update.</p>
+<p>Update <code>org.apache.logging:logging-parent</code> to version <code>10.4.0</code></p>
 </li>
 </ul>
 </div>
@@ -1431,6 +1798,13 @@ See <a href="https://logging.apache.org/log4j/2.x/security.html">the Log4j Secur
 <li>
 <p>Make <code>log4j-changelog-maven-plugin</code> thread-safe (<a href="https://github.com/apache/logging-log4j-tools/issues/80">80</a>)</p>
 </li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="release-notes-0-5-0-updated">Updated</h4>
+<div class="ulist">
+<ul>
 <li>
 <p>Update <code>org.apache.logging:logging-parent</code> to version <code>10.1.1</code> (<a href="https://github.com/apache/logging-log4j-tools/pull/82">82</a>)</p>
 </li>
@@ -1563,16 +1937,6 @@ Most importantly, this marks the first release where the project uses itself to 
 </div>
 </div>
 <div class="sect3">
-<h4 id="release-notes-0-2-0-removed">Removed</h4>
-<div class="ulist">
-<ul>
-<li>
-<p>Remove <code>security</code> as a change type from <code>log4j-changelog</code> (<a href="https://github.com/apache/logging-log4j-tools/issues/14">14</a>)</p>
-</li>
-</ul>
-</div>
-</div>
-<div class="sect3">
 <h4 id="release-notes-0-2-0-fixed">Fixed</h4>
 <div class="ulist">
 <ul>
@@ -1581,6 +1945,16 @@ Most importantly, this marks the first release where the project uses itself to 
 </li>
 <li>
 <p>Fix Windows compatibility (<a href="https://github.com/apache/logging-log4j-tools/issues/19">19</a>)</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="release-notes-0-2-0-removed">Removed</h4>
+<div class="ulist">
+<ul>
+<li>
+<p>Remove <code>security</code> as a change type from <code>log4j-changelog</code> (<a href="https://github.com/apache/logging-log4j-tools/issues/14">14</a>)</p>
 </li>
 </ul>
 </div>
@@ -1597,7 +1971,7 @@ Most importantly, this marks the first release where the project uses itself to 
 </dl>
 </div>
 <div class="paragraph">
-<p>This is the first release, aimed to assist [the Apache Log4j 2](<a href="http://logging.apache.org/log4j/2.x/" class="bare">http://logging.apache.org/log4j/2.x/</a>) on generating release notes.</p>
+<p>This is the first release, aimed to assist [the Apache Log4j 2](<a href="https://logging.apache.org/log4j/2.x/" class="bare">https://logging.apache.org/log4j/2.x/</a>) on generating release notes.</p>
 </div>
 <div class="sect3">
 <h4 id="release-notes-0-1-0-added">Added</h4>
@@ -1639,7 +2013,7 @@ See the License for the specific language governing permissions and limitations 
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2023-12-14 11:03:04 UTC
+Last updated 2024-03-18 20:40:37 UTC
 </div>
 </div>
 </body>
