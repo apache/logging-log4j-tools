@@ -40,3 +40,8 @@
 
 This minor release contains various bug fixes and improvements.
 
+
+[#release-notes-0-x-x-updated]
+==== Updated
+
+* Update `commons-io:commons-io` to version `2.16.0` (https://github.com/apache/logging-log4j-tools/pull/112[112])
