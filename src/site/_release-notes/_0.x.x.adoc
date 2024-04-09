@@ -44,5 +44,5 @@ This minor release contains various bug fixes and improvements.
 [#release-notes-0-x-x-updated]
 ==== Updated
 
-* Update `commons-io:commons-io` to version `2.16.0` (https://github.com/apache/logging-log4j-tools/pull/112[112])
+* Update `commons-io:commons-io` to version `2.16.1` (https://github.com/apache/logging-log4j-tools/pull/114[114])
 * Update `org.apache.maven.plugin-tools:maven-plugin-annotations` to version `3.12.0` (https://github.com/apache/logging-log4j-tools/pull/113[113])
