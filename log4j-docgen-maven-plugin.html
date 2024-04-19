@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Log4j Docgen Maven Plugin :: Apache Log4j Tools</title>
+    <link rel="canonical" href="https://logging.apache.org/log4j/kotlin/log4j-docgen-maven-plugin.html">
+    <meta name="generator" content="Antora 3.2.0-alpha.4">
+<link rel="stylesheet" href="./_/css/site.css">
+<link rel="icon" href="./_/../_images/favicon.ico" type="image/x-icon">
+<!-- `@asciidoctor/tabs` extension styles -->
+<link rel="stylesheet" href="./_/css/vendor/tabs.css">
+<style>
+  /* `page-toclevels` greater than 4 are not supported by Antora UI, patching it: */
+  .toc .toc-menu li[data-level="4"] a {
+    padding-left: 2.75rem
+  }
+  /* Replace the default highlight.js color for strings from red to green: */
+  .hljs-string {
+    color: #0f8532;
+  }
+</style>
+  </head>
+  <body class="article">
+<header class="header">
+  <nav class="navbar">
+    <div class="navbar-brand">
+      <span class="navbar-item title">Apache Log4j Tools</span>
+    </div>
+    <div id="topbar-nav" class="navbar-menu">
+      <div class="navbar-end">
+        <a class="navbar-item" href="https://logging.apache.org">a subproject of&nbsp;<strong>Apache Logging Services</strong></a>
+      </div>
+    </div>
+  </nav>
+</header>
+<div class="body">
+<div class="nav-container" data-component="ROOT" data-version="">
+  <aside class="nav">
+    <div class="panels">
+<div class="nav-panel-menu is-active" data-panel="menu">
+  <nav class="nav-menu">
+    <button class="nav-menu-toggle" aria-label="Toggle expand/collapse all" style="display: none"></button>
+    <h3 class="title"><a href="index.html">Home</a></h3>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Components</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="log4j-changelog.html">Log4j Changelog</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="log4j-changelog-maven-plugin.html">Log4j Changelog Maven Plugin</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="log4j-docgen.html">Log4j Docgen</a>
+  </li>
+  <li class="nav-item is-current-page" data-depth="2">
+    <a class="nav-link" href="log4j-docgen-maven-plugin.html">Log4j Docgen Maven Plugin</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="log4j-docgen-asciidoctor-extension.html">Log4j Docgen AsciiDoctor extension</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="development.html">Development</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="release-notes.html">Release notes</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="https://logging.apache.org/download.html">Download</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="https://logging.apache.org/support.html">Support</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="https://logging.apache.org/security.html">Security</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </nav>
+</div>
+    </div>
+  </aside>
+</div>
+<main class="article">
+<div class="toolbar" role="navigation">
+<button class="nav-toggle"></button>
+  <a href="index.html" class="home-link"></a>
+<nav class="breadcrumbs" aria-label="breadcrumbs">
+  <ul>
+    <li><a href="index.html">Home</a></li>
+    <li>Components</li>
+    <li><a href="log4j-docgen-maven-plugin.html">Log4j Docgen Maven Plugin</a></li>
+  </ul>
+</nav>
+<div class="edit-this-page"><a href="https://github.com/apache/logging-log4j-kotlin/edit/main/src/site/antora/modules/ROOT/pages/log4j-docgen-maven-plugin.adoc">Edit this Page</a></div>
+</div>
+  <div class="content">
+<aside class="toc sidebar" data-title="Contents" data-levels="2">
+  <div class="toc-menu"></div>
+</aside>
+<article class="doc">
+<h1 class="page">Log4j Docgen Maven Plugin</h1>
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>Log4j Docgen Maven Plugin allows you to easily run Log4j Docgen <a href="log4j-docgen.html#documentation-generator" class="xref page">documentation generator</a> and <a href="log4j-docgen.html#schema-generator" class="xref page">schema generator</a> from your <code>pom.xml</code>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="dependencies"><a class="anchor" href="#dependencies"></a>Dependencies</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>You need to have the <code>org.apache.logging.log4j:log4j-docgen-maven-plugin</code> dependency in your classpath:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;plugin&gt;
+  &lt;groupId&gt;org.apache.logging.log4j&lt;/groupId&gt;
+  &lt;artifactId&gt;log4j-docgen-maven-plugin&lt;/artifactId&gt;
+  &lt;version&gt;0.9.0-SNAPSHOT&lt;/version&gt;
+&lt;/plugin&gt;</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="generate-documentation"><a class="anchor" href="#generate-documentation"></a>Generate documentation</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The <code>generate-documentation</code> goal generates an AsciiDoc-formatted documentation using FreeMarker templates that are fed with the types loaded from given descriptors:</p>
+</div>
+<div class="listingblock">
+<div class="title">An example <code>log4j-docgen:generate-documentation</code> configuration</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;configuration&gt;
+
+  &lt;descriptorFileMatchers&gt;
+    &lt;descriptorFileMatcher&gt;
+      &lt;baseDirectory&gt;${project.build.directory}/plugin-descriptors&lt;/baseDirectory&gt;
+    &lt;/descriptorFileMatcher&gt;
+  &lt;/descriptorFileMatchers&gt;
+
+  &lt;typeFilter&gt;
+    &lt;excludes&gt;
+      &lt;exclude&gt;^java\..+&lt;/exclude&gt;
+    &lt;/excludes&gt;
+  &lt;/typeFilter&gt;
+
+  &lt;templateDirectory&gt;${project.basedir}/src/docgen-templates&lt;/templateDirectory&gt;
+  &lt;indexTemplate&gt;
+    &lt;source&gt;index.adoc.ftl&lt;/source&gt;
+    &lt;target&gt;${project.build.directory}/generated-site/asciidoc/plugin-reference/index.adoc&lt;/target&gt;
+  &lt;/indexTemplate&gt;
+  &lt;typeTemplate&gt;
+    &lt;source&gt;type.adoc.ftl&lt;/source&gt;
+    &lt;!-- `target` must be in sync. with the `log4j-docgen-type-template-target` configuration of `log4j-docgen-asciidoctor-extension`! --&gt;
+    &lt;target&gt;${project.build.directory}/generated-site/asciidoc/plugin-reference/%g/%a/%c.adoc&lt;/target&gt;
+  &lt;/typeTemplate&gt;
+
+&lt;/configuration&gt;</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="generate-schema"><a class="anchor" href="#generate-schema"></a>Generate schema</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The <code>generate-schema</code> goal generates an XSD derived from the types loaded using given descriptors:</p>
+</div>
+<div class="listingblock">
+<div class="title">An example <code>log4j-docgen:generate-schema</code> configuration</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;configuration&gt;
+
+  &lt;descriptorFileMatchers&gt;
+    &lt;descriptorFileMatcher&gt;
+      &lt;baseDirectory&gt;${project.build.directory}/plugin-descriptors&lt;/baseDirectory&gt;
+    &lt;/descriptorFileMatcher&gt;
+  &lt;/descriptorFileMatchers&gt;
+
+  &lt;typeFilter&gt;
+    &lt;excludes&gt;
+      &lt;exclude&gt;^java\..+&lt;/exclude&gt;
+    &lt;/excludes&gt;
+  &lt;/typeFilter&gt;
+
+  &lt;schemaVersion&gt;${project.version}&lt;/schemaVersion&gt;
+  &lt;schemaFile&gt;${project.build.directory}/generated-site/resources/config.xsd&lt;/schemaFile&gt;
+
+&lt;/configuration&gt;</code></pre>
+</div>
+</div>
+</div>
+</div>
+</article>
+  </div>
+</main>
+</div>
+<footer class="footer">
+  <p>
+    Copyright © 1999-2024 <a href="https://www.apache.org/">The Apache Software Foundation</a>.
+    Licensed under the <a href="https://www.apache.org/licenses/LICENSE-2.0">Apache Software License, Version 2.0</a>.
+    Please read our <a href="https://privacy.apache.org/policies/privacy-policy-public.html">privacy policy</a>.
+  </p>
+  <p>
+    Apache, Log4j, and the Apache feather logo are trademarks or registered trademarks of The Apache Software Foundation.
+    Oracle and Java are registered trademarks of Oracle and/or its affiliates.
+    Other names may be trademarks of their respective owners.
+  </p>
+</footer>
+<script id="site-script" src="./_/js/site.js" data-ui-root-path="./_"></script>
+<script async src="./_/js/vendor/highlight.js"></script>
+<!-- `@asciidoctor/tabs` extension scripts -->
+<script async src="./_/js/vendor/tabs.js"></script>
+  </body>
+</html>
