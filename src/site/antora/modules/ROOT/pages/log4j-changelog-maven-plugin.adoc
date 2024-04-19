@@ -15,13 +15,12 @@ See the License for the specific language governing permissions and
 limitations under the License.
 ////
 
-[#log4j-changelog-maven-plugin]
-== Log4j Changelog Maven Plugin
+= Log4j Changelog Maven Plugin
 
-This project ships a Maven plugin providing access to the `ChangelogExporter` and `ChangelogReleaser` of xref:#log4j-changelog[Log4j Changelog].
+This project ships a Maven plugin providing access to the `ChangelogExporter` and `ChangelogReleaser` of xref:log4j-changelog.adoc[Log4j Changelog].
 
-[#log4j-changelog-maven-plugin-dependencies]
-=== Dependencies
+[#dependencies]
+== Dependencies
 
 You need to have the `org.apache.logging.log4j:log4j-changelog-maven-plugin` dependency in your classpath:
 
@@ -34,21 +33,21 @@ You need to have the `org.apache.logging.log4j:log4j-changelog-maven-plugin` dep
 </plugin>
 ----
 
-[#log4j-changelog-maven-plugin-export]
-=== Exporting changelogs
+[#export]
+== Exporting changelogs
 
 _Exporting_ changelogs is the act of feeding provided changelog and release information into {freemarker-link} templates to generate certain files; e.g., release notes for the website.
 There are two types template files supported:
 
-xref:#log4j-changelog-changelog-template[Changelog templates]::
+xref:log4j-changelog.adoc#changelog-template[Changelog templates]::
 These templates are rendered with the release and changelog information of a particular release.
 These are generally used to generate release notes for a particular release.
 
-xref:#log4j-changelog-index-template[Index templates]::
+xref:log4j-changelog.adoc#index-template[Index templates]::
 These templates are rendered with the release information of all releases.
 These are generally used to generate the index page referencing to release notes of each release.
 
-See xref:#log4j-changelog-export[the Log4j Changelog documentation] for further details.
+See xref:#export[the Log4j Changelog documentation] for further details.
 
 You can use the `export` goal as follows:
 
@@ -96,14 +95,14 @@ Directory to write rendered templates.
 It defaults to `${project.build.directory}/generated-sources/site/changelog` and can be set using the `log4j.changelog.exporter.outputDirectory` property.
 
 `indexTemplates` (parameter)::
-List of xref:#log4j-changelog-maven-plugin-export-template-type[template]s that will be rendered with release information of all releases.
-See xref:#log4j-changelog-index-template[the index template file documentation] for details.
+List of xref:#export-template-type[template]s that will be rendered with release information of all releases.
+See xref:log4j-changelog.adoc#index-template[the index template file documentation] for details.
 
 `changelogTemplates` (parameter)::
-List of xref:#log4j-changelog-maven-plugin-export-template-type[template]s that will be rendered with release and changelog information of a particular release.
-See xref:#log4j-changelog-changelog-template[the changelog template file documentation] for details.
+List of xref:#export-template-type[template]s that will be rendered with release and changelog information of a particular release.
+See xref:log4j-changelog.adoc#changelog-template[the changelog template file documentation] for details.
 
-[#log4j-changelog-maven-plugin-export-template-type]
+[#export-template-type]
 `Template` (type)::
 An object composed of following fields:
 +
@@ -120,10 +119,10 @@ If the value contains a `%v` (e.g., `%v.adoc`), it will be replaced with the ass
 Indicates if export should fail when the source cannot be found.
 Defaults to `false`.
 
-[#log4j-changelog-maven-plugin-release]
-=== Populating a release changelog directory
+[#release]
+== Populating a release changelog directory
 
-You can use the `release` goal wrapping xref:#log4j-changelog-qa-deploy-release[`ChangelogReleaser` to populate a release changelog directory].
+You can use the `release` goal wrapping xref:log4j-changelog.adoc#qa-deploy-release[`ChangelogReleaser` to populate a release changelog directory].
 An example usage is shared below.
 
 .Populate `src/changelog/2.19.0` from `src/changelog/.2.x.x`

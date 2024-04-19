@@ -15,12 +15,11 @@ See the License for the specific language governing permissions and
 limitations under the License.
 ////
 
-[#log4j-docgen-asciidoctor-extension]
-== Log4j Docgen AsciiDoctor extension
+= Log4j Docgen AsciiDoctor extension
 
-While xref:#log4j-docgen-descriptor-generator[the descriptor generator] converts Javadoc to AsciiDoc, it cannot resolve links.
+While xref:log4j-docgen.adoc#descriptor-generator[the descriptor generator] converts Javadoc to AsciiDoc, it cannot resolve links.
 That is, it cannot blindly replace a `{@link example.MyAppender foo}` Javadoc snippet with a `\xref:MyAppender.adoc[foo]` AsciiDoc snippet instead.
-This is because, the mapping of types to AsciiDoc files are not available to the descriptor generator, but xref:#log4j-docgen-documentation-generator[the documentation generator].
+This is because, the mapping of types to AsciiDoc files are not available to the descriptor generator, but xref:log4j-docgen.adoc#documentation-generator[the documentation generator].
 That is, the descriptor generator doesn't know if the type will be mapped to `<className>.adoc` or `<artifactId>/<className>.adoc`.
 As a matter of fact, it should not need to know this either: descriptors capture immutable metadata, whereas documentation file structure can always change.
 To work around this, we convert `{@link example.MyAppender foo}` to `apiref:example.MyAppender[foo]` and provide an `apiref` inline AsciiDoc macro to resolve these while generating the documentation.
@@ -33,7 +32,7 @@ This attribute defaults to `false`.
 
 [#log4j-docgen-asciidoctor-extension-attribute-descriptor-path-matcher]
 `log4j-docgen-descriptor-path-matcher`::
-The https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/nio/file/FileSystem.html#getPathMatcher(java.lang.String)[path pattern] (e.g., `glob:**/*.xml`) to locate files produced by xref:#log4j-docgen-descriptor-generator[the descriptor generator].
+The https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/nio/file/FileSystem.html#getPathMatcher(java.lang.String)[path pattern] (e.g., `glob:**/*.xml`) to locate files produced by xref:log4j-docgen.adoc#descriptor-generator[the descriptor generator].
 This attribute is *required*.
 
 `log4j-docgen-type-filter-exclude-pattern`::

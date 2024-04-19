@@ -24,3 +24,7 @@ target/
 .project
 .classpath
 .settings/
+# Node
+node
+node_modules
+package-lock.json

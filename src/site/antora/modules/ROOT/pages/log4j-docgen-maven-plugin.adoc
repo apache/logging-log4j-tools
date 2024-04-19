@@ -15,13 +15,12 @@ See the License for the specific language governing permissions and
 limitations under the License.
 ////
 
-[#log4j-docgen-maven-plugin]
-== Log4j Docgen Maven Plugin
+= Log4j Docgen Maven Plugin
 
-Log4j Docgen Maven Plugin allows you to easily run Log4j Docgen xref:#log4j-docgen-documentation-generator[documentation generator] and xref:#log4j-docgen-schema-generator[schema generator] from your `pom.xml`.
+Log4j Docgen Maven Plugin allows you to easily run Log4j Docgen xref:log4j-docgen.adoc#documentation-generator[documentation generator] and xref:log4j-docgen.adoc#schema-generator[schema generator] from your `pom.xml`.
 
-[#log4j-docgen-maven-plugin-dependencies]
-=== Dependencies
+[#dependencies]
+== Dependencies
 
 You need to have the `org.apache.logging.log4j:log4j-docgen-maven-plugin` dependency in your classpath:
 
@@ -34,8 +33,8 @@ You need to have the `org.apache.logging.log4j:log4j-docgen-maven-plugin` depend
 </plugin>
 ----
 
-[#log4j-docgen-maven-plugin-generate-documentation]
-=== Generate documentation
+[#generate-documentation]
+== Generate documentation
 
 The `generate-documentation` goal generates an AsciiDoc-formatted documentation using FreeMarker templates that are fed with the types loaded from given descriptors:
 
@@ -70,8 +69,8 @@ The `generate-documentation` goal generates an AsciiDoc-formatted documentation 
 </configuration>
 ----
 
-[#log4j-docgen-maven-plugin-generate-schema]
-=== Generate schema
+[#generate-schema]
+== Generate schema
 
 The `generate-schema` goal generates an XSD derived from the types loaded using given descriptors:
 

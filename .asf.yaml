@@ -20,7 +20,7 @@
 github:
 
   description: "Tools internally used by the Apache Log4j project"
-  homepage: https://logging.apache.org/log4j/2.x/
+  homepage: https://logging.apache.org/log4j/tools
   labels:
     - apache
     - java

@@ -15,14 +15,13 @@ See the License for the specific language governing permissions and
 limitations under the License.
 ////
 
-[#log4j-changelog]
-== Log4j Changelog
+= Log4j Changelog
 
 This project contains tools to maintain changelogs.
 It is designed for Apache Log4j, but can be used for any Java project.
 
-[#log4j-changelog-dependencies]
-=== Dependencies
+[#dependencies]
+== Dependencies
 
 You need to have the `org.apache.logging.log4j:log4j-changelog` dependency in your classpath:
 
@@ -37,13 +36,13 @@ You need to have the `org.apache.logging.log4j:log4j-changelog` dependency in yo
 
 Java module name and OSGi `Bundle-SymbolicName` are set to `org.apache.logging.log4j.changelog`.
 
-[#log4j-changelog-what-is-a-changelog]
-=== What is a changelog?
+[#what-is-a-changelog]
+== What is a changelog?
 
 A changelog is a log of all notable changes made to a project.
 
-[#log4j-changelog-why-different]
-=== Why yet another changelog tool?
+[#why-different]
+== Why yet another changelog tool?
 
 Existing changelog practices (e.g., https://keepachangelog.com[Keep a changelog], https://maven.apache.org/plugins/maven-changes-plugin/[maven-changes-plugin]) store changelog entries in the same file.
 This creates merge conflicts between different branches.
@@ -53,8 +52,8 @@ Whoever succeeds in merging their branch to `main` first will cause a merge-conf
 This project embraces a model where changelog entries are kept in separate files and hence are not prone to merge conflicts.
 Similar to `maven-changes-plugin`, changelog sources and their exports (e.g., AsciiDoc-formatted) are split by design.
 
-[#log4j-changelog-look]
-=== What does it look like?
+[#look]
+== What does it look like?
 
 All changelog _sources_ and templates used to _export_ them are stored in folders under _the changelog directory_ (e.g., `/src/changelog`):
 
@@ -88,8 +87,8 @@ Note that upcoming release folders (e.g., `src/changelog/.2.x.x`) don't contain 
 <4> All XML files not prefixed with a `.` (e.g., `src/changelog/.2.x.x/LOG4J2-3628_new_changelog_infra.xml`) constitute changelog entries
 <5> {freemarker-link} templates are used to _export_ this information to various forms; AsciiDoc-formatted pages for the website, Markdown-formatted files for GitHub Releases, etc.
 
-[#log4j-changelog-release-entry-file]
-=== Release entry file
+[#release-entry-file]
+== Release entry file
 
 A release entry file, `.release.xml`, consists of meta information regarding a particular release.
 A sample _release entry_ file is shared below.
@@ -102,15 +101,15 @@ A sample _release entry_ file is shared below.
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="
              https://logging.apache.org/xml/ns
-             https://logging.apache.org/xml/ns/log4j-changelog-0.xsd
+             https://logging.apache.org/xml/ns/log4j-changelog-0.xsd"
          date="2022-09-09"
          version="2.19.0"/>
 ----
 
 Note that upcoming release folders (e.g., `src/changelog/.2.x.x`) don't contain a `.release.xml`, since these releases are by definition not done yet.
 
-[#log4j-changelog-changelog-entry-file]
-=== Changelog entry file
+[#changelog-entry-file]
+== Changelog entry file
 
 A changelog entry file consists of short meta information regarding a particular change.
 They are named following the `[<issueId>_]<shortSummary>.xml` pattern.
@@ -125,13 +124,14 @@ A sample _changelog entry_ file is shared below.
 .`src/changelog/2.19.0/LOG4J2-3556_JsonTemplateLayout_stack_trace_truncation_fix.xml` file contents
 [source,xml]
 ----
+<?xml version="1.0" encoding="UTF-8"?>
 <entry xmlns="https://logging.apache.org/xml/ns"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:schemaLocation="
            https://logging.apache.org/xml/ns
-           https://logging.apache.org/xml/ns/log4j-changelog-0.xsd
+           https://logging.apache.org/xml/ns/log4j-changelog-0.xsd"
        type="fixed">
-  <issue id="LOG4J2-3556" link="https://issues.apache.org/jira/browse/LOG4J2-3556"/>
+  <issue id="2443" link="https://github.com/apache/logging-log4j2/pull/2443"/>
   <description format="asciidoc">
     Make `JsonTemplateLayout` stack trace truncation operate for each label block
   </description>
@@ -151,24 +151,24 @@ Some remarks about the structure of changelog entry files:
 * `issue` element is optional, can occur multiple times, and, if present, must contain `id` and `link` attributes
 * There must be a single `description` element with non-blank content and `format` attribute
 
-[#log4j-changelog-export]
-=== Exporting changelogs
+[#export]
+== Exporting changelogs
 
 _Exporting_ changelogs is the act of feeding provided changelog and release information into {freemarker-link} templates to generate certain files; e.g., release notes for the website.
 There are two types template files supported:
 
-xref:#log4j-changelog-changelog-template[Changelog templates]::
+xref:#changelog-template[Changelog templates]::
 These templates are rendered with the release and changelog information of a particular release.
 These are generally used to generate release notes for a particular release.
 
-xref:#log4j-changelog-index-template[Index templates]::
+xref:#index-template[Index templates]::
 These templates are rendered with the release information of all releases.
 These are generally used to generate the index page referencing to release notes of each release.
 
 `ChangelogExporter` is responsible for performing the export operation.
 
-[#log4j-changelog-changelog-template]
-==== Changelog templates
+[#changelog-template]
+=== Changelog templates
 
 Changelog template files (e.g., `src/changelog/2.19.0/.release-notes.adoc.ftl` ) are rendered with the release and changelog information of a particular release using the following input data hash:
 
@@ -200,8 +200,8 @@ This release primarily contains bug fixes and minor enhancements.
 </#if>
 ----
 
-[#log4j-changelog-index-template]
-==== Index templates
+[#index-template]
+=== Index templates
 
 Index template files (e.g., `src/changelog/.index.adoc.ftl`) are rendered with the release information of all releases using the following input data hash:
 
@@ -222,22 +222,22 @@ A sample index template file is shared below.
 </#list>
 ----
 
-[#log4j-changelog-qa]
-=== Q&A
+[#qa]
+== Q&A
 
-[#log4j-changelog-qa-entry]
-==== How can I add an entry for a change I am about to commit?
+[#qa-entry]
+=== How can I add an entry for a change I am about to commit?
 
 You have just committed, or better, about to commit a great feature you have been working on.
-Simply create a <<#log4j-changelog-changelog-entry-file>> and commit it along with your change!
+Simply create a <<changelog-entry-file>> and commit it along with your change!
 
-[#log4j-changelog-qa-generate]
-==== How can I export changelogs to AsciiDoc, Markdown, etc. files?
+[#qa-generate]
+=== How can I export changelogs to AsciiDoc, Markdown, etc. files?
 
-You need to use xref:#log4j-changelog-maven-plugin-export[the `export` goal the Maven plugin].
+You need to use xref:log4j-changelog-maven-plugin.adoc#export[the `export` goal the Maven plugin].
 
-[#log4j-changelog-qa-deploy-release]
-==== I am about to deploy a new release. What shall I do?
+[#qa-deploy-release]
+=== I am about to deploy a new release. What shall I do?
 
 Just before a release, three things need to happen in the changelog sources:
 
@@ -258,7 +258,7 @@ Hence, there are no differences between releases and release candidates from the
 
 How to carry out aforementioned changes are explained below in steps:
 
-. Populate the `<changelogDirectory>/<releaseVersion>` directory (e.g., `/src/changelog/2.19.0`) from the upcoming release changelog directory (e.g., `<changelogDirectory>/.2.x.x`) using the xref:#log4j-changelog-maven-plugin-release[`release` Maven goal]:
+. Populate the `<changelogDirectory>/<releaseVersion>` directory (e.g., `/src/changelog/2.19.0`) from the upcoming release changelog directory (e.g., `<changelogDirectory>/.2.x.x`) using the xref:log4j-changelog-maven-plugin.adoc#release[`release` Maven goal]:
 +
 [source,bash]
 ----
