@@ -45,7 +45,7 @@
     <jakarta.inject.version>1.0.5</jakarta.inject.version>
     <junit.version>5.10.2</junit.version>
     <modello.version>2.1.2</modello.version>
-    <xmlunit.version>2.9.1</xmlunit.version>
+    <xmlunit.version>2.10.0</xmlunit.version>
 
     <!-- Maven plugin versions -->
     <maven-plugin.version>3.12.0</maven-plugin.version>
