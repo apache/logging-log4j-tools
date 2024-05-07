@@ -16,17 +16,16 @@
  */
 package org.apache.logging.log4j.docgen.generator.internal;
 
+import java.util.Iterator;
+import java.util.Set;
+import java.util.TreeMap;
+import java.util.function.Predicate;
 import org.apache.logging.log4j.docgen.AbstractType;
 import org.apache.logging.log4j.docgen.PluginSet;
 import org.apache.logging.log4j.docgen.PluginType;
 import org.apache.logging.log4j.docgen.ScalarType;
 import org.apache.logging.log4j.docgen.Type;
 import org.jspecify.annotations.Nullable;
-
-import java.util.Iterator;
-import java.util.Set;
-import java.util.TreeMap;
-import java.util.function.Predicate;
 
 public final class TypeLookup extends TreeMap<String, ArtifactSourcedType> {
 
@@ -54,7 +53,6 @@ public final class TypeLookup extends TreeMap<String, ArtifactSourcedType> {
     @SuppressWarnings("StatementWithEmptyBody")
     private void mergeScalarTypes(PluginSet pluginSet) {
         pluginSet.getScalars().forEach(newType -> {
-
             final String className = newType.getClassName();
             @Nullable final ArtifactSourcedType oldSourcedType = get(className);
 
@@ -67,7 +65,8 @@ public final class TypeLookup extends TreeMap<String, ArtifactSourcedType> {
             // If the entry already exists and is of expected type, we should ideally extend it.
             // Since Modello doesn't generate `hashCode()`, `equals()`, etc. it is difficult to compare instances.
             // Hence, we will be lazy, and just assume they are the same.
-            else if (oldSourcedType.type instanceof ScalarType) {}
+            else if (oldSourcedType.type instanceof ScalarType) {
+            }
 
             // If the entry already exists, but with an unexpected type, fail
             else {
@@ -87,7 +86,6 @@ public final class TypeLookup extends TreeMap<String, ArtifactSourcedType> {
 
     private void mergeAbstractTypes(PluginSet pluginSet) {
         pluginSet.getAbstractTypes().forEach(newType -> {
-
             final String className = newType.getClassName();
             @Nullable final ArtifactSourcedType oldSourcedType = get(className);
 
@@ -112,7 +110,6 @@ public final class TypeLookup extends TreeMap<String, ArtifactSourcedType> {
 
     private void mergePluginTypes(PluginSet pluginSet) {
         pluginSet.getPlugins().forEach(newType -> {
-
             final String className = newType.getClassName();
             @Nullable final ArtifactSourcedType oldSourcedType = get(className);
 
