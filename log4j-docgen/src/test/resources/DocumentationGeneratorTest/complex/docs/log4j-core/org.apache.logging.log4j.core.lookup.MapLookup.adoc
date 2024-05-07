@@ -16,7 +16,7 @@ limitations under the License.
 ////
 
 [#org_apache_logging_log4j_core_lookup_MapLookup]
-= `org.apache.logging.log4j.core.lookup.MapLookup`
+= map
 
 Class:: `org.apache.logging.log4j.core.lookup.MapLookup`
 Provider:: `org.apache.logging.log4j:log4j-core`
@@ -24,6 +24,12 @@ Provider:: `org.apache.logging.log4j:log4j-core`
 
 A map-based lookup.
 
+[#org_apache_logging_log4j_core_lookup_MapLookup-XML-snippet]
+== XML snippet
+[source, xml]
+----
+<map/>
+----
 
 [#org_apache_logging_log4j_core_lookup_MapLookup-implementations]
 == Known implementations

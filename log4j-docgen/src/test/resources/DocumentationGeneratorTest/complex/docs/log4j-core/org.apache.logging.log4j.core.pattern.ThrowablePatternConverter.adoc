@@ -16,7 +16,7 @@ limitations under the License.
 ////
 
 [#org_apache_logging_log4j_core_pattern_ThrowablePatternConverter]
-= `org.apache.logging.log4j.core.pattern.ThrowablePatternConverter`
+= ThrowablePatternConverter
 
 Class:: `org.apache.logging.log4j.core.pattern.ThrowablePatternConverter`
 Provider:: `org.apache.logging.log4j:log4j-core`
@@ -24,6 +24,12 @@ Provider:: `org.apache.logging.log4j:log4j-core`
 
 Outputs the Throwable portion of the LoggingEvent as a full stack trace unless this converter's option is 'short', where it just outputs the first line of the trace, or if the number of lines to print is explicitly specified.
 
+[#org_apache_logging_log4j_core_pattern_ThrowablePatternConverter-XML-snippet]
+== XML snippet
+[source, xml]
+----
+<ThrowablePatternConverter/>
+----
 
 [#org_apache_logging_log4j_core_pattern_ThrowablePatternConverter-implementations]
 == Known implementations
