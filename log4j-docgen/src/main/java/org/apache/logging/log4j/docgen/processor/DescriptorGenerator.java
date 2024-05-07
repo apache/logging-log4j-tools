@@ -135,11 +135,11 @@ public class DescriptorGenerator extends AbstractProcessor {
      */
     private static final String IMPOSSIBLE_REGEX = "(?!.*)";
 
-    private final Set<TypeElement> pluginTypesToDocument = new HashSet<>();
+    // Abstract types to process
+    private final Collection<TypeElement> abstractTypesToDocument = new HashSet<>();
 
-    private final Set<TypeElement> abstractTypesToDocument = new HashSet<>();
-
-    private final Set<TypeElement> scalarTypesToDocument = new HashSet<>();
+    // Scalar types to process
+    private final Collection<TypeElement> scalarTypesToDocument = new HashSet<>();
 
     private Predicate<String> classNameFilter;
 
@@ -253,8 +253,7 @@ public class DescriptorGenerator extends AbstractProcessor {
     @Override
     public boolean process(final Set<? extends TypeElement> unused, final RoundEnvironment roundEnv) {
         // First step: document plugins
-        populatePluginTypesToDocument(roundEnv);
-        pluginTypesToDocument.forEach(this::addPluginDocumentation);
+        roundEnv.getElementsAnnotatedWithAny(annotations.getPluginAnnotations()).forEach(this::addPluginDocumentation);
         // Second step: document abstract types
         abstractTypesToDocument.forEach(this::addAbstractTypeDocumentation);
         // Second step: document scalars
@@ -266,39 +265,28 @@ public class DescriptorGenerator extends AbstractProcessor {
         return false;
     }
 
-    private void populatePluginTypesToDocument(final RoundEnvironment roundEnv) {
-        roundEnv.getElementsAnnotatedWithAny(annotations.getPluginAnnotations()).forEach(element -> {
+    private void addPluginDocumentation(final Element element) {
+        try {
             if (element instanceof TypeElement) {
-                pluginTypesToDocument.add((TypeElement) element);
+                final PluginType pluginType = new PluginType();
+                pluginType.setName(annotations.getPluginSpecifiedName(element).orElseGet(() -> element.getSimpleName()
+                        .toString()));
+                pluginType.setNamespace(
+                        annotations.getPluginSpecifiedNamespace(element).orElse("Core"));
+                populatePlugin((TypeElement) element, pluginType);
+                pluginSet.addPlugin(pluginType);
             } else {
                 messager.printMessage(
                         Diagnostic.Kind.WARNING, "Found @Plugin annotation on unexpected element.", element);
             }
-        });
-    }
-
-    private void addPluginDocumentation(final TypeElement element) {
-        try {
-            final PluginType pluginType = new PluginType();
-            pluginType.setName(annotations.getPluginSpecifiedName(element).orElseGet(() -> element.getSimpleName()
-                    .toString()));
-            pluginType.setNamespace(
-                    annotations.getPluginSpecifiedNamespace(element).orElse("Core"));
-            populatePlugin(element, pluginType);
-            pluginSet.addPlugin(pluginType);
         } catch (final Exception error) {
             final String message = String.format("failed to process element `%s`", element);
             throw new RuntimeException(message, error);
         }
     }
 
-    @SuppressWarnings("SuspiciousMethodCalls")
     private void addAbstractTypeDocumentation(final QualifiedNameable element) {
         try {
-            // Short-circuit if the type is already documented as a plugin
-            if (pluginTypesToDocument.contains(element)) {
-                return;
-            }
             final AbstractType abstractType = new AbstractType();
             final ElementImports imports = importsFactory.ofElement(element);
             final String qualifiedClassName = getClassName(element.asType());
