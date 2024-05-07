@@ -40,7 +40,7 @@ Optional components are denoted by `?`-suffixed types.
 |===
 |Tag|Type|Description
 
-|
+|logger
 |xref:../log4j-core/org.apache.logging.log4j.core.config.LoggerConfig.adoc[LoggerConfig]?
 a|An array of Loggers.
 

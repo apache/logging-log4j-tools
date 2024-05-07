@@ -23,6 +23,8 @@ import java.util.function.Predicate;
 import org.apache.logging.log4j.docgen.AbstractType;
 import org.apache.logging.log4j.docgen.PluginSet;
 import org.apache.logging.log4j.docgen.PluginType;
+import org.apache.logging.log4j.docgen.ScalarType;
+import org.apache.logging.log4j.docgen.Type;
 import org.jspecify.annotations.Nullable;
 
 public final class TypeLookup extends TreeMap<String, ArtifactSourcedType> {
@@ -42,19 +44,107 @@ public final class TypeLookup extends TreeMap<String, ArtifactSourcedType> {
 
     private void mergeDescriptors(Iterable<? extends PluginSet> pluginSets) {
         pluginSets.forEach(pluginSet -> {
-            pluginSet.getScalars().forEach(scalar -> {
-                final ArtifactSourcedType sourcedType = ArtifactSourcedType.ofPluginSet(pluginSet, scalar);
-                putIfAbsent(scalar.getClassName(), sourcedType);
-            });
-            pluginSet.getAbstractTypes().forEach(abstractType -> {
-                final ArtifactSourcedType sourcedType = ArtifactSourcedType.ofPluginSet(pluginSet, abstractType);
-                putIfAbsent(abstractType.getClassName(), sourcedType);
-            });
-            pluginSet.getPlugins().forEach(pluginType -> {
-                final ArtifactSourcedType sourcedType = ArtifactSourcedType.ofPluginSet(pluginSet, pluginType);
-                putIfAbsent(pluginType.getClassName(), sourcedType);
-            });
+            mergeScalarTypes(pluginSet);
+            mergeAbstractTypes(pluginSet);
+            mergePluginTypes(pluginSet);
         });
+    }
+
+    private void mergeScalarTypes(PluginSet pluginSet) {
+        pluginSet.getScalars().forEach(newType -> {
+            final String className = newType.getClassName();
+            final ArtifactSourcedType newSourcedType = ArtifactSourcedType.ofPluginSet(pluginSet, newType);
+            merge(className, newSourcedType, TypeLookup::mergeScalarType);
+        });
+    }
+
+    private static ArtifactSourcedType mergeScalarType(
+            final ArtifactSourcedType oldSourcedType, final ArtifactSourcedType newSourcedType) {
+        // If the entry already exists and is of expected type, we should ideally extend it.
+        // Since Modello doesn't generate `hashCode()`, `equals()`, etc. it is difficult to compare instances.
+        // Hence, we will be lazy, and just assume they are the same.
+        if (oldSourcedType.type instanceof ScalarType) {
+            return oldSourcedType;
+        }
+
+        // If the entry already exists, but with an unexpected type, fail
+        else {
+            throw conflictingTypeFailure(oldSourcedType.type, newSourcedType.type);
+        }
+    }
+
+    private static RuntimeException conflictingTypeFailure(final Type oldType, final Type newType) {
+        final String message = String.format(
+                "`%s` class occurs multiple times with conflicting types: `%s` and `%s`",
+                oldType.getClassName(),
+                oldType.getClass().getSimpleName(),
+                newType.getClass().getSimpleName());
+        return new IllegalArgumentException(message);
+    }
+
+    private void mergeAbstractTypes(PluginSet pluginSet) {
+        pluginSet.getAbstractTypes().forEach(newType -> {
+            final String className = newType.getClassName();
+            final ArtifactSourcedType newSourcedType = ArtifactSourcedType.ofPluginSet(pluginSet, newType);
+            merge(className, newSourcedType, TypeLookup::mergeAbstractType);
+        });
+    }
+
+    private static ArtifactSourcedType mergeAbstractType(
+            final ArtifactSourcedType oldSourcedType, final ArtifactSourcedType newSourcedType) {
+
+        // If the entry already exists and is of expected type, extend it
+        if (oldSourcedType.type instanceof AbstractType) {
+            final AbstractType oldType = (AbstractType) oldSourcedType.type;
+            final AbstractType newType = (AbstractType) newSourcedType.type;
+            newType.getImplementations().forEach(oldType::addImplementation);
+            return oldSourcedType;
+        }
+
+        // If the entry already exists, but with an unexpected type, fail
+        else {
+            throw conflictingTypeFailure(oldSourcedType.type, newSourcedType.type);
+        }
+    }
+
+    private void mergePluginTypes(PluginSet pluginSet) {
+        pluginSet.getPlugins().forEach(newType -> {
+            final String className = newType.getClassName();
+            final ArtifactSourcedType newSourcedType = ArtifactSourcedType.ofPluginSet(pluginSet, newType);
+            merge(className, newSourcedType, TypeLookup::mergePluginType);
+        });
+    }
+
+    private static ArtifactSourcedType mergePluginType(
+            final ArtifactSourcedType oldSourcedType, final ArtifactSourcedType newSourcedType) {
+
+        // If the entry already exists, but is of `AbstractType`, promote it to `PluginType`.
+        //
+        // The most prominent example to this is `LoggerConfig`, which is a plugin.
+        // Assume `AsyncLoggerConfig` (extending from `LoggerConfig`) is encountered first.
+        // This results in `LoggerConfig` getting registered as an `AbstractType`.
+        // When the actual `LoggerConfig` definition is encountered, the type needs to be promoted to `PluginType`.
+        // Otherwise, `LoggerConfig` plugin definition will get skipped.
+        if (oldSourcedType.type instanceof AbstractType && !(oldSourcedType.type instanceof PluginType)) {
+            final PluginType newType = (PluginType) newSourcedType.type;
+            // Preserve old implementations
+            final AbstractType oldType = (AbstractType) oldSourcedType.type;
+            oldType.getImplementations().forEach(newType::addImplementation);
+            return newSourcedType;
+        }
+
+        // If the entry already exists and is of expected type, extend it
+        else if (oldSourcedType.type instanceof PluginType) {
+            final PluginType oldType = (PluginType) oldSourcedType.type;
+            final PluginType newType = (PluginType) newSourcedType.type;
+            newType.getImplementations().forEach(oldType::addImplementation);
+            return oldSourcedType;
+        }
+
+        // If the entry already exists, but with an unexpected type, fail
+        else {
+            throw conflictingTypeFailure(oldSourcedType.type, newSourcedType.type);
+        }
     }
 
     private void populateTypeHierarchy(Iterable<? extends PluginSet> pluginSets) {

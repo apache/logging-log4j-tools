@@ -16,7 +16,7 @@ limitations under the License.
 ////
 
 [#org_apache_logging_log4j_core_config_LoggerConfig]
-= `org.apache.logging.log4j.core.config.LoggerConfig`
+= logger
 
 Class:: `org.apache.logging.log4j.core.config.LoggerConfig`
 Provider:: `org.apache.logging.log4j:log4j-core`
@@ -24,6 +24,79 @@ Provider:: `org.apache.logging.log4j:log4j-core`
 
 Logger object that is created via configuration.
 
+[#org_apache_logging_log4j_core_config_LoggerConfig-XML-snippet]
+== XML snippet
+[source, xml]
+----
+<logger additivity=""
+        includeLocation=""
+        level=""
+        levelAndRefs=""
+        name="">
+    <a-Filter-implementation/>
+    <AppenderRef/><!-- multiple occurrences allowed -->
+    <property/><!-- multiple occurrences allowed -->
+</logger>
+----
+
+[#org_apache_logging_log4j_core_config_LoggerConfig-attributes]
+== Attributes
+
+Optional attributes are denoted by `?`-suffixed types.
+
+[cols="1m,1m,1m,5"]
+|===
+|Name|Type|Default|Description
+
+|additivity
+|Boolean?
+|
+a|
+
+|includeLocation
+|String?
+|
+a|
+
+|level
+|xref:../log4j-core/org.apache.logging.log4j.Level.adoc[Level]?
+|
+a|
+
+|levelAndRefs
+|String?
+|
+a|
+
+|name
+|String
+|
+a|
+
+|===
+
+[#org_apache_logging_log4j_core_config_LoggerConfig-components]
+== Nested components
+
+Optional components are denoted by `?`-suffixed types.
+
+[cols="1m,1m,5"]
+|===
+|Tag|Type|Description
+
+|AppenderRef
+|xref:../log4j-core/org.apache.logging.log4j.core.config.AppenderRef.adoc[AppenderRef]?
+a|
+
+|property
+|xref:../log4j-core/org.apache.logging.log4j.core.config.Property.adoc[Property]?
+a|
+
+|
+|xref:../log4j-core/org.apache.logging.log4j.core.Filter.adoc[Filter]?
+a|
+
+|===
 
 [#org_apache_logging_log4j_core_config_LoggerConfig-implementations]
 == Known implementations

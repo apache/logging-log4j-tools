@@ -16,7 +16,7 @@ limitations under the License.
 ////
 
 [#org_apache_logging_log4j_core_filter_MapFilter]
-= `org.apache.logging.log4j.core.filter.MapFilter`
+= MapFilter
 
 Class:: `org.apache.logging.log4j.core.filter.MapFilter`
 Provider:: `org.apache.logging.log4j:log4j-core`
@@ -24,6 +24,57 @@ Provider:: `org.apache.logging.log4j:log4j-core`
 
 A Filter that operates on a Map.
 
+[#org_apache_logging_log4j_core_filter_MapFilter-XML-snippet]
+== XML snippet
+[source, xml]
+----
+<MapFilter onMatch=""
+           onMismatch=""
+           operator="">
+    <KeyValuePair/><!-- multiple occurrences allowed -->
+</MapFilter>
+----
+
+[#org_apache_logging_log4j_core_filter_MapFilter-attributes]
+== Attributes
+
+Optional attributes are denoted by `?`-suffixed types.
+
+[cols="1m,1m,1m,5"]
+|===
+|Name|Type|Default|Description
+
+|onMatch
+|xref:../log4j-core/org.apache.logging.log4j.core.Filter.Result.adoc[Result]?
+|
+a|
+
+|onMismatch
+|xref:../log4j-core/org.apache.logging.log4j.core.Filter.Result.adoc[Result]?
+|
+a|
+
+|operator
+|String?
+|
+a|
+
+|===
+
+[#org_apache_logging_log4j_core_filter_MapFilter-components]
+== Nested components
+
+Optional components are denoted by `?`-suffixed types.
+
+[cols="1m,1m,5"]
+|===
+|Tag|Type|Description
+
+|KeyValuePair
+|xref:../log4j-core/org.apache.logging.log4j.core.util.KeyValuePair.adoc[KeyValuePair]?
+a|
+
+|===
 
 [#org_apache_logging_log4j_core_filter_MapFilter-implementations]
 == Known implementations

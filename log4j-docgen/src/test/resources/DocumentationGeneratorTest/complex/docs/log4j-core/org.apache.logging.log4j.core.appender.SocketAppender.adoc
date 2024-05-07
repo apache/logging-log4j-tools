@@ -16,7 +16,7 @@ limitations under the License.
 ////
 
 [#org_apache_logging_log4j_core_appender_SocketAppender]
-= `org.apache.logging.log4j.core.appender.SocketAppender`
+= Socket
 
 Class:: `org.apache.logging.log4j.core.appender.SocketAppender`
 Provider:: `org.apache.logging.log4j:log4j-core`
@@ -26,6 +26,131 @@ An Appender that delivers events over socket connections.
 
 Supports both TCP and UDP.
 
+[#org_apache_logging_log4j_core_appender_SocketAppender-XML-snippet]
+== XML snippet
+[source, xml]
+----
+<Socket advertise=""
+        bufferedIo=""
+        bufferSize=""
+        connectTimeoutMillis=""
+        host=""
+        ignoreExceptions=""
+        immediateFail=""
+        immediateFlush=""
+        name=""
+        port=""
+        protocol=""
+        reconnectDelayMillis="">
+    <a-Filter-implementation/>
+    <a-Layout-implementation/>
+    <property/><!-- multiple occurrences allowed -->
+    <SocketOptions/>
+    <Ssl/>
+</Socket>
+----
+
+[#org_apache_logging_log4j_core_appender_SocketAppender-attributes]
+== Attributes
+
+Optional attributes are denoted by `?`-suffixed types.
+
+[cols="1m,1m,1m,5"]
+|===
+|Name|Type|Default|Description
+
+|advertise
+|boolean?
+|
+a|
+
+|bufferedIo
+|boolean?
+|
+a|
+
+|bufferSize
+|int?
+|
+a|
+
+|connectTimeoutMillis
+|int?
+|
+a|
+
+|host
+|String?
+|
+a|
+
+|ignoreExceptions
+|boolean?
+|
+a|
+
+|immediateFail
+|boolean?
+|
+a|
+
+|immediateFlush
+|boolean?
+|
+a|
+
+|name
+|String
+|
+a|
+
+|port
+|int?
+|
+a|
+
+|protocol
+|xref:../log4j-core/org.apache.logging.log4j.core.net.Protocol.adoc[Protocol]?
+|
+a|
+
+|reconnectDelayMillis
+|int?
+|
+a|
+
+|===
+
+[#org_apache_logging_log4j_core_appender_SocketAppender-components]
+== Nested components
+
+Optional components are denoted by `?`-suffixed types.
+
+[cols="1m,1m,5"]
+|===
+|Tag|Type|Description
+
+|property
+|xref:../log4j-core/org.apache.logging.log4j.core.config.Property.adoc[Property]?
+a|
+
+|
+|xref:../log4j-core/org.apache.logging.log4j.core.Filter.adoc[Filter]?
+a|
+
+|
+|xref:../log4j-core/org.apache.logging.log4j.core.Layout.adoc[Layout]?
+a|
+
+|SocketOptions
+|xref:../log4j-core/org.apache.logging.log4j.core.net.SocketOptions.adoc[SocketOptions]?
+a|
+
+|Ssl
+|xref:../log4j-core/org.apache.logging.log4j.core.net.ssl.SslConfiguration.adoc[SslConfiguration]?
+a|
+
+|===
 
 [#org_apache_logging_log4j_core_appender_SocketAppender-implementations]
 == Known implementations
