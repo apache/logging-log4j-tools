@@ -123,6 +123,19 @@ It also implements:
 * apiref:example.Appender[],
 * apiref:example.BaseAppender[]</description>
         </plugin>
+        <plugin name="MyAppenderSubclassingAppender" namespace="namespace" className="example.MyAppenderSubclassingAppender">
+            <supertypes>
+                <supertype>example.AbstractAppender</supertype>
+                <supertype>example.Appender</supertype>
+                <supertype>example.BaseAppender</supertype>
+                <supertype>example.MyAppender</supertype>
+                <supertype>java.lang.Object</supertype>
+            </supertypes>
+            <attributes>
+                <attribute name="awesomenessEnabled" type="boolean"/>
+            </attributes>
+            <description>Example plugin to demonstrate the case where a plugin subclasses another plugin.</description>
+        </plugin>
         <plugin name="MyLayout" className="example.MyOldLayout">
             <supertypes>
                 <supertype>example.Layout</supertype>

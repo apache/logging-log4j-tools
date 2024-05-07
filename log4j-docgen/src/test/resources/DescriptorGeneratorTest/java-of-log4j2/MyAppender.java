@@ -45,7 +45,7 @@ import org.apache.logging.log4j.core.config.plugins.validation.constraints.Requi
  * </ul>
  */
 @Plugin(name = "MyAppender", category = "namespace")
-public final class MyAppender extends AbstractAppender implements Appender {
+public class MyAppender extends AbstractAppender implements Appender {
 
     /**
      * Parent builder with some private fields that are not returned by
