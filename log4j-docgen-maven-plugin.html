@@ -168,18 +168,31 @@
   &lt;/typeFilter&gt;
 
   &lt;templateDirectory&gt;${project.basedir}/src/docgen-templates&lt;/templateDirectory&gt;
-  &lt;indexTemplate&gt;
-    &lt;source&gt;index.adoc.ftl&lt;/source&gt;
-    &lt;target&gt;${project.build.directory}/generated-site/asciidoc/plugin-reference/index.adoc&lt;/target&gt;
-  &lt;/indexTemplate&gt;
-  &lt;typeTemplate&gt;
-    &lt;source&gt;type.adoc.ftl&lt;/source&gt;
-    &lt;!-- `target` must be in sync. with the `log4j-docgen-type-template-target` configuration of `log4j-docgen-asciidoctor-extension`! --&gt;
-    &lt;target&gt;${project.build.directory}/generated-site/asciidoc/plugin-reference/%g/%a/%c.adoc&lt;/target&gt;
-  &lt;/typeTemplate&gt;
+
+  &lt;indexTemplates&gt;
+    &lt;template&gt;
+      &lt;source&gt;index.adoc.ftl&lt;/source&gt;
+      &lt;target&gt;${project.build.directory}/generated-site/asciidoc/plugin-reference/index.adoc&lt;/target&gt;
+    &lt;/template&gt;
+  &lt;/indexTemplates&gt;
+
+  &lt;typeTemplates&gt;
+    &lt;template&gt;
+      &lt;source&gt;type.adoc.ftl&lt;/source&gt;
+      &lt;target&gt;${project.build.directory}/generated-site/asciidoc/plugin-reference/%g/%a/%c.adoc&lt;/target&gt;<i class="conum" data-value="1"></i><b>(1)</b>
+    &lt;/template&gt;
+  &lt;/typeTemplates&gt;
 
 &lt;/configuration&gt;</code></pre>
 </div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td><code>target</code> must be in sync. with <a href="log4j-docgen-asciidoctor-extension.html#log4j-docgen-type-target-template" class="xref page">the <code>log4j-docgen-type-target-template</code> configuration of <code>log4j-docgen-asciidoctor-extension</code></a>.</td>
+</tr>
+</table>
 </div>
 <div class="paragraph">
 <p>The <code>generate-documentation</code> goal configuration also accepts the following parameters:</p>
