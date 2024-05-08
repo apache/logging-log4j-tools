@@ -33,7 +33,7 @@ import org.apache.maven.plugins.annotations.Parameter;
  * @see DocumentationGenerator
  */
 @Mojo(name = "generate-documentation", defaultPhase = LifecyclePhase.GENERATE_RESOURCES, threadSafe = true)
-public class DocumentationGeneratorMojo extends AbstractGeneratorMojo {
+public class DocumentationGeneratorMojo extends AbstractDocgenMojo {
 
     /**
      * The path to the FreeMarker template directory.
@@ -55,6 +55,10 @@ public class DocumentationGeneratorMojo extends AbstractGeneratorMojo {
 
     @Override
     public void execute() {
+        if (skip) {
+            getLog().info("Skipping documentation generation");
+            return;
+        }
         final Set<PluginSet> pluginSets =
                 PluginSets.ofDescriptorFilesAndFileMatchers(descriptorFiles, descriptorFileMatchers);
         final Predicate<String> classNameFilter = typeFilter != null ? typeFilter.createPredicate() : ignored -> true;

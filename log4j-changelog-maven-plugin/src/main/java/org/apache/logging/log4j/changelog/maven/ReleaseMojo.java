@@ -16,13 +16,11 @@
  */
 package org.apache.logging.log4j.changelog.maven;
 
-import java.io.File;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.regex.Pattern;
 import org.apache.logging.log4j.changelog.releaser.ChangelogReleaser;
 import org.apache.logging.log4j.changelog.releaser.ChangelogReleaserArgs;
-import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugins.annotations.LifecyclePhase;
 import org.apache.maven.plugins.annotations.Mojo;
 import org.apache.maven.plugins.annotations.Parameter;
@@ -33,16 +31,7 @@ import org.apache.maven.plugins.annotations.Parameter;
  * @see ChangelogReleaser
  */
 @Mojo(name = "release", defaultPhase = LifecyclePhase.VALIDATE, threadSafe = true)
-public final class ReleaseMojo extends AbstractMojo {
-
-    /**
-     * Directory containing release folders composed of changelog entry XML files.
-     */
-    @Parameter(
-            defaultValue = "${project.basedir}/src/changelog",
-            property = "log4j.changelog.directory",
-            required = true)
-    private File changelogDirectory;
+public final class ReleaseMojo extends AbstractChangelogMojo {
 
     /**
      * The version to be released, e.g., {@code 2.19.0}.
@@ -66,6 +55,10 @@ public final class ReleaseMojo extends AbstractMojo {
 
     @Override
     public void execute() {
+        if (skip) {
+            getLog().info("Skipping changelog release");
+            return;
+        }
         Pattern compiledVersionPattern = versionPattern != null ? Pattern.compile(versionPattern) : null;
         final ChangelogReleaserArgs args = new ChangelogReleaserArgs(
                 changelogDirectory.toPath(),

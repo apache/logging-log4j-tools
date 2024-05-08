@@ -25,7 +25,6 @@ import org.apache.logging.log4j.changelog.ChangelogFiles;
 import org.apache.logging.log4j.changelog.exporter.ChangelogExporter;
 import org.apache.logging.log4j.changelog.exporter.ChangelogExporterArgs;
 import org.apache.logging.log4j.changelog.exporter.ChangelogExporterTemplate;
-import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugins.annotations.LifecyclePhase;
 import org.apache.maven.plugins.annotations.Mojo;
 import org.apache.maven.plugins.annotations.Parameter;
@@ -36,19 +35,10 @@ import org.apache.maven.plugins.annotations.Parameter;
  * @see ChangelogExporter
  */
 @Mojo(name = "export", defaultPhase = LifecyclePhase.PRE_SITE, threadSafe = true)
-public final class ExportMojo extends AbstractMojo {
+public final class ExportMojo extends AbstractChangelogMojo {
 
     private static final String SOURCE_TARGET_TEMPLATE_PATTERN =
             "^\\.(.*)\\." + ChangelogFiles.templateFileNameExtension() + '$';
-
-    /**
-     * Directory containing release folders composed of changelog entry XML files.
-     */
-    @Parameter(
-            defaultValue = "${project.basedir}/src/changelog",
-            property = "log4j.changelog.directory",
-            required = true)
-    private File changelogDirectory;
 
     /**
      * Templates that will be rendered with the release information of all releases, e.g., to generate an index page.
@@ -73,6 +63,10 @@ public final class ExportMojo extends AbstractMojo {
 
     @Override
     public void execute() {
+        if (skip) {
+            getLog().info("Skipping changelog export");
+            return;
+        }
         final Set<ChangelogExporterTemplate> translatedIndexTemplates = toExporterTemplates(indexTemplates);
         final Set<ChangelogExporterTemplate> translatedReleaseChangelogTemplates =
                 toExporterTemplates(changelogTemplates);
