@@ -56,18 +56,24 @@ The `generate-documentation` goal generates an AsciiDoc-formatted documentation 
   </typeFilter>
 
   <templateDirectory>${project.basedir}/src/docgen-templates</templateDirectory>
-  <indexTemplate>
-    <source>index.adoc.ftl</source>
-    <target>${project.build.directory}/generated-site/asciidoc/plugin-reference/index.adoc</target>
-  </indexTemplate>
-  <typeTemplate>
-    <source>type.adoc.ftl</source>
-    <!-- `target` must be in sync. with the `log4j-docgen-type-template-target` configuration of `log4j-docgen-asciidoctor-extension`! -->
-    <target>${project.build.directory}/generated-site/asciidoc/plugin-reference/%g/%a/%c.adoc</target>
-  </typeTemplate>
+
+  <indexTemplates>
+    <template>
+      <source>index.adoc.ftl</source>
+      <target>${project.build.directory}/generated-site/asciidoc/plugin-reference/index.adoc</target>
+    </template>
+  </indexTemplates>
+
+  <typeTemplates>
+    <template>
+      <source>type.adoc.ftl</source>
+      <target>${project.build.directory}/generated-site/asciidoc/plugin-reference/%g/%a/%c.adoc</target><!--1-->
+    </template>
+  </typeTemplates>
 
 </configuration>
 ----
+<1> `target` must be in sync. with xref:log4j-docgen-asciidoctor-extension.adoc#log4j-docgen-type-target-template[the `log4j-docgen-type-target-template` configuration of `log4j-docgen-asciidoctor-extension`].
 
 The `generate-documentation` goal configuration also accepts the following parameters:
 

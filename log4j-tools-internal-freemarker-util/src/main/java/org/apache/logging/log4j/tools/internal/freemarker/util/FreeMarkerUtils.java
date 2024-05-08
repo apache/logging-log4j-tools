@@ -70,15 +70,22 @@ public final class FreeMarkerUtils {
     public static void render(
             final Path templateDirectory, final String templateName, final Object templateData, final Path outputFile) {
         try {
+
+            // Render the template
             final Configuration configuration = createConfiguration(templateDirectory);
             final Template template = configuration.getTemplate(templateName);
+            final StringWriter templateOutputWriter = new StringWriter();
+            template.process(templateData, templateOutputWriter);
+            final String templateOutput = templateOutputWriter.toString();
+
+            // Write the template output to the target file
             final Path outputFileParent = outputFile.getParent();
             if (outputFileParent != null) {
                 Files.createDirectories(outputFileParent);
             }
             try (final BufferedWriter outputFileWriter = Files.newBufferedWriter(
                     outputFile, CHARSET, StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING)) {
-                template.process(templateData, outputFileWriter);
+                outputFileWriter.write(templateOutput);
             }
         } catch (final Exception error) {
             final String message = String.format(
