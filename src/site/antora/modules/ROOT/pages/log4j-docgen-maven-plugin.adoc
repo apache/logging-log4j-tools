@@ -69,6 +69,12 @@ The `generate-documentation` goal generates an AsciiDoc-formatted documentation 
 </configuration>
 ----
 
+The `generate-documentation` goal configuration also accepts the following parameters:
+
+`skip` (parameter)::
+Indicates if the execution should be skipped or not.
+It defaults to `false` and can be set using the `log4j.docgen.skip` property.
+
 [#generate-schema]
 == Generate schema
 
@@ -96,3 +102,9 @@ The `generate-schema` goal generates an XSD derived from the types loaded using 
 
 </configuration>
 ----
+
+The `generate-schema` goal configuration also accepts the following parameters:
+
+`skip` (parameter)::
+Indicates if the execution should be skipped or not.
+It defaults to `false` and can be set using the `log4j.docgen.skip` property.

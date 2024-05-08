@@ -14,39 +14,26 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.logging.log4j.docgen.maven;
+package org.apache.logging.log4j.changelog.maven;
 
 import java.io.File;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugins.annotations.Parameter;
-import org.jspecify.annotations.Nullable;
 
-abstract class AbstractGeneratorMojo extends AbstractMojo {
-
-    /**
-     * The paths of the plugin descriptor XML files.
-     * <p>
-     * If you want to provide to a multitude of files, you might want to use {@link #descriptorFileMatchers} instead.
-     * </p>
-     */
-    @Nullable
-    @Parameter(property = "log4j.docgen.descriptorFiles")
-    File[] descriptorFiles;
+abstract class AbstractChangelogMojo extends AbstractMojo {
 
     /**
-     * The {@link java.nio.file.FileSystem#getPathMatcher(String) PathMatcher}s to populate the paths of the plugin descriptor XML files.
-     * <p>
-     * If you want to refer to a particular file, you might want to use {@link #descriptorFiles} instead.
-     * </p>
+     * Indicates if the execution should be skipped or not.
      */
-    @Nullable
-    @Parameter
-    PathMatcherMojo[] descriptorFileMatchers;
+    @Parameter(property = "log4j.changelog.skip")
+    boolean skip;
 
     /**
-     * Predicate for filtering types that the generator will operate on.
+     * Directory containing release folders composed of changelog entry XML files.
      */
-    @Nullable
-    @Parameter
-    TypeFilterMojo typeFilter;
+    @Parameter(
+            defaultValue = "${project.basedir}/src/changelog",
+            property = "log4j.changelog.directory",
+            required = true)
+    File changelogDirectory;
 }

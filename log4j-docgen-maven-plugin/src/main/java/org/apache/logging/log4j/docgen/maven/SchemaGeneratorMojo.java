@@ -34,7 +34,7 @@ import org.apache.maven.plugins.annotations.Parameter;
  * @see SchemaGenerator
  */
 @Mojo(name = "generate-schema", defaultPhase = LifecyclePhase.GENERATE_RESOURCES, threadSafe = true)
-public class SchemaGeneratorMojo extends AbstractGeneratorMojo {
+public class SchemaGeneratorMojo extends AbstractDocgenMojo {
 
     /**
      * The version of the XSD
@@ -50,6 +50,9 @@ public class SchemaGeneratorMojo extends AbstractGeneratorMojo {
 
     @Override
     public void execute() throws MojoExecutionException {
+        if (skip) {
+            return;
+        }
         final Set<PluginSet> pluginSets =
                 PluginSets.ofDescriptorFilesAndFileMatchers(descriptorFiles, descriptorFileMatchers);
         final Predicate<String> classNameFilter = typeFilter != null ? typeFilter.createPredicate() : ignored -> true;

@@ -20,7 +20,6 @@ import java.io.File;
 import org.apache.logging.log4j.changelog.importer.MavenChangesImporter;
 import org.apache.logging.log4j.changelog.importer.MavenChangesImporterArgs;
 import org.apache.logging.log4j.changelog.releaser.ChangelogReleaser;
-import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugins.annotations.Mojo;
 import org.apache.maven.plugins.annotations.Parameter;
 
@@ -30,16 +29,7 @@ import org.apache.maven.plugins.annotations.Parameter;
  * @see ChangelogReleaser
  */
 @Mojo(name = "import", threadSafe = true)
-public final class ImportMojo extends AbstractMojo {
-
-    /**
-     * Directory containing release folders composed of changelog entry XML files.
-     */
-    @Parameter(
-            defaultValue = "${project.basedir}/src/changelog",
-            property = "log4j.changelog.directory",
-            required = true)
-    private File changelogDirectory;
+public final class ImportMojo extends AbstractChangelogMojo {
 
     /**
      * <a href="https://maven.apache.org/plugins/maven-changes-plugin/">maven-changes-plugin</a> source XML, {@code changes.xml}, location.
@@ -58,6 +48,9 @@ public final class ImportMojo extends AbstractMojo {
 
     @Override
     public void execute() {
+        if (skip) {
+            return;
+        }
         final MavenChangesImporterArgs args =
                 new MavenChangesImporterArgs(changelogDirectory.toPath(), changesXmlFile.toPath(), releaseVersionMajor);
         MavenChangesImporter.performImport(args);

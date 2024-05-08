@@ -86,6 +86,10 @@ You can use the `export` goal as follows:
 
 `export` goal by default runs during the `pre-site` phase and accepts the following configuration:
 
+`skip` (parameter)::
+Indicates if the execution should be skipped or not.
+It defaults to `false` and can be set using the `log4j.changelog.skip` property.
+
 `changelogDirectory` (parameter)::
 Directory containing release folders composed of changelog entry XML files.
 It defaults to `${project.basedir}/src/changelog` and can be set using the `log4j.changelog.directory` property.
@@ -134,6 +138,10 @@ An example usage is shared below.
 Note that above we are using `-N` (`--non-recursive`) to avoid visiting submodules, which also makes the run faster.
 
 `release` goal does not have default phase and accepts the following configuration parameters:
+
+`skip` (parameter)::
+Indicates if the execution should be skipped or not.
+It defaults to `false` and can be set using the `log4j.changelog.skip` property.
 
 `changelogDirectory` (parameter)::
 Directory containing release folders composed of changelog entry XML files.
