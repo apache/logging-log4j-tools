@@ -51,6 +51,7 @@ public class SchemaGeneratorMojo extends AbstractDocgenMojo {
     @Override
     public void execute() throws MojoExecutionException {
         if (skip) {
+            getLog().info("Skipping schema generation");
             return;
         }
         final Set<PluginSet> pluginSets =

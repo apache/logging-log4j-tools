@@ -64,6 +64,7 @@ public final class ExportMojo extends AbstractChangelogMojo {
     @Override
     public void execute() {
         if (skip) {
+            getLog().info("Skipping changelog export");
             return;
         }
         final Set<ChangelogExporterTemplate> translatedIndexTemplates = toExporterTemplates(indexTemplates);

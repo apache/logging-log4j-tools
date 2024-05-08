@@ -56,6 +56,7 @@ public final class ReleaseMojo extends AbstractChangelogMojo {
     @Override
     public void execute() {
         if (skip) {
+            getLog().info("Skipping changelog release");
             return;
         }
         Pattern compiledVersionPattern = versionPattern != null ? Pattern.compile(versionPattern) : null;

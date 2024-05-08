@@ -56,6 +56,7 @@ public class DocumentationGeneratorMojo extends AbstractDocgenMojo {
     @Override
     public void execute() {
         if (skip) {
+            getLog().info("Skipping documentation generation");
             return;
         }
         final Set<PluginSet> pluginSets =

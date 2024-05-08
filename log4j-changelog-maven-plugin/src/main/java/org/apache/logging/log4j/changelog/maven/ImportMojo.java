@@ -49,6 +49,7 @@ public final class ImportMojo extends AbstractChangelogMojo {
     @Override
     public void execute() {
         if (skip) {
+            getLog().info("Skipping changelog import");
             return;
         }
         final MavenChangesImporterArgs args =
