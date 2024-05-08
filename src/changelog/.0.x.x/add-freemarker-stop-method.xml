@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entry xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns="https://logging.apache.org/xml/ns"
+       xsi:schemaLocation="https://logging.apache.org/xml/ns https://logging.apache.org/xml/ns/log4j-changelog-0.xsd"
+       type="added">
+  <issue id="122" link="https://github.com/apache/logging-log4j-tools/pull/122"/>
+  <description format="asciidoc">Add `stop()` FreeMarker method to skip template file generation.
+A use case is to have multiple `typeTemplates` in the `log4j-docgen:generate-documentation` configuration and skip generating certain files if desired.</description>
+</entry>

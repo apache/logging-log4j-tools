@@ -23,6 +23,8 @@ import freemarker.template.DefaultObjectWrapper;
 import freemarker.template.DefaultObjectWrapperBuilder;
 import freemarker.template.Template;
 import freemarker.template.TemplateExceptionHandler;
+import freemarker.template.TemplateMethodModelEx;
+import freemarker.template.TemplateModelException;
 import freemarker.template.Version;
 import java.io.BufferedWriter;
 import java.io.IOException;
@@ -35,6 +37,7 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardOpenOption;
+import java.util.List;
 
 public final class FreeMarkerUtils {
 
@@ -45,6 +48,52 @@ public final class FreeMarkerUtils {
     private static final Version CONFIGURATION_VERSION = Configuration.VERSION_2_3_29;
 
     private FreeMarkerUtils() {}
+
+    private static final class StopMethod implements TemplateMethodModelEx {
+
+        private static final StopMethod INSTANCE = new StopMethod();
+
+        private static final TemplateModelException SIGNAL = new TemplateModelException();
+
+        @Override
+        public Object exec(final List arguments) throws TemplateModelException {
+            throw SIGNAL;
+        }
+
+        private static boolean invoked(final Throwable throwable) {
+
+            // Keep a second pointer that slowly walks the causal chain.
+            // If the fast pointer ever catches the slower pointer, then there's a loop.
+            Throwable slowPointer = throwable;
+            boolean advanceSlowPointer = false;
+
+            Throwable parent = throwable;
+            while (true) {
+
+                // Check the exception
+                if (parent == StopMethod.SIGNAL) {
+                    return true;
+                }
+
+                // Advance the cause
+                final Throwable cause = parent.getCause();
+                if (cause == null) {
+                    break;
+                }
+
+                // Advance pointers
+                parent = cause;
+                if (parent == slowPointer) {
+                    throw new IllegalArgumentException("loop in causal chain");
+                }
+                if (advanceSlowPointer) {
+                    slowPointer = slowPointer.getCause();
+                }
+                advanceSlowPointer = !advanceSlowPointer; // only advance every other iteration
+            }
+            return false;
+        }
+    }
 
     @SuppressFBWarnings("DMI_HARDCODED_ABSOLUTE_FILENAME")
     private static Configuration createConfiguration(final Path templateDirectory) {
@@ -63,6 +112,7 @@ public final class FreeMarkerUtils {
         configuration.setLogTemplateExceptions(false);
         configuration.setWrapUncheckedExceptions(true);
         configuration.setFallbackOnNullLoopVariable(false);
+        configuration.setSharedVariable("stop", StopMethod.INSTANCE);
         return configuration;
     }
 
@@ -70,21 +120,31 @@ public final class FreeMarkerUtils {
     public static void render(
             final Path templateDirectory, final String templateName, final Object templateData, final Path outputFile) {
         try {
+
+            // Render the template
             final Configuration configuration = createConfiguration(templateDirectory);
             final Template template = configuration.getTemplate(templateName);
+            final StringWriter templateOutputWriter = new StringWriter();
+            template.process(templateData, templateOutputWriter);
+            final String templateOutput = templateOutputWriter.toString();
+
+            // Write the template output to the target file
             final Path outputFileParent = outputFile.getParent();
             if (outputFileParent != null) {
                 Files.createDirectories(outputFileParent);
             }
             try (final BufferedWriter outputFileWriter = Files.newBufferedWriter(
                     outputFile, CHARSET, StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING)) {
-                template.process(templateData, outputFileWriter);
+                outputFileWriter.write(templateOutput);
             }
         } catch (final Exception error) {
-            final String message = String.format(
-                    "failed rendering template `%s` in directory `%s` to file `%s`",
-                    templateName, templateDirectory, outputFile);
-            throw new RuntimeException(message, error);
+            final boolean stopMethodInvoked = StopMethod.invoked(error);
+            if (!stopMethodInvoked) {
+                final String message = String.format(
+                        "failed rendering template `%s` in directory `%s` to file `%s`",
+                        templateName, templateDirectory, outputFile);
+                throw new RuntimeException(message, error);
+            }
         }
     }
 

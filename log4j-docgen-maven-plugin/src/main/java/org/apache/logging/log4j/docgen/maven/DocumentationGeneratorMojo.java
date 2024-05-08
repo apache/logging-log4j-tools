@@ -17,8 +17,10 @@
 package org.apache.logging.log4j.docgen.maven;
 
 import java.io.File;
+import java.util.Arrays;
 import java.util.Set;
 import java.util.function.Predicate;
+import java.util.stream.Collectors;
 import org.apache.logging.log4j.docgen.PluginSet;
 import org.apache.logging.log4j.docgen.generator.DocumentationGenerator;
 import org.apache.logging.log4j.docgen.generator.DocumentationGeneratorArgs;
@@ -44,14 +46,14 @@ public class DocumentationGeneratorMojo extends AbstractDocgenMojo {
     /**
      * The template that will be used to document all types.
      */
-    @Parameter(required = true)
-    private DocumentationTemplateMojo indexTemplate;
+    @Parameter
+    private DocumentationTemplateMojo[] indexTemplates;
 
     /**
      * The template that will be used to document types.
      */
-    @Parameter(required = true)
-    private DocumentationTemplateMojo typeTemplate;
+    @Parameter
+    private DocumentationTemplateMojo[] typeTemplates;
 
     @Override
     public void execute() {
@@ -66,12 +68,14 @@ public class DocumentationGeneratorMojo extends AbstractDocgenMojo {
                 pluginSets,
                 classNameFilter,
                 templateDirectory.toPath(),
-                toApiModel(indexTemplate),
-                toApiModel(typeTemplate));
+                toApiModel(indexTemplates),
+                toApiModel(typeTemplates));
         DocumentationGenerator.generateDocumentation(generatorArgs);
     }
 
-    private static DocumentationTemplate toApiModel(final DocumentationTemplateMojo mojo) {
-        return new DocumentationTemplate(mojo.source, mojo.target);
+    private static Set<DocumentationTemplate> toApiModel(final DocumentationTemplateMojo[] mojos) {
+        return Arrays.stream(mojos)
+                .map(mojo -> new DocumentationTemplate(mojo.source, mojo.target))
+                .collect(Collectors.toSet());
     }
 }

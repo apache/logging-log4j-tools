@@ -22,6 +22,7 @@ import static org.apache.logging.log4j.tools.internal.freemarker.util.FreeMarker
 import java.nio.file.Path;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import org.apache.logging.log4j.docgen.PluginSet;
@@ -39,20 +40,22 @@ public final class DocumentationGenerator {
                 .collect(Collectors.toList());
         final TypeLookup lookup = TypeLookup.of(extendedSets, args.classNameFilter);
         lookup.values()
-                .forEach(sourcedType -> renderType(sourcedType, lookup, args.templateDirectory, args.typeTemplate));
-        renderIndex(lookup, args.templateDirectory, args.indexTemplate);
+                .forEach(sourcedType -> renderType(sourcedType, lookup, args.templateDirectory, args.typeTemplates));
+        renderIndex(lookup, args.templateDirectory, args.indexTemplates);
     }
 
     private static void renderType(
             final ArtifactSourcedType sourcedType,
             final TypeLookup lookup,
             final Path templateDirectory,
-            final DocumentationTemplate template) {
+            final Set<DocumentationTemplate> templates) {
         final Map<String, Object> templateData = Map.of(
                 "sourcedType", sourcedType,
                 "lookup", lookup);
-        final Path targetPath = createTypeTargetPath(sourcedType, template.targetPath);
-        render(templateDirectory, template.name, templateData, targetPath);
+        templates.forEach(template -> {
+            final Path targetPath = createTypeTargetPath(sourcedType, template.targetPath);
+            render(templateDirectory, template.name, templateData, targetPath);
+        });
     }
 
     private static Path createTypeTargetPath(final ArtifactSourcedType sourcedType, final String targetPathPattern) {
@@ -72,8 +75,9 @@ public final class DocumentationGenerator {
     }
 
     private static void renderIndex(
-            final TypeLookup lookup, final Path templateDirectory, final DocumentationTemplate template) {
+            final TypeLookup lookup, final Path templateDirectory, final Set<DocumentationTemplate> templates) {
         final Map<String, Object> templateData = Map.of("lookup", lookup);
-        render(templateDirectory, template.name, templateData, Path.of(template.targetPath));
+        templates.forEach(
+                template -> render(templateDirectory, template.name, templateData, Path.of(template.targetPath)));
     }
 }

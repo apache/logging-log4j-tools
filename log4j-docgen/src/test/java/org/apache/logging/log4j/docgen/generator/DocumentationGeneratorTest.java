@@ -16,6 +16,7 @@
  */
 package org.apache.logging.log4j.docgen.generator;
 
+import static java.util.Collections.singleton;
 import static org.apache.logging.log4j.docgen.generator.PluginSetUtils.readDescriptor;
 import static org.apache.logging.log4j.docgen.generator.PluginSetUtils.readDescriptors;
 import static org.apache.logging.log4j.tools.internal.test.util.FileTestUtils.assertDirectoryContentMatches;
@@ -58,10 +59,10 @@ class DocumentationGeneratorTest {
                 pluginSets,
                 className -> !className.startsWith("java."),
                 templateDirectory,
-                new DocumentationTemplate(
-                        "index.adoc.ftl", outputDir.resolve("index.adoc").toString()),
-                new DocumentationTemplate(
-                        "type.adoc.ftl", outputDir.resolve("%a/%c.adoc").toString()));
+                singleton(new DocumentationTemplate(
+                        "index.adoc.ftl", outputDir.resolve("index.adoc").toString())),
+                singleton(new DocumentationTemplate(
+                        "type.adoc.ftl", outputDir.resolve("%a/%c.adoc").toString())));
         DocumentationGenerator.generateDocumentation(generatorArgs);
 
         // Verify the output
