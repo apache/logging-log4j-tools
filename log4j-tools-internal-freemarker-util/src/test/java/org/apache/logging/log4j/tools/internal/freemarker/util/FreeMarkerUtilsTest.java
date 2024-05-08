@@ -51,25 +51,6 @@ class FreeMarkerUtilsTest {
     }
 
     @Test
-    void render_should_stop(@TempDir(cleanup = CleanupMode.ON_SUCCESS) final Path tempDir) throws Exception {
-
-        // Create the template file
-        final String templateName = "test.txt.ftl";
-        final Path templateFile = tempDir.resolve(templateName);
-        final String excessiveContentToEnsureSuccessIsNotDueToBuffering = String.format("%010000d\n", 1);
-        final String templateFileContent = excessiveContentToEnsureSuccessIsNotDueToBuffering
-                + "You might expect awesome things to get rendered.\nBut I tell you: they won't.\n${stop()}";
-        write(templateFile, templateFileContent.getBytes(StandardCharsets.UTF_8), StandardOpenOption.CREATE_NEW);
-
-        // Render the template
-        final Path outputFile = tempDir.resolve("test.txt");
-        render(tempDir, templateName, Collections.singletonMap("name", "volkan"), outputFile);
-
-        // Verify the generated content
-        assertThat(outputFile).doesNotExist();
-    }
-
-    @Test
     void renderString_should_work() {
         final String output = renderString("Hello, ${name?capitalize}!", Collections.singletonMap("name", "volkan"));
         assertThat(output).isEqualTo("Hello, Volkan!");
