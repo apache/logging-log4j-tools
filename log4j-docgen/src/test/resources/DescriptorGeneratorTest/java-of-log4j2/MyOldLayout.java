@@ -21,6 +21,7 @@ import org.apache.logging.log4j.core.config.plugins.PluginAttribute;
 import org.apache.logging.log4j.core.config.plugins.PluginElement;
 import org.apache.logging.log4j.core.config.plugins.PluginFactory;
 import org.apache.logging.log4j.core.config.plugins.validation.constraints.Required;
+import org.apache.logging.log4j.plugins.PluginValue;
 
 /**
  * Example plugin without a builder.
@@ -42,6 +43,7 @@ public final class MyOldLayout implements Layout {
      * @param enumAttr An {@code enum} attribute.
      * @param nestedLayout An element with multiplicity {@code 1}.
      * @param filters An element with multiplicity {@code n}.
+     * @param valueAttribute An attribute that can be also be inserted as content of the XML element.
      */
     @PluginFactory
     public static MyOldLayout newLayout(
@@ -57,7 +59,8 @@ public final class MyOldLayout implements Layout {
             final @PluginAttribute("otherName") String origName,
             final @PluginAttribute("enumAttr") MyEnum enumAttr,
             final @PluginElement("nestedLayout") Layout nestedLayout,
-            final @PluginElement("filters") Filter[] filters) {
+            final @PluginElement("filters") Filter[] filters,
+            final @PluginValue("elementValue") int valueAttribute) {
         return null;
     }
 }

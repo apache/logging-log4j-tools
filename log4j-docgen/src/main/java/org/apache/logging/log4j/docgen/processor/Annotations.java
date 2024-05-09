@@ -53,8 +53,10 @@ final class Annotations {
     private static final Collection<String> PLUGIN_ATTRIBUTE_ANNOTATION_NAMES = Arrays.asList(
             "org.apache.logging.log4j.core.config.plugins.PluginBuilderAttribute",
             "org.apache.logging.log4j.core.config.plugins.PluginAttribute",
+            "org.apache.logging.log4j.core.config.plugins.PluginValue",
             "org.apache.logging.log4j.plugins.PluginAttribute",
-            "org.apache.logging.log4j.plugins.PluginBuilderAttribute");
+            "org.apache.logging.log4j.plugins.PluginBuilderAttribute",
+            "org.apache.logging.log4j.plugins.PluginValue");
     private static final Collection<String> PLUGIN_ELEMENT_ANNOTATION_NAMES = Arrays.asList(
             "org.apache.logging.log4j.core.config.plugins.PluginElement",
             "org.apache.logging.log4j.plugins.PluginElement");

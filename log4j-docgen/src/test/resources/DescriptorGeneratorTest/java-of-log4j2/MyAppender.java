@@ -26,6 +26,7 @@ import org.apache.logging.log4j.core.config.plugins.PluginBuilderFactory;
 import org.apache.logging.log4j.core.config.plugins.PluginElement;
 import org.apache.logging.log4j.core.config.plugins.PluginFactory;
 import org.apache.logging.log4j.core.config.plugins.validation.constraints.Required;
+import org.apache.logging.log4j.plugins.PluginValue;
 
 /**
  * Example plugin
@@ -114,6 +115,11 @@ public class MyAppender extends AbstractAppender implements Appender {
         private @PluginBuilderAttribute double aDouble;
 
         private @PluginBuilderAttribute double undocumentedAttribute;
+
+        /**
+         * An attribute that can be also be inserted as content of the XML element.
+         */
+        private @PluginValue int valueAttribute;
 
         private Object notAnAttribute;
 

@@ -86,6 +86,9 @@
                     <description>A `String` attribute.</description>
                 </attribute>
                 <attribute name="undocumentedAttribute" type="double"/>
+                <attribute name="valueAttribute" type="int">
+                    <description>An attribute that can be also be inserted as content of the XML element.</description>
+                </attribute>
             </attributes>
             <elements>
                 <element type="example.AbstractAppender">
@@ -153,6 +156,9 @@ It also implements:
                 </attribute>
                 <attribute name="doubleAttr" type="double">
                     <description>A `double` attribute.</description>
+                </attribute>
+                <attribute name="elementValue" type="int">
+                    <description>An attribute that can be also be inserted as content of the XML element.</description>
                 </attribute>
                 <attribute name="enumAttr" type="example.MyEnum">
                     <description>An `enum` attribute.</description>
