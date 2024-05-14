@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Release notes :: Apache Log4j Tools</title>
+    <link rel="canonical" href="https://logging.apache.org/log4j/kotlin/release-notes.html">
+    <meta name="generator" content="Antora 3.2.0-alpha.4">
+<link rel="stylesheet" href="./_/css/site.css">
+<link rel="icon" href="./_/../_images/favicon.ico" type="image/x-icon">
+<!-- `@asciidoctor/tabs` extension styles -->
+<link rel="stylesheet" href="./_/css/vendor/tabs.css">
+<style>
+  /* Default `h4` and `h5` are smaller than the normal text, fix header font sizing: */
+  .doc h1 { font-size: 1.9rem; }
+  .doc h2 { font-size: 1.7rem; }
+  .doc h3 { font-size: 1.5rem; font-weight: 400; }
+  .doc h4 { font-size: 1.3rem; font-weight: 500; }
+  .doc h5 { font-size: 1.1rem; font-weight: 500; text-decoration: underline; }
+  /* Default `code`, `pre`, and `.colist` (source code annotations) fonts are too big, adjust them: */
+  .doc .colist>table code, .doc p code, .doc thead code { font-size: 0.8em; }
+  .doc pre { font-size: 0.7rem; }
+  .doc .colist { font-size: 0.75rem; }
+  /* Tab header fonts aren't rendered good, adjusting the font weight: */
+  .tablist > ul li { font-weight: 500; }
+  /* `page-toclevels` greater than 4 are not supported by Antora UI, patching it: */
+  .toc .toc-menu li[data-level="4"] a {
+    padding-left: 2.75rem;
+  }
+  /* Replace the default highlight.js color for strings from red (unnecessarily signaling something negative) to green: */
+  .hljs-string {
+    color: #0f8532;
+  }
+</style>
+  </head>
+  <body class="article">
+<header class="header">
+  <nav class="navbar">
+    <div class="navbar-brand">
+      <span class="navbar-item title">Apache Log4j Tools</span>
+    </div>
+    <div id="topbar-nav" class="navbar-menu">
+      <div class="navbar-end">
+        <a class="navbar-item" href="https://logging.apache.org">a subproject of&nbsp;<strong>Apache Logging Services</strong></a>
+      </div>
+    </div>
+  </nav>
+</header>
+<div class="body">
+<div class="nav-container" data-component="ROOT" data-version="">
+  <aside class="nav">
+    <div class="panels">
+<div class="nav-panel-menu is-active" data-panel="menu">
+  <nav class="nav-menu">
+    <button class="nav-menu-toggle" aria-label="Toggle expand/collapse all" style="display: none"></button>
+    <h3 class="title"><a href="index.html">Home</a></h3>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Components</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="log4j-changelog.html">Log4j Changelog</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="log4j-changelog-maven-plugin.html">Log4j Changelog Maven Plugin</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="log4j-docgen.html">Log4j Docgen</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="log4j-docgen-maven-plugin.html">Log4j Docgen Maven Plugin</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="log4j-docgen-asciidoctor-extension.html">Log4j Docgen AsciiDoctor extension</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="development.html">Development</a>
+  </li>
+  <li class="nav-item is-current-page" data-depth="1">
+    <a class="nav-link" href="release-notes.html">Release notes</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="https://logging.apache.org/download.html">Download</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="https://logging.apache.org/support.html">Support</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="https://logging.apache.org/security.html">Security</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </nav>
+</div>
+    </div>
+  </aside>
+</div>
+<main class="article">
+<div class="toolbar" role="navigation">
+<button class="nav-toggle"></button>
+  <a href="index.html" class="home-link"></a>
+<nav class="breadcrumbs" aria-label="breadcrumbs">
+  <ul>
+    <li><a href="index.html">Home</a></li>
+    <li><a href="release-notes.html">Release notes</a></li>
+  </ul>
+</nav>
+<div class="edit-this-page"><a href="https://github.com/apache/logging-log4j-tools/edit/main/src/site/antora/modules/ROOT/pages/release-notes.adoc">Edit this Page</a></div>
+</div>
+  <div class="content">
+<aside class="toc sidebar" data-title="Contents" data-levels="1">
+  <div class="toc-menu"></div>
+</aside>
+<article class="doc">
+<h1 class="page">Release notes</h1>
+<div class="sect1">
+<h2 id="release-notes-0-9-0"><a class="anchor" href="#release-notes-0-9-0"></a>0.9.0</h2>
+<div class="sectionbody">
+<div class="dlist">
+<dl>
+<dt class="hdlist1">Release date</dt>
+<dd>
+<p>2024-05-09</p>
+</dd>
+</dl>
+</div>
+<div class="paragraph">
+<p>This minor release contains small bug fixes and improvements.</p>
+</div>
+<div class="sect2">
+<h3 id="release-notes-0-9-0-added"><a class="anchor" href="#release-notes-0-9-0-added"></a>Added</h3>
+<div class="ulist">
+<ul>
+<li>
+<p>Add <code>skip</code> parameter to all Maven goals (<a href="https://github.com/apache/logging-log4j-tools/pull/121">121</a>)</p>
+</li>
+<li>
+<p>Support multiple index and type templates in the <code>log4j-docgen:generate-documentation</code> configuration (<a href="https://github.com/apache/logging-log4j-tools/pull/122">122</a>)</p>
+</li>
+<li>
+<p>Add support for the <code>@PluginValue</code> annotation. (<a href="https://github.com/apache/logging-log4j-tools/pull/123">123</a>)</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="release-notes-0-9-0-changed"><a class="anchor" href="#release-notes-0-9-0-changed"></a>Changed</h3>
+<div class="ulist">
+<ul>
+<li>
+<p>Website is migrated to Antora (<a href="https://github.com/apache/logging-log4j2/pull/2443">apache/logging-log4j2#2443</a>)</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="release-notes-0-9-0-fixed"><a class="anchor" href="#release-notes-0-9-0-fixed"></a>Fixed</h3>
+<div class="ulist">
+<ul>
+<li>
+<p>Fix handling of subclassed plugins in Log4j Docgen (<a href="https://github.com/apache/logging-log4j-tools/pull/120">120</a>)</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="release-notes-0-9-0-updated"><a class="anchor" href="#release-notes-0-9-0-updated"></a>Updated</h3>
+<div class="ulist">
+<ul>
+<li>
+<p>Update <code>commons-io:commons-io</code> to version <code>2.16.1</code> (<a href="https://github.com/apache/logging-log4j-tools/pull/114">114</a>)</p>
+</li>
+<li>
+<p>Update <code>org.apache.logging:logging-parent</code> to version <code>11.0.0</code> (<a href="https://github.com/apache/logging-log4j-tools/pull/115">115</a>)</p>
+</li>
+<li>
+<p>Update <code>org.apache.maven.plugin-tools:maven-plugin-annotations</code> to version <code>3.13.0</code> (<a href="https://github.com/apache/logging-log4j-tools/pull/118">118</a>)</p>
+</li>
+<li>
+<p>Update <code>org.codehaus.modello:modello-maven-plugin</code> to version <code>2.4.0</code> (<a href="https://github.com/apache/logging-log4j-tools/pull/119">119</a>)</p>
+</li>
+<li>
+<p>Update <code>org.xmlunit:xmlunit-assertj3</code> to version <code>2.10.0</code> (<a href="https://github.com/apache/logging-log4j-tools/pull/116">116</a>)</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="release-notes-0-8-0"><a class="anchor" href="#release-notes-0-8-0"></a>0.8.0</h2>
+<div class="sectionbody">
+<div class="dlist">
+<dl>
+<dt class="hdlist1">Release date</dt>
+<dd>
+<p>2024-03-21</p>
+</dd>
+</dl>
+</div>
+<div class="paragraph">
+<p>This release delivers the first version of Log4j Docgen (Documentation Generator).
+It is a set of tools to auto-generate the Log4j plugin documentation (to be integrated into the website) and the Log4j configuration XSD file (for assisting the configuration of the Log4j runtime, i.e., <code>log4j2.xml</code>) from the Log4j source code.
+See the project website for details.</p>
+</div>
+<div class="sect2">
+<h3 id="release-notes-0-8-0-added"><a class="anchor" href="#release-notes-0-8-0-added"></a>Added</h3>
+<div class="ulist">
+<ul>
+<li>
+<p>Add the <code>log4j-docgen</code> et al. containing a universal XML model to document Log4j plugins</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="release-notes-0-8-0-changed"><a class="anchor" href="#release-notes-0-8-0-changed"></a>Changed</h3>
+<div class="ulist">
+<ul>
+<li>
+<p>Move Log4j Changelog XML namespace and schema location to <code><a href="https://logging.apache.org/xml/ns" class="bare">https://logging.apache.org/xml/ns</a></code> and <code><a href="https://logging.apache.org/xml/ns/log4j-changelog-0.xsd" class="bare">https://logging.apache.org/xml/ns/log4j-changelog-0.xsd</a></code>, respectively</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="release-notes-0-8-0-removed"><a class="anchor" href="#release-notes-0-8-0-removed"></a>Removed</h3>
+<div class="ulist">
+<ul>
+<li>
+<p>Remove <code>author</code> from Log4j Changelog. + It was yet another bit to maintain and created role-related (who did what) problems. Many modern software projects use a VCS (e.g., Git) and support services (e.g., GitHub) which make it trivial to trace back the origin of a change using commit and issue IDs.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="release-notes-0-8-0-updated"><a class="anchor" href="#release-notes-0-8-0-updated"></a>Updated</h3>
+<div class="ulist">
+<ul>
+<li>
+<p>Update <code>org.apache.logging:logging-parent</code> to version <code>10.6.0</code></p>
+</li>
+<li>
+<p>Update <code>jakarta.inject:jakarta.inject-api</code> to version <code>2.0.1</code> (<a href="https://github.com/apache/logging-log4j-tools/pull/94">94</a>)</p>
+</li>
+<li>
+<p>Update <code>org.apache.logging.log4j:log4j-core</code> to version <code>2.23.1</code> (<a href="https://github.com/apache/logging-log4j-tools/pull/108">108</a>)</p>
+</li>
+<li>
+<p>Update <code>org.apache.logging.log4j:log4j-plugins</code> to version <code>3.0.0-beta2</code> (<a href="https://github.com/apache/logging-log4j-tools/pull/107">107</a>)</p>
+</li>
+<li>
+<p>Update <code>org.apache.maven.plugin-tools:maven-plugin-annotations</code> to version <code>3.11.0</code> (<a href="https://github.com/apache/logging-log4j-tools/pull/98">98</a>)</p>
+</li>
+<li>
+<p>Update <code>org.assertj:assertj-core</code> to version <code>3.25.3</code> (<a href="https://github.com/apache/logging-log4j-tools/pull/104">104</a>)</p>
+</li>
+<li>
+<p>Update <code>org.codehaus.modello:modello-maven-plugin</code> to version <code>2.3.0</code> (<a href="https://github.com/apache/logging-log4j-tools/pull/105">105</a>)</p>
+</li>
+<li>
+<p>Update <code>org.junit:junit-bom</code> to version <code>5.10.2</code> (<a href="https://github.com/apache/logging-log4j-tools/pull/103">103</a>)</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="release-notes-0-7-0"><a class="anchor" href="#release-notes-0-7-0"></a>0.7.0</h2>
+<div class="sectionbody">
+<div class="dlist">
+<dl>
+<dt class="hdlist1">Release date</dt>
+<dd>
+<p>2023-12-14</p>
+</dd>
+</dl>
+</div>
+<div class="paragraph">
+<p>This minor release contains various bug fixes and improvements.</p>
+</div>
+<div class="sect2">
+<h3 id="release-notes-0-7-0-added"><a class="anchor" href="#release-notes-0-7-0-added"></a>Added</h3>
+<div class="ulist">
+<ul>
+<li>
+<p>Add the new <code>updated</code> changelog entry type and bump the XSD version to <code>0.1.3</code></p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="release-notes-0-7-0-fixed"><a class="anchor" href="#release-notes-0-7-0-fixed"></a>Fixed</h3>
+<div class="ulist">
+<ul>
+<li>
+<p>Sort changelog entry types alphanumerically</p>
+</li>
+<li>
+<p>Fix <code>log4j-changelog:release</code> failure on empty unreleased changelog directory (<a href="https://github.com/apache/logging-log4j-tools/issues/90">90</a>)</p>
+</li>
+<li>
+<p>Fix parsing of patch versions in <code>log4j-changelog:release</code> goal (<a href="https://github.com/apache/logging-log4j-tools/issues/89">89</a>)</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="release-notes-0-7-0-updated"><a class="anchor" href="#release-notes-0-7-0-updated"></a>Updated</h3>
+<div class="ulist">
+<ul>
+<li>
+<p>Update <code>commons-io:commons-io</code> to version <code>2.15.1</code> (<a href="https://github.com/apache/logging-log4j-tools/pull/86">86</a>)</p>
+</li>
+<li>
+<p>Update <code>org.apache.maven.plugin-tools:maven-plugin-annotations</code> to version <code>3.10.2</code> (<a href="https://github.com/apache/logging-log4j-tools/pull/87">87</a>)</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="release-notes-0-6-0"><a class="anchor" href="#release-notes-0-6-0"></a>0.6.0</h2>
+<div class="sectionbody">
+<div class="dlist">
+<dl>
+<dt class="hdlist1">Release date</dt>
+<dd>
+<p>2023-11-17</p>
+</dd>
+</dl>
+</div>
+<div class="paragraph">
+<p>This minor release contains various bug fixes and improvements.</p>
+</div>
+<div class="sect2">
+<h3 id="release-notes-0-6-0-added"><a class="anchor" href="#release-notes-0-6-0-added"></a>Added</h3>
+<div class="ulist">
+<ul>
+<li>
+<p>Started generating CycloneDX SBOM with the recent update of <code>logging-parent</code> to version <code>10.4.0</code></p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="release-notes-0-6-0-fixed"><a class="anchor" href="#release-notes-0-6-0-fixed"></a>Fixed</h3>
+<div class="ulist">
+<ul>
+<li>
+<p><code>log4j-tools-bom</code> was broken due to removed <code>parent</code> during flattening. This is automatically fixed by the recent <code>logging-parent</code> version <code>10.4.0</code> update.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="release-notes-0-6-0-updated"><a class="anchor" href="#release-notes-0-6-0-updated"></a>Updated</h3>
+<div class="ulist">
+<ul>
+<li>
+<p>Update <code>org.apache.logging:logging-parent</code> to version <code>10.4.0</code></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="release-notes-0-5-0"><a class="anchor" href="#release-notes-0-5-0"></a>0.5.0</h2>
+<div class="sectionbody">
+<div class="dlist">
+<dl>
+<dt class="hdlist1">Release date</dt>
+<dd>
+<p>2023-09-29</p>
+</dd>
+</dl>
+</div>
+<div class="paragraph">
+<p>This minor release contains various bug fixes and improvements.</p>
+</div>
+<div class="sect2">
+<h3 id="release-notes-0-5-0-added"><a class="anchor" href="#release-notes-0-5-0-added"></a>Added</h3>
+<div class="ulist">
+<ul>
+<li>
+<p>Added OSGi and JPMS support</p>
+</li>
+<li>
+<p>Started publishing <a href="https://logging.apache.org/log4j/tools">the project website</a></p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="release-notes-0-5-0-changed"><a class="anchor" href="#release-notes-0-5-0-changed"></a>Changed</h3>
+<div class="ulist">
+<ul>
+<li>
+<p>Made <code>author</code> element optional and bumped the XML schema version to <code>0.1.2</code> (<a href="https://github.com/apache/logging-log4j-tools/issues/81">81</a>)</p>
+</li>
+<li>
+<p>Make <code>log4j-changelog-maven-plugin</code> thread-safe (<a href="https://github.com/apache/logging-log4j-tools/issues/80">80</a>)</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="release-notes-0-5-0-updated"><a class="anchor" href="#release-notes-0-5-0-updated"></a>Updated</h3>
+<div class="ulist">
+<ul>
+<li>
+<p>Update <code>org.apache.logging:logging-parent</code> to version <code>10.1.1</code> (<a href="https://github.com/apache/logging-log4j-tools/pull/82">82</a>)</p>
+</li>
+<li>
+<p>Update <code>org.junit.jupiter:junit-jupiter-engine</code> to version <code>5.10.0</code></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="release-notes-0-4-0"><a class="anchor" href="#release-notes-0-4-0"></a>0.4.0</h2>
+<div class="sectionbody">
+<div class="dlist">
+<dl>
+<dt class="hdlist1">Release date</dt>
+<dd>
+<p>2023-07-02</p>
+</dd>
+</dl>
+</div>
+<div class="paragraph">
+<p>This minor release contains small enhancements.
+Most importantly, this marks the first release where the project uses itself to generate release notes!</p>
+</div>
+<div class="sect2">
+<h3 id="release-notes-0-4-0-added"><a class="anchor" href="#release-notes-0-4-0-added"></a>Added</h3>
+<div class="ulist">
+<ul>
+<li>
+<p>Add <code>versionPattern</code> (i.e., the regular expression pattern for parsing versions) parameter to the Maven <code>release</code> goal (<a href="https://github.com/apache/logging-log4j-tools/issues/63">63</a>)</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="release-notes-0-4-0-changed"><a class="anchor" href="#release-notes-0-4-0-changed"></a>Changed</h3>
+<div class="ulist">
+<ul>
+<li>
+<p>Change the default value of <code>outputDirectory</code> to <code>${project.build.directory}/generated-sources/site/changelog</code> for the Maven <code>export</code> goal</p>
+</li>
+<li>
+<p>Migrate from <code>CHANGELOG.adoc</code> to using <code>log4j-changelog-maven-plugin</code></p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="release-notes-0-4-0-fixed"><a class="anchor" href="#release-notes-0-4-0-fixed"></a>Fixed</h3>
+<div class="ulist">
+<ul>
+<li>
+<p>Improve Maven <code>release</code> goal to accommodate repetitive invocations</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="release-notes-0-3-0"><a class="anchor" href="#release-notes-0-3-0"></a>0.3.0</h2>
+<div class="sectionbody">
+<div class="dlist">
+<dl>
+<dt class="hdlist1">Release date</dt>
+<dd>
+<p>2023-03-14</p>
+</dd>
+</dl>
+</div>
+<div class="paragraph">
+<p>This minor release contains various bug fixes and improvements.</p>
+</div>
+<div class="sect2">
+<h3 id="release-notes-0-3-0-added"><a class="anchor" href="#release-notes-0-3-0-added"></a>Added</h3>
+<div class="ulist">
+<ul>
+<li>
+<p>The changelog release models passed to the index template file (<code>.index.adoc.ftl</code>) is enriched with <code>changelogEntryCount</code> fields (<a href="https://github.com/apache/logging-log4j-tools/issues/37">37</a>)</p>
+</li>
+<li>
+<p>Support multiple and formatting-agnostic template files (<a href="https://github.com/apache/logging-log4j-tools/issues/44">44</a>)</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="release-notes-0-3-0-changed"><a class="anchor" href="#release-notes-0-3-0-changed"></a>Changed</h3>
+<div class="ulist">
+<ul>
+<li>
+<p>Upgrade the compiler version to Java 17, yet still target Java 8</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="release-notes-0-2-0"><a class="anchor" href="#release-notes-0-2-0"></a>0.2.0</h2>
+<div class="sectionbody">
+<div class="dlist">
+<dl>
+<dt class="hdlist1">Release date</dt>
+<dd>
+<p>2023-01-31</p>
+</dd>
+</dl>
+</div>
+<div class="paragraph">
+<p>This minor release contains various bug fixes and improvements.</p>
+</div>
+<div class="sect2">
+<h3 id="release-notes-0-2-0-added"><a class="anchor" href="#release-notes-0-2-0-added"></a>Added</h3>
+<div class="ulist">
+<ul>
+<li>
+<p>Add XSD for <code>log4j-changelog</code> XML files (<a href="https://github.com/apache/logging-log4j-tools/issues/13">13</a>)</p>
+</li>
+<li>
+<p>Add <code>log4j-changelog-maven-plugin</code> module (<a href="https://github.com/apache/logging-log4j-tools/issues/20">20</a>)</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="release-notes-0-2-0-changed"><a class="anchor" href="#release-notes-0-2-0-changed"></a>Changed</h3>
+<div class="ulist">
+<ul>
+<li>
+<p>Rename <code>log4j.changelog.exporter.outputDirectory</code> property to <code>log4j.changelog.outputDirectory</code> (<a href="https://github.com/apache/logging-log4j-tools/issues/20">20</a>)</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="release-notes-0-2-0-fixed"><a class="anchor" href="#release-notes-0-2-0-fixed"></a>Fixed</h3>
+<div class="ulist">
+<ul>
+<li>
+<p>Fix unreleased directory order in <code>ChangelogExporter</code> (<a href="https://github.com/apache/logging-log4j-tools/issues/17">17</a>)</p>
+</li>
+<li>
+<p>Fix Windows compatibility (<a href="https://github.com/apache/logging-log4j-tools/issues/19">19</a>)</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="release-notes-0-2-0-removed"><a class="anchor" href="#release-notes-0-2-0-removed"></a>Removed</h3>
+<div class="ulist">
+<ul>
+<li>
+<p>Remove <code>security</code> as a change type from <code>log4j-changelog</code> (<a href="https://github.com/apache/logging-log4j-tools/issues/14">14</a>)</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="release-notes-0-1-0"><a class="anchor" href="#release-notes-0-1-0"></a>0.1.0</h2>
+<div class="sectionbody">
+<div class="dlist">
+<dl>
+<dt class="hdlist1">Release date</dt>
+<dd>
+<p>2023-01-10</p>
+</dd>
+</dl>
+</div>
+<div class="paragraph">
+<p>This is the first release, aimed to assist [the Apache Log4j 2](<a href="https://logging.apache.org/log4j/2.x/" class="bare">https://logging.apache.org/log4j/2.x/</a>) on generating release notes.</p>
+</div>
+<div class="sect2">
+<h3 id="release-notes-0-1-0-added"><a class="anchor" href="#release-notes-0-1-0-added"></a>Added</h3>
+<div class="ulist">
+<ul>
+<li>
+<p>Add <code>log4j-tools-bom</code> and <code>log4j-changelog</code> modules (<a href="https://issues.apache.org/jira/browse/LOG4J2-3628">LOG4J2-3628</a>)</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</article>
+  </div>
+</main>
+</div>
+<footer class="footer">
+  <p>
+    Copyright © 1999-2024 <a href="https://www.apache.org/">The Apache Software Foundation</a>.
+    Licensed under the <a href="https://www.apache.org/licenses/LICENSE-2.0">Apache Software License, Version 2.0</a>.
+    Please read our <a href="https://privacy.apache.org/policies/privacy-policy-public.html">privacy policy</a>.
+  </p>
+  <p>
+    Apache, Log4j, and the Apache feather logo are trademarks or registered trademarks of The Apache Software Foundation.
+    Oracle and Java are registered trademarks of Oracle and/or its affiliates.
+    Other names may be trademarks of their respective owners.
+  </p>
+</footer>
+<script id="site-script" src="./_/js/site.js" data-ui-root-path="./_"></script>
+<script async src="./_/js/vendor/highlight.js"></script>
+<!-- `@asciidoctor/tabs` extension scripts -->
+<script async src="./_/js/vendor/tabs.js"></script>
+  </body>
+</html>

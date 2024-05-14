@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Log4j Docgen AsciiDoctor extension :: Apache Log4j Tools</title>
+    <link rel="canonical" href="https://logging.apache.org/log4j/kotlin/log4j-docgen-asciidoctor-extension.html">
+    <meta name="generator" content="Antora 3.2.0-alpha.4">
+<link rel="stylesheet" href="./_/css/site.css">
+<link rel="icon" href="./_/../_images/favicon.ico" type="image/x-icon">
+<!-- `@asciidoctor/tabs` extension styles -->
+<link rel="stylesheet" href="./_/css/vendor/tabs.css">
+<style>
+  /* Default `h4` and `h5` are smaller than the normal text, fix header font sizing: */
+  .doc h1 { font-size: 1.9rem; }
+  .doc h2 { font-size: 1.7rem; }
+  .doc h3 { font-size: 1.5rem; font-weight: 400; }
+  .doc h4 { font-size: 1.3rem; font-weight: 500; }
+  .doc h5 { font-size: 1.1rem; font-weight: 500; text-decoration: underline; }
+  /* Default `code`, `pre`, and `.colist` (source code annotations) fonts are too big, adjust them: */
+  .doc .colist>table code, .doc p code, .doc thead code { font-size: 0.8em; }
+  .doc pre { font-size: 0.7rem; }
+  .doc .colist { font-size: 0.75rem; }
+  /* Tab header fonts aren't rendered good, adjusting the font weight: */
+  .tablist > ul li { font-weight: 500; }
+  /* `page-toclevels` greater than 4 are not supported by Antora UI, patching it: */
+  .toc .toc-menu li[data-level="4"] a {
+    padding-left: 2.75rem;
+  }
+  /* Replace the default highlight.js color for strings from red (unnecessarily signaling something negative) to green: */
+  .hljs-string {
+    color: #0f8532;
+  }
+</style>
+  </head>
+  <body class="article">
+<header class="header">
+  <nav class="navbar">
+    <div class="navbar-brand">
+      <span class="navbar-item title">Apache Log4j Tools</span>
+    </div>
+    <div id="topbar-nav" class="navbar-menu">
+      <div class="navbar-end">
+        <a class="navbar-item" href="https://logging.apache.org">a subproject of&nbsp;<strong>Apache Logging Services</strong></a>
+      </div>
+    </div>
+  </nav>
+</header>
+<div class="body">
+<div class="nav-container" data-component="ROOT" data-version="">
+  <aside class="nav">
+    <div class="panels">
+<div class="nav-panel-menu is-active" data-panel="menu">
+  <nav class="nav-menu">
+    <button class="nav-menu-toggle" aria-label="Toggle expand/collapse all" style="display: none"></button>
+    <h3 class="title"><a href="index.html">Home</a></h3>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Components</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="log4j-changelog.html">Log4j Changelog</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="log4j-changelog-maven-plugin.html">Log4j Changelog Maven Plugin</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="log4j-docgen.html">Log4j Docgen</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="log4j-docgen-maven-plugin.html">Log4j Docgen Maven Plugin</a>
+  </li>
+  <li class="nav-item is-current-page" data-depth="2">
+    <a class="nav-link" href="log4j-docgen-asciidoctor-extension.html">Log4j Docgen AsciiDoctor extension</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="development.html">Development</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="release-notes.html">Release notes</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="https://logging.apache.org/download.html">Download</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="https://logging.apache.org/support.html">Support</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="https://logging.apache.org/security.html">Security</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </nav>
+</div>
+    </div>
+  </aside>
+</div>
+<main class="article">
+<div class="toolbar" role="navigation">
+<button class="nav-toggle"></button>
+  <a href="index.html" class="home-link"></a>
+<nav class="breadcrumbs" aria-label="breadcrumbs">
+  <ul>
+    <li><a href="index.html">Home</a></li>
+    <li>Components</li>
+    <li><a href="log4j-docgen-asciidoctor-extension.html">Log4j Docgen AsciiDoctor extension</a></li>
+  </ul>
+</nav>
+<div class="edit-this-page"><a href="https://github.com/apache/logging-log4j-tools/edit/main/src/site/antora/modules/ROOT/pages/log4j-docgen-asciidoctor-extension.adoc">Edit this Page</a></div>
+</div>
+  <div class="content">
+<aside class="toc sidebar" data-title="Contents" data-levels="2">
+  <div class="toc-menu"></div>
+</aside>
+<article class="doc">
+<h1 class="page">Log4j Docgen AsciiDoctor extension</h1>
+<div class="paragraph">
+<p>While <a href="log4j-docgen.html#descriptor-generator" class="xref page">the descriptor generator</a> converts Javadoc to AsciiDoc, it cannot resolve links.
+That is, it cannot blindly replace a <code>{@link example.MyAppender foo}</code> Javadoc snippet with a <code>xref:MyAppender.adoc[foo]</code> AsciiDoc snippet instead.
+This is because, the mapping of types to AsciiDoc files are not available to the descriptor generator, but <a href="log4j-docgen.html#documentation-generator" class="xref page">the documentation generator</a>.
+That is, the descriptor generator doesn&#8217;t know if the type will be mapped to <code>&lt;className&gt;.adoc</code> or <code>&lt;artifactId&gt;/&lt;className&gt;.adoc</code>.
+As a matter of fact, it should not need to know this either: descriptors capture immutable metadata, whereas documentation file structure can always change.
+To work around this, we convert <code>{@link example.MyAppender foo}</code> to <code>apiref:example.MyAppender[foo]</code> and provide an <code>apiref</code> inline AsciiDoc macro to resolve these while generating the documentation.</p>
+</div>
+<div class="paragraph">
+<p><code>DocgenExtension</code> AsciiDoctor extension provides the <code>apiref</code> inline macro which can be configured using the below shared AsciiDoctor document attributes:</p>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1"><code>log4j-docgen-descriptor-dot-files-included</code></dt>
+<dd>
+<p>Indicates if dot files (i.e., <code>.</code>-prefix file names) will be accepted in <a href="#log4j-docgen-asciidoctor-extension-attribute-descriptor-path-matcher">[log4j-docgen-asciidoctor-extension-attribute-descriptor-path-matcher]</a>.
+This attribute defaults to <code>false</code>.</p>
+</dd>
+</dl>
+</div>
+<div id="log4j-docgen-asciidoctor-extension-attribute-descriptor-path-matcher" class="dlist">
+<dl>
+<dt class="hdlist1"><code>log4j-docgen-descriptor-path-matcher</code></dt>
+<dd>
+<p>The <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/nio/file/FileSystem.html#getPathMatcher(java.lang.String)">path pattern</a> (e.g., <code>glob:*<strong>/</strong>.xml</code>) to locate files produced by <a href="log4j-docgen.html#descriptor-generator" class="xref page">the descriptor generator</a>.
+This attribute is <strong>required</strong>.</p>
+</dd>
+<dt class="hdlist1"><code>log4j-docgen-type-filter-exclude-pattern</code></dt>
+<dd>
+<p>The regular expression to match against the types loaded from descriptors and determine if a type will be <em>excluded</em> to generate links.
+This argument defaults to not exclude anything.</p>
+</dd>
+<dt class="hdlist1"><code>log4j-docgen-type-filter-include-pattern</code></dt>
+<dd>
+<p>The regular expression to match against the types loaded from descriptors and determine if a type will be <em>included</em> to generate links.
+This argument defaults to <code>.*</code>, that is, all loaded types will be used to generate links.</p>
+</dd>
+<dt class="hdlist1"><code>log4j-docgen-package-name-stripped</code></dt>
+<dd>
+<p>Indicates if the package name will be stripped for unknown types.
+That is, if <code>true</code>, <code>apiref:some.unknown.Class[]</code> will be converted to <code>&lt;code&gt;Class&lt;/code&gt;</code>; <code>&lt;code&gt;some.unknown.Class&lt;/code&gt;</code>, otherwise.
+Note that this only applies to types where the label is not provided.
+This flag is disabled by default.</p>
+</dd>
+</dl>
+</div>
+<div id="log4j-docgen-type-target-template" class="dlist">
+<dl>
+<dt class="hdlist1"><code>log4j-docgen-type-target-template</code></dt>
+<dd>
+<p>The FreeMarker template to produce the link target for individual types documented, for instance:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">#${sourcedType.groupId?replace('.', '-')}_${sourcedType.artifactId?replace('.', '-')}_${sourcedType.type.className?replace('.', '-')</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This attribute is <strong>required</strong>.</p>
+</div>
+</dd>
+</dl>
+</div>
+</article>
+  </div>
+</main>
+</div>
+<footer class="footer">
+  <p>
+    Copyright © 1999-2024 <a href="https://www.apache.org/">The Apache Software Foundation</a>.
+    Licensed under the <a href="https://www.apache.org/licenses/LICENSE-2.0">Apache Software License, Version 2.0</a>.
+    Please read our <a href="https://privacy.apache.org/policies/privacy-policy-public.html">privacy policy</a>.
+  </p>
+  <p>
+    Apache, Log4j, and the Apache feather logo are trademarks or registered trademarks of The Apache Software Foundation.
+    Oracle and Java are registered trademarks of Oracle and/or its affiliates.
+    Other names may be trademarks of their respective owners.
+  </p>
+</footer>
+<script id="site-script" src="./_/js/site.js" data-ui-root-path="./_"></script>
+<script async src="./_/js/vendor/highlight.js"></script>
+<!-- `@asciidoctor/tabs` extension scripts -->
+<script async src="./_/js/vendor/tabs.js"></script>
+  </body>
+</html>

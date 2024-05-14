@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<url>
+<loc>https://logging.apache.org/log4j/kotlin/development.html</loc>
+<lastmod>2024-05-14T08:30:03.802Z</lastmod>
+</url>
+<url>
+<loc>https://logging.apache.org/log4j/kotlin/index.html</loc>
+<lastmod>2024-05-14T08:30:03.802Z</lastmod>
+</url>
+<url>
+<loc>https://logging.apache.org/log4j/kotlin/log4j-changelog-maven-plugin.html</loc>
+<lastmod>2024-05-14T08:30:03.802Z</lastmod>
+</url>
+<url>
+<loc>https://logging.apache.org/log4j/kotlin/log4j-changelog.html</loc>
+<lastmod>2024-05-14T08:30:03.802Z</lastmod>
+</url>
+<url>
+<loc>https://logging.apache.org/log4j/kotlin/log4j-docgen-asciidoctor-extension.html</loc>
+<lastmod>2024-05-14T08:30:03.802Z</lastmod>
+</url>
+<url>
+<loc>https://logging.apache.org/log4j/kotlin/log4j-docgen-maven-plugin.html</loc>
+<lastmod>2024-05-14T08:30:03.802Z</lastmod>
+</url>
+<url>
+<loc>https://logging.apache.org/log4j/kotlin/log4j-docgen.html</loc>
+<lastmod>2024-05-14T08:30:03.802Z</lastmod>
+</url>
+<url>
+<loc>https://logging.apache.org/log4j/kotlin/release-notes.html</loc>
+<lastmod>2024-05-14T08:30:03.802Z</lastmod>
+</url>
+</urlset>

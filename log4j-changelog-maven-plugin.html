@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Log4j Changelog Maven Plugin :: Apache Log4j Tools</title>
+    <link rel="canonical" href="https://logging.apache.org/log4j/kotlin/log4j-changelog-maven-plugin.html">
+    <meta name="generator" content="Antora 3.2.0-alpha.4">
+<link rel="stylesheet" href="./_/css/site.css">
+<link rel="icon" href="./_/../_images/favicon.ico" type="image/x-icon">
+<!-- `@asciidoctor/tabs` extension styles -->
+<link rel="stylesheet" href="./_/css/vendor/tabs.css">
+<style>
+  /* Default `h4` and `h5` are smaller than the normal text, fix header font sizing: */
+  .doc h1 { font-size: 1.9rem; }
+  .doc h2 { font-size: 1.7rem; }
+  .doc h3 { font-size: 1.5rem; font-weight: 400; }
+  .doc h4 { font-size: 1.3rem; font-weight: 500; }
+  .doc h5 { font-size: 1.1rem; font-weight: 500; text-decoration: underline; }
+  /* Default `code`, `pre`, and `.colist` (source code annotations) fonts are too big, adjust them: */
+  .doc .colist>table code, .doc p code, .doc thead code { font-size: 0.8em; }
+  .doc pre { font-size: 0.7rem; }
+  .doc .colist { font-size: 0.75rem; }
+  /* Tab header fonts aren't rendered good, adjusting the font weight: */
+  .tablist > ul li { font-weight: 500; }
+  /* `page-toclevels` greater than 4 are not supported by Antora UI, patching it: */
+  .toc .toc-menu li[data-level="4"] a {
+    padding-left: 2.75rem;
+  }
+  /* Replace the default highlight.js color for strings from red (unnecessarily signaling something negative) to green: */
+  .hljs-string {
+    color: #0f8532;
+  }
+</style>
+  </head>
+  <body class="article">
+<header class="header">
+  <nav class="navbar">
+    <div class="navbar-brand">
+      <span class="navbar-item title">Apache Log4j Tools</span>
+    </div>
+    <div id="topbar-nav" class="navbar-menu">
+      <div class="navbar-end">
+        <a class="navbar-item" href="https://logging.apache.org">a subproject of&nbsp;<strong>Apache Logging Services</strong></a>
+      </div>
+    </div>
+  </nav>
+</header>
+<div class="body">
+<div class="nav-container" data-component="ROOT" data-version="">
+  <aside class="nav">
+    <div class="panels">
+<div class="nav-panel-menu is-active" data-panel="menu">
+  <nav class="nav-menu">
+    <button class="nav-menu-toggle" aria-label="Toggle expand/collapse all" style="display: none"></button>
+    <h3 class="title"><a href="index.html">Home</a></h3>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Components</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="log4j-changelog.html">Log4j Changelog</a>
+  </li>
+  <li class="nav-item is-current-page" data-depth="2">
+    <a class="nav-link" href="log4j-changelog-maven-plugin.html">Log4j Changelog Maven Plugin</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="log4j-docgen.html">Log4j Docgen</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="log4j-docgen-maven-plugin.html">Log4j Docgen Maven Plugin</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="log4j-docgen-asciidoctor-extension.html">Log4j Docgen AsciiDoctor extension</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="development.html">Development</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="release-notes.html">Release notes</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="https://logging.apache.org/download.html">Download</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="https://logging.apache.org/support.html">Support</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="https://logging.apache.org/security.html">Security</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </nav>
+</div>
+    </div>
+  </aside>
+</div>
+<main class="article">
+<div class="toolbar" role="navigation">
+<button class="nav-toggle"></button>
+  <a href="index.html" class="home-link"></a>
+<nav class="breadcrumbs" aria-label="breadcrumbs">
+  <ul>
+    <li><a href="index.html">Home</a></li>
+    <li>Components</li>
+    <li><a href="log4j-changelog-maven-plugin.html">Log4j Changelog Maven Plugin</a></li>
+  </ul>
+</nav>
+<div class="edit-this-page"><a href="https://github.com/apache/logging-log4j-tools/edit/main/src/site/antora/modules/ROOT/pages/log4j-changelog-maven-plugin.adoc">Edit this Page</a></div>
+</div>
+  <div class="content">
+<aside class="toc sidebar" data-title="Contents" data-levels="2">
+  <div class="toc-menu"></div>
+</aside>
+<article class="doc">
+<h1 class="page">Log4j Changelog Maven Plugin</h1>
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>This project ships a Maven plugin providing access to the <code>ChangelogExporter</code> and <code>ChangelogReleaser</code> of <a href="log4j-changelog.html" class="xref page">Log4j Changelog</a>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="dependencies"><a class="anchor" href="#dependencies"></a>Dependencies</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>You need to have the <code>org.apache.logging.log4j:log4j-changelog-maven-plugin</code> dependency in your classpath:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;plugin&gt;
+  &lt;groupId&gt;org.apache.logging.log4j&lt;/groupId&gt;
+  &lt;artifactId&gt;log4j-changelog-maven-plugin&lt;/artifactId&gt;
+  &lt;version&gt;0.9.0&lt;/version&gt;
+&lt;/plugin&gt;</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="export"><a class="anchor" href="#export"></a>Exporting changelogs</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p><em>Exporting</em> changelogs is the act of feeding provided changelog and release information into <a href="https://freemarker.apache.org">FreeMarker</a> templates to generate certain files; e.g., release notes for the website.
+There are two types template files supported:</p>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1"><a href="log4j-changelog.html#changelog-template" class="xref page">Changelog templates</a></dt>
+<dd>
+<p>These templates are rendered with the release and changelog information of a particular release.
+These are generally used to generate release notes for a particular release.</p>
+</dd>
+<dt class="hdlist1"><a href="log4j-changelog.html#index-template" class="xref page">Index templates</a></dt>
+<dd>
+<p>These templates are rendered with the release information of all releases.
+These are generally used to generate the index page referencing to release notes of each release.</p>
+</dd>
+</dl>
+</div>
+<div class="paragraph">
+<p>See <a href="#export">the Log4j Changelog documentation</a> for further details.</p>
+</div>
+<div class="paragraph">
+<p>You can use the <code>export</code> goal as follows:</p>
+</div>
+<div class="listingblock">
+<div class="title"><code>build &gt; plugins</code> block entry of <code>pom.xml</code></div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;!-- Export AsciiDoc-formatted release notes --&gt;
+&lt;plugin&gt;
+  &lt;groupId&gt;org.apache.logging.log4j&lt;/groupId&gt;
+  &lt;artifactId&gt;log4j-changelog-maven-plugin&lt;/artifactId&gt;
+  &lt;version&gt;0.9.0&lt;/version&gt;
+  &lt;inherited&gt;false&lt;/inherited&gt;
+  &lt;configuration&gt;
+    &lt;indexTemplates&gt;
+      &lt;template&gt;
+        &lt;source&gt;.index.adoc.ftl&lt;/source&gt;
+      &lt;/template&gt;
+    &lt;/indexTemplates&gt;
+    &lt;changelogTemplates&gt;
+      &lt;template&gt;
+        &lt;source&gt;.release-notes.adoc.ftl&lt;/source&gt;
+        &lt;target&gt;%v.adoc&lt;/target&gt;
+      &lt;/template&gt;
+    &lt;/changelogTemplates&gt;
+  &lt;/configuration&gt;
+  &lt;executions&gt;
+    &lt;execution&gt;
+      &lt;id&gt;generate-changelog&lt;/id&gt;
+      &lt;goals&gt;
+        &lt;goal&gt;export&lt;/goal&gt;
+      &lt;/goals&gt;
+    &lt;/execution&gt;
+  &lt;/executions&gt;
+&lt;/plugin&gt;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><code>export</code> goal by default runs during the <code>pre-site</code> phase and accepts the following configuration:</p>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1"><code>skip</code> (parameter)</dt>
+<dd>
+<p>Indicates if the execution should be skipped or not.
+It defaults to <code>false</code> and can be set using the <code>log4j.changelog.skip</code> property.</p>
+</dd>
+<dt class="hdlist1"><code>changelogDirectory</code> (parameter)</dt>
+<dd>
+<p>Directory containing release folders composed of changelog entry XML files.
+It defaults to <code>${project.basedir}/src/changelog</code> and can be set using the <code>log4j.changelog.directory</code> property.</p>
+</dd>
+<dt class="hdlist1"><code>outputDirectory</code> (parameter)</dt>
+<dd>
+<p>Directory to write rendered templates.
+It defaults to <code>${project.build.directory}/generated-sources/site/changelog</code> and can be set using the <code>log4j.changelog.exporter.outputDirectory</code> property.</p>
+</dd>
+<dt class="hdlist1"><code>indexTemplates</code> (parameter)</dt>
+<dd>
+<p>List of <a href="#export-template-type">template</a>s that will be rendered with release information of all releases.
+See <a href="log4j-changelog.html#index-template" class="xref page">the index template file documentation</a> for details.</p>
+</dd>
+<dt class="hdlist1"><code>changelogTemplates</code> (parameter)</dt>
+<dd>
+<p>List of <a href="#export-template-type">template</a>s that will be rendered with release and changelog information of a particular release.
+See <a href="log4j-changelog.html#changelog-template" class="xref page">the changelog template file documentation</a> for details.</p>
+</dd>
+</dl>
+</div>
+<div id="export-template-type" class="dlist">
+<dl>
+<dt class="hdlist1"><code>Template</code> (type)</dt>
+<dd>
+<p>An object composed of following fields:</p>
+<div class="dlist">
+<dl>
+<dt class="hdlist1"><code>source</code> (parameter)</dt>
+<dd>
+<p>the <a href="https://freemarker.apache.org">FreeMarker</a> template file</p>
+</dd>
+<dt class="hdlist1"><code>target</code> (parameter)</dt>
+<dd>
+<p>The output file.
+If not provided, it will be derived from the <code>source</code>: if the <code>source</code> is <code>.index.adoc.ftl</code>, the <code>target</code> will be set to <code>index.adoc</code>.
+If the value contains a <code>%v</code> (e.g., <code>%v.adoc</code>), it will be replaced with the associated release version.
+<code>%v</code> substitution is only allowed for changelog templates and will not work for index templates.</p>
+</dd>
+<dt class="hdlist1"><code>failIfNotFound</code> (parameter)</dt>
+<dd>
+<p>Indicates if export should fail when the source cannot be found.
+Defaults to <code>false</code>.</p>
+</dd>
+</dl>
+</div>
+</dd>
+</dl>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="release"><a class="anchor" href="#release"></a>Populating a release changelog directory</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>You can use the <code>release</code> goal wrapping <a href="log4j-changelog.html#qa-deploy-release" class="xref page"><code>ChangelogReleaser</code> to populate a release changelog directory</a>.
+An example usage is shared below.</p>
+</div>
+<div class="listingblock">
+<div class="title">Populate <code>src/changelog/2.19.0</code> from <code>src/changelog/.2.x.x</code></div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">./mvnw -N log4j-changelog:release -Dlog4j.changelog.releaseVersion=2.19.0</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Note that above we are using <code>-N</code> (<code>--non-recursive</code>) to avoid visiting submodules, which also makes the run faster.</p>
+</div>
+<div class="paragraph">
+<p><code>release</code> goal does not have default phase and accepts the following configuration parameters:</p>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1"><code>skip</code> (parameter)</dt>
+<dd>
+<p>Indicates if the execution should be skipped or not.
+It defaults to <code>false</code> and can be set using the <code>log4j.changelog.skip</code> property.</p>
+</dd>
+<dt class="hdlist1"><code>changelogDirectory</code> (parameter)</dt>
+<dd>
+<p>Directory containing release folders composed of changelog entry XML files.
+It defaults to <code>${project.basedir}/src/changelog</code> and can be set using the <code>log4j.changelog.directory</code> property.</p>
+</dd>
+<dt class="hdlist1"><code>releaseVersion</code> (parameter)</dt>
+<dd>
+<p>The version to be released.
+It can be set using the <code>log4j.changelog.releaseVersion</code> property.</p>
+</dd>
+<dt class="hdlist1"><code>versionPattern</code> (parameter)</dt>
+<dd>
+<p>The regular expression pattern for parsing versions.
+The pattern must provide the following named groups: <code>major</code>, <code>minor</code>, and <code>patch</code>.
+It defaults to <code>^(?&lt;major&gt;0|[1-9]\d*)\.(?&lt;minor&gt;0|[1-9]\d*)\.(?&lt;patch&gt;0|[1-9]\d*(-[a-zA-Z][0-9a-zA-Z-]*)?)$</code> and can be set using the <code>log4j.changelog.versionPattern</code> property.</p>
+</dd>
+</dl>
+</div>
+</div>
+</div>
+</article>
+  </div>
+</main>
+</div>
+<footer class="footer">
+  <p>
+    Copyright © 1999-2024 <a href="https://www.apache.org/">The Apache Software Foundation</a>.
+    Licensed under the <a href="https://www.apache.org/licenses/LICENSE-2.0">Apache Software License, Version 2.0</a>.
+    Please read our <a href="https://privacy.apache.org/policies/privacy-policy-public.html">privacy policy</a>.
+  </p>
+  <p>
+    Apache, Log4j, and the Apache feather logo are trademarks or registered trademarks of The Apache Software Foundation.
+    Oracle and Java are registered trademarks of Oracle and/or its affiliates.
+    Other names may be trademarks of their respective owners.
+  </p>
+</footer>
+<script id="site-script" src="./_/js/site.js" data-ui-root-path="./_"></script>
+<script async src="./_/js/vendor/highlight.js"></script>
+<!-- `@asciidoctor/tabs` extension scripts -->
+<script async src="./_/js/vendor/tabs.js"></script>
+  </body>
+</html>
