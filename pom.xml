@@ -117,7 +117,7 @@
   <properties>
 
     <!-- project version -->
-    <revision>0.9.0</revision>
+    <revision>0.10.0-SNAPSHOT</revision>
 
     <!-- `project.build.outputTimestamp` is required to be present for reproducible builds.
          We actually inherit one from the `org.apache:apache` through our parent `org.apache.logging:logging-parent`.
