@@ -51,3 +51,5 @@ github:
   protected_branches:
     main:
       required_signatures: true
+
+# Arbitrary change to trigger CI
