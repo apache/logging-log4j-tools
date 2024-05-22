@@ -87,6 +87,7 @@ import org.jspecify.annotations.Nullable;
 @ServiceProvider(value = Processor.class, resolution = Resolution.OPTIONAL)
 @SupportedAnnotationTypes({"org.apache.logging.log4j.core.config.plugins.*", "org.apache.logging.log4j.plugins.*"})
 @SupportedOptions({
+    DescriptorGenerator.SKIP_KEY,
     DescriptorGenerator.DESCRIPTOR_FILE_PATH_OPTION_KEY,
     DescriptorGenerator.GROUP_ID_OPTION_KEY,
     DescriptorGenerator.ARTIFACT_ID_OPTION_KEY,
@@ -97,6 +98,8 @@ import org.jspecify.annotations.Nullable;
 })
 @NullMarked
 public class DescriptorGenerator extends AbstractProcessor {
+
+    static final String SKIP_KEY = "log4j.docgen.skip";
 
     static final String DESCRIPTOR_FILE_PATH_OPTION_KEY = "log4j.docgen.descriptorFilePath";
 
@@ -141,6 +144,8 @@ public class DescriptorGenerator extends AbstractProcessor {
 
     private final Set<TypeElement> scalarTypesToDocument = new HashSet<>();
 
+    private boolean skipped;
+
     private Predicate<String> classNameFilter;
 
     private PluginSet pluginSet;
@@ -170,6 +175,7 @@ public class DescriptorGenerator extends AbstractProcessor {
     @Override
     public synchronized void init(final ProcessingEnvironment processingEnv) {
         super.init(processingEnv);
+        skipped = Boolean.parseBoolean(getOption(processingEnv, SKIP_KEY));
         classNameFilter = createClassNameFilter(processingEnv);
         pluginSet = createPluginSet(processingEnv);
         descriptorFilePath = Path.of(requireOption(processingEnv, DESCRIPTOR_FILE_PATH_OPTION_KEY));
@@ -252,6 +258,9 @@ public class DescriptorGenerator extends AbstractProcessor {
 
     @Override
     public boolean process(final Set<? extends TypeElement> unused, final RoundEnvironment roundEnv) {
+        if (skipped) {
+            return false;
+        }
         // First step: document plugins
         populatePluginTypesToDocument(roundEnv);
         pluginTypesToDocument.forEach(this::addPluginDocumentation);

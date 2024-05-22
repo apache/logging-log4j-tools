@@ -78,6 +78,7 @@ Users are recommended to integrate this annotation processor into their build:
     </annotationProcessorPaths>
     <compilerArgs combine.children="append">
       <!-- Provide `org.apache.logging.log4j.docgen.processor.DescriptorGenerator` arguments: -->
+      <arg>-Alog4j.docgen.skip=false</arg><!-- optional (defaults to `false`) -->
       <arg>-Alog4j.docgen.descriptorFilePath=${project.build.directory}/${project.artifactId}-plugins.xml</arg>
       <arg>-Alog4j.docgen.groupId=${project.groupId}</arg>
       <arg>-Alog4j.docgen.artifactId=${project.artifactId}</arg>
