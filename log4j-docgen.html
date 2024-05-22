@@ -206,6 +206,7 @@ By generating the documentation from the source code, this discrepancy gets remo
     &lt;/annotationProcessorPaths&gt;
     &lt;compilerArgs combine.children="append"&gt;
       &lt;!-- Provide `org.apache.logging.log4j.docgen.processor.DescriptorGenerator` arguments: --&gt;
+      &lt;arg&gt;-Alog4j.docgen.skip=false&lt;/arg&gt;&lt;!-- optional (defaults to `false`) --&gt;
       &lt;arg&gt;-Alog4j.docgen.descriptorFilePath=${project.build.directory}/${project.artifactId}-plugins.xml&lt;/arg&gt;
       &lt;arg&gt;-Alog4j.docgen.groupId=${project.groupId}&lt;/arg&gt;
       &lt;arg&gt;-Alog4j.docgen.artifactId=${project.artifactId}&lt;/arg&gt;
