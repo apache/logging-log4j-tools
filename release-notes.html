@@ -21,6 +21,9 @@
   .doc .colist>table code, .doc p code, .doc thead code { font-size: 0.8em; }
   .doc pre { font-size: 0.7rem; }
   .doc .colist { font-size: 0.75rem; }
+  /* Make links more visible: */
+  .doc a { text-decoration: underline; }
+  .doc a code { text-decoration: underline; color: #1565c0; }
   /* Tab header fonts aren't rendered good, adjusting the font weight: */
   .tablist > ul li { font-weight: 500; }
   /* `page-toclevels` greater than 4 are not supported by Antora UI, patching it: */
@@ -131,6 +134,16 @@
 <ul>
 <li>
 <p>Add <code>log4j.docgen.skip</code> argument to the <code>DescriptorGenerator</code> plugin processor</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="release-notes-0-x-x-updated"><a class="anchor" href="#release-notes-0-x-x-updated"></a>Updated</h3>
+<div class="ulist">
+<ul>
+<li>
+<p>Update <code>org.assertj:assertj-core</code> to version <code>3.26.0</code> (<a href="https://github.com/apache/logging-log4j-tools/pull/125">125</a>)</p>
 </li>
 </ul>
 </div>
