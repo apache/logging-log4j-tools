@@ -35,6 +35,10 @@ public final class TableImpl extends StructuralNodeImpl implements Table {
     public void formatTo(final StringBuilder buffer) {
         final int colCount = body.isEmpty() ? 1 : body.get(0).getCells().size();
 
+        final String title = getTitle();
+        if (title != null) {
+            buffer.append(".").append(title).append("\n");
+        }
         buffer.append("[cols=\"");
         formatColSpecifier(colCount, buffer);
         buffer.append("\"]\n").append("|===\n");

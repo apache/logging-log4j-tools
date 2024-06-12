@@ -123,6 +123,7 @@ abstract class AbstractAsciiDocTreeVisitor extends SimpleDocTreeVisitor<Void, As
             case "i":
             case "strong":
             case "b":
+            case "caption":
                 data.newTextSpan();
                 break;
             default:
@@ -142,10 +143,8 @@ abstract class AbstractAsciiDocTreeVisitor extends SimpleDocTreeVisitor<Void, As
             case "li":
             case "table":
             case "td":
-                data.popNode();
-                break;
             case "th":
-                data.popNode().setContext(CellImpl.HEADER_CONTEXT);
+                data.popNode();
                 break;
             case "h1":
             case "h2":
@@ -197,10 +196,14 @@ abstract class AbstractAsciiDocTreeVisitor extends SimpleDocTreeVisitor<Void, As
                     idx += row.getCells().size();
                 }
                 final Row row = new RowImpl();
-                for (int i = idx; i < table.getBlocks().size(); i++) {
+                // Add all cells to the row, remove additional elements
+                for (int i = idx; i < cells.size(); ) {
                     final StructuralNode cell = cells.get(i);
                     if (cell instanceof Cell) {
                         row.getCells().add((Cell) cell);
+                        i++;
+                    } else {
+                        cells.remove(i);
                     }
                 }
                 table.getBody().add(row);
@@ -215,6 +218,9 @@ abstract class AbstractAsciiDocTreeVisitor extends SimpleDocTreeVisitor<Void, As
             case "strong":
             case "b":
                 appendSpan(data, STRONG_EMPHASIS_DELIM);
+                break;
+            case "caption":
+                data.getCurrentNode().setTitle(data.popTextSpan());
                 break;
             default:
         }

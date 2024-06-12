@@ -91,6 +91,7 @@ import javax.tools.Diagnostic;
  * </ul>
  * <h2>First section</h2>
  * <table>
+ *     <caption>Caption</caption>
  *     <tr>
  *         <th>Key</th>
  *         <th>Value</th>

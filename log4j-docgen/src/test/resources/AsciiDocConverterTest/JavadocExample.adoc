@@ -94,6 +94,7 @@ Sed varius justo eget congue lacinia.
 
 == First section
 
+.Caption
 [cols="1,1"]
 |===
 
