@@ -47,6 +47,13 @@ github:
 
   del_branch_on_merge: true
 
+  # Enforce squashing while merging PRs.
+  # Otherwise, the git log gets polluted severely.
+  enabled_merge_buttons:
+    squash:  true
+    merge:   false
+    rebase:  false
+
   # Prevent force pushes to primary branches
   protected_branches:
     main:
