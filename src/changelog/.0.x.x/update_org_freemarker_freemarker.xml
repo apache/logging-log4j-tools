@@ -3,6 +3,6 @@
        xmlns="https://logging.apache.org/xml/ns"
        xsi:schemaLocation="https://logging.apache.org/xml/ns https://logging.apache.org/xml/ns/log4j-changelog-0.xsd"
        type="updated">
-  <issue id="127" link="https://github.com/apache/logging-log4j-tools/pull/127"/>
-  <description format="asciidoc">Update `org.freemarker:freemarker` to version `2.3.33`</description>
+  <issue id="163" link="https://github.com/apache/logging-log4j-tools/pull/163"/>
+  <description format="asciidoc">Update `org.freemarker:freemarker` to version `2.3.34`</description>
 </entry>
