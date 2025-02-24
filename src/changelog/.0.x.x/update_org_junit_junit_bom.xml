@@ -3,6 +3,6 @@
        xmlns="https://logging.apache.org/xml/ns"
        xsi:schemaLocation="https://logging.apache.org/xml/ns https://logging.apache.org/xml/ns/log4j-changelog-0.xsd"
        type="updated">
-  <issue id="161" link="https://github.com/apache/logging-log4j-tools/pull/161"/>
-  <description format="asciidoc">Update `org.junit:junit-bom` to version `5.11.4`</description>
+  <issue id="174" link="https://github.com/apache/logging-log4j-tools/pull/174"/>
+  <description format="asciidoc">Update `org.junit:junit-bom` to version `5.12.0`</description>
 </entry>
