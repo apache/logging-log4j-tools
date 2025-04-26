@@ -39,18 +39,18 @@
     <!-- Dependency versions -->
     <asciidoctorj.version>3.0.0-alpha.2</asciidoctorj.version>
     <assertj.version>3.27.3</assertj.version>
+    <bnd.annotation.version>7.1.0</bnd.annotation.version>
     <commons-io.version>2.18.0</commons-io.version>
     <commons-lang3.version>3.17.0</commons-lang3.version>
     <freemarker.version>2.3.34</freemarker.version>
     <jakarta.inject.version>1.0.5</jakarta.inject.version>
+    <jspecify.version>1.0.0</jspecify.version>
     <junit.version>5.12.0</junit.version>
     <modello.version>2.1.2</modello.version>
-    <xmlunit.version>2.10.0</xmlunit.version>
     <osgi.annotation.bundle.version>2.0.0</osgi.annotation.bundle.version>
     <osgi.annotation.versioning.version>1.1.2</osgi.annotation.versioning.version>
-    <spotbugs-annotations.version>4.8.6</spotbugs-annotations.version>
-    <jspecify.version>1.0.0</jspecify.version>
-    <bnd.annotation.version>7.0.0</bnd.annotation.version>
+    <spotbugs-annotations.version>4.9.3</spotbugs-annotations.version>
+    <xmlunit.version>2.10.0</xmlunit.version>
 
     <!-- Maven plugin versions -->
     <maven-plugin.version>3.15.1</maven-plugin.version>
@@ -102,6 +102,12 @@
       </dependency>
 
       <dependency>
+        <groupId>biz.aQute.bnd</groupId>
+        <artifactId>biz.aQute.bnd.annotation</artifactId>
+        <version>${bnd.annotation.version}</version>
+      </dependency>
+
+      <dependency>
         <groupId>commons-io</groupId>
         <artifactId>commons-io</artifactId>
         <version>${commons-io.version}</version>
@@ -126,6 +132,12 @@
       </dependency>
 
       <dependency>
+        <groupId>org.jspecify</groupId>
+        <artifactId>jspecify</artifactId>
+        <version>${jspecify.version}</version>
+      </dependency>
+
+      <dependency>
         <groupId>org.apache.maven.plugin-tools</groupId>
         <artifactId>maven-plugin-annotations</artifactId>
         <version>${maven-plugin.version}</version>
@@ -145,7 +157,6 @@
         <version>${xmlunit.version}</version>
       </dependency>
 
-      <!-- OSGi and annotation dependencies -->
       <dependency>
         <groupId>org.osgi</groupId>
         <artifactId>org.osgi.annotation.bundle</artifactId>
@@ -162,18 +173,6 @@
         <groupId>com.github.spotbugs</groupId>
         <artifactId>spotbugs-annotations</artifactId>
         <version>${spotbugs-annotations.version}</version>
-      </dependency>
-
-      <dependency>
-        <groupId>org.jspecify</groupId>
-        <artifactId>jspecify</artifactId>
-        <version>${jspecify.version}</version>
-      </dependency>
-
-      <dependency>
-        <groupId>biz.aQute.bnd</groupId>
-        <artifactId>biz.aQute.bnd.annotation</artifactId>
-        <version>${bnd.annotation.version}</version>
       </dependency>
 
     </dependencies>
