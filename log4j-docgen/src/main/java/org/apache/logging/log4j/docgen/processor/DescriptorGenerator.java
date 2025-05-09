@@ -607,15 +607,15 @@ public class DescriptorGenerator extends AbstractProcessor {
                         final TypeMirror returnType = element.getReturnType();
                         final List<? extends VariableElement> parameters = element.getParameters();
                         switch (parameters.size()) {
-                                // A getter
+                            // A getter
                             case 0:
                                 return returnType;
-                                // A setter
+                            // A setter
                             case 1:
                                 return parameters.get(0).asType();
-                                // Invalid property
+                            // Invalid property
                             default:
-                                return super.visitExecutable(element, unused);
+                                return super.visitExecutable(element, null);
                         }
                     }
                 },
@@ -640,7 +640,7 @@ public class DescriptorGenerator extends AbstractProcessor {
                                         + name.toString().substring(prefixLen + 1);
                             }
                         }
-                        return super.visitExecutable(e, unused);
+                        return super.visitExecutable(e, null);
                     }
                 },
                 null);
@@ -667,7 +667,7 @@ public class DescriptorGenerator extends AbstractProcessor {
                             @Override
                             public @Nullable TypeElement visitTypeVariable(final TypeVariable t, final Void unused) {
                                 // If the return type is a variable, try the upper bound
-                                return t.getUpperBound().accept(this, unused);
+                                return t.getUpperBound().accept(this, null);
                             }
                         },
                         null);
@@ -779,7 +779,7 @@ public class DescriptorGenerator extends AbstractProcessor {
                                 }
                             }
                         }
-                        return super.visitDeclared(t, unused);
+                        return super.visitDeclared(t, null);
                     }
 
                     private @Nullable DeclaredType findCollectionSupertype(final TypeMirror type) {

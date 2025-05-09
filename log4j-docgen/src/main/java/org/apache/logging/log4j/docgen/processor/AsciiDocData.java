@@ -182,7 +182,8 @@ final class AsciiDocData {
         newParagraph(child);
 
         currentNode.append(child);
-        return currentNode = child;
+        currentNode = child;
+        return currentNode;
     }
 
     public StructuralNode popNode() {
