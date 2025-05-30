@@ -22,54 +22,137 @@
 <schema xmlns="http://www.w3.org/2001/XMLSchema" xmlns:log4j="https://logging.apache.org/xml/ns"
         elementFormDefault="qualified" targetNamespace="https://logging.apache.org/xml/ns" version="1.2.3">
   <element type="log4j:org.apache.logging.log4j.core.config.Configuration" name="Configuration"/>
+  <simpleType name="property-substitution">
+    <annotation>
+      <documentation>A string with a property substitution expression.</documentation>
+    </annotation>
+    <restriction base="string">
+      <pattern value=".*\$\{.*\}.*"/>
+    </restriction>
+  </simpleType>
+  <simpleType name="boolean">
+    <annotation>
+      <documentation>A custom boolean type that allows `true`, `false`, or a property substitution expression.
+      </documentation>
+    </annotation>
+    <union memberTypes="log4j:property-substitution">
+      <simpleType>
+        <restriction base="string">
+          <enumeration value="true"/>
+          <enumeration value="false"/>
+        </restriction>
+      </simpleType>
+    </union>
+  </simpleType>
+  <simpleType name="anyURI">
+    <annotation>
+      <documentation>Union of `xsd:anyURI` and ` property-substitution`.</documentation>
+    </annotation>
+    <union memberTypes="anyURI log4j:property-substitution"/>
+  </simpleType>
+  <simpleType name="byte">
+    <annotation>
+      <documentation>Union of `xsd:byte` and ` property-substitution`.</documentation>
+    </annotation>
+    <union memberTypes="byte log4j:property-substitution"/>
+  </simpleType>
+  <simpleType name="decimal">
+    <annotation>
+      <documentation>Union of `xsd:decimal` and ` property-substitution`.</documentation>
+    </annotation>
+    <union memberTypes="decimal log4j:property-substitution"/>
+  </simpleType>
+  <simpleType name="double">
+    <annotation>
+      <documentation>Union of `xsd:double` and ` property-substitution`.</documentation>
+    </annotation>
+    <union memberTypes="double log4j:property-substitution"/>
+  </simpleType>
+  <simpleType name="float">
+    <annotation>
+      <documentation>Union of `xsd:float` and ` property-substitution`.</documentation>
+    </annotation>
+    <union memberTypes="float log4j:property-substitution"/>
+  </simpleType>
+  <simpleType name="int">
+    <annotation>
+      <documentation>Union of `xsd:int` and ` property-substitution`.</documentation>
+    </annotation>
+    <union memberTypes="int log4j:property-substitution"/>
+  </simpleType>
+  <simpleType name="integer">
+    <annotation>
+      <documentation>Union of `xsd:integer` and ` property-substitution`.</documentation>
+    </annotation>
+    <union memberTypes="integer log4j:property-substitution"/>
+  </simpleType>
+  <simpleType name="long">
+    <annotation>
+      <documentation>Union of `xsd:long` and ` property-substitution`.</documentation>
+    </annotation>
+    <union memberTypes="long log4j:property-substitution"/>
+  </simpleType>
+  <simpleType name="short">
+    <annotation>
+      <documentation>Union of `xsd:short` and ` property-substitution`.</documentation>
+    </annotation>
+    <union memberTypes="short log4j:property-substitution"/>
+  </simpleType>
   <simpleType name="org.apache.logging.log4j.Level">
     <annotation>
       <documentation>Represents a logging level.
-NOTE: The Log4j API supports custom levels, the following list contains only the standard ones.</documentation>
+NOTE: The Log4j API supports custom levels, the following list contains only the standard ones.
+      </documentation>
     </annotation>
-    <restriction base="string">
-      <enumeration value="OFF">
-        <annotation>
-          <documentation>Special level that disables logging.
-No events should be logged at this level.</documentation>
-        </annotation>
-      </enumeration>
-      <enumeration value="FATAL">
-        <annotation>
-          <documentation>A fatal event that will prevent the application from continuing</documentation>
-        </annotation>
-      </enumeration>
-      <enumeration value="ERROR">
-        <annotation>
-          <documentation>An error in the application, possibly recoverable</documentation>
-        </annotation>
-      </enumeration>
-      <enumeration value="WARN">
-        <annotation>
-          <documentation>An event that might possible lead to an error</documentation>
-        </annotation>
-      </enumeration>
-      <enumeration value="INFO">
-        <annotation>
-          <documentation>An event for informational purposes</documentation>
-        </annotation>
-      </enumeration>
-      <enumeration value="DEBUG">
-        <annotation>
-          <documentation>A general debugging event</documentation>
-        </annotation>
-      </enumeration>
-      <enumeration value="TRACE">
-        <annotation>
-          <documentation>A fine-grained debug message, typically capturing the flow through the application</documentation>
-        </annotation>
-      </enumeration>
-      <enumeration value="ALL">
-        <annotation>
-          <documentation>Special level indicating all events should be logged</documentation>
-        </annotation>
-      </enumeration>
-    </restriction>
+    <union memberTypes="log4j:property-substitution">
+      <simpleType>
+        <restriction base="string">
+          <enumeration value="OFF">
+            <annotation>
+              <documentation>Special level that disables logging.
+No events should be logged at this level.
+              </documentation>
+            </annotation>
+          </enumeration>
+          <enumeration value="FATAL">
+            <annotation>
+              <documentation>A fatal event that will prevent the application from continuing</documentation>
+            </annotation>
+          </enumeration>
+          <enumeration value="ERROR">
+            <annotation>
+              <documentation>An error in the application, possibly recoverable</documentation>
+            </annotation>
+          </enumeration>
+          <enumeration value="WARN">
+            <annotation>
+              <documentation>An event that might possible lead to an error</documentation>
+            </annotation>
+          </enumeration>
+          <enumeration value="INFO">
+            <annotation>
+              <documentation>An event for informational purposes</documentation>
+            </annotation>
+          </enumeration>
+          <enumeration value="DEBUG">
+            <annotation>
+              <documentation>A general debugging event</documentation>
+            </annotation>
+          </enumeration>
+          <enumeration value="TRACE">
+            <annotation>
+              <documentation>A fine-grained debug message, typically capturing the flow through the application
+              </documentation>
+            </annotation>
+          </enumeration>
+          <enumeration value="ALL">
+            <annotation>
+              <documentation>Special level indicating all events should be logged</documentation>
+            </annotation>
+          </enumeration>
+        </restriction>
+      </simpleType>
+    </union>
   </simpleType>
   <group name="org.apache.logging.log4j.core.Appender">
     <annotation>
@@ -104,23 +187,28 @@ It is recommended that, where possible, `Filter` implementations create a generi
     <annotation>
       <documentation>The result that can returned from a filter method call.</documentation>
     </annotation>
-    <restriction base="string">
-      <enumeration value="ACCEPT">
-        <annotation>
-          <documentation>The event will be processed without further filtering based on the log Level.</documentation>
-        </annotation>
-      </enumeration>
-      <enumeration value="NEUTRAL">
-        <annotation>
-          <documentation>No decision could be made, further filtering should occur.</documentation>
-        </annotation>
-      </enumeration>
-      <enumeration value="DENY">
-        <annotation>
-          <documentation>The event should not be processed.</documentation>
-        </annotation>
-      </enumeration>
-    </restriction>
+    <union memberTypes="log4j:property-substitution">
+      <simpleType>
+        <restriction base="string">
+          <enumeration value="ACCEPT">
+            <annotation>
+              <documentation>The event will be processed without further filtering based on the log Level.
+              </documentation>
+            </annotation>
+          </enumeration>
+          <enumeration value="NEUTRAL">
+            <annotation>
+              <documentation>No decision could be made, further filtering should occur.</documentation>
+            </annotation>
+          </enumeration>
+          <enumeration value="DENY">
+            <annotation>
+              <documentation>The event should not be processed.</documentation>
+            </annotation>
+          </enumeration>
+        </restriction>
+      </simpleType>
+    </union>
   </simpleType>
   <group name="org.apache.logging.log4j.core.Layout">
     <annotation>
@@ -152,23 +240,23 @@ It is recommended that, where possible, `Filter` implementations create a generi
 Must be unique.</documentation>
       </annotation>
     </attribute>
-    <attribute name="ignoreExceptions" type="boolean">
+    <attribute name="ignoreExceptions" type="log4j:boolean">
       <annotation>
         <documentation>If set to `false` logging exceptions will be forwarded to the caller.</documentation>
       </annotation>
     </attribute>
-    <attribute name="bufferedIo" type="boolean">
+    <attribute name="bufferedIo" type="log4j:boolean">
       <annotation>
         <documentation>If set to `true` (default) the appender will buffer messages before sending them.
 This attribute is ignored if `immediateFlush` is set to `true`.</documentation>
       </annotation>
     </attribute>
-    <attribute name="bufferSize" type="int">
+    <attribute name="bufferSize" type="log4j:int">
       <annotation>
         <documentation>Size in bytes of the appender's buffer.</documentation>
       </annotation>
     </attribute>
-    <attribute name="immediateFlush" type="boolean">
+    <attribute name="immediateFlush" type="log4j:boolean">
       <annotation>
         <documentation>If set to `true`, the appender flushes the output stream at each message and
 buffering is disabled regardless of the value of `bufferedIo`.</documentation>
@@ -184,18 +272,22 @@ buffering is disabled regardless of the value of `bufferedIo`.</documentation>
     <annotation>
       <documentation>Specifies the target of a console appender.</documentation>
     </annotation>
-    <restriction base="string">
-      <enumeration value="SYSTEM_OUT">
-        <annotation>
-          <documentation>Logs to the standard output.</documentation>
-        </annotation>
-      </enumeration>
-      <enumeration value="SYSTEM_ERR">
-        <annotation>
-          <documentation>Logs to the standard error.</documentation>
-        </annotation>
-      </enumeration>
-    </restriction>
+    <union memberTypes="log4j:property-substitution">
+      <simpleType>
+        <restriction base="string">
+          <enumeration value="SYSTEM_OUT">
+            <annotation>
+              <documentation>Logs to the standard output.</documentation>
+            </annotation>
+          </enumeration>
+          <enumeration value="SYSTEM_ERR">
+            <annotation>
+              <documentation>Logs to the standard error.</documentation>
+            </annotation>
+          </enumeration>
+        </restriction>
+      </simpleType>
+    </union>
   </simpleType>
   <complexType name="org.apache.logging.log4j.core.config.AppenderRef">
     <annotation>
@@ -283,7 +375,7 @@ If the provided value is invalid, then the default destination of standard out w
         <documentation>Name of the configuration</documentation>
       </annotation>
     </attribute>
-    <attribute name="monitorInterval" type="int">
+    <attribute name="monitorInterval" type="log4j:int">
       <annotation>
         <documentation>Number of seconds between polls for configuration changes</documentation>
       </annotation>
@@ -300,7 +392,7 @@ Possible values are `enable` and `disable`.
 The shutdown hook is enabled by default, unless Log4j detects the presence of the Servlet API.</documentation>
       </annotation>
     </attribute>
-    <attribute name="shutdownTimeout" type="int">
+    <attribute name="shutdownTimeout" type="log4j:int">
       <annotation>
         <documentation>Timeout in milliseconds of the logger context shut down</documentation>
       </annotation>
@@ -310,7 +402,7 @@ The shutdown hook is enabled by default, unless Log4j detects the presence of th
         <documentation>Sets the level of the status logger</documentation>
       </annotation>
     </attribute>
-    <attribute name="strict" type="boolean">
+    <attribute name="strict" type="log4j:boolean">
       <annotation>
         <documentation>If set to `true` the configuration file will be validated using an XML schema.</documentation>
       </annotation>
@@ -325,7 +417,7 @@ The shutdown hook is enabled by default, unless Log4j detects the presence of th
         <documentation>The name of the level.</documentation>
       </annotation>
     </attribute>
-    <attribute name="intLevel" type="int">
+    <attribute name="intLevel" type="log4j:int">
       <annotation>
         <documentation>An integer determines the strength of the custom level relative to the built-in levels.</documentation>
       </annotation>
@@ -369,7 +461,7 @@ The shutdown hook is enabled by default, unless Log4j detects the presence of th
         <documentation>The level of the logger.</documentation>
       </annotation>
     </attribute>
-    <attribute name="includeLocation" type="boolean">
+    <attribute name="includeLocation" type="log4j:boolean">
       <annotation>
         <documentation>When set to `false` location information will **not** be computed.
 
@@ -407,7 +499,7 @@ The default value depends on the logger context implementation: it is `false` fo
         <documentation>The level of the logger.</documentation>
       </annotation>
     </attribute>
-    <attribute name="includeLocation" type="boolean">
+    <attribute name="includeLocation" type="log4j:boolean">
       <annotation>
         <documentation>When set to `false` location information will **not** be computed.
 
@@ -474,12 +566,12 @@ Use this filter when you want to control the mean rate and maximum burst of log 
         <documentation>Log events less specific than this level are filtered, while events with level equal or more specific always match.</documentation>
       </annotation>
     </attribute>
-    <attribute name="rate" type="float">
+    <attribute name="rate" type="log4j:float">
       <annotation>
         <documentation>Sets the average number of events per second to allow.</documentation>
       </annotation>
     </attribute>
-    <attribute name="maxBurst" type="long">
+    <attribute name="maxBurst" type="log4j:long">
       <annotation>
         <documentation>Sets the maximum number of events that can occur before events are filtered for exceeding the average rate.</documentation>
       </annotation>
@@ -505,24 +597,24 @@ A conversion pattern is composed of literal text and format control expressions 
     <annotation>
       <documentation>Dummy plugin to test all types of builtin XML attributes.</documentation>
     </annotation>
-    <attribute name="BigInteger" type="integer"/>
-    <attribute name="BigDecimal" type="decimal"/>
-    <attribute name="boolean" type="boolean"/>
-    <attribute name="Boolean" type="boolean"/>
-    <attribute name="byte" type="byte"/>
-    <attribute name="Byte" type="byte"/>
-    <attribute name="double" type="double"/>
-    <attribute name="Double" type="double"/>
-    <attribute name="float" type="float"/>
-    <attribute name="Float" type="float"/>
-    <attribute name="int" type="int"/>
-    <attribute name="Integer" type="int"/>
-    <attribute name="long" type="long"/>
-    <attribute name="Long" type="long"/>
-    <attribute name="short" type="short"/>
-    <attribute name="Short" type="short"/>
+    <attribute name="BigInteger" type="log4j:integer"/>
+    <attribute name="BigDecimal" type="log4j:decimal"/>
+    <attribute name="boolean" type="log4j:boolean"/>
+    <attribute name="Boolean" type="log4j:boolean"/>
+    <attribute name="byte" type="log4j:byte"/>
+    <attribute name="Byte" type="log4j:byte"/>
+    <attribute name="double" type="log4j:double"/>
+    <attribute name="Double" type="log4j:double"/>
+    <attribute name="float" type="log4j:float"/>
+    <attribute name="Float" type="log4j:float"/>
+    <attribute name="int" type="log4j:int"/>
+    <attribute name="Integer" type="log4j:int"/>
+    <attribute name="long" type="log4j:long"/>
+    <attribute name="Long" type="log4j:long"/>
+    <attribute name="short" type="log4j:short"/>
+    <attribute name="Short" type="log4j:short"/>
     <attribute name="String" type="string"/>
-    <attribute name="URI" type="anyURI"/>
-    <attribute name="URL" type="anyURI"/>
+    <attribute name="URI" type="log4j:anyURI"/>
+    <attribute name="URL" type="log4j:anyURI"/>
   </complexType>
 </schema>
