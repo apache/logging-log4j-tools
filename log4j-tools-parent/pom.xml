@@ -45,7 +45,7 @@
     <freemarker.version>2.3.34</freemarker.version>
     <jakarta.inject.version>1.0.5</jakarta.inject.version>
     <jspecify.version>1.0.0</jspecify.version>
-    <junit.version>5.12.2</junit.version>
+    <junit.version>5.13.0</junit.version>
     <modello.version>2.1.2</modello.version>
     <osgi.annotation.bundle.version>2.0.0</osgi.annotation.bundle.version>
     <osgi.annotation.versioning.version>1.1.2</osgi.annotation.versioning.version>
