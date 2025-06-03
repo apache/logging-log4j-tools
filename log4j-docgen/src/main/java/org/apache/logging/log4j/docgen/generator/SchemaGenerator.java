@@ -16,15 +16,21 @@
  */
 package org.apache.logging.log4j.docgen.generator;
 
+import static java.util.Map.entry;
 import static java.util.Objects.requireNonNull;
 
 import java.io.IOException;
 import java.io.OutputStream;
+import java.math.BigDecimal;
+import java.math.BigInteger;
+import java.net.URI;
+import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -60,6 +66,27 @@ public final class SchemaGenerator {
     private static final String MULTIPLICITY_UNBOUNDED = "*";
 
     private static final String CHARSET_NAME = "UTF-8";
+
+    private static final Map<String, String> XML_BUILTIN_TYPES = Map.ofEntries(
+            entry(BigDecimal.class.getName(), "decimal"),
+            entry(BigInteger.class.getName(), "integer"),
+            entry(boolean.class.getName(), "boolean"),
+            entry(Boolean.class.getName(), "boolean"),
+            entry(byte.class.getName(), "byte"),
+            entry(Byte.class.getName(), "byte"),
+            entry(double.class.getName(), "double"),
+            entry(Double.class.getName(), "double"),
+            entry(float.class.getName(), "float"),
+            entry(Float.class.getName(), "float"),
+            entry(int.class.getName(), "int"),
+            entry(Integer.class.getName(), "int"),
+            entry(short.class.getName(), "short"),
+            entry(Short.class.getName(), "short"),
+            entry(String.class.getName(), "string"),
+            entry(long.class.getName(), "long"),
+            entry(Long.class.getName(), "long"),
+            entry(URI.class.getName(), "anyURI"),
+            entry(URL.class.getName(), "anyURI"));
 
     private SchemaGenerator() {}
 
@@ -137,19 +164,7 @@ public final class SchemaGenerator {
     }
 
     private static boolean isBuiltinXmlType(final String className) {
-        switch (className) {
-            case "boolean":
-            case "byte":
-            case "double":
-            case "float":
-            case "int":
-            case "short":
-            case "long":
-            case "java.lang.String":
-                return true;
-            default:
-                return false;
-        }
+        return XML_BUILTIN_TYPES.containsKey(className);
     }
 
     private static void writeScalarType(final ScalarType type, final XMLStreamWriter writer) throws XMLStreamException {
@@ -304,23 +319,12 @@ public final class SchemaGenerator {
 
     @Nullable
     private static String getXmlType(final TypeLookup lookup, final String className) {
-        switch (className) {
-            case "boolean":
-            case "byte":
-            case "double":
-            case "float":
-            case "int":
-            case "short":
-            case "long":
-                return className;
-            case "java.lang.String":
-                return "string";
+        final String builtinType = XML_BUILTIN_TYPES.get(className);
+        if (builtinType != null) {
+            return builtinType;
         }
         final ArtifactSourcedType type = lookup.get(className);
-        if (type != null) {
-            return LOG4J_PREFIX + ":" + className;
-        }
-        return null;
+        return type != null ? LOG4J_PREFIX + ":" + className : null;
     }
 
     private static void writeMultiplicity(

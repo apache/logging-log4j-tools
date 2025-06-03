@@ -267,6 +267,31 @@ A conversion pattern is composed of literal text and format control expressions 
                 </attribute>
             </attributes>
         </plugin>
+
+        <plugin name="AllTypes" className="org.apache.logging.log4j.dummy.AllTypesPlugin">
+            <description>Dummy plugin to test all types of builtin XML attributes.</description>
+            <attributes>
+                <attribute name="BigInteger" type="java.math.BigInteger"/>
+                <attribute name="BigDecimal" type="java.math.BigDecimal"/>
+                <attribute name="boolean" type="boolean"/>
+                <attribute name="Boolean" type="java.lang.Boolean"/>
+                <attribute name="byte" type="byte"/>
+                <attribute name="Byte" type="java.lang.Byte"/>
+                <attribute name="double" type="double"/>
+                <attribute name="Double" type="java.lang.Double"/>
+                <attribute name="float" type="float"/>
+                <attribute name="Float" type="java.lang.Float"/>
+                <attribute name="int" type="int"/>
+                <attribute name="Integer" type="java.lang.Integer"/>
+                <attribute name="long" type="long"/>
+                <attribute name="Long" type="java.lang.Long"/>
+                <attribute name="short" type="short"/>
+                <attribute name="Short" type="java.lang.Short"/>
+                <attribute name="String" type="java.lang.String"/>
+                <attribute name="URI" type="java.net.URI"/>
+                <attribute name="URL" type="java.net.URL"/>
+            </attributes>
+        </plugin>
     </plugins>
 
     <abstractTypes>

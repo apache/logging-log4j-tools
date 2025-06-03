@@ -19,7 +19,8 @@
   ~ This is a test schema used in `SchemaGeneratorTest`.
   ~ Unlike this file the `SchemaGenerator` strips whitespace.
   -->
-<schema xmlns="http://www.w3.org/2001/XMLSchema" xmlns:log4j="https://logging.apache.org/xml/ns" elementFormDefault="qualified" targetNamespace="https://logging.apache.org/xml/ns" version="1.2.3">
+<schema xmlns="http://www.w3.org/2001/XMLSchema" xmlns:log4j="https://logging.apache.org/xml/ns"
+        elementFormDefault="qualified" targetNamespace="https://logging.apache.org/xml/ns" version="1.2.3">
   <element type="log4j:org.apache.logging.log4j.core.config.Configuration" name="Configuration"/>
   <simpleType name="org.apache.logging.log4j.Level">
     <annotation>
@@ -499,5 +500,29 @@ A conversion pattern is composed of literal text and format control expressions 
         <documentation>The pattern to use to format log events.</documentation>
       </annotation>
     </attribute>
+  </complexType>
+  <complexType name="org.apache.logging.log4j.dummy.AllTypesPlugin">
+    <annotation>
+      <documentation>Dummy plugin to test all types of builtin XML attributes.</documentation>
+    </annotation>
+    <attribute name="BigInteger" type="integer"/>
+    <attribute name="BigDecimal" type="decimal"/>
+    <attribute name="boolean" type="boolean"/>
+    <attribute name="Boolean" type="boolean"/>
+    <attribute name="byte" type="byte"/>
+    <attribute name="Byte" type="byte"/>
+    <attribute name="double" type="double"/>
+    <attribute name="Double" type="double"/>
+    <attribute name="float" type="float"/>
+    <attribute name="Float" type="float"/>
+    <attribute name="int" type="int"/>
+    <attribute name="Integer" type="int"/>
+    <attribute name="long" type="long"/>
+    <attribute name="Long" type="long"/>
+    <attribute name="short" type="short"/>
+    <attribute name="Short" type="short"/>
+    <attribute name="String" type="string"/>
+    <attribute name="URI" type="anyURI"/>
+    <attribute name="URL" type="anyURI"/>
   </complexType>
 </schema>
