@@ -16,16 +16,23 @@
  */
 package org.apache.logging.log4j.docgen.generator;
 
+import static java.util.Map.entry;
 import static java.util.Objects.requireNonNull;
 
 import java.io.IOException;
 import java.io.OutputStream;
+import java.math.BigDecimal;
+import java.math.BigInteger;
+import java.net.URI;
+import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
+import java.util.TreeSet;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import javax.inject.Named;
@@ -60,6 +67,45 @@ public final class SchemaGenerator {
     private static final String MULTIPLICITY_UNBOUNDED = "*";
 
     private static final String CHARSET_NAME = "UTF-8";
+
+    private static final String PROPERTY_SUBSTITUTION_TYPE = "property-substitution";
+    private static final String BOOLEAN_TYPE = "boolean";
+    private static final String STRING_TYPE = "string";
+    private static final ScalarType BOOLEAN_SCALAR_TYPE = new ScalarType();
+
+    static {
+        BOOLEAN_SCALAR_TYPE.setClassName(BOOLEAN_TYPE);
+        final Description description = new Description();
+        description.setText(
+                "A custom boolean type that allows `true`, `false`, or a property substitution expression.");
+        BOOLEAN_SCALAR_TYPE.setDescription(description);
+        for (final Boolean value : new Boolean[] {true, false}) {
+            final ScalarValue scalarValue = new ScalarValue();
+            scalarValue.setName(value.toString());
+            BOOLEAN_SCALAR_TYPE.addValue(scalarValue);
+        }
+    }
+
+    private static final Map<String, String> XML_BUILTIN_TYPES = Map.ofEntries(
+            entry(BigDecimal.class.getName(), "decimal"),
+            entry(BigInteger.class.getName(), "integer"),
+            entry(boolean.class.getName(), "boolean"),
+            entry(Boolean.class.getName(), "boolean"),
+            entry(byte.class.getName(), "byte"),
+            entry(Byte.class.getName(), "byte"),
+            entry(double.class.getName(), "double"),
+            entry(Double.class.getName(), "double"),
+            entry(float.class.getName(), "float"),
+            entry(Float.class.getName(), "float"),
+            entry(int.class.getName(), "int"),
+            entry(Integer.class.getName(), "int"),
+            entry(short.class.getName(), "short"),
+            entry(Short.class.getName(), "short"),
+            entry(String.class.getName(), "string"),
+            entry(long.class.getName(), "long"),
+            entry(Long.class.getName(), "long"),
+            entry(URI.class.getName(), "anyURI"),
+            entry(URL.class.getName(), "anyURI"));
 
     private SchemaGenerator() {}
 
@@ -111,6 +157,12 @@ public final class SchemaGenerator {
     }
 
     private static void writeTypes(final TypeLookup lookup, final XMLStreamWriter writer) throws XMLStreamException {
+        writePropertySubstitutionType(writer);
+        // A union with member types `xsd:boolean` and `log4j:property-substitution` does not allow auto-completion
+        // in IDEs. This is why we define a `log4j:boolean` type from scratch.
+        writeScalarType(BOOLEAN_SCALAR_TYPE, writer);
+        writeUnionBuiltinTypes(writer);
+
         for (final ArtifactSourcedType sourcedType : lookup.values()) {
             final Type type = sourcedType.type;
             if (isBuiltinXmlType(type.getClassName())) {
@@ -137,19 +189,57 @@ public final class SchemaGenerator {
     }
 
     private static boolean isBuiltinXmlType(final String className) {
-        switch (className) {
-            case "boolean":
-            case "byte":
-            case "double":
-            case "float":
-            case "int":
-            case "short":
-            case "long":
-            case "java.lang.String":
-                return true;
-            default:
-                return false;
+        return XML_BUILTIN_TYPES.containsKey(className);
+    }
+
+    /**
+     * A restriction of {@code string} that requires at least one property substitution expression {@code ${...}}.
+     */
+    private static void writePropertySubstitutionType(final XMLStreamWriter writer) throws XMLStreamException {
+        writer.writeStartElement(XSD_NAMESPACE, "simpleType");
+        writer.writeAttribute("name", PROPERTY_SUBSTITUTION_TYPE);
+
+        writeDocumentation("A string with a property substitution expression.", writer);
+
+        writer.writeStartElement(XSD_NAMESPACE, "restriction");
+        writer.writeAttribute("base", "string");
+
+        writer.writeEmptyElement(XSD_NAMESPACE, "pattern");
+        writer.writeAttribute("value", ".*\\$\\{.*\\}.*");
+
+        writer.writeEndElement();
+        writer.writeEndElement();
+    }
+
+    /**
+     * Define types that are the union of a builtin type and {@value PROPERTY_SUBSTITUTION_TYPE}.
+     * <p>
+     *     IDEs don't propose auto-completion for these types.
+     * </p>
+     */
+    private static void writeUnionBuiltinTypes(final XMLStreamWriter writer) throws XMLStreamException {
+        final Collection<String> types = new TreeSet<>(XML_BUILTIN_TYPES.values());
+        // `xsd:string` is a superset of PROPERTY_SUBSTITUTION_TYPE, so no union is needed.
+        types.remove(STRING_TYPE);
+        // The union of `xsd:boolean` with PROPERTY_SUBSTITUTION_TYPE does not show auto-completion in IDEs.
+        // `log4j:boolean` will be generated from an _ad-hoc_ ScalarType definition in `base-log4j-types.xml`.
+        types.remove(BOOLEAN_TYPE);
+        for (final String type : types) {
+            writeUnionBuiltinType(type, writer);
         }
+    }
+
+    private static void writeUnionBuiltinType(final String type, final XMLStreamWriter writer)
+            throws XMLStreamException {
+        writer.writeStartElement(XSD_NAMESPACE, "simpleType");
+        writer.writeAttribute("name", type);
+
+        writeDocumentation("Union of `xsd:" + type + "` and ` " + PROPERTY_SUBSTITUTION_TYPE + "`.", writer);
+
+        writer.writeEmptyElement(XSD_NAMESPACE, "union");
+        writer.writeAttribute("memberTypes", type + " log4j:" + PROPERTY_SUBSTITUTION_TYPE);
+
+        writer.writeEndElement();
     }
 
     private static void writeScalarType(final ScalarType type, final XMLStreamWriter writer) throws XMLStreamException {
@@ -158,6 +248,10 @@ public final class SchemaGenerator {
 
         writeDocumentation(type.getDescription(), writer);
 
+        writer.writeStartElement(XSD_NAMESPACE, "union");
+        writer.writeAttribute("memberTypes", "log4j:" + PROPERTY_SUBSTITUTION_TYPE);
+        writer.writeStartElement(XSD_NAMESPACE, "simpleType");
+
         writer.writeStartElement(XSD_NAMESPACE, "restriction");
         writer.writeAttribute("base", "string");
 
@@ -165,6 +259,8 @@ public final class SchemaGenerator {
             writeScalarValue(value, writer);
         }
 
+        writer.writeEndElement();
+        writer.writeEndElement();
         writer.writeEndElement();
         writer.writeEndElement();
     }
@@ -225,22 +321,30 @@ public final class SchemaGenerator {
     private static void writeDocumentation(@Nullable final Description description, final XMLStreamWriter writer)
             throws XMLStreamException {
         if (description != null) {
-            writer.writeStartElement(XSD_NAMESPACE, "annotation");
-            writer.writeStartElement(XSD_NAMESPACE, "documentation");
-            writer.writeCharacters(description.getText());
-            writer.writeEndElement();
-            writer.writeEndElement();
+            writeDocumentation(description.getText(), writer);
         }
+    }
+
+    private static void writeDocumentation(final String text, final XMLStreamWriter writer) throws XMLStreamException {
+        writer.writeStartElement(XSD_NAMESPACE, "annotation");
+        writer.writeStartElement(XSD_NAMESPACE, "documentation");
+        writer.writeCharacters(text);
+        writer.writeEndElement();
+        writer.writeEndElement();
     }
 
     private static void writeScalarValue(final ScalarValue value, final XMLStreamWriter writer)
             throws XMLStreamException {
-        writer.writeStartElement(XSD_NAMESPACE, "enumeration");
-        writer.writeAttribute("value", value.getName());
-
-        writeDocumentation(value.getDescription(), writer);
-
-        writer.writeEndElement();
+        final Description description = value.getDescription();
+        if (description != null) {
+            writer.writeStartElement(XSD_NAMESPACE, "enumeration");
+            writer.writeAttribute("value", value.getName());
+            writeDocumentation(value.getDescription(), writer);
+            writer.writeEndElement();
+        } else {
+            writer.writeEmptyElement(XSD_NAMESPACE, "enumeration");
+            writer.writeAttribute("value", value.getName());
+        }
     }
 
     private static void writePluginElement(
@@ -288,39 +392,31 @@ public final class SchemaGenerator {
     private static void writePluginAttribute(
             final TypeLookup lookup, final PluginAttribute attribute, final XMLStreamWriter writer)
             throws XMLStreamException {
-        @Nullable final String xmlType = getXmlType(lookup, attribute.getType());
-        if (xmlType == null) {
-            return;
-        }
-        writer.writeStartElement(XSD_NAMESPACE, "attribute");
-        writer.writeAttribute("name", attribute.getName());
-        writer.writeAttribute("type", xmlType);
+        final String xmlType = getXmlType(lookup, attribute.getType());
         final Description description = attribute.getDescription();
         if (description != null) {
-            writeDocumentation(description, writer);
+            writer.writeStartElement(XSD_NAMESPACE, "attribute");
+        } else {
+            writer.writeEmptyElement(XSD_NAMESPACE, "attribute");
         }
-        writer.writeEndElement();
+        writer.writeAttribute("name", attribute.getName());
+        // If the type is unknown, use `string`
+        writer.writeAttribute("type", xmlType != null ? xmlType : "string");
+        if (description != null) {
+            writeDocumentation(description, writer);
+            writer.writeEndElement();
+        }
     }
 
     @Nullable
     private static String getXmlType(final TypeLookup lookup, final String className) {
-        switch (className) {
-            case "boolean":
-            case "byte":
-            case "double":
-            case "float":
-            case "int":
-            case "short":
-            case "long":
-                return className;
-            case "java.lang.String":
-                return "string";
+        final String builtinType = XML_BUILTIN_TYPES.get(className);
+        if (builtinType != null) {
+            // Use the union types for all built-in types, except `string`.
+            return STRING_TYPE.equals(builtinType) ? STRING_TYPE : LOG4J_PREFIX + ":" + builtinType;
         }
         final ArtifactSourcedType type = lookup.get(className);
-        if (type != null) {
-            return LOG4J_PREFIX + ":" + className;
-        }
-        return null;
+        return type != null ? LOG4J_PREFIX + ":" + className : null;
     }
 
     private static void writeMultiplicity(
