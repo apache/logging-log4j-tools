@@ -3,6 +3,6 @@
        xmlns="https://logging.apache.org/xml/ns"
        xsi:schemaLocation="https://logging.apache.org/xml/ns https://logging.apache.org/xml/ns/log4j-changelog-0.xsd"
        type="updated">
-  <issue id="189" link="https://github.com/apache/logging-log4j-tools/pull/189"/>
-  <description format="asciidoc">Update `org.codehaus.modello:modello-maven-plugin` to version `2.5.0`</description>
+  <issue id="194" link="https://github.com/apache/logging-log4j-tools/pull/194"/>
+  <description format="asciidoc">Update `org.codehaus.modello:modello-maven-plugin` to version `2.5.1`</description>
 </entry>
