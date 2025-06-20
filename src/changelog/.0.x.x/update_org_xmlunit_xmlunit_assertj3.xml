@@ -3,6 +3,6 @@
        xmlns="https://logging.apache.org/xml/ns"
        xsi:schemaLocation="https://logging.apache.org/xml/ns https://logging.apache.org/xml/ns/log4j-changelog-0.xsd"
        type="updated">
-  <issue id="188" link="https://github.com/apache/logging-log4j-tools/pull/188"/>
-  <description format="asciidoc">Update `org.xmlunit:xmlunit-assertj3` to version ``</description>
+  <issue id="203" link="https://github.com/apache/logging-log4j-tools/pull/203"/>
+  <description format="asciidoc">Update `org.xmlunit:xmlunit-assertj3` to version `2.10.3`</description>
 </entry>
