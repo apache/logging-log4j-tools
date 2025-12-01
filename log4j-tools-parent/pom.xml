@@ -50,7 +50,7 @@
     <osgi.annotation.bundle.version>2.0.0</osgi.annotation.bundle.version>
     <osgi.annotation.versioning.version>1.1.2</osgi.annotation.versioning.version>
     <spotbugs-annotations.version>4.9.3</spotbugs-annotations.version>
-    <xmlunit.version>2.10.2</xmlunit.version>
+    <xmlunit.version>2.10.3</xmlunit.version>
 
     <!-- Maven plugin versions -->
     <maven-plugin.version>3.15.1</maven-plugin.version>
