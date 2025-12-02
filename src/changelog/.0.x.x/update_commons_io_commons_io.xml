@@ -3,6 +3,6 @@
        xmlns="https://logging.apache.org/xml/ns"
        xsi:schemaLocation="https://logging.apache.org/xml/ns https://logging.apache.org/xml/ns/log4j-changelog-0.xsd"
        type="updated">
-  <issue id="157" link="https://github.com/apache/logging-log4j-tools/pull/157"/>
-  <description format="asciidoc">Update `commons-io:commons-io` to version `2.18.0`</description>
+  <issue id="179" link="https://github.com/apache/logging-log4j-tools/pull/179"/>
+  <description format="asciidoc">Update `commons-io:commons-io` to version `2.19.0`</description>
 </entry>
