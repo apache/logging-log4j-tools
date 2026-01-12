@@ -1,5 +1,4 @@
 publish:
-  profile: ~
   whoami: main-site-pro-out
   subdir: content/log4j/tools
 
