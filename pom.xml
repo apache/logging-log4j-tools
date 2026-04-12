@@ -180,6 +180,21 @@
         </executions>
       </plugin>
 
+      <!-- Apache RAT (Release Audit Tool) check to verify licenses.
+           `apache-rat-plugin`: https://creadur.apache.org/rat/apache-rat-plugin/
+           Release Audit Tool: https://creadur.apache.org/rat/index.html -->
+      <plugin>
+        <groupId>org.apache.rat</groupId>
+        <artifactId>apache-rat-plugin</artifactId>
+        <version>0.16.1</version>
+        <configuration>
+          <consoleOutput>true</consoleOutput>
+          <excludes combine.children="append">
+            <exclude>/.logging-parent-bom-activator</exclude>
+          </excludes>
+        </configuration>
+      </plugin>
+
       <!-- *Temporarily* override the changelog entry file validation inherited from `logging-parent`.
 
            Inherited `validate-changelog` execution explicitly fixes the `log4j-changelog` namespace and schema location.

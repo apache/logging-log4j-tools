@@ -1,0 +1,1 @@
+This file is here to activate the `bom` Maven profile inherited from `logging-parent`.

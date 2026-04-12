@@ -28,8 +28,11 @@ updates:
   - package-ecosystem: maven
     directory: "/"
     schedule:
-      interval: daily
-    open-pull-requests-limit: 10
+      interval: monthly
+    groups:
+      dependencies:
+        patterns: [ "*" ]
+    target-branch: "main"
     registries:
       - maven-central
     ignore:
@@ -43,9 +46,17 @@ updates:
   - package-ecosystem: github-actions
     directory: "/"
     schedule:
-      interval: weekly
+      interval: monthly
+    groups:
+      dependencies:
+        patterns: [ "*" ]
+    target-branch: "main"
 
   - package-ecosystem: npm
     directory: "/"
     schedule:
-      interval: daily
+      interval: monthly
+    groups:
+      dependencies:
+        patterns: [ "*" ]
+    target-branch: "main"
